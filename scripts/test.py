@@ -6,8 +6,7 @@ from threading import Timer
 
 # all paths are relative to a which should be work
 WORK_DIR = 'work'
-VIZ_OUTPUT_DIR = 'viz_data'
-MCELL4_VIZ_OUTPUT_DIR = '4.'
+VIZ_OUTPUT_DIR = os.path.join('4.', 'viz_data')
 REF_VIZ_OUTPUT_DIR = 'ref_viz_data'
 TEST_DIR = os.path.join('..', 'tests')
 MCELL_BINARY =os.path.join('..', '..', 'mcell', 'build', 'mcell')
@@ -96,7 +95,7 @@ def run_mcell(test_name, test_dir):
 def check_viz_output(test_name, test_dir):
     # for now, lets' just use diff -r
     # better check later
-    cmd = [ 'diff', '-r', os.path.join(MCELL4_VIZ_OUTPUT_DIR, VIZ_OUTPUT_DIR), os.path.join('..', test_dir, REF_VIZ_OUTPUT_DIR) ]    
+    cmd = [ 'diff', '-r', VIZ_OUTPUT_DIR, os.path.join('..', test_dir, REF_VIZ_OUTPUT_DIR) ]    
     log_name = test_name+'.viz_diff.log'
     exit_code = run(cmd, cwd=os.getcwd(), fout_name=log_name)
     if (exit_code):
@@ -121,6 +120,7 @@ def run_single_test(test_dir):
 
 def run_tests():
     test_dirs = get_test_dirs()
+    test_dirs.sort()
     print("Tests: " + str(test_dirs))
     work_dir = os.getcwd()
     for dir in test_dirs:
