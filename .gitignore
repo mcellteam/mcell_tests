@@ -1,1 +1,4 @@
 /work/*
+/.cproject
+/.project
+/.pydevproject

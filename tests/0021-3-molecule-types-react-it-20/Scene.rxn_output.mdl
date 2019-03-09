@@ -1,0 +1,6 @@
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-6
+  {COUNT[c,WORLD]}=> "./react_data/seed_" & seed & "/c.World.dat"
+}
+
