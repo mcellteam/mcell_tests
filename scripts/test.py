@@ -89,7 +89,7 @@ def run_mcell(test_name, test_dir):
     log_name = test_name+'.mcell.log'
     exit_code = run(cmd, cwd=os.getcwd(),  fout_name=log_name)
     if (exit_code):
-        report_test_error(test_name, "MCell failed, see " + log_name + ".")
+        report_test_error(test_name, "MCell failed, see '" + os.path.join(test_name, log_name) + "'.")
 
 
 def check_viz_output(test_name, test_dir):
@@ -99,7 +99,7 @@ def check_viz_output(test_name, test_dir):
     log_name = test_name+'.viz_diff.log'
     exit_code = run(cmd, cwd=os.getcwd(), fout_name=log_name)
     if (exit_code):
-        report_test_error(test_name, "Diff failed, see " + log_name + ".")
+        report_test_error(test_name, "Diff failed, see '" + os.path.join(test_name, log_name) + "'.")
     else: 
         report_test_success(test_name)
 
