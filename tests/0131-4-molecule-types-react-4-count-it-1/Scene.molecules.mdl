@@ -1,0 +1,20 @@
+DEFINE_MOLECULES
+{
+  a
+  {
+    DIFFUSION_CONSTANT_3D = 1e-6
+  }
+  b
+  {
+    DIFFUSION_CONSTANT_3D = 0.5e-6
+  }
+  c
+  {
+    DIFFUSION_CONSTANT_3D = 1e-6
+  }
+  d
+  {
+    DIFFUSION_CONSTANT_3D = 0.3e-6
+  }
+}
+
