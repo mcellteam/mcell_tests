@@ -1,0 +1,5 @@
+DEFINE_REACTIONS
+{
+  a -> NULL [5e4] : react_a_null
+}
+
