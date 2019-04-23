@@ -5,3 +5,4 @@
 /tests/*/4.
 /tests/*/viz_data
 /tests/*/react_data
+/benchmarks/*/oprofile_data
