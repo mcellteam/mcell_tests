@@ -4,14 +4,20 @@ import subprocess
 import shutil
 from threading import Timer
 
+import viz_output_diff
+
 # all paths are relative to a which should be work
 WORK_DIR = 'work'
 VIZ_OUTPUT_DIR = os.path.join('4.', 'viz_data')
 REF_VIZ_OUTPUT_DIR = 'ref_viz_data'
+SEED_DIR = 'seed_00001'
+
 TEST_DIR = os.path.join('..', 'tests')
 MCELL_BINARY =os.path.join('..', '..', 'mcell', 'build', 'mcell')
 MCELL_ARGS = ['-mcell4', '-seed', '1']
 MAIN_MDL_FILE = 'Scene.main.mdl'
+
+USE_SYSTEM_DIFF = False
 
 
 def fatal_error(msg):
@@ -93,18 +99,31 @@ def run_mcell(test_name, test_dir):
 
 
 def check_viz_output(test_name, test_dir):
-    # for now, lets' just use diff -r
-    # better check later
-    cmd = [ 'diff', '-r', VIZ_OUTPUT_DIR, os.path.join('..', test_dir, REF_VIZ_OUTPUT_DIR) ]    
-    log_name = test_name+'.viz_diff.log'
-    exit_code = run(cmd, cwd=os.getcwd(), fout_name=log_name)
-    if (exit_code):
-        report_test_error(test_name, "Diff failed, see '" + os.path.join(test_name, log_name) + "'.")
-    else: 
+
+    if USE_SYSTEM_DIFF:
+        # for now, lets' just use diff -r
+        # better check later
+        cmd = [ 'diff', '-r', VIZ_OUTPUT_DIR, os.path.join('..', test_dir, REF_VIZ_OUTPUT_DIR) ]    
+        log_name = test_name+'.viz_diff.log'
+        exit_code = run(cmd, cwd=os.getcwd(), fout_name=log_name)
+        if (exit_code):
+            report_test_error(test_name, "Diff failed, see '" + os.path.join(test_name, log_name) + "'.")
+        else: 
+            report_test_success(test_name)
+    else:
+        viz_output_diff.compare_viz_output_directory(
+            os.path.join('..', test_dir, REF_VIZ_OUTPUT_DIR, SEED_DIR), 
+            os.path.join(VIZ_OUTPUT_DIR, SEED_DIR))
         report_test_success(test_name)
+        
 
+def update_ref_viz_output(test_name, test_dir):
+    ref_dir = os.path.join('..', test_dir, REF_VIZ_OUTPUT_DIR)
+    shutil.rmtree(ref_dir)
+    shutil.copytree(VIZ_OUTPUT_DIR, ref_dir)
+    
 
-def run_single_test(test_dir):
+def run_single_test(test_dir, update_reference_data):
     test_name = os.path.basename(test_dir)
     if os.path.exists(test_name):
         shutil.rmtree(test_name)
@@ -113,26 +132,40 @@ def run_single_test(test_dir):
     
     run_mcell(test_name, test_dir)
     
-    check_viz_output(test_name, test_dir)
+    if not update_reference_data:
+        check_viz_output(test_name, test_dir)
+    else:
+        update_ref_viz_output(test_name, test_dir)
 
     os.chdir('..')
     
 
-def run_tests():
+def run_tests(test_code, update_reference_data):
     test_dirs = get_test_dirs()
     test_dirs.sort()
     print("Tests: " + str(test_dirs))
     work_dir = os.getcwd()
     for dir in test_dirs:
-        print("Testing " + dir)
-        run_single_test(dir)
-        os.chdir(work_dir)  # just to be sure, let's fix cwd
+        if not test_code or test_code in dir:
+            print("Testing " + dir)
+            run_single_test(dir, update_reference_data)
+            os.chdir(work_dir)  # just to be sure, let's fix cwd
     
 
 def main():
     check_prerequisites()
-  
-    run_tests()
+    
+    update_reference_data = False
+    test_code = ''
+    if len(sys.argv) == 2:
+        if sys.argv[1] == 'update':
+            print('Update is not supported yet')
+            sys.exit(1)
+            update_reference_data = True
+        else:
+            test_code = sys.argv[1]
+        
+    run_tests(test_code, update_reference_data)
 
 
 if __name__ == '__main__':
