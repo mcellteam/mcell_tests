@@ -2,10 +2,16 @@ import os
 import sys
 import subprocess
 import shutil
-
+from utils import run
+from utils import print_file
 
 EPS = 1e-15
 EXPECTED_NR_OF_VALUES = 7
+
+USE_FDIFF = True
+
+FDIFF = 'fdiff' 
+FDIFF_DIR = os.path.join('..', '..', 'scripts', 'fdiff')
 
 class LineInfo:
     def __init__(self):
@@ -51,30 +57,56 @@ def read_viz_output_line(fin):
 # return True if two files are identical while counting with floating point tolerance
 def compare_viz_output_files(fname_ref, fname_new):
     # print('Comparing: ' + fname_ref + ' and ' + fname_new)
-    
-    with open(fname_ref, "r") as fref:
-        with open(fname_new, "r") as fnew:
+    if USE_FDIFF:
+        fdiff = os.path.join(FDIFF_DIR, FDIFF)
+        if not os.path.exists(fdiff):
+            make_ec = run(
+                ['make'], 
+                cwd=os.path.abspath(FDIFF_DIR),
+                verbose=True, 
+                fout_name='make.log', 
+                print_redirected_output=True
+            )
+            if make_ec != 0:
+                print('Could not builf fdiff, terminating')
+                sys.exit(1) 
             
-            line = 0
-            end = False
-            while not end:
-                info_ref = read_viz_output_line(fref)
-                info_new = read_viz_output_line(fnew)
+        ec = run(
+            [os.path.join(FDIFF_DIR, FDIFF), fname_ref, fname_new], 
+            cwd=os.getcwd(),
+            verbose=False, 
+            fout_name='diff.log', 
+            print_redirected_output=False
+        )
+        if ec != 0:
+            print_file('diff.log')
+            return False
+        else:
+            return True
+    else:
+        with open(fname_ref, "r") as fref:
+            with open(fname_new, "r") as fnew:
                 
-                line += 1
-                
-                if info_ref.values == [] and info_new.values == []:
-                    return True
-                
-                if info_ref.values == [] or info_new.values == []:
-                    print('Files ' + fname_ref + ' and ' + fname_new + ' have different count of lines')
-                    return False
-                
-                diff_msg = info_ref.is_equal(info_new, EPS)
-    
-                if diff_msg:
-                    print('Difference between ' + fname_ref + ' and ' + fname_new + ': ' +  diff_msg)
-                    return False
+                line = 0
+                end = False
+                while not end:
+                    info_ref = read_viz_output_line(fref)
+                    info_new = read_viz_output_line(fnew)
+                    
+                    line += 1
+                    
+                    if info_ref.values == [] and info_new.values == []:
+                        return True
+                    
+                    if info_ref.values == [] or info_new.values == []:
+                        print('Files ' + fname_ref + ' and ' + fname_new + ' have different count of lines')
+                        return False
+                    
+                    diff_msg = info_ref.is_equal(info_new, EPS)
+        
+                    if diff_msg:
+                        print('Difference between ' + fname_ref + ' and ' + fname_new + ': ' +  diff_msg)
+                        return False
                 
                 
 def compare_viz_output_directory(dir_ref, dir_new):

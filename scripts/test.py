@@ -5,6 +5,7 @@ import shutil
 from threading import Timer
 
 import viz_output_diff
+from utils import run
 
 # all paths are relative to a which should be work
 WORK_DIR = 'work'
@@ -34,44 +35,6 @@ def report_test_error(test_name, msg):
 def report_test_success(test_name):
     print('PASS : ' + test_name)
     
-
-def print_file(file_name):
-    with open(file_name, "r") as fin:
-        for line in fin:
-            print(line)
-            
-
-def kill_proc(proc, f):
-    proc.kill()
-    f.write("Terminated after timeout")
-    
-
-def run(cmd, cwd=os.getcwd(), fout_name="", append_path_to_output=False, print_redirected_output=False, timeout_sec=30, verbose=False):
-    if verbose:
-        print("    Executing: '" + str.join(" ", cmd) + "' " + str(cmd))
-
-    if append_path_to_output:
-        full_fout_path = os.path.join(cwd, fout_name)
-    else:
-        full_fout_path = fout_name
-
-    with open(full_fout_path, "w") as f:
-        f.write("cwd: " + cwd + "\n")
-        f.write(str.join(" ", cmd) + "\n")  # first item is the command being executed
-
-        proc = subprocess.Popen(cmd, shell=False, cwd=cwd, stdout=f, stderr=subprocess.STDOUT)
-        timer = Timer(timeout_sec, kill_proc, [proc, f])
-        try:
-            timer.start()
-            exit_code = proc.wait()
-        finally:
-            timer.cancel()
-
-    if (print_redirected_output):
-        print_file(full_fout_path)
-
-    return exit_code
-
 
 def check_prerequisites(): 
     if not os.path.exists(MCELL_BINARY):
