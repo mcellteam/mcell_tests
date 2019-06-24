@@ -16,7 +16,7 @@ def print_file(file_name):
             print(line)
   
 
-def run(cmd, cwd=os.getcwd(), fout_name="", append_path_to_output=False, print_redirected_output=False, timeout_sec=30, verbose=False):
+def run(cmd, cwd=os.getcwd(), fout_name="", append_path_to_output=False, print_redirected_output=False, timeout_sec=60, verbose=False):
     if verbose:
         print("    Executing: '" + str.join(" ", cmd) + "' " + str(cmd))
 
