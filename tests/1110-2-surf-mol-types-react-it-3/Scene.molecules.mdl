@@ -12,7 +12,7 @@ DEFINE_MOLECULES
 
   sc
   {
-    DIFFUSION_CONSTANT_2D = 0
+    DIFFUSION_CONSTANT_2D = 1e-7
   }  
 }
 
