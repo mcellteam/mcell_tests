@@ -1,0 +1,6 @@
+DEFINE_REACTIONS
+{
+  sa'+sb' -> sc' [1e10] : react_sa_and_sb
+  sc'+sa' -> sb' [1e10] : react_sc_and_sa
+}
+
