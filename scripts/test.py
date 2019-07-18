@@ -1,6 +1,7 @@
 import os
 import sys
 import subprocess
+import re
 import shutil
 from threading import Timer
 
@@ -103,13 +104,13 @@ def run_single_test(test_dir, update_reference_data):
     os.chdir('..')
     
 
-def run_tests(test_code, update_reference_data):
+def run_tests(test_pattern, update_reference_data):
     test_dirs = get_test_dirs()
     test_dirs.sort()
     print("Tests: " + str(test_dirs))
     work_dir = os.getcwd()
     for dir in test_dirs:
-        if not test_code or test_code in dir:
+        if not test_pattern or re.search(test_pattern, dir):
             print("Testing " + dir)
             run_single_test(dir, update_reference_data)
             os.chdir(work_dir)  # just to be sure, let's fix cwd
@@ -119,16 +120,16 @@ def main():
     check_prerequisites()
     
     update_reference_data = False
-    test_code = ''
+    test_pattern = ''
     if len(sys.argv) == 2:
         if sys.argv[1] == 'update':
             print('Update is not supported yet')
             sys.exit(1)
             update_reference_data = True
         else:
-            test_code = sys.argv[1]
+            test_pattern = sys.argv[1]
         
-    run_tests(test_code, update_reference_data)
+    run_tests(test_pattern, update_reference_data)
 
 
 if __name__ == '__main__':
