@@ -1,0 +1,23 @@
+DEFINE_MOLECULES
+{
+  sa
+  {
+    DIFFUSION_CONSTANT_2D = 1e-7
+  }
+  
+  sb
+  {
+    DIFFUSION_CONSTANT_2D = 0.5e-7
+  }
+
+  sc
+  {
+    DIFFUSION_CONSTANT_2D = 1e-7
+  }
+  
+  sd
+  {
+    DIFFUSION_CONSTANT_2D = 2e-7
+  }    
+}
+
