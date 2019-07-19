@@ -1,6 +1,7 @@
 import os
 import sys
 import subprocess
+import multiprocessing 
 import re
 import shutil
 from threading import Timer
@@ -22,6 +23,19 @@ MAIN_MDL_FILE = 'Scene.main.mdl'
 USE_SYSTEM_DIFF = False
 
 
+PASSED = 1
+FAILED_MCELL = 2
+FAILED_DIFF = 3
+SKIPPED = 4
+
+RESULT_NAMES = {
+ PASSED:'PASSED',
+ FAILED_MCELL:'FAILED_MCELL',
+ FAILED_DIFF:'FAILED_DIFF',
+ SKIPPED:'SKIPPED'
+}
+
+
 def fatal_error(msg):
     print(msg)
     sys.exit(1)
@@ -30,7 +44,7 @@ def fatal_error(msg):
 def report_test_error(test_name, msg):
     print('ERROR: ' + test_name + ' - ' + msg)
     # terminate for now
-    fatal_error('Ending after first error')
+    # fatal_error('Ending after first error')
 
 
 def report_test_success(test_name):
@@ -60,6 +74,9 @@ def run_mcell(test_name, test_dir):
     exit_code = run(cmd, cwd=os.getcwd(),  fout_name=log_name)
     if (exit_code):
         report_test_error(test_name, "MCell failed, see '" + os.path.join(test_name, log_name) + "'.")
+        return FAILED_MCELL
+    else:
+        return PASSED
 
 
 def check_viz_output(test_name, test_dir):
@@ -72,13 +89,17 @@ def check_viz_output(test_name, test_dir):
         exit_code = run(cmd, cwd=os.getcwd(), fout_name=log_name)
         if (exit_code):
             report_test_error(test_name, "Diff failed, see '" + os.path.join(test_name, log_name) + "'.")
+            return FAILED_DIFF
         else: 
             report_test_success(test_name)
+            return PASSED
     else:
-        viz_output_diff.compare_viz_output_directory(
+        res = viz_output_diff.compare_viz_output_directory(
             os.path.join('..', test_dir, REF_VIZ_OUTPUT_DIR, SEED_DIR), 
             os.path.join(VIZ_OUTPUT_DIR, SEED_DIR))
-        report_test_success(test_name)
+        if res == PASSED:
+            report_test_success(test_name) # fail is already reported in diff
+        return res
         
 
 def update_ref_viz_output(test_name, test_dir):
@@ -87,49 +108,87 @@ def update_ref_viz_output(test_name, test_dir):
     shutil.copytree(VIZ_OUTPUT_DIR, ref_dir)
     
 
-def run_single_test(test_dir, update_reference_data):
+def run_single_test(test_dir, update_reference_data=False):
+    
     test_name = os.path.basename(test_dir)
+
+    if os.path.exists(os.path.join(test_dir, 'skip')):
+        print("SKIP : " + test_name)
+        return SKIPPED
+
     if os.path.exists(test_name):
         shutil.rmtree(test_name)
     os.mkdir(test_name)
     os.chdir(test_name)
     
-    run_mcell(test_name, test_dir)
-    
-    if not update_reference_data:
-        check_viz_output(test_name, test_dir)
-    else:
-        update_ref_viz_output(test_name, test_dir)
+    res = run_mcell(test_name, test_dir)
+
+    if res == PASSED:
+        if not update_reference_data:
+            res = check_viz_output(test_name, test_dir)
+        else:
+            update_ref_viz_output(test_name, test_dir)
 
     os.chdir('..')
+    return res
     
 
-def run_tests(test_pattern, update_reference_data):
+def run_tests(test_pattern, update_reference_data, parallel):
     test_dirs = get_test_dirs()
     test_dirs.sort()
     print("Tests: " + str(test_dirs))
-    work_dir = os.getcwd()
+    
+    results = {}
+
+    filtered_test_dirs = []
     for dir in test_dirs:
         if not test_pattern or re.search(test_pattern, dir):
+            filtered_test_dirs.append(dir)
+
+    work_dir = os.getcwd()
+    if not parallel:
+        for dir in filtered_test_dirs:
             print("Testing " + dir)
-            run_single_test(dir, update_reference_data)
+            res = run_single_test(dir)
+            results[dir] = res
             os.chdir(work_dir)  # just to be sure, let's fix cwd
-    
+    else:
+        #Set up the parallel task pool to use all available processors
+        count = multiprocessing.cpu_count()
+        pool = multiprocessing.Pool(processes=count)
+ 
+        #Run the jobs
+        result_values = pool.map(run_single_test, filtered_test_dirs)
+        results = dict(zip(filtered_test_dirs, result_values))
+
+    return results
+
+
+def report_results(results):
+    print('\n**** RESULTS ****')
+    for key, value in results.items():
+        print(RESULT_NAMES[value] + ": " + os.path.basename(key))
+
 
 def main():
     check_prerequisites()
     
     update_reference_data = False
     test_pattern = ''
+    parallel = True
     if len(sys.argv) == 2:
         if sys.argv[1] == 'update':
             print('Update is not supported yet')
             sys.exit(1)
             update_reference_data = True
+            parallel = False # update should be sequential
+        elif sys.argv[1] == 'seq' or sys.argv[1] == 'sequential':
+            parallel = False
         else:
             test_pattern = sys.argv[1]
         
-    run_tests(test_pattern, update_reference_data)
+    results = run_tests(test_pattern, update_reference_data, parallel)
+    report_results(results)
 
 
 if __name__ == '__main__':

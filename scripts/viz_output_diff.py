@@ -1,7 +1,6 @@
 import os
 import sys
-import subprocess
-import shutil
+import test
 from utils import run
 from utils import print_file
 
@@ -110,15 +109,28 @@ def compare_viz_output_files(fname_ref, fname_new):
                 
                 
 def compare_viz_output_directory(dir_ref, dir_new):
-    files_ref = os.listdir(os.path.abspath(dir_ref))
+    ref_dir = os.path.abspath(dir_ref)
+    if not os.path.exists(ref_dir):
+        print('Directory ' + ref_dir + ' does not exist')
+        return test.FAILED_DIFF
+        
+    files_ref = os.listdir(ref_dir)
     # print("***" + str(files_ref))
     for fname in files_ref:
         if '.dat' in fname:
             fname_ref = os.path.join(dir_ref, fname)
+            if not os.path.exists(fname_ref):
+                print('File ' + fname_ref + ' does not exist')
+                return test.FAILED_DIFF
             fname_new = os.path.join(dir_new, fname)
+            if not os.path.exists(fname_new):
+                print('File ' + fname_new + ' does not exist')
+                return test.FAILED_DIFF
+            
             res = compare_viz_output_files(fname_ref, fname_new)
             if not res:
                 print('Comparison failed.')
-                sys.exit(1)
-
+                return test.FAILED_DIFF
+            
+    return test.PASSED
     
