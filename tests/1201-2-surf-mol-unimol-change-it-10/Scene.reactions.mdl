@@ -1,0 +1,6 @@
+DEFINE_REACTIONS
+{
+  sa' -> sb' [5e4]
+  sb' -> sa' [1e5]
+}
+

@@ -1,0 +1,13 @@
+DEFINE_MOLECULES
+{
+  sa
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+
+  sb
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+}
+
