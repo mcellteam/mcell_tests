@@ -1,0 +1,19 @@
+INSTANTIATE Scene OBJECT
+{
+  Icosphere OBJECT Icosphere {}
+  rel_sa RELEASE_SITE
+  {
+   SHAPE = Scene.Icosphere
+   MOLECULE = sa'
+   NUMBER_TO_RELEASE = 100
+   RELEASE_PROBABILITY = 1
+  }
+  rel_sb RELEASE_SITE
+  {
+   SHAPE = Scene.Icosphere
+   MOLECULE = sb'
+   NUMBER_TO_RELEASE = 100
+   RELEASE_PROBABILITY = 1
+  }
+}
+
