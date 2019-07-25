@@ -28,6 +28,7 @@
  */
 
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 #include <iostream>
 #include <fstream>
@@ -46,10 +47,16 @@ const int EXPECTED_NR_OF_VALUES = 7;
 struct line_info {
   string name;
   float_t values[EXPECTED_NR_OF_VALUES];
+
+  void clear() {
+    name = "";
+    memset(values, 0, EXPECTED_NR_OF_VALUES * sizeof(float_t));
+  }
 };
 
 
 bool parse_line(const string& line, line_info& info) {
+  info.clear();
   // name is first
   size_t pos1 = 0;
   size_t pos2 = line.find(' ');

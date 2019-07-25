@@ -99,6 +99,8 @@ def check_viz_output(test_name, test_dir):
             os.path.join(VIZ_OUTPUT_DIR, SEED_DIR))
         if res == PASSED:
             report_test_success(test_name) # fail is already reported in diff
+        else:
+            report_test_error(test_name, "Diff failed.")
         return res
         
 
@@ -166,8 +168,24 @@ def run_tests(test_pattern, update_reference_data, parallel):
 
 def report_results(results):
     print('\n**** RESULTS ****')
+    passed = 0
+    failed = 0
+    skipped = 0
     for key, value in results.items():
         print(RESULT_NAMES[value] + ": " + os.path.basename(key))
+        if value == PASSED:
+            passed += 1
+        elif value == FAILED_MCELL or value == FAILED_DIFF:
+            failed += 1
+        elif value == SKIPPED:
+            skipped += 1
+        else:
+            fatal_error('Invalid test result value ' + str(value))
+           
+    if failed != 0:
+        print('\n!! THERE WERE ERRORS !!')
+    else:
+        print('\n-- SUCCESS --')
 
 
 def main():
