@@ -1,0 +1,11 @@
+DEFINE_REACTIONS
+{
+  sa'+sb' -> sc'+sd' [1e3]
+  sc'+sd' -> sa'+sb' [1e3]
+  
+  sa' -> sb' [5e4]
+  sb' -> sa' [1e5]
+  sc' -> sd' [3e4]
+  sd' -> sc' [2e4]
+}
+
