@@ -51,27 +51,19 @@ plane_face_list = [
     ( 1, 2, 0 ),
     ( 1, 3, 2 )
 ]    
-    
-def create_box(world):
-    box_obj = MeshObj("Cube", box_vert_list, box_face_list, translation=(0, 0, 0))
-    world.add_geometry(box_obj)
-
-
-def create_plane(world):
-    # FIXME: when the name is "Cube", pymcell segfaults
-    plane_obj = MeshObj("Plane", plane_vert_list, plane_face_list, translation=(0, 0, 0))
-    world.add_geometry(plane_obj)
-     
 
 def main():
     world = MCellSim(seed=1)
     world.set_time_step(time_step=1e-6)
-    iterations=1000
+    iterations=100
     world.set_iterations(iterations)
 
     # add geometry objects
-    create_box(world)
-    create_plane(world)
+    box_obj = MeshObj("Cube", box_vert_list, box_face_list, translation=(0, 0, 0))
+    world.add_geometry(box_obj)
+    
+    plane_obj = MeshObj("Plane", plane_vert_list, plane_face_list, translation=(0, 0, 0))
+    world.add_geometry(plane_obj)
         
     # Define volume molecules species
     species_a = Species("a", 1e-6)
@@ -86,9 +78,20 @@ def main():
     # Create viz data
     world.add_viz([species_a, species_b], True) # TODO: bin/ascii dump
     
+    # this is nedcessary in order for the mcell_get_count function to work
+    world.add_count(species_a, box_obj) 
+    
+    # TODO: dump state
+    world.dump()
+    
     world.set_output_freq(100)
     for i in range(iterations + 1):
         world.run_iteration()
+
+
+    cnt = world.get_species_count(species_a, box_obj)
+    print("A : " + str(cnt))
+        
         
     world.end_sim()
     
