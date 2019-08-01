@@ -27,8 +27,8 @@ def main():
     species_a = Species("a", 1e-6)
     world.add_species(species_a)
     
-    rel_location = m.Vector3(0.0, 0.0, 0.0)
-    rel_diameter = m.Vector3(0.0, 0.0, 0.0)
+    rel_location = Vector3(0.0, 0.0, 0.0)
+    rel_diameter = Vector3(0.0, 0.0, 0.0)
    
     world.create_release_site(species_a, 2, "spherical", rel_location, rel_diameter)
 
