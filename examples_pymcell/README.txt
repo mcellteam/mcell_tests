@@ -50,11 +50,18 @@ zoom into the cube and then play the animation - one should see red and green mo
 
 
 The next steps can be:
-- rewrite the model into pyMCell (some examples are in mcell/build/python)
 - extend pyMCell interface to get number of collisions with the plane inside of the box
 - extend pyMCell interface to somehow modify the plane (e.g. position or to split into multiple triangles so that the chnges can be smoother)
 
-     
- 
 
+One can also run mcell in the 1000_2_molecule_types_diffuse_in_box_w_plane/mdl directory:
 
+$MCELL_DIR/mcell -seed 1 Scene.main.mdl
+
+The configuration in Scene.rxn_output.mdl sets to capture hits of the plane object and 
+the hits are reported in 1000_2_molecule_types_diffuse_in_box_w_plane/mdl/react_data/seed_00001/a.Plane.hits.dat like this:
+
+iteration time  precise time      x            y            z  direction 
+1.1e-05         1.11392700201e-05 0.0185766909 0.0163096248 0  1
+
+x, y, z is the position where the plane was hit, direction 1 menas that the plane was hit from the top

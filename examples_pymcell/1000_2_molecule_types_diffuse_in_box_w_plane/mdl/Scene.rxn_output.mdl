@@ -1,0 +1,6 @@
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-6
+  { TRIGGER[a,Scene.Plane[reg],ALL_HITS] }=> "./react_data/seed_" & seed & "/a.Plane.hits.dat"
+}
+

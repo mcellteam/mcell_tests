@@ -52,10 +52,12 @@ plane_face_list = [
     ( 1, 3, 2 )
 ]    
 
+plane_reg_face_list = [ 0, 1 ]
+
 def main():
     world = MCellSim(seed=1)
     world.set_time_step(time_step=1e-6)
-    iterations=100
+    iterations=1000
     world.set_iterations(iterations)
 
     # add geometry objects
@@ -63,6 +65,7 @@ def main():
     world.add_geometry(box_obj)
     
     plane_obj = MeshObj("Plane", plane_vert_list, plane_face_list, translation=(0, 0, 0))
+    plane_reg = SurfaceRegion(plane_obj, 'reg', plane_reg_face_list)
     world.add_geometry(plane_obj)
         
     # Define volume molecules species
@@ -79,7 +82,19 @@ def main():
     world.add_viz([species_a, species_b], True) # TODO: bin/ascii dump
     
     # this is nedcessary in order for the mcell_get_count function to work
-    world.add_count(species_a, box_obj) 
+    #world.add_count(species_a, box_obj) # note: changes the precision slightly for some reason... 
+    
+    # reg_swig_obj = self._regions[plane_obj.full_reg_name]
+    # reg_sym = m.mcell_get_reg_sym(reg_swig_obj)
+    #    create_count(world._world, )
+    
+    #species_sym = world._species[species_a.name]
+    #mesh = world._mesh_objects[plane_obj.name]
+    #mesh_sym = mcell_get_obj_sym(mesh)
+    #count_str = "my_react_data/seed_%04d/%s_%s" % (
+    #        world._seed, species_a.name, plane_obj.name)
+    #count_list, os, out_times, output = create_count(
+    #    world._world, mesh_sym, species_sym, count_str, 1e-5, REPORT_ALL_HITS)
     
     # TODO: dump state
     world.dump()
@@ -89,8 +104,15 @@ def main():
         world.run_iteration()
 
 
-    cnt = world.get_species_count(species_a, box_obj)
-    print("A : " + str(cnt))
+    # COUNT_TRIG_STRUCT
+    #a, b, c = mcell_get_counter_value(world._world, "Scene.Plane[reg]", 0)
+    
+    #print(a)
+    #print(b)
+    #print(c)
+
+    #cnt = world.get_species_count(species_a, box_obj)
+    #print("A : " + str(cnt))
         
         
     world.end_sim()
