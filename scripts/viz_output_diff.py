@@ -1,8 +1,10 @@
 import os
 import sys
 import test
-from utils import run
-from utils import print_file
+
+BASE_DIR = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(BASE_DIR, '..', '..', 'mcell_tools', 'scripts'))
+from utils import *
 
 EPS = 1e-15
 EXPECTED_NR_OF_VALUES = 7
@@ -10,6 +12,7 @@ EXPECTED_NR_OF_VALUES = 7
 USE_FDIFF = True
 
 FDIFF = 'fdiff' 
+# FIXME: build it in 'work'
 FDIFF_DIR = os.path.join('..', '..', 'scripts', 'fdiff')
 
 class LineInfo:
@@ -67,8 +70,7 @@ def compare_viz_output_files(fname_ref, fname_new):
                 print_redirected_output=True
             )
             if make_ec != 0:
-                print('Could not builf fdiff, terminating')
-                sys.exit(1) 
+                fatal_error('Could not builf fdiff, terminating')
             
         ec = run(
             [os.path.join(FDIFF_DIR, FDIFF), fname_ref, fname_new], 

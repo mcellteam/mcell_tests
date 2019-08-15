@@ -1,3 +1,25 @@
+"""
+Copyright (C) 2019 by
+The Salk Institute for Biological Studies and
+Pittsburgh Supercomputing Center, Carnegie Mellon University
+
+This program is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation; either version 2 of the License, or (at your option) any later
+version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+For the complete terms of the GNU General Public License, please see this URL:
+http://www.gnu.org/licenses/gpl-2.0.html
+"""
+
+"""
+This module contains functions to check tests in tests_mdl.
+"""
+
 import os
 import sys
 import subprocess
@@ -6,50 +28,21 @@ import re
 import shutil
 from threading import Timer
 
+sys.path.append(os.path.join(os.getcwd(), 'scripts'))
 import viz_output_diff
+from test_settings import *
+
+sys.path.append(os.path.join(os.getcwd(), '..', 'mcell_tools', 'scripts'))
 from utils import run
 
+
 # all paths are relative to a which should be work
-WORK_DIR = 'work'
 VIZ_OUTPUT_DIR = os.path.join('4.', 'viz_data')
 REF_VIZ_OUTPUT_DIR = 'ref_viz_data'
 SEED_DIR = 'seed_00001'
-
-TEST_DIR = os.path.join('..', 'tests')
-MCELL_BINARY =os.path.join('..', '..', 'mcell', 'build', 'mcell')
 MCELL_ARGS = ['-mcell4', '-seed', '1']
 MAIN_MDL_FILE = 'Scene.main.mdl'
 
-USE_SYSTEM_DIFF = False
-
-
-PASSED = 1
-FAILED_MCELL = 2
-FAILED_DIFF = 3
-SKIPPED = 4
-
-RESULT_NAMES = {
- PASSED:'PASSED',
- FAILED_MCELL:'FAILED_MCELL',
- FAILED_DIFF:'FAILED_DIFF',
- SKIPPED:'SKIPPED'
-}
-
-
-def fatal_error(msg):
-    print(msg)
-    sys.exit(1)
-
-
-def report_test_error(test_name, msg):
-    print('ERROR: ' + test_name + ' - ' + msg)
-    # terminate for now
-    # fatal_error('Ending after first error')
-
-
-def report_test_success(test_name):
-    print('PASS : ' + test_name)
-    
 
 def check_prerequisites(): 
     if not os.path.exists(MCELL_BINARY):
