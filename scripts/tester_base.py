@@ -22,11 +22,20 @@ This module contains definition of a bbase class used to run tests.
 
 import abc
 import os
+import sys
+import shutil
 
+from test_settings import *
 from test_utils import ToolPaths
+
+THIS_DIR = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
+from utils import run, log, fatal_error
+
 
 class TesterBase:
     def __init__(self, test_dir: str, tool_paths: ToolPaths):
+        # paths to the binaries
         self.tool_paths = tool_paths
 
         # full path to the test        
@@ -46,3 +55,42 @@ class TesterBase:
     def test(self):
         pass # normally is an integer PASSED, FAILED_MCELL, ... returned
     
+    
+    def should_be_skipped(self):
+        if os.path.exists(os.path.join(self.test_dir, 'skip')):
+            log("SKIP : " + test_name)
+            return True
+        else:
+            return False
+         
+    
+    def clean_and_create_work_dir(self): 
+        # work dir, e.g. /nadata/cnl/home/ahusar/src/mcell_tests/work         
+        if not os.path.exists(self.tool_paths.work_dir):
+            os.mkdir(self.tool_paths.work_dir)
+        os.chdir(self.tool_paths.work_dir)
+        
+        # test set dir under 'work'
+        if not os.path.exists(self.test_set_name):
+            os.mkdir(self.test_set_name)
+        os.chdir(self.test_set_name)
+        
+        if os.path.exists(self.test_name):
+            # log("Erasing '" + self.test_name + "' in " + os.getcwd())
+            shutil.rmtree(self.test_name)
+            
+        os.mkdir(self.test_name)
+        os.chdir(self.test_name)
+
+
+    def run_mcell(self, mcell_args, main_mdl_file):
+        cmd = [ self.tool_paths.mcell_binary ]
+        cmd += mcell_args
+        cmd += [ os.path.join('..', self.test_dir, main_mdl_file) ]
+        log_name = self.test_name+'.mcell.log'
+        exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name)
+        if (exit_code):
+            report_test_error(self.test_name, "MCell failed, see '" + os.path.join(self.test_name, log_name) + "'.")
+            return FAILED_MCELL
+        else:
+            return PASSED

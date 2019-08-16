@@ -56,19 +56,6 @@ class TesterMdl(TesterBase):
     def check_prerequisites(self): 
         if not os.path.exists(self.tool_paths.mcell_binary):
             fatal_error("Could not find executable '" + self.tool_paths.mcell_binary + ".") 
-  
-
-    def run_mcell(self):
-        cmd = [ self.tool_paths.mcell_binary ]
-        cmd += MCELL_ARGS
-        cmd += [ os.path.join('..', self.test_dir, MAIN_MDL_FILE) ]
-        log_name = self.test_name+'.mcell.log'
-        exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name)
-        if (exit_code):
-            report_test_error(self.test_name, "MCell failed, see '" + os.path.join(self.test_name, log_name) + "'.")
-            return FAILED_MCELL
-        else:
-            return PASSED
 
 
     def check_viz_output(self):
@@ -103,24 +90,9 @@ class TesterMdl(TesterBase):
             log("SKIP : " + test_name)
             return SKIPPED
 
-        # work dir, e.g. /nadata/cnl/home/ahusar/src/mcell_tests/work         
-        if not os.path.exists(self.tool_paths.work_dir):
-            os.mkdir(self.tool_paths.work_dir)
-        os.chdir(self.tool_paths.work_dir)
+        self.clean_and_create_work_dir()
         
-        # test set dir under 'work'
-        if not os.path.exists(self.test_set_name):
-            os.mkdir(self.test_set_name)
-        os.chdir(self.test_set_name)
-        
-        if os.path.exists(self.test_name):
-            log("Erasing '" + self.test_name + "' in " + os.getcwd())
-            shutil.rmtree(self.test_name)
-            
-        os.mkdir(self.test_name)
-        os.chdir(self.test_name)
-        
-        res = self.run_mcell()
+        res = self.run_mcell(MCELL_ARGS, MAIN_MDL_FILE)
     
         if not UPDATE_REFERENCE:
             if res == PASSED:
