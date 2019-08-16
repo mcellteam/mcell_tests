@@ -26,7 +26,8 @@ Python scripts.
 import os
 import sys
 import subprocess
-import multiprocessing 
+import multiprocessing
+import itertools 
 import re
 import shutil
 from threading import Timer
@@ -58,6 +59,9 @@ class TestInfo(TestSetInfo):
     def __repr__(self):
         return '[' + str(self.tester_class) + ']:' + os.path.join(self.test_set_dir, self.test_dir)
 
+    def get_full_name(self):
+        return self.test_set_dir + '/' + self.test_dir
+
 # list of test directories with classes that are designed to test them
 TEST_SET_DIRS = [
     TestSetInfo('tests_mdl', TesterMdl)
@@ -79,46 +83,46 @@ def get_test_dirs(test_set_info):
     
 def run_single_test(test_info, tool_paths):    
     test_obj = test_info.tester_class(os.path.join(test_info.test_set_dir, test_info.test_dir), tool_paths)
-    test_obj.test()
+    return test_obj.test()
     
-
+    
 def collect_and_run_tests(tool_paths, test_pattern, parallel):
     
     test_infos = []
     for test_set in TEST_SET_DIRS:
         test_infos += get_test_dirs(test_set)
-    
 
-    #test_infos.sort(key = lambda x: x.test_set_dir)
-    test_infos.sort(key = lambda x: (x.test_set_dir + x.test_dir))
-    
-    results = {}
 
     filtered_test_infos = []
     for info in test_infos:
         if not test_pattern or re.search(test_pattern, info.test_dir):
             filtered_test_infos.append(info)
 
+    filtered_test_infos.sort(key = lambda x: (x.test_set_dir + x.test_dir))
+
     log("Tests to be run:")
     for info in filtered_test_infos:
         log(str(info))
 
+    results = {}
     work_dir = os.getcwd()
     if not parallel:
         for info in filtered_test_infos:
             print("Testing " + info.test_dir)
             res = run_single_test(info, tool_paths)
-            results[test_set_dir] = res
-            os.chdir(work_dir)  # just to be sure, let's fix cwd
+            results[info.get_full_name()] = res
     else:
         # Set up the parallel task pool to use all available processors
         count = multiprocessing.cpu_count()
         pool = multiprocessing.Pool(processes=count)
  
         # Run the jobs
-        result_values = pool.map(run_single_test, filtered_test_infos)
-        # TODO: the first item must be a list of names
-        results = dict(zip(filtered_test_infos, result_values))
+        result_values = pool.starmap(run_single_test, zip(filtered_test_infos, itertools.repeat(tool_paths)))
+        
+        test_names = [ info.get_full_name() for info in filtered_test_infos ]
+        results = dict(zip(test_names, result_values))
+
+    os.chdir(work_dir)  # just to be sure, let's fix cwd
 
     return results
 
@@ -129,7 +133,8 @@ def report_results(results):
     failed = 0
     skipped = 0
     for key, value in results.items():
-        print(RESULT_NAMES[value] + ": " + os.path.basename(key))
+        #print(RESULT_NAMES[value] + ": " + os.path.basename(key))
+        print(RESULT_NAMES[value] + ": " + str(key))
         if value == PASSED:
             passed += 1
         elif value == FAILED_MCELL or value == FAILED_DIFF:
@@ -150,13 +155,13 @@ def run_tests(install_dirs, argv=[]):
     log(str(tool_paths))
     
     test_pattern = ''
-    parallel = False
+    parallel = True
     if len(argv) == 2:
         if argv[1] == 'sequential':
             parallel = False
         else:
             test_pattern = argv[1]
-        
+    
     results = collect_and_run_tests(tool_paths, test_pattern, parallel)
     report_results(results)
 

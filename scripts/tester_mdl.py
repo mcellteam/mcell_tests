@@ -33,8 +33,8 @@ THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
 from utils import run, log, fatal_error
 
+UPDATE_REFERENCE=False
 
-REF_VIZ_OUTPUT_DIR = 'ref_viz_data'
 SEED_DIR = 'seed_00001'
 MAIN_MDL_FILE = 'Scene.main.mdl'
 MCELL_ARGS = ['-seed', '1']
@@ -42,8 +42,10 @@ MCELL_ARGS = ['-seed', '1']
 if TEST_MCELL4:
     MCELL_ARGS.append('-mcell4')
     VIZ_OUTPUT_DIR = os.path.join('4.', 'viz_data')
+    REF_VIZ_OUTPUT_DIR = 'ref_viz_data_4'
 else:
     VIZ_OUTPUT_DIR = 'viz_data'
+    REF_VIZ_OUTPUT_DIR = 'ref_viz_data_3'
     
 
 class TesterMdl(TesterBase):
@@ -61,7 +63,7 @@ class TesterMdl(TesterBase):
         cmd += MCELL_ARGS
         cmd += [ os.path.join('..', self.test_dir, MAIN_MDL_FILE) ]
         log_name = self.test_name+'.mcell.log'
-        exit_code = run(cmd, cwd=os.getcwd(),  fout_name=log_name)
+        exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name)
         if (exit_code):
             report_test_error(self.test_name, "MCell failed, see '" + os.path.join(self.test_name, log_name) + "'.")
             return FAILED_MCELL
@@ -79,6 +81,19 @@ class TesterMdl(TesterBase):
         else:
             report_test_error(self.test_name, "Diff failed.")
         return res
+        
+    def update_reference(self):
+        reference = os.path.join('..', self.test_dir, REF_VIZ_OUTPUT_DIR, SEED_DIR)
+        new_res = os.path.join(VIZ_OUTPUT_DIR, SEED_DIR)
+
+        log("Updating reference " + reference + " with data from " + new_res + " (cwd:" + os.getcwd() + ")")
+        
+        # remove whole directory
+        if os.path.exists(reference):
+            log("Cleaning old data in " + reference + " (cwd:" + os.getcwd() + ")")
+            shutil.rmtree(reference)
+            
+        shutil.copytree(new_res, reference)
         
 
     def test(self):
@@ -99,7 +114,7 @@ class TesterMdl(TesterBase):
         os.chdir(self.test_set_name)
         
         if os.path.exists(self.test_name):
-            log("Erasing '" + self.test_name + "' in + " + os.getcwd())
+            log("Erasing '" + self.test_name + "' in " + os.getcwd())
             shutil.rmtree(self.test_name)
             
         os.mkdir(self.test_name)
@@ -107,11 +122,15 @@ class TesterMdl(TesterBase):
         
         res = self.run_mcell()
     
-        if res == PASSED:
-            res = self.check_viz_output()
+        if not UPDATE_REFERENCE:
+            if res == PASSED:
+                res = self.check_viz_output()
+        else:
+            if res != PASSED:
+                fatal_error("Tried to update reference data but mcell execution failed!")
+                
+            self.update_reference()
     
         os.chdir('..')
         
-        sys.exit(1)
-                
         return res
