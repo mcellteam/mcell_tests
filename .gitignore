@@ -8,3 +8,4 @@
 /tests/*/dump3.txt
 /tests/*/dump4.txt
 /benchmarks/*/oprofile_data
+/work/

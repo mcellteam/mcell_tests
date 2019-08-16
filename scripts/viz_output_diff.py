@@ -1,9 +1,10 @@
 import os
 import sys
 import test
+from test_settings import *
 
-BASE_DIR = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(os.path.join(BASE_DIR, '..', '..', 'mcell_tools', 'scripts'))
+THIS_DIR = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(THIS_DIR, '..', '..', 'mcell_tools', 'scripts'))
 from utils import *
 
 EPS = 1e-15
@@ -13,7 +14,7 @@ USE_FDIFF = True
 
 FDIFF = 'fdiff' 
 # FIXME: build it in 'work'
-FDIFF_DIR = os.path.join('..', '..', 'scripts', 'fdiff')
+FDIFF_DIR = os.path.join(THIS_DIR, 'fdiff')
 
 class LineInfo:
     def __init__(self):
@@ -46,7 +47,7 @@ def read_viz_output_line(fin):
     items = line.split(' ')
     
     if len(items) != EXPECTED_NR_OF_VALUES + 1:
-        print('Invalid line ' + line)
+        log('Invalid line ' + line)
         sys.exit(1)
     
     res.name = items[0]
@@ -58,7 +59,7 @@ def read_viz_output_line(fin):
 
 # return True if two files are identical while counting with floating point tolerance
 def compare_viz_output_files(fname_ref, fname_new):
-    # print('Comparing: ' + fname_ref + ' and ' + fname_new)
+    # log('Comparing: ' + fname_ref + ' and ' + fname_new)
     if USE_FDIFF:
         fdiff = os.path.join(FDIFF_DIR, FDIFF)
         if not os.path.exists(fdiff):
@@ -100,39 +101,39 @@ def compare_viz_output_files(fname_ref, fname_new):
                         return True
                     
                     if info_ref.values == [] or info_new.values == []:
-                        print('Files ' + fname_ref + ' and ' + fname_new + ' have different count of lines')
+                        log('Files ' + fname_ref + ' and ' + fname_new + ' have different count of lines')
                         return False
                     
                     diff_msg = info_ref.is_equal(info_new, EPS)
         
                     if diff_msg:
-                        print('Difference between ' + fname_ref + ' and ' + fname_new + ': ' +  diff_msg)
+                        log('Difference between ' + fname_ref + ' and ' + fname_new + ': ' +  diff_msg)
                         return False
                 
                 
 def compare_viz_output_directory(dir_ref, dir_new):
     ref_dir = os.path.abspath(dir_ref)
     if not os.path.exists(ref_dir):
-        print('Directory ' + ref_dir + ' does not exist')
-        return test.FAILED_DIFF
+        log('Directory ' + ref_dir + ' does not exist')
+        return FAILED_DIFF
         
     files_ref = os.listdir(ref_dir)
-    # print("***" + str(files_ref))
+    # log("***" + str(files_ref))
     for fname in files_ref:
         if '.dat' in fname:
             fname_ref = os.path.join(dir_ref, fname)
             if not os.path.exists(fname_ref):
-                print('File ' + fname_ref + ' does not exist')
-                return test.FAILED_DIFF
+                log('File ' + fname_ref + ' does not exist')
+                return FAILED_DIFF
             fname_new = os.path.join(dir_new, fname)
             if not os.path.exists(fname_new):
-                print('File ' + fname_new + ' does not exist')
-                return test.FAILED_DIFF
+                log('File ' + fname_new + ' does not exist')
+                return FAILED_DIFF
             
             res = compare_viz_output_files(fname_ref, fname_new)
             if not res:
-                print('Comparison failed.')
-                return test.FAILED_DIFF
+                log('Comparison failed.')
+                return FAILED_DIFF
             
-    return test.PASSED
+    return PASSED
     

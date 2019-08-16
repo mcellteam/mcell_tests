@@ -16,18 +16,12 @@ For the complete terms of the GNU General Public License, please see this URL:
 http://www.gnu.org/licenses/gpl-2.0.html
 """
 
+from test_settings import *
+THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 
 # this class contains all paths that are used during testing
 # and also derived paths 
 class ToolPaths:
-    def __init__(self):
-        self.mcell_dir = ''
-        self.mcell_binary = ''
-
-        self.celblender_dir = ''
-        
-        self.work_dir = ''
-
     def __init__(self, install_dirs):
         if REPO_NAME_MCELL in install_dirs:
             self.mcell_dir = install_dirs[REPO_NAME_MCELL]
@@ -40,11 +34,14 @@ class ToolPaths:
         else:
             self.celblender_dir = os.path.join(MCELL_TOOLS_DIR, WORK_DIR_NAME, BUILD_DIR_CELLBLENDER)
             
-    def dump(self):
-        log("Tool paths:")
-        log("  mcell_dir: " + mcell_dir)
-        log("  mcell_binary: " + mcell_binary)
-        log("  celblender_dir: " + celblender_dir)
+        self.work_dir = os.path.join(THIS_DIR, '..', WORK_DIR_NAME)
+            
+    def __repr__(self):
+        return \
+            "Tool paths:\n" + \
+            "  mcell_dir: " + self.mcell_dir + "\n" + \
+            "  mcell_binary: " + self.mcell_binary + "\n" + \
+            "  celblender_dir: " + self.celblender_dir
 
 
 def fatal_error(msg):

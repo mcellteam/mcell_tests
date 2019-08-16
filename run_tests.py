@@ -31,21 +31,32 @@ import re
 import shutil
 from threading import Timer
 
-from scripts.test_settings import *
-from scripts.test_utils import ToolPaths, report_test_error, report_test_success
+THIS_DIR = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(THIS_DIR, 'scripts'))
+
+from test_settings import *
+from test_utils import ToolPaths, report_test_error, report_test_success
 
 # import tester classes
-from scripts.tester_mdl import TesterMdl
+from tester_mdl import TesterMdl
 
-BASE_DIR = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(os.path.join(BASE_DIR, '..', 'mcell_tools', 'scripts'))
+sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
 
-from utils import run
+from utils import run, log
 
 class TestSetInfo:
     def __init__(self, test_set_dir, tester_class):
         self.test_set_dir = test_set_dir
         self.tester_class = tester_class
+
+# we are only adding the specific test directory
+class TestInfo(TestSetInfo):
+    def __init__(self, test_set_dir, tester_class, test_dir):
+        self.test_dir = test_dir
+        super(TestInfo, self).__init__(test_set_dir, tester_class)
+
+    def __repr__(self):
+        return '[' + str(self.tester_class) + ']:' + os.path.join(self.test_set_dir, self.test_dir)
 
 # list of test directories with classes that are designed to test them
 TEST_SET_DIRS = [
@@ -53,61 +64,61 @@ TEST_SET_DIRS = [
 ]
 
 
-# we are only adding the specific test directory
-class TestInfo(TestSetInfo):
-    def __init__(self, test_set_dir, tester_class, test_dir):
-        self.test_set_dir = test_set_dir
-        self.test_dir = test_dir
-        super(TestInfo, self).__init__(test_set_dir, ester_class)
-
-
 # returns a list of TestInfo objects - TODO
 def get_test_dirs(test_set_info):
     res = []
-    files = os.listdir(os.path.join(BASE_DIR, test_set_info.test_set_dir))
+    test_set_full_path = os.path.join(THIS_DIR, test_set_info.test_set_dir)
+    print("Looking for tests in " + test_set_full_path)
+    files = os.listdir(test_set_full_path)
     for name in files:
-        name_w_dir = os.path.join(TEST_DIR, name)
+        name_w_dir = os.path.join(test_set_full_path, name)
         if os.path.isdir(name_w_dir):
             res.append( TestInfo(test_set_info.test_set_dir, test_set_info.tester_class, name_w_dir) )
     return res
    
     
-def run_single_test(test_obj):    
+def run_single_test(test_info, tool_paths):    
+    test_obj = test_info.tester_class(os.path.join(test_info.test_set_dir, test_info.test_dir), tool_paths)
     test_obj.test()
     
 
-def run_tests(tool_paths, test_pattern, update_reference_data, parallel):
+def collect_and_run_tests(tool_paths, test_pattern, parallel):
     
-    test_dirs = []
+    test_infos = []
     for test_set in TEST_SET_DIRS:
-        test_dirs.append(get_test_dirs(test_set))
+        test_infos += get_test_dirs(test_set)
     
 
-    test_dirs.sort()
-    print("Tests: " + str(test_dirs))
+    #test_infos.sort(key = lambda x: x.test_set_dir)
+    test_infos.sort(key = lambda x: (x.test_set_dir + x.test_dir))
     
     results = {}
 
-    filtered_test_dirs = []
-    for dir in test_dirs:
-        if not test_pattern or re.search(test_pattern, dir):
-            filtered_test_dirs.append(dir)
+    filtered_test_infos = []
+    for info in test_infos:
+        if not test_pattern or re.search(test_pattern, info.test_dir):
+            filtered_test_infos.append(info)
+
+    log("Tests to be run:")
+    for info in filtered_test_infos:
+        log(str(info))
 
     work_dir = os.getcwd()
     if not parallel:
-        for dir in filtered_test_dirs:
-            print("Testing " + dir)
-            res = run_single_test(dir)
-            results[dir] = res
+        for info in filtered_test_infos:
+            print("Testing " + info.test_dir)
+            res = run_single_test(info, tool_paths)
+            results[test_set_dir] = res
             os.chdir(work_dir)  # just to be sure, let's fix cwd
     else:
-        #Set up the parallel task pool to use all available processors
+        # Set up the parallel task pool to use all available processors
         count = multiprocessing.cpu_count()
         pool = multiprocessing.Pool(processes=count)
  
-        #Run the jobs
-        result_values = pool.map(run_single_test, filtered_test_dirs)
-        results = dict(zip(filtered_test_dirs, result_values))
+        # Run the jobs
+        result_values = pool.map(run_single_test, filtered_test_infos)
+        # TODO: the first item must be a list of names
+        results = dict(zip(filtered_test_infos, result_values))
 
     return results
 
@@ -134,25 +145,23 @@ def report_results(results):
         print('\n-- SUCCESS --')
 
 
-def test(install_dirs, argv):
-    check_prerequisites()
-    
+def run_tests(install_dirs, argv=[]):
     tool_paths = ToolPaths(install_dirs)
+    log(str(tool_paths))
     
-    update_reference_data = False
     test_pattern = ''
-    parallel = True
+    parallel = False
     if len(argv) == 2:
         if argv[1] == 'sequential':
             parallel = False
         else:
             test_pattern = argv[1]
         
-    results = run_tests(tool_paths, test_pattern, update_reference_data, parallel)
+    results = collect_and_run_tests(tool_paths, test_pattern, parallel)
     report_results(results)
 
 
 if __name__ == '__main__':
-    test({}, sys.argv)
+    run_tests({}, sys.argv)
     
 

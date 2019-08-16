@@ -26,76 +26,92 @@ import shutil
 
 import viz_output_diff
 from test_settings import *
+from tester_base import TesterBase
+from test_utils import ToolPaths, report_test_error, report_test_success
 
-BASE_DIR = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(os.path.join(BASE_DIR, '..', 'mcell_tools', 'scripts'))
-from utils import run
+THIS_DIR = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
+from utils import run, log, fatal_error
 
 
-# all paths are relative to a which should be work
-VIZ_OUTPUT_DIR = os.path.join('4.', 'viz_data')
 REF_VIZ_OUTPUT_DIR = 'ref_viz_data'
 SEED_DIR = 'seed_00001'
-MCELL_ARGS = ['-mcell4', '-seed', '1']
 MAIN_MDL_FILE = 'Scene.main.mdl'
+MCELL_ARGS = ['-seed', '1']
 
-
-from tester_base import TesterBase
-
+if TEST_MCELL4:
+    MCELL_ARGS.append('-mcell4')
+    VIZ_OUTPUT_DIR = os.path.join('4.', 'viz_data')
+else:
+    VIZ_OUTPUT_DIR = 'viz_data'
+    
 
 class TesterMdl(TesterBase):
     def __init___(self, test_dir: str, tool_paths: ToolPaths):
         super(TesterMdl, self).__init__(test_dir, tool_paths)
     
     
-    def check_prerequisites(): 
-        if not os.path.exists(MCELL_BINARY):
-                fatal_error("Could not find executable '" + MCELL_BINARY + ".") 
+    def check_prerequisites(self): 
+        if not os.path.exists(self.tool_paths.mcell_binary):
+            fatal_error("Could not find executable '" + self.tool_paths.mcell_binary + ".") 
   
 
-    def run_mcell(test_name, test_dir):
-        cmd = [ os.path.join('..', MCELL_BINARY) ]
+    def run_mcell(self):
+        cmd = [ self.tool_paths.mcell_binary ]
         cmd += MCELL_ARGS
-        cmd += [ os.path.join('..', test_dir, MAIN_MDL_FILE) ]
-        log_name = test_name+'.mcell.log'
+        cmd += [ os.path.join('..', self.test_dir, MAIN_MDL_FILE) ]
+        log_name = self.test_name+'.mcell.log'
         exit_code = run(cmd, cwd=os.getcwd(),  fout_name=log_name)
         if (exit_code):
-            report_test_error(test_name, "MCell failed, see '" + os.path.join(test_name, log_name) + "'.")
+            report_test_error(self.test_name, "MCell failed, see '" + os.path.join(self.test_name, log_name) + "'.")
             return FAILED_MCELL
         else:
             return PASSED
 
 
-    def check_viz_output(test_name, test_dir):
+    def check_viz_output(self):
         res = viz_output_diff.compare_viz_output_directory(
-            os.path.join('..', test_dir, REF_VIZ_OUTPUT_DIR, SEED_DIR), 
+            os.path.join('..', self.test_dir, REF_VIZ_OUTPUT_DIR, SEED_DIR), 
             os.path.join(VIZ_OUTPUT_DIR, SEED_DIR))
         
         if res == PASSED:
-            report_test_success(test_name) # fail is already reported in diff
+            report_test_success(self.test_name) # fail is already reported in diff
         else:
-            report_test_error(test_name, "Diff failed.")
+            report_test_error(self.test_name, "Diff failed.")
         return res
         
 
-    def test():
-        test_name = os.path.basename(test_dir)
-    
-        if os.path.exists(os.path.join(test_dir, 'skip')):
+    def test(self):
+        self.check_prerequisites()
+
+        if os.path.exists(os.path.join(self.test_dir, 'skip')):
             log("SKIP : " + test_name)
             return SKIPPED
-    
-        if os.path.exists(test_name):
-            print("rmtree " + test_name)
-            #shutil.rmtree(test_name)
-            
-        os.mkdir(test_name)
-        os.chdir(test_name)
+
+        # work dir, e.g. /nadata/cnl/home/ahusar/src/mcell_tests/work         
+        if not os.path.exists(self.tool_paths.work_dir):
+            os.mkdir(self.tool_paths.work_dir)
+        os.chdir(self.tool_paths.work_dir)
         
-        res = run_mcell(test_name, test_dir)
+        # test set dir under 'work'
+        if not os.path.exists(self.test_set_name):
+            os.mkdir(self.test_set_name)
+        os.chdir(self.test_set_name)
+        
+        if os.path.exists(self.test_name):
+            log("Erasing '" + self.test_name + "' in + " + os.getcwd())
+            shutil.rmtree(self.test_name)
+            
+        os.mkdir(self.test_name)
+        os.chdir(self.test_name)
+        
+        res = self.run_mcell()
     
         if res == PASSED:
-            res = check_viz_output(test_name, test_dir)
+            res = self.check_viz_output()
     
         os.chdir('..')
+        
+        sys.exit(1)
+                
         return res

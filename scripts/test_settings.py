@@ -19,20 +19,17 @@ http://www.gnu.org/licenses/gpl-2.0.html
 """
 This module contains diverse constants used while testing.
 """
-
+import os
+import sys
 
 WORK_DIR_NAME = 'work'
+
+TEST_MCELL4 = False
 
 BUILD_OPTS_USE_LTO = False  # higher performnce but slower build
 
 MCELL_BINARY = 'mcell'
 
-MCELL_ARGS = ['-mcell4', '-seed', '1']
-
-VIZ_OUTPUT_DIR = os.path.join('4.', 'viz_data')
-REF_VIZ_OUTPUT_DIR = 'ref_viz_data'
-MAIN_MDL_FILE = 'Scene.main.mdl'
-SEED_DIR = 'seed_00001'
 
 PASSED = 1
 FAILED_MCELL = 2
@@ -47,11 +44,9 @@ RESULT_NAMES = {
 }
 
 
-
-
-TEST_SETTINGS_BASE_DIR = os.path.basename(os.path.dirname(os.path.realpath(__file__)))
-MCELL_TOOLS_DIR = os.path.join(TEST_SETTINGS_BASE_DIR, '..', 'mcell_tools')
-sys.path.append(os.path.join(TEST_SETTINGS_BASE_DIR, '..', 'mcell_tools', 'scripts'))
+TEST_SETTINGS_BASE_DIR = os.path.dirname(os.path.realpath(__file__))
+MCELL_TOOLS_DIR = os.path.realpath(os.path.join(TEST_SETTINGS_BASE_DIR, '..', '..', 'mcell_tools'))
+sys.path.append(os.path.join(MCELL_TOOLS_DIR, 'scripts'))
 
 from build_settings import \
     REPO_NAME_MCELL, REPO_NAME_CELLBLENDER, \

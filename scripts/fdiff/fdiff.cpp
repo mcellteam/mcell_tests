@@ -35,12 +35,13 @@
 #include <string>
 #include <sstream>
 #include <stdexcept>      // std::invalid_argument
+#include <iomanip>
 
 using namespace std;
 
 typedef float float_t;
 
-const float_t EPS = 1e-15;
+const float_t EPS = 1e-10;
 const int EXPECTED_NR_OF_VALUES = 7;
 
 
@@ -119,7 +120,7 @@ string fdiff_streams(ifstream& ref, ifstream& test) {
     for (int i = 0; i < EXPECTED_NR_OF_VALUES; i++) {
       if (fabs(ref_info.values[i] - test_info.values[i]) > EPS) {
         stringstream ss;
-        ss << "Values " << ref_info.values[i] << " and " << test_info.values[i] << " differ";
+        ss << "Values " << setprecision(10) << ref_info.values[i] << " and " << setprecision(10) << test_info.values[i] << " differ";
         return ss.str();
       }
     }
