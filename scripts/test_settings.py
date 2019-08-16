@@ -28,8 +28,13 @@ TEST_MCELL4 = False
 
 BUILD_OPTS_USE_LTO = False  # higher performnce but slower build
 
+MAIN_MDL_FILE = 'Scene.main.mdl'
+
 MCELL_BINARY = 'mcell'
 
+PYTHON_BINARY = 'python'
+DATA_MODEL_TO_MDL_DIR = 'mdl'
+DATA_MODEL_TO_MDL_SCRIPT = 'data_model_to_mdl.py'
 
 PASSED = 10
 FAILED_DM_TO_MDL_CONVERSION = 20

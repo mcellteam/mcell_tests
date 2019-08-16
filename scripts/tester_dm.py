@@ -36,6 +36,7 @@ from utils import run, log, fatal_error
 UPDATE_REFERENCE=False
 
 SEED_DIR = 'seed_00001'
+MAIN_MDL_FILE = 'Scene.main.mdl'
 MCELL_ARGS = ['-seed', '1']
 
 if TEST_MCELL4:
@@ -47,15 +48,52 @@ else:
     REF_VIZ_OUTPUT_DIR = 'ref_viz_data_3'
     
 
-class TesterMdl(TesterBase):
+class TesterDm(TesterBase):
     def __init___(self, test_dir: str, tool_paths: ToolPaths):
         super(TesterMdl, self).__init__(test_dir, tool_paths)
     
     
     def check_prerequisites(self): 
         if not os.path.exists(self.tool_paths.mcell_binary):
-            fatal_error("Could not find executable '" + self.tool_paths.mcell_binary + ".") 
-
+            fatal_error("Could not find executable '" + self.tool_paths.mcell_binary + ".")
+        
+         
+    def run_dm_to_mdl_conversion(self):
+        # the conversion python script is considered a separate utility, 
+        # we run it through bash 
+        cmd = [ 
+            PYTHON_BINARY, self.tool_paths.data_model_to_mdl_script, 
+            os.path.join(self.test_set_dir, self.test_name, self.test_name + '.json'), MAIN_MDL_FILE ]
+        log_name = self.test_name+'.dm_to_mdl.log'
+        exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name)
+        if exit_code != 0:
+            report_test_error(self.test_name, "JSON to mdl conversion failed, see '" + os.path.join(self.test_name, log_name) + "'.")
+            return FAILED_DM_TO_MDL_CONVERSION
+        else:
+            return PASSED
+        
+        
+    def change_viz_output_to_ascii(self):
+        # FIXME: replace with a Python implementation of sed
+        #exit_code = run(['sed', '-i', '\'s/CELLBLENDER/ASCII/g\'', os.path.join(self.test_work_dir, 'Scene.viz_output.mdl')], verbose=True)
+        #if exit_code != 0:
+        #    return FAILED_DM_TO_MDL_CONVERSION
+        #else:
+        #    return PASSED
+        
+        fname = os.path.join(self.test_work_dir, 'Scene.viz_output.mdl')
+        # FIXME: create a 'sed' function
+        lines = []
+        with open(fname, "r") as infile:
+            for line in infile:
+                line = line.replace('CELLBLENDER', 'ASCII')
+                lines.append(line)
+        with open(fname, "w") as outfile:
+            for line in lines:
+                outfile.write(line)
+                
+        return PASSED
+            
 
     def check_viz_output(self):
         res = viz_output_diff.compare_viz_output_directory(
@@ -68,7 +106,9 @@ class TesterMdl(TesterBase):
             report_test_error(self.test_name, "Diff failed.")
         return res
         
+        
     def update_reference(self):
+        assert False # TODO: copy only the last file...
         reference = os.path.join('..', self.test_dir, REF_VIZ_OUTPUT_DIR, SEED_DIR)
         new_res = os.path.join(VIZ_OUTPUT_DIR, SEED_DIR)
 
@@ -91,7 +131,15 @@ class TesterMdl(TesterBase):
 
         self.clean_and_create_work_dir()
         
-        res = self.run_mcell(MCELL_ARGS, os.path.join('..', self.test_dir, MAIN_MDL_FILE))
+        res = self.run_dm_to_mdl_conversion()
+        if res != PASSED:
+            return res
+        
+        res = self.change_viz_output_to_ascii()
+        if res != PASSED:
+            return res
+         
+        res = self.run_mcell(MCELL_ARGS, os.path.join(self.test_work_dir, MAIN_MDL_FILE))
     
         if not UPDATE_REFERENCE:
             if res == PASSED:

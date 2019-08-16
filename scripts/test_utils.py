@@ -30,9 +30,12 @@ class ToolPaths:
         self.mcell_binary = os.path.join(self.mcell_dir, MCELL_BINARY)
             
         if REPO_NAME_CELLBLENDER in install_dirs:
-            self.celblender_dir = install_dirs[REPO_NAME_CELLBLENDER]
+            self.cellblender_dir = install_dirs[REPO_NAME_CELLBLENDER]
         else:
-            self.celblender_dir = os.path.join(MCELL_TOOLS_DIR, WORK_DIR_NAME, BUILD_DIR_CELLBLENDER)
+            self.cellblender_dir = os.path.join(MCELL_TOOLS_DIR, WORK_DIR_NAME, BUILD_DIR_CELLBLENDER)
+            
+        self.data_model_to_mdl_script = \
+            os.path.join(self.cellblender_dir, DATA_MODEL_TO_MDL_DIR, DATA_MODEL_TO_MDL_SCRIPT)
             
         self.work_dir = os.path.join(THIS_DIR, '..', WORK_DIR_NAME)
             
@@ -41,7 +44,8 @@ class ToolPaths:
             "Tool paths:\n" + \
             "  mcell_dir: " + self.mcell_dir + "\n" + \
             "  mcell_binary: " + self.mcell_binary + "\n" + \
-            "  celblender_dir: " + self.celblender_dir
+            "  cellblender_dir: " + self.cellblender_dir + "\n" + \
+            "  data_model_to_mdl_script: " + self.data_model_to_mdl_script
 
 
 def fatal_error(msg):

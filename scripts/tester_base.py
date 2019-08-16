@@ -26,13 +26,14 @@ import sys
 import shutil
 
 from test_settings import *
-from test_utils import ToolPaths
+from test_utils import ToolPaths, report_test_error, report_test_success
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
 from utils import run, log, fatal_error
 
-
+# TODO: maybe move check_preconditions and other things such as initialization 
+# out, 
 class TesterBase:
     def __init__(self, test_dir: str, tool_paths: ToolPaths):
         # paths to the binaries
@@ -50,6 +51,8 @@ class TesterBase:
         # full of the test set, e.g. tests_mdl
         self.test_set_name = os.path.basename(self.test_set_dir)
 
+        # working directory for this specific test
+        self.test_work_dir = os.path.abspath(os.path.join(self.tool_paths.work_dir, self.test_set_name, self.test_name))
         
     @abc.abstractmethod        
     def test(self):
@@ -81,12 +84,15 @@ class TesterBase:
             
         os.mkdir(self.test_name)
         os.chdir(self.test_name)
+        
+        assert self.test_work_dir == os.getcwd()
 
 
+    # main_mdl_file - full path needst to be provided
     def run_mcell(self, mcell_args, main_mdl_file):
         cmd = [ self.tool_paths.mcell_binary ]
         cmd += mcell_args
-        cmd += [ os.path.join('..', self.test_dir, main_mdl_file) ]
+        cmd += [ main_mdl_file ]
         log_name = self.test_name+'.mcell.log'
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name)
         if (exit_code):

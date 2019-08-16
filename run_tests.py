@@ -40,10 +40,11 @@ from test_utils import ToolPaths, report_test_error, report_test_success
 
 # import tester classes
 from tester_mdl import TesterMdl
+from tester_dm import TesterDm
 
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
 
-from utils import run, log
+from utils import run, log, fatal_error
 
 class TestSetInfo:
     def __init__(self, test_set_dir, tester_class):
@@ -64,7 +65,8 @@ class TestInfo(TestSetInfo):
 
 # list of test directories with classes that are designed to test them
 TEST_SET_DIRS = [
-    TestSetInfo('tests_mdl', TesterMdl)
+    #TestSetInfo('tests_mdl', TesterMdl)
+    TestSetInfo('examples_dm', TesterDm)
 ]
 
 
