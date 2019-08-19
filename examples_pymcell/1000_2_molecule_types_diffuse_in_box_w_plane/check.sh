@@ -1,1 +1,1 @@
-diff -r pymcell/viz_data/seed_0001 mdl/viz_data/seed_00001
+diff -r pymcell/viz_data/seed_0001 ref/pymcell_ref_viz_data_3/seed_0001 #mdl/viz_data/seed_00001
