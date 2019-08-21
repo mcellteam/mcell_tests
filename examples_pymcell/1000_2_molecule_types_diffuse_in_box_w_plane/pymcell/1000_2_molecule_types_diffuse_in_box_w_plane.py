@@ -4,6 +4,9 @@
 # TODO: this is probably not the way how the inmport form a different directory should be done
 import os
 import sys
+import pandas as pd
+import numpy as np
+
 MCELL_DIR = os.environ.get('MCELL_DIR', '')
 
 if MCELL_DIR:
@@ -54,10 +57,27 @@ plane_face_list = [
 
 plane_reg_face_list = [ 0, 1 ]
 
+"""
+ The current implementation in MCell has a fixed size of a buffer
+ that holds the information and is dumped when .
+ This is something that will be improved in the close future, but for now 
+  
+ A variant where we would extend the size of the buffer is also possible 
+ and can be implemented. I hoped that for the initial steps, 
+ some variant, although not very fast, could be sufficient.  
+""" 
+def load_hits_data(fname):
+    data = []
+    
+    df = pd.read_csv(fname, delimiter=' ', header=None, index_col=False,
+                         names=['iter', 'time', 'x_hit', 'y_hit', 'z_hit', 'orient'])
+    return df
+
+
 def main():
     world = MCellSim(seed=1)
     world.set_time_step(time_step=1e-6)
-    iterations=1000
+    iterations=1000 # 1000
     world.set_iterations(iterations)
 
     # add geometry objects
@@ -79,41 +99,39 @@ def main():
     world.create_release_site(species_b, 10, "spherical", Vector3(0.0, 0.0, -0.1), rel_diameter)
     
     # Create viz data
-    world.add_viz([species_a, species_b], True) # TODO: bin/ascii dump
+    world.add_viz([species_a, species_b], ascii_output=True)
     
-    # this is nedcessary in order for the mcell_get_count function to work
-    #world.add_count(species_a, box_obj) # note: changes the precision slightly for some reason... 
+    # Create counter for hits of the plane
+    # TODO: make this API nicer     
+    species_sym = world._species[species_a.name]
+    mesh = world._mesh_objects[plane_obj.name]
     
-    # reg_swig_obj = self._regions[plane_obj.full_reg_name]
-    # reg_sym = m.mcell_get_reg_sym(reg_swig_obj)
-    #    create_count(world._world, )
+    mesh_sym = mcell_get_obj_sym(mesh)
+    count_str = "react_data/seed_%04d/%s.%s.hits.dat" % (
+            world._seed, species_a.name, plane_obj.name)
+    count_list, os, out_times, output = create_count(
+        world._world, mesh_sym, species_sym, count_str, step=1e-5, 
+        report_flags=(REPORT_ALL_HITS | REPORT_TRIGGER), exact_time=1, buffer_size=1)
+    world._counts[count_str] = (count_list, os, out_times, output)
+
+    # Dump internal mcell state
+    #world.dump()
     
-    #species_sym = world._species[species_a.name]
-    #mesh = world._mesh_objects[plane_obj.name]
-    #mesh_sym = mcell_get_obj_sym(mesh)
-    #count_str = "my_react_data/seed_%04d/%s_%s" % (
-    #        world._seed, species_a.name, plane_obj.name)
-    #count_list, os, out_times, output = create_count(
-    #    world._world, mesh_sym, species_sym, count_str, 1e-5, REPORT_ALL_HITS)
-    
-    # TODO: dump state
-    world.dump()
-    
-    world.set_output_freq(100)
+    # Run for several interations
+    output_freq = 100
+    world.set_output_freq(output_freq)
     for i in range(iterations + 1):
         world.run_iteration()
-
-
-    # COUNT_TRIG_STRUCT
-    #a, b, c = mcell_get_counter_value(world._world, "Scene.Plane[reg]", 0)
-    
-    #print(a)
-    #print(b)
-    #print(c)
-
-    #cnt = world.get_species_count(species_a, box_obj)
-    #print("A : " + str(cnt))
         
+        # for now, we are loading all data each iteration...
+        # but this will be optimized little later 
+        df = load_hits_data(count_str)
+        df = df[ np.abs(df['iter'] - i/1e6) < 1e-8 ]
+        if not df.empty:
+            print("Hit in iteration " + str(i))
+            print(df)
+        
+    #world.dump()
         
     world.end_sim()
     
