@@ -59,8 +59,11 @@ plane_reg_face_list = [ 0, 1 ]
 
 """
  The current implementation in MCell has a fixed size of a buffer
- that holds the information and is dumped when .
- This is something that will be improved in the close future, but for now 
+ that holds the information and is dumped when the busser size reaches a threshold.
+ Using these data right now would mean risking losing some of the hits. 
+ This is something that will be improved in the close future, but for now
+ a simple solution where we instruct mcell to dump every single item and 
+ read the whole file was chosen. 
   
  A variant where we would extend the size of the buffer is also possible 
  and can be implemented. I hoped that for the initial steps, 
