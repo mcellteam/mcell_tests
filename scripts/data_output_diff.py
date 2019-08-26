@@ -58,7 +58,7 @@ def read_viz_output_line(fin):
 
 
 # return True if two files are identical while counting with floating point tolerance
-def compare_viz_output_files(fname_ref, fname_new):
+def compare_data_output_files(fname_ref, fname_new):
     # log('Comparing: ' + fname_ref + ' and ' + fname_new)
     if USE_FDIFF:
         fdiff = os.path.join(FDIFF_DIR, FDIFF)
@@ -111,7 +111,7 @@ def compare_viz_output_files(fname_ref, fname_new):
                         return False
                 
                 
-def compare_viz_output_directory(dir_ref, dir_new):
+def compare_data_output_directory(dir_ref, dir_new):
     ref_dir = os.path.abspath(dir_ref)
     if not os.path.exists(ref_dir):
         log('Directory ' + ref_dir + ' does not exist')
@@ -130,7 +130,7 @@ def compare_viz_output_directory(dir_ref, dir_new):
                 log('File ' + fname_new + ' does not exist')
                 return FAILED_DIFF
             
-            res = compare_viz_output_files(fname_ref, fname_new)
+            res = compare_data_output_files(fname_ref, fname_new)
             if not res:
                 log('Comparison failed.')
                 return FAILED_DIFF

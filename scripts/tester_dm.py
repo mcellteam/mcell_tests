@@ -24,10 +24,9 @@ import os
 import sys
 import shutil
 
-import viz_output_diff
 from test_settings import *
 from tester_base import TesterBase
-from test_utils import ToolPaths, report_test_error, report_test_success
+from test_utils import ToolPaths, report_test_error, report_test_success, replace_in_file
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
@@ -35,18 +34,9 @@ from utils import run, log, fatal_error
 
 UPDATE_REFERENCE=False
 
-SEED_DIR = 'seed_00001'
-MAIN_MDL_FILE = 'Scene.main.mdl'
 MCELL_ARGS = ['-seed', '1']
+SEED_DIR = 'seed_00001'
 
-if TEST_MCELL4:
-    MCELL_ARGS.append('-mcell4')
-    VIZ_OUTPUT_DIR = os.path.join('4.', 'viz_data')
-    REF_VIZ_OUTPUT_DIR = 'ref_viz_data_4'
-else:
-    VIZ_OUTPUT_DIR = 'viz_data'
-    REF_VIZ_OUTPUT_DIR = 'ref_viz_data_3'
-    
 
 class TesterDm(TesterBase):
     def __init___(self, test_dir: str, tool_paths: ToolPaths):
@@ -56,6 +46,9 @@ class TesterDm(TesterBase):
     def check_prerequisites(self): 
         if not os.path.exists(self.tool_paths.mcell_binary):
             fatal_error("Could not find executable '" + self.tool_paths.mcell_binary + ".")
+            
+        if not os.path.exists(self.tool_paths.data_model_to_mdl_script):
+            fatal_error("Could not find data model conversion script '" + self.tool_paths.data_model_to_mdl_script + ".")
         
          
     def run_dm_to_mdl_conversion(self):
@@ -74,39 +67,11 @@ class TesterDm(TesterBase):
         
         
     def change_viz_output_to_ascii(self):
-        # FIXME: replace with a Python implementation of sed
-        #exit_code = run(['sed', '-i', '\'s/CELLBLENDER/ASCII/g\'', os.path.join(self.test_work_dir, 'Scene.viz_output.mdl')], verbose=True)
-        #if exit_code != 0:
-        #    return FAILED_DM_TO_MDL_CONVERSION
-        #else:
-        #    return PASSED
-        
         fname = os.path.join(self.test_work_dir, 'Scene.viz_output.mdl')
-        # FIXME: create a 'sed' function
-        lines = []
-        with open(fname, "r") as infile:
-            for line in infile:
-                line = line.replace('CELLBLENDER', 'ASCII')
-                lines.append(line)
-        with open(fname, "w") as outfile:
-            for line in lines:
-                outfile.write(line)
-                
+        replace_in_file(fname, 'CELLBLENDER', 'ASCII')
         return PASSED
             
 
-    def check_viz_output(self):
-        res = viz_output_diff.compare_viz_output_directory(
-            os.path.join('..', self.test_dir, REF_VIZ_OUTPUT_DIR, SEED_DIR), 
-            os.path.join(VIZ_OUTPUT_DIR, SEED_DIR))
-        
-        if res == PASSED:
-            report_test_success(self.test_name) # fail is already reported in diff
-        else:
-            report_test_error(self.test_name, "Diff failed.")
-        return res
-        
-        
     def update_reference(self):
         assert False # TODO: copy only the last file...
         reference = os.path.join('..', self.test_dir, REF_VIZ_OUTPUT_DIR, SEED_DIR)
@@ -143,7 +108,9 @@ class TesterDm(TesterBase):
     
         if not UPDATE_REFERENCE:
             if res == PASSED:
-                res = self.check_viz_output()
+                res = self.check_viz_output(SEED_DIR)
+            if res == PASSED:
+                res = self.check_react_data_output(SEED_DIR)                
         else:
             if res != PASSED:
                 fatal_error("Tried to update reference data but mcell execution failed!")

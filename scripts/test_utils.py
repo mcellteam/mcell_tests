@@ -32,7 +32,7 @@ class ToolPaths:
         if REPO_NAME_CELLBLENDER in install_dirs:
             self.cellblender_dir = install_dirs[REPO_NAME_CELLBLENDER]
         else:
-            self.cellblender_dir = os.path.join(MCELL_TOOLS_DIR, WORK_DIR_NAME, BUILD_DIR_CELLBLENDER)
+            self.cellblender_dir = os.path.join(MCELL_TOOLS_DIR, WORK_DIR_NAME, BUILD_DIR_CELLBLENDER, REPO_NAME_CELLBLENDER)
             
         self.data_model_to_mdl_script = \
             os.path.join(self.cellblender_dir, DATA_MODEL_TO_MDL_DIR, DATA_MODEL_TO_MDL_SCRIPT)
@@ -61,5 +61,18 @@ def report_test_error(test_name, msg):
 
 def report_test_success(test_name):
     print('PASS : ' + test_name)
+    
+    
+def replace_in_file(fname, search_for, replace_with):
+    lines = []
+    with open(fname, "r") as infile:
+        for line in infile:
+            line = line.replace(search_for, replace_with)
+            lines.append(line)
+    with open(fname, "w") as outfile:
+        for line in lines:
+            outfile.write(line)
+   
+    
     
 

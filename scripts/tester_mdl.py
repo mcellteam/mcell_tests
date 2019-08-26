@@ -24,7 +24,6 @@ import os
 import sys
 import shutil
 
-import viz_output_diff
 from test_settings import *
 from tester_base import TesterBase
 from test_utils import ToolPaths, report_test_error, report_test_success
@@ -35,17 +34,8 @@ from utils import run, log, fatal_error
 
 UPDATE_REFERENCE=False
 
-SEED_DIR = 'seed_00001'
 MCELL_ARGS = ['-seed', '1']
-
-if TEST_MCELL4:
-    MCELL_ARGS.append('-mcell4')
-    VIZ_OUTPUT_DIR = os.path.join('4.', 'viz_data')
-    REF_VIZ_OUTPUT_DIR = 'ref_viz_data_4'
-else:
-    VIZ_OUTPUT_DIR = 'viz_data'
-    REF_VIZ_OUTPUT_DIR = 'ref_viz_data_3'
-    
+SEED_DIR = 'seed_00001'
 
 class TesterMdl(TesterBase):
     def __init___(self, test_dir: str, tool_paths: ToolPaths):
@@ -56,17 +46,6 @@ class TesterMdl(TesterBase):
         if not os.path.exists(self.tool_paths.mcell_binary):
             fatal_error("Could not find executable '" + self.tool_paths.mcell_binary + ".") 
 
-
-    def check_viz_output(self):
-        res = viz_output_diff.compare_viz_output_directory(
-            os.path.join('..', self.test_dir, REF_VIZ_OUTPUT_DIR, SEED_DIR), 
-            os.path.join(VIZ_OUTPUT_DIR, SEED_DIR))
-        
-        if res == PASSED:
-            report_test_success(self.test_name) # fail is already reported in diff
-        else:
-            report_test_error(self.test_name, "Diff failed.")
-        return res
         
     def update_reference(self):
         reference = os.path.join('..', self.test_dir, REF_VIZ_OUTPUT_DIR, SEED_DIR)
@@ -95,7 +74,7 @@ class TesterMdl(TesterBase):
     
         if not UPDATE_REFERENCE:
             if res == PASSED:
-                res = self.check_viz_output()
+                res = self.check_viz_output(SEED_DIR)
         else:
             if res != PASSED:
                 fatal_error("Tried to update reference data but mcell execution failed!")

@@ -42,19 +42,19 @@ using namespace std;
 typedef float float_t;
 
 const float_t EPS = 1e-10;
-const int EXPECTED_NR_OF_VALUES = 7;
+const int MAX_NR_OF_VALUES = 7;
 
 
 struct line_info {
   string name;
-  float_t values[EXPECTED_NR_OF_VALUES];
+  int num_parsed_values;
+  float_t values[MAX_NR_OF_VALUES];
 
   void clear() {
     name = "";
-    memset(values, 0, EXPECTED_NR_OF_VALUES * sizeof(float_t));
+    memset(values, 0, MAX_NR_OF_VALUES * sizeof(float_t));
   }
 };
-
 
 bool parse_line(const string& line, line_info& info) {
   info.clear();
@@ -73,13 +73,9 @@ bool parse_line(const string& line, line_info& info) {
   info.name = line.substr(pos1, pos2);
 
   string num;
-  for (int i = 0; i < EXPECTED_NR_OF_VALUES; i++) {
+  for (int i = 0; i < MAX_NR_OF_VALUES; i++) {
     pos1 = pos2 + 1;
     pos2 = line.find(' ', pos1);
-
-    if (i != EXPECTED_NR_OF_VALUES-1 && pos2 == string::npos) {
-      return false;
-    }
 
     try {
       info.values[i] = stof(line.substr(pos1, pos2));
@@ -87,13 +83,21 @@ bool parse_line(const string& line, line_info& info) {
     catch (invalid_argument) {
       return false;
     }
+
+    if (i != MAX_NR_OF_VALUES-1 && pos2 == string::npos) {
+      // there is less than max nr. of values
+      info.num_parsed_values = i + 1;
+      return true;
+    }
   }
 
   // there shouldn't be anything more
   if (pos2 != string::npos) {
     return false;
   }
-
+  
+  
+  info.num_parsed_values = MAX_NR_OF_VALUES;
   return true;
 }
 
@@ -114,13 +118,20 @@ string fdiff_streams(ifstream& ref, ifstream& test) {
     }
 
     if (ref_info.name != test_info.name) {
-      return "Different molecule name";
+      return "Different first column (name or time) - ref: " + ref_info.name +
+          ", vs test: " + test_info.name;
     }
 
-    for (int i = 0; i < EXPECTED_NR_OF_VALUES; i++) {
+    if (ref_info.num_parsed_values != test_info.num_parsed_values) {
+      return "Different number of parsed values - ref: " + to_string(ref_info.num_parsed_values) +
+          ", vs test: " + to_string(test_info.num_parsed_values);
+    }
+
+    for (int i = 0; i < ref_info.num_parsed_values; i++) {
       if (fabs(ref_info.values[i] - test_info.values[i]) > EPS) {
         stringstream ss;
-        ss << "Values " << setprecision(10) << ref_info.values[i] << " and " << setprecision(10) << test_info.values[i] << " differ";
+        ss << "Values " << setprecision(10) << ref_info.values[i] <<
+            " and " << setprecision(10) << test_info.values[i] << " differ";
         return ss.str();
       }
     }

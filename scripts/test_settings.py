@@ -51,6 +51,22 @@ RESULT_NAMES = {
 }
 
 
+if TEST_MCELL4:
+    MCELL_ARGS.append('-mcell4')
+    
+    VIZ_DATA_DIR = os.path.join('4.', 'viz_data')
+    REF_VIZ_DATA_DIR = 'ref_viz_data_4'
+
+    REACT_DATA_DIR = os.path.join('4.', 'react_data')
+    REF_REACT_DATA_DIR = 'ref_react_data_4'
+else:
+    VIZ_DATA_DIR = 'viz_data'
+    REF_VIZ_DATA_DIR = 'ref_viz_data_3'
+    
+    REACT_DATA_DIR = 'react_data'
+    REF_REACT_DATA_DIR = 'ref_react_data_3'
+
+
 TEST_SETTINGS_BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 MCELL_TOOLS_DIR = os.path.realpath(os.path.join(TEST_SETTINGS_BASE_DIR, '..', '..', 'mcell_tools'))
 sys.path.append(os.path.join(MCELL_TOOLS_DIR, 'scripts'))

@@ -83,7 +83,8 @@ def get_test_dirs(test_set_info):
     return res
    
     
-def run_single_test(test_info, tool_paths):    
+def run_single_test(test_info, tool_paths):
+    log("STARTED: " + test_info.get_full_name())
     test_obj = test_info.tester_class(os.path.join(test_info.test_set_dir, test_info.test_dir), tool_paths)
     return test_obj.test()
     

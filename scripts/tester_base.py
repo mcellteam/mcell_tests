@@ -25,6 +25,8 @@ import os
 import sys
 import shutil
 
+import data_output_diff
+
 from test_settings import *
 from test_utils import ToolPaths, report_test_error, report_test_success
 
@@ -86,6 +88,30 @@ class TesterBase:
         os.chdir(self.test_name)
         
         assert self.test_work_dir == os.getcwd()
+
+
+    def check_viz_output(self, seed_dir):
+        res = data_output_diff.compare_data_output_directory(
+            os.path.join('..', self.test_dir, REF_VIZ_DATA_DIR, seed_dir), 
+            os.path.join(VIZ_DATA_DIR, seed_dir))
+        
+        if res == PASSED:
+            report_test_success(self.test_name) # fail is already reported in diff
+        else:
+            report_test_error(self.test_name, "Viz data diff failed.")
+        return res
+
+
+    def check_react_data_output(self, seed_dir):
+        res = data_output_diff.compare_data_output_directory(
+            os.path.join('..', self.test_dir, REF_REACT_DATA_DIR, seed_dir), 
+            os.path.join(REACT_DATA_DIR, seed_dir))
+        
+        if res == PASSED:
+            report_test_success(self.test_name) # fail is already reported in diff
+        else:
+            report_test_error(self.test_name, "React data diff failed.")
+        return res
 
 
     # main_mdl_file - full path needst to be provided
