@@ -107,6 +107,9 @@ class TesterBase:
 
     def check_reference_data(self, seed_dir):
         
+        # TODO: report weeror when there are no ref data
+        # has_ref_data = False
+        
         res = self.check_reference(
             seed_dir, REF_VIZ_DATA_DIR, VIZ_DATA_DIR, False, "Viz data diff failed.")
         if res != PASSED:
@@ -118,7 +121,12 @@ class TesterBase:
             return res
 
         res = self.check_reference(
-            '', REF_DYN_GEOM_DATA_DIR, DYN_GEOM_DATA_DIR, False, "Dynamic geometry data diff failed.")
+            '', REF_DYN_GEOM_DATA_DIR, DYN_GEOM_DATA_DIR, True, "Dynamic geometry data diff failed.")
+        if res != PASSED:
+            return res
+
+        res = self.check_reference(
+            '', REF_MCELLR_GDAT_DATA_DIR, MCELLR_GDAT_DATA_DIR, True, "MCellR gdat data diff failed.")
         if res != PASSED:
             return res
      
@@ -133,6 +141,12 @@ class TesterBase:
         cmd = [ self.tool_paths.mcell_binary ]
         cmd += mcell_args
         cmd += [ main_mdl_file ]
+        
+        # should we enable mcellr mode?
+        mdlr_rules_file = os.path.join(self.test_work_dir, MAIN_MDLR_RULES_FILE)
+        if os.path.exists(mdlr_rules_file):
+            cmd += [ '-r', mdlr_rules_file ]
+        
         log_name = self.test_name+'.mcell.log'
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         if (exit_code):

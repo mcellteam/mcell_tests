@@ -101,20 +101,19 @@ def compare_data_output_directory(dir_ref, dir_new, exact=False):
     files_ref = os.listdir(ref_dir)
     
     for fname in files_ref:
-        if '.dat' in fname:
-            fname_ref = os.path.join(dir_ref, fname)
-            if not os.path.exists(fname_ref):
-                log('File ' + fname_ref + ' does not exist')
-                return FAILED_DIFF
-            fname_new = os.path.join(dir_new, fname)
-            if not os.path.exists(fname_new):
-                log('File ' + fname_new + ' does not exist')
-                return FAILED_DIFF
-            
-            res = compare_data_output_files(fname_ref, fname_new, exact)
-            if not res:
-                log('Comparison failed.')
-                return FAILED_DIFF
+        fname_ref = os.path.join(dir_ref, fname)
+        if not os.path.exists(fname_ref):
+            log('File ' + fname_ref + ' does not exist')
+            return FAILED_DIFF
+        fname_new = os.path.join(dir_new, fname)
+        if not os.path.exists(fname_new):
+            log('File ' + fname_new + ' does not exist')
+            return FAILED_DIFF
+        
+        res = compare_data_output_files(fname_ref, fname_new, exact)
+        if not res:
+            log('Comparison failed.')
+            return FAILED_DIFF
             
     return PASSED
     

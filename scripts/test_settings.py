@@ -29,6 +29,7 @@ TEST_MCELL4 = False
 BUILD_OPTS_USE_LTO = False  # higher performnce but slower build
 
 MAIN_MDL_FILE = 'Scene.main.mdl'
+MAIN_MDLR_RULES_FILE = 'Scene.mdlr_rules.xml'
 
 MCELL_BINARY = 'mcell'
 
@@ -72,6 +73,9 @@ else:
     
     DYN_GEOM_DATA_DIR = 'dynamic_geometry'
     REF_DYN_GEOM_DATA_DIR = 'ref_dynamic_geometry_3'
+    
+    MCELLR_GDAT_DATA_DIR = '.'
+    REF_MCELLR_GDAT_DATA_DIR = 'ref_mcellr_gdat_3'
     
 
 

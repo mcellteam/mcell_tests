@@ -32,7 +32,7 @@ THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
 from utils import run, log, fatal_error
 
-UPDATE_REFERENCE=False
+UPDATE_REFERENCE = False
 
 MCELL_ARGS = ['-seed', '1']
 SEED_DIR = 'seed_00001'
@@ -77,7 +77,6 @@ class TesterDm(TesterBase):
         viz_res = os.path.join(self.test_work_dir, VIZ_DATA_DIR, SEED_DIR)
 
         if os.path.exists(viz_res):
-    
             # remove whole directory
             if os.path.exists(viz_reference):
                 log("Cleaning old data in " + viz_reference)
@@ -118,7 +117,6 @@ class TesterDm(TesterBase):
         dyn_geom_reference = os.path.join(self.test_dir, REF_DYN_GEOM_DATA_DIR)
         dyn_geom_res = os.path.join(self.test_work_dir, DYN_GEOM_DATA_DIR)
         
-        print("GEOM: " + dyn_geom_res)
         if os.path.exists(dyn_geom_res):
             # remove whole directory
             if os.path.exists(dyn_geom_reference):
@@ -138,7 +136,29 @@ class TesterDm(TesterBase):
             for i in range(0, len(files), 50):
                 log("Updating reference file '" + files[i] + '"')
                 shutil.copyfile(os.path.join(dyn_geom_res, files[i]), os.path.join(dyn_geom_reference, files[i]))
-            
+
+        # and also check the .gdat files generated with mcellr mode
+        mcellr_gdat_reference = os.path.join(self.test_dir, REF_MCELLR_GDAT_DATA_DIR)
+        mcellr_gdat_res = os.path.join(self.test_work_dir, MCELLR_GDAT_DATA_DIR)
+        
+        print("PATH:" + mcellr_gdat_res)
+        gdat_files = os.listdir(mcellr_gdat_res) 
+        print("F1:" + str(gdat_files))
+        gdat_files = [ f for f in gdat_files if f.endswith('.gdat')]
+        print("F2:" + str(gdat_files))
+        if gdat_files:
+            # remove whole directory
+            if os.path.exists(mcellr_gdat_reference):
+                log("Cleaning old data in " + mcellr_gdat_reference)
+                shutil.rmtree(mcellr_gdat_reference)
+                
+            log("Updating reference .gdat files " + mcellr_gdat_reference + " with data from " + mcellr_gdat_res)
+            if not os.path.exists(mcellr_gdat_reference):
+                os.makedirs(mcellr_gdat_reference)
+            for f in gdat_files:
+                log("Updating reference file '" + f + "'")
+                shutil.copyfile(os.path.join(mcellr_gdat_res, f), os.path.join(mcellr_gdat_reference, f))
+                 
 
     def test(self):
         self.check_prerequisites()

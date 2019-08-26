@@ -21,6 +21,9 @@ http://www.gnu.org/licenses/gpl-2.0.html
 """
 This module contains diverse utility functions shared among all mcell-related 
 Python scripts.
+
+TODO: some sanity checks would be useful - e.g. testing that it can detect 
+that reference and new data are indeed different.
 """
 
 import os
@@ -66,7 +69,7 @@ class TestInfo(TestSetInfo):
 
 # list of test directories with classes that are designed to test them
 TEST_SET_DIRS = [
-    #TestSetInfo('tests_mdl', TesterMdl)
+    TestSetInfo('tests_mdl', TesterMdl),
     TestSetInfo('examples_dm', TesterDm)
 ]
 

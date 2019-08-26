@@ -64,6 +64,8 @@ bool parse_line(const string& line, line_info& info) {
   if (pos2 == string::npos) {
     // end of file?
     if (line == "") {
+      info.name = "";
+      info.num_parsed_values = 0;
       return true;
     }
     else {
