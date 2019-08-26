@@ -90,28 +90,42 @@ class TesterBase:
         assert self.test_work_dir == os.getcwd()
 
 
-    def check_viz_output(self, seed_dir):
-        res = data_output_diff.compare_data_output_directory(
-            os.path.join('..', self.test_dir, REF_VIZ_DATA_DIR, seed_dir), 
-            os.path.join(VIZ_DATA_DIR, seed_dir))
+    def check_reference(self, seed_dir, ref_dir_name, test_dir_name, exact_diff, msg):
+        ref_path = os.path.join('..', self.test_dir, ref_dir_name, seed_dir)
+        if not os.path.exists(ref_path):
+            return PASSED
         
-        if res == PASSED:
-            report_test_success(self.test_name) # fail is already reported in diff
-        else:
-            report_test_error(self.test_name, "Viz data diff failed.")
+        res = data_output_diff.compare_data_output_directory(
+            ref_path, 
+            os.path.join(test_dir_name, seed_dir),
+            exact_diff)
+        
+        if res != PASSED:
+            report_test_error(self.test_name, msg)
         return res
 
 
-    def check_react_data_output(self, seed_dir):
-        res = data_output_diff.compare_data_output_directory(
-            os.path.join('..', self.test_dir, REF_REACT_DATA_DIR, seed_dir), 
-            os.path.join(REACT_DATA_DIR, seed_dir))
+    def check_reference_data(self, seed_dir):
         
+        res = self.check_reference(
+            seed_dir, REF_VIZ_DATA_DIR, VIZ_DATA_DIR, False, "Viz data diff failed.")
+        if res != PASSED:
+            return res
+
+        res = self.check_reference(
+            seed_dir, REF_REACT_DATA_DIR, REACT_DATA_DIR, False, "React data diff failed.")
+        if res != PASSED:
+            return res
+
+        res = self.check_reference(
+            '', REF_DYN_GEOM_DATA_DIR, DYN_GEOM_DATA_DIR, False, "Dynamic geometry data diff failed.")
+        if res != PASSED:
+            return res
+     
         if res == PASSED:
-            report_test_success(self.test_name) # fail is already reported in diff
-        else:
-            report_test_error(self.test_name, "React data diff failed.")
-        return res
+            report_test_success(self.test_name)
+        
+        return res           
 
 
     # main_mdl_file - full path needst to be provided

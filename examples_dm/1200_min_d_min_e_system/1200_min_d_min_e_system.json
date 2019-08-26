@@ -9746,7 +9746,7 @@
     "negative_diffusion_constant": "WARNING",
     "all_warnings": "INDIVIDUAL"
    },
-   "iterations": "0.0008 * 200/dt",
+   "iterations": "0.001 * 200/dt",
    "partitions": {
     "y_end": "0.5",
     "recursion_flag": false,

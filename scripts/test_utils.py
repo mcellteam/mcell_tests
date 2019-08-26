@@ -19,6 +19,9 @@ http://www.gnu.org/licenses/gpl-2.0.html
 from test_settings import *
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 
+sys.path.append(os.path.join(THIS_DIR, '..', '..', 'mcell_tools', 'scripts'))
+from utils import *
+
 # this class contains all paths that are used during testing
 # and also derived paths 
 class ToolPaths:
@@ -49,18 +52,18 @@ class ToolPaths:
 
 
 def fatal_error(msg):
-    print(msg)
+    log(msg)
     sys.exit(1)
 
 
 def report_test_error(test_name, msg):
-    print('ERROR: ' + test_name + ' - ' + msg)
+    log("ERROR: " + test_name + " - " + msg)
     # terminate for now
     # fatal_error('Ending after first error')
 
 
 def report_test_success(test_name):
-    print('PASS : ' + test_name)
+    log("PASS : " + test_name)
     
     
 def replace_in_file(fname, search_for, replace_with):

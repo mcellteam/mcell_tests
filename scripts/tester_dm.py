@@ -32,7 +32,7 @@ THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
 from utils import run, log, fatal_error
 
-UPDATE_REFERENCE=True
+UPDATE_REFERENCE=False
 
 MCELL_ARGS = ['-seed', '1']
 SEED_DIR = 'seed_00001'
@@ -73,37 +73,72 @@ class TesterDm(TesterBase):
             
 
     def update_reference(self):
-        viz_reference = os.path.join('..', self.test_dir, REF_VIZ_DATA_DIR, SEED_DIR)
-        viz_res = os.path.join(VIZ_DATA_DIR, SEED_DIR)
+        viz_reference = os.path.join(self.test_dir, REF_VIZ_DATA_DIR, SEED_DIR)
+        viz_res = os.path.join(self.test_work_dir, VIZ_DATA_DIR, SEED_DIR)
 
-        # remove whole directory
-        if os.path.exists(viz_reference):
-            log("Cleaning old data in " + viz_reference + " (cwd:" + os.getcwd() + ")")
-            shutil.rmtree(viz_reference)
+        if os.path.exists(viz_res):
+    
+            # remove whole directory
+            if os.path.exists(viz_reference):
+                log("Cleaning old data in " + viz_reference)
+                shutil.rmtree(viz_reference)
+                
+            # copy the first and the last viz data file
+            log("New reference from " + viz_res)
+            files = os.listdir(viz_res)
+            if not files:
+                fatal_error("There are no reference data in " + viz_res)
+                  
+            files.sort()
+    
+            log("Updating reference " + viz_reference + " with data from " + viz_res)
+            log("  File 1:" + files[0])
+            log("  File 1:" + files[-1])
             
-        # copy the first and the last viz data file
-        files = os.listdir(viz_res)
-        files_sorted = files.sort()
-
-        log("Updating reference " + viz_reference + " with data from " + viz_res + " (cwd:" + os.getcwd() + ")")
-        log("  File 1:" + files_sorted[0])
-        log("  File 1:" + files_sorted[-1])
-        
-        shutil.copyfile(os.path.join(viz_res, files_sorted[0]), os.path.join(viz_reference, files_sorted[-1]))
-        
+            if not os.path.exists(viz_reference):
+                os.makedirs(viz_reference)
+            shutil.copyfile(os.path.join(viz_res, files[0]), os.path.join(viz_reference, files[0]))
+            shutil.copyfile(os.path.join(viz_res, files[-1]), os.path.join(viz_reference, files[-1]))
+            
         # copy the whole react data files 
-        react_reference = os.path.join('..', self.test_dir, REF_VIZ_DATA_DIR, SEED_DIR)
-        react_res = os.path.join(VIZ_DATA_DIR, SEED_DIR)
+        react_reference = os.path.join(self.test_dir, REF_REACT_DATA_DIR, SEED_DIR)
+        react_res = os.path.join(self.test_work_dir, REACT_DATA_DIR, SEED_DIR)
+        
+        if os.path.exists(react_res):
+            # remove whole directory
+            if os.path.exists(react_reference):
+                log("Cleaning old data in " + react_reference)
+                shutil.rmtree(react_reference)
+    
+            # and update all files
+            log("Updating reference " + react_reference + " with data from " + react_res)
+            shutil.copytree(react_res, react_reference)
 
-        # remove whole directory
-        if os.path.exists(react_reference):
-            log("Cleaning old data in " + react_reference + " (cwd:" + os.getcwd() + ")")
-            shutil.rmtree(react_reference)
-
-        # and update all files
-        log("Updating reference " + react_reference + " with data from " + react_res + " (cwd:" + os.getcwd() + ")")
-        shutil.copytree(react_res, react_reference)
-
+        # copy the whole dyn_geom data files 
+        dyn_geom_reference = os.path.join(self.test_dir, REF_DYN_GEOM_DATA_DIR)
+        dyn_geom_res = os.path.join(self.test_work_dir, DYN_GEOM_DATA_DIR)
+        
+        print("GEOM: " + dyn_geom_res)
+        if os.path.exists(dyn_geom_res):
+            # remove whole directory
+            if os.path.exists(dyn_geom_reference):
+                log("Cleaning old data in " + dyn_geom_reference)
+                shutil.rmtree(dyn_geom_reference)
+    
+            # and use every 100th file
+            files = os.listdir(dyn_geom_res)
+            if not files:
+                fatal_error("There are no reference data in " + dyn_geom_res)
+            files.sort()   
+            
+            if not os.path.exists(dyn_geom_reference):
+                os.makedirs(dyn_geom_reference)
+                
+            log("Updating reference " + dyn_geom_reference + " with data from " + dyn_geom_res)
+            for i in range(0, len(files), 50):
+                log("Updating reference file '" + files[i] + '"')
+                shutil.copyfile(os.path.join(dyn_geom_res, files[i]), os.path.join(dyn_geom_reference, files[i]))
+            
 
     def test(self):
         self.check_prerequisites()
@@ -124,10 +159,7 @@ class TesterDm(TesterBase):
         res = self.run_mcell(MCELL_ARGS, os.path.join(self.test_work_dir, MAIN_MDL_FILE))
     
         if not UPDATE_REFERENCE:
-            if res == PASSED:
-                res = self.check_viz_output(SEED_DIR)
-            if res == PASSED:
-                res = self.check_react_data_output(SEED_DIR)                
+            res = self.check_reference_data(SEED_DIR)
         else:
             if res != PASSED:
                 fatal_error("Tried to update reference data but mcell execution failed!")

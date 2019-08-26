@@ -114,7 +114,7 @@ def collect_and_run_tests(tool_paths, test_pattern, parallel):
     work_dir = os.getcwd()
     if not parallel:
         for info in filtered_test_infos:
-            print("Testing " + info.test_dir)
+            log("Testing " + info.test_dir)
             res = run_single_test(info, tool_paths)
             results[info.get_full_name()] = res
     else:
@@ -134,7 +134,7 @@ def collect_and_run_tests(tool_paths, test_pattern, parallel):
 
 
 def report_results(results):
-    print('\n**** RESULTS ****')
+    print("\n**** RESULTS ****")
     passed = 0
     failed = 0
     skipped = 0
@@ -143,17 +143,17 @@ def report_results(results):
         print(RESULT_NAMES[value] + ": " + str(key))
         if value == PASSED:
             passed += 1
-        elif value == FAILED_MCELL or value == FAILED_DIFF or FAILED_DM_TO_MDL_CONVERSION:
+        elif value == FAILED_MCELL or value == FAILED_DIFF or value == FAILED_DM_TO_MDL_CONVERSION:
             failed += 1
         elif value == SKIPPED:
             skipped += 1
         else:
-            fatal_error('Invalid test result value ' + str(value))
+            fatal_error("Invalid test result value " + str(value))
            
     if failed != 0:
-        print('\n!! THERE WERE ERRORS !!')
+        log("\n!! THERE WERE ERRORS !!")
     else:
-        print('\n-- SUCCESS --')
+        log("\n-- SUCCESS --")
 
 
 def run_tests(install_dirs, argv=[]):
@@ -162,9 +162,11 @@ def run_tests(install_dirs, argv=[]):
     
     test_pattern = ''
     parallel = True
-    if len(argv) == 2:
+    if len(argv) == 2 or len(argv) == 3:
         if argv[1] == 'sequential':
             parallel = False
+            if len(argv) == 3:
+                test_pattern = argv[2]
         else:
             test_pattern = argv[1]
     

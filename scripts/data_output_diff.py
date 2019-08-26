@@ -10,9 +10,9 @@ from utils import *
 EPS = 1e-15
 EXPECTED_NR_OF_VALUES = 7
 
-USE_FDIFF = True
-
 FDIFF = 'fdiff' 
+DIFF = 'diff'
+
 # FIXME: build it in 'work'
 FDIFF_DIR = os.path.join(THIS_DIR, 'fdiff')
 
@@ -58,9 +58,12 @@ def read_viz_output_line(fin):
 
 
 # return True if two files are identical while counting with floating point tolerance
-def compare_data_output_files(fname_ref, fname_new):
-    # log('Comparing: ' + fname_ref + ' and ' + fname_new)
-    if USE_FDIFF:
+def compare_data_output_files(fname_ref, fname_new, exact):
+    
+    if exact:
+        diff_executable = DIFF
+    else:
+        
         fdiff = os.path.join(FDIFF_DIR, FDIFF)
         if not os.path.exists(fdiff):
             make_ec = run(
@@ -72,53 +75,31 @@ def compare_data_output_files(fname_ref, fname_new):
             )
             if make_ec != 0:
                 fatal_error('Could not builf fdiff, terminating')
-            
-        ec = run(
-            [os.path.join(FDIFF_DIR, FDIFF), fname_ref, fname_new], 
-            cwd=os.getcwd(),
-            verbose=False, 
-            fout_name='diff.log', 
-            print_redirected_output=False
-        )
-        if ec != 0:
-            print_file('diff.log')
-            return False
-        else:
-            return True
-    else:
-        with open(fname_ref, "r") as fref:
-            with open(fname_new, "r") as fnew:
                 
-                line = 0
-                end = False
-                while not end:
-                    info_ref = read_viz_output_line(fref)
-                    info_new = read_viz_output_line(fnew)
-                    
-                    line += 1
-                    
-                    if info_ref.values == [] and info_new.values == []:
-                        return True
-                    
-                    if info_ref.values == [] or info_new.values == []:
-                        log('Files ' + fname_ref + ' and ' + fname_new + ' have different count of lines')
-                        return False
-                    
-                    diff_msg = info_ref.is_equal(info_new, EPS)
+        diff_executable = os.path.join(FDIFF_DIR, FDIFF)
         
-                    if diff_msg:
-                        log('Difference between ' + fname_ref + ' and ' + fname_new + ': ' +  diff_msg)
-                        return False
+    ec = run(
+        [diff_executable, fname_ref, fname_new], 
+        cwd=os.getcwd(),
+        verbose=False, 
+        fout_name='diff.log', 
+        print_redirected_output=False
+    )
+    if ec != 0:
+        print_file('diff.log')
+        return False
+    else:
+        return True
                 
                 
-def compare_data_output_directory(dir_ref, dir_new):
+def compare_data_output_directory(dir_ref, dir_new, exact=False):
     ref_dir = os.path.abspath(dir_ref)
     if not os.path.exists(ref_dir):
         log('Directory ' + ref_dir + ' does not exist')
         return FAILED_DIFF
         
     files_ref = os.listdir(ref_dir)
-    # log("***" + str(files_ref))
+    
     for fname in files_ref:
         if '.dat' in fname:
             fname_ref = os.path.join(dir_ref, fname)
@@ -130,7 +111,7 @@ def compare_data_output_directory(dir_ref, dir_new):
                 log('File ' + fname_new + ' does not exist')
                 return FAILED_DIFF
             
-            res = compare_data_output_files(fname_ref, fname_new)
+            res = compare_data_output_files(fname_ref, fname_new, exact)
             if not res:
                 log('Comparison failed.')
                 return FAILED_DIFF
