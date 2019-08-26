@@ -12205,7 +12205,7 @@
       "par_value": 1000.0
      },
      "par_description": "Number of iterations to run",
-     "par_expression": "1000",
+     "par_expression": "300",
      "par_name": "iters",
      "par_units": ""
     },

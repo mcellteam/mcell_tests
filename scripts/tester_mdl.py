@@ -64,8 +64,7 @@ class TesterMdl(TesterBase):
     def test(self):
         self.check_prerequisites()
 
-        if os.path.exists(os.path.join(self.test_dir, 'skip')):
-            log("SKIP : " + test_name)
+        if self.should_be_skipped():
             return SKIPPED
 
         self.clean_and_create_work_dir()

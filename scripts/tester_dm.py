@@ -32,7 +32,7 @@ THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
 from utils import run, log, fatal_error
 
-UPDATE_REFERENCE=False
+UPDATE_REFERENCE=True
 
 MCELL_ARGS = ['-seed', '1']
 SEED_DIR = 'seed_00001'
@@ -73,25 +73,42 @@ class TesterDm(TesterBase):
             
 
     def update_reference(self):
-        assert False # TODO: copy only the last file...
-        reference = os.path.join('..', self.test_dir, REF_VIZ_OUTPUT_DIR, SEED_DIR)
-        new_res = os.path.join(VIZ_OUTPUT_DIR, SEED_DIR)
+        viz_reference = os.path.join('..', self.test_dir, REF_VIZ_DATA_DIR, SEED_DIR)
+        viz_res = os.path.join(VIZ_DATA_DIR, SEED_DIR)
 
-        log("Updating reference " + reference + " with data from " + new_res + " (cwd:" + os.getcwd() + ")")
-        
         # remove whole directory
-        if os.path.exists(reference):
-            log("Cleaning old data in " + reference + " (cwd:" + os.getcwd() + ")")
-            shutil.rmtree(reference)
+        if os.path.exists(viz_reference):
+            log("Cleaning old data in " + viz_reference + " (cwd:" + os.getcwd() + ")")
+            shutil.rmtree(viz_reference)
             
-        shutil.copytree(new_res, reference)
+        # copy the first and the last viz data file
+        files = os.listdir(viz_res)
+        files_sorted = files.sort()
+
+        log("Updating reference " + viz_reference + " with data from " + viz_res + " (cwd:" + os.getcwd() + ")")
+        log("  File 1:" + files_sorted[0])
+        log("  File 1:" + files_sorted[-1])
         
+        shutil.copyfile(os.path.join(viz_res, files_sorted[0]), os.path.join(viz_reference, files_sorted[-1]))
+        
+        # copy the whole react data files 
+        react_reference = os.path.join('..', self.test_dir, REF_VIZ_DATA_DIR, SEED_DIR)
+        react_res = os.path.join(VIZ_DATA_DIR, SEED_DIR)
+
+        # remove whole directory
+        if os.path.exists(react_reference):
+            log("Cleaning old data in " + react_reference + " (cwd:" + os.getcwd() + ")")
+            shutil.rmtree(react_reference)
+
+        # and update all files
+        log("Updating reference " + react_reference + " with data from " + react_res + " (cwd:" + os.getcwd() + ")")
+        shutil.copytree(react_res, react_reference)
+
 
     def test(self):
         self.check_prerequisites()
 
-        if os.path.exists(os.path.join(self.test_dir, 'skip')):
-            log("SKIP : " + test_name)
+        if self.should_be_skipped():
             return SKIPPED
 
         self.clean_and_create_work_dir()
@@ -116,7 +133,5 @@ class TesterDm(TesterBase):
                 fatal_error("Tried to update reference data but mcell execution failed!")
                 
             self.update_reference()
-    
-        os.chdir('..')
         
         return res

@@ -30,6 +30,7 @@ import multiprocessing
 import itertools 
 import re
 import shutil
+from datetime import datetime
 from threading import Timer
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -61,7 +62,7 @@ class TestInfo(TestSetInfo):
         return '[' + str(self.tester_class) + ']:' + os.path.join(self.test_set_dir, self.test_dir)
 
     def get_full_name(self):
-        return self.test_set_dir + '/' + self.test_dir
+        return os.path.basename(self.test_set_dir) + '/' + os.path.basename(self.test_dir)
 
 # list of test directories with classes that are designed to test them
 TEST_SET_DIRS = [
@@ -84,9 +85,11 @@ def get_test_dirs(test_set_info):
    
     
 def run_single_test(test_info, tool_paths):
-    log("STARTED: " + test_info.get_full_name())
+    log("STARTED: " + test_info.get_full_name() + " at " + datetime.now().strftime('%H:%M:%S'))
     test_obj = test_info.tester_class(os.path.join(test_info.test_set_dir, test_info.test_dir), tool_paths)
-    return test_obj.test()
+    res = test_obj.test()
+    log("FINISHED: " + test_info.get_full_name() + " at " + datetime.now().strftime('%H:%M:%S'))
+    return res
     
     
 def collect_and_run_tests(tool_paths, test_pattern, parallel):
@@ -140,7 +143,7 @@ def report_results(results):
         print(RESULT_NAMES[value] + ": " + str(key))
         if value == PASSED:
             passed += 1
-        elif value == FAILED_MCELL or value == FAILED_DIFF:
+        elif value == FAILED_MCELL or value == FAILED_DIFF or FAILED_DM_TO_MDL_CONVERSION:
             failed += 1
         elif value == SKIPPED:
             skipped += 1

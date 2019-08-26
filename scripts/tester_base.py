@@ -63,7 +63,7 @@ class TesterBase:
     
     def should_be_skipped(self):
         if os.path.exists(os.path.join(self.test_dir, 'skip')):
-            log("SKIP : " + test_name)
+            log("SKIP : " + self.test_name)
             return True
         else:
             return False
@@ -120,7 +120,7 @@ class TesterBase:
         cmd += mcell_args
         cmd += [ main_mdl_file ]
         log_name = self.test_name+'.mcell.log'
-        exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name)
+        exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         if (exit_code):
             report_test_error(self.test_name, "MCell failed, see '" + os.path.join(self.test_name, log_name) + "'.")
             return FAILED_MCELL

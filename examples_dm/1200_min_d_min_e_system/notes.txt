@@ -1,0 +1,7 @@
+Changed number of iterations from:
+     "par_description": "Number of iterations to run",
+     "par_expression": "1000",
+
+to:   
+     "par_description": "Number of iterations to run",
+     "par_expression": "300",
