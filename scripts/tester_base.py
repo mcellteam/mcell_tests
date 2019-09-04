@@ -38,12 +38,12 @@ from utils import run, log, fatal_error
 # TODO: maybe move check_preconditions and other things such as initialization 
 # out, 
 class TesterBase:
-    def __init__(self, test_full_path: str, tool_paths: ToolPaths):
+    def __init__(self, test_src_path: str, tool_paths: ToolPaths):
         # paths to the binaries
         self.tool_paths = tool_paths
 
         # full path to the test        
-        self.test_src_path = test_full_path
+        self.test_src_path = test_src_path
         
         # name of the specific test, e.g. 0000_1_mol_type_diffuse
         self.test_name = os.path.basename(self.test_src_path)

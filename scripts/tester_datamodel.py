@@ -38,25 +38,23 @@ MCELL_ARGS = ['-seed', '1']
 SEED_DIR = 'seed_00001'
 
 
-class TesterDm(TesterBase):
-    def __init___(self, test_dir: str, tool_paths: ToolPaths):
-        super(TesterMdl, self).__init__(test_dir, tool_paths)
-    
-    
-    def check_prerequisites(self): 
+class TesterDataModel(TesterBase):
+    def __init___(self, test_src_path: str, tool_paths: ToolPaths):
+        super(TesterMdl, self).__init__(test_src_path, tool_paths)
+
+    def check_prerequisites(self) -> None:
         if not os.path.exists(self.tool_paths.mcell_binary):
             fatal_error("Could not find executable '" + self.tool_paths.mcell_binary + ".")
             
         if not os.path.exists(self.tool_paths.data_model_to_mdl_script):
             fatal_error("Could not find data model conversion script '" + self.tool_paths.data_model_to_mdl_script + ".")
-        
          
-    def run_dm_to_mdl_conversion(self):
+    def run_dm_to_mdl_conversion(self) -> None:
         # the conversion python script is considered a separate utility, 
         # we run it through bash 
         cmd = [ 
             PYTHON_BINARY, self.tool_paths.data_model_to_mdl_script, 
-            os.path.join(self.test_set_dir, self.test_name, self.test_name + '.json'), MAIN_MDL_FILE ]
+            os.path.join(self.test_src_path, self.test_name + '.json'), MAIN_MDL_FILE ]
         log_name = self.test_name+'.dm_to_mdl.log'
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name)
         if exit_code != 0:
@@ -64,17 +62,15 @@ class TesterDm(TesterBase):
             return FAILED_DM_TO_MDL_CONVERSION
         else:
             return PASSED
-        
-        
-    def change_viz_output_to_ascii(self):
-        fname = os.path.join(self.test_work_dir, 'Scene.viz_output.mdl')
+
+    def change_viz_output_to_ascii(self) -> int:
+        fname = os.path.join(self.test_work_path, 'Scene.viz_output.mdl')
         replace_in_file(fname, 'CELLBLENDER', 'ASCII')
         return PASSED
-            
 
-    def update_reference(self):
-        viz_reference = os.path.join(self.test_dir, REF_VIZ_DATA_DIR, SEED_DIR)
-        viz_res = os.path.join(self.test_work_dir, VIZ_DATA_DIR, SEED_DIR)
+    def update_reference(self) -> None:
+        viz_reference = os.path.join(self.test_src_path, REF_VIZ_DATA_DIR, SEED_DIR)
+        viz_res = os.path.join(self.test_work_path, VIZ_DATA_DIR, SEED_DIR)
 
         if os.path.exists(viz_res):
             # remove whole directory
@@ -100,8 +96,8 @@ class TesterDm(TesterBase):
             shutil.copyfile(os.path.join(viz_res, files[-1]), os.path.join(viz_reference, files[-1]))
             
         # copy the whole react data files 
-        react_reference = os.path.join(self.test_dir, REF_REACT_DATA_DIR, SEED_DIR)
-        react_res = os.path.join(self.test_work_dir, REACT_DATA_DIR, SEED_DIR)
+        react_reference = os.path.join(self.test_src_path, REF_REACT_DATA_DIR, SEED_DIR)
+        react_res = os.path.join(self.test_work_path, REACT_DATA_DIR, SEED_DIR)
         
         if os.path.exists(react_res):
             # remove whole directory
@@ -114,8 +110,8 @@ class TesterDm(TesterBase):
             shutil.copytree(react_res, react_reference)
 
         # copy the whole dyn_geom data files 
-        dyn_geom_reference = os.path.join(self.test_dir, REF_DYN_GEOM_DATA_DIR)
-        dyn_geom_res = os.path.join(self.test_work_dir, DYN_GEOM_DATA_DIR)
+        dyn_geom_reference = os.path.join(self.test_src_path, REF_DYN_GEOM_DATA_DIR)
+        dyn_geom_res = os.path.join(self.test_work_path, DYN_GEOM_DATA_DIR)
         
         if os.path.exists(dyn_geom_res):
             # remove whole directory
@@ -138,8 +134,8 @@ class TesterDm(TesterBase):
                 shutil.copyfile(os.path.join(dyn_geom_res, files[i]), os.path.join(dyn_geom_reference, files[i]))
 
         # and also check the .gdat files generated with mcellr mode
-        mcellr_gdat_reference = os.path.join(self.test_dir, REF_MCELLR_GDAT_DATA_DIR)
-        mcellr_gdat_res = os.path.join(self.test_work_dir, MCELLR_GDAT_DATA_DIR)
+        mcellr_gdat_reference = os.path.join(self.test_src_path, REF_MCELLR_GDAT_DATA_DIR)
+        mcellr_gdat_res = os.path.join(self.test_work_path, MCELLR_GDAT_DATA_DIR)
         
         print("PATH:" + mcellr_gdat_res)
         gdat_files = os.listdir(mcellr_gdat_res) 
@@ -158,9 +154,8 @@ class TesterDm(TesterBase):
             for f in gdat_files:
                 log("Updating reference file '" + f + "'")
                 shutil.copyfile(os.path.join(mcellr_gdat_res, f), os.path.join(mcellr_gdat_reference, f))
-                 
 
-    def test(self):
+    def test(self) -> int:
         self.check_prerequisites()
 
         if self.should_be_skipped():
@@ -176,7 +171,7 @@ class TesterDm(TesterBase):
         if res != PASSED:
             return res
          
-        res = self.run_mcell(MCELL_ARGS, os.path.join(self.test_work_dir, MAIN_MDL_FILE))
+        res = self.run_mcell(MCELL_ARGS, os.path.join(self.test_work_path, MAIN_MDL_FILE))
     
         if not UPDATE_REFERENCE:
             res = self.check_reference_data(SEED_DIR)
