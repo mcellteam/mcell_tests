@@ -46,15 +46,18 @@ SKIPPED = 2
 FAILED_DM_TO_MDL_CONVERSION = 10
 FAILED_MCELL = 11
 FAILED_DIFF = 12
+FAILED_NUTMEG_SPEC = 13
 
 RESULT_NAMES = {
  PASSED:'PASSED',
  SKIPPED:'SKIPPED',
  FAILED_DM_TO_MDL_CONVERSION:'FAILED_DM_TO_MDL_CONVERSION',
  FAILED_MCELL:'FAILED_MCELL',
- FAILED_DIFF:'FAILED_DIFF'
+ FAILED_DIFF:'FAILED_DIFF',
+ FAILED_NUTMEG_SPEC:'FAILED_NUTMEG_SPEC'
 }
 
+MCELL_ARGS = []
 
 if TEST_MCELL4:
     MCELL_ARGS.append('-mcell4')
@@ -64,6 +67,8 @@ if TEST_MCELL4:
 
     REACT_DATA_DIR = os.path.join('4.', 'react_data')
     REF_REACT_DATA_DIR = 'ref_react_data_4'
+
+    REF_NUTMEG_DATA_DIR = 'ref_data_4'
 else:
     VIZ_DATA_DIR = 'viz_data'
     REF_VIZ_DATA_DIR = 'ref_viz_data_3'
@@ -76,6 +81,8 @@ else:
     
     MCELLR_GDAT_DATA_DIR = '.'
     REF_MCELLR_GDAT_DATA_DIR = 'ref_mcellr_gdat_3'
+
+    REF_NUTMEG_DATA_DIR = 'ref_data_3'
     
 
 

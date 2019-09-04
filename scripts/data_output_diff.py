@@ -87,9 +87,9 @@ def compare_data_output_files(fname_ref, fname_new, exact):
     )
     if ec != 0:
         print_file('diff.log')
-        return False
+        return FAILED_DIFF
     else:
-        return True
+        return PASSED
                 
                 
 def compare_data_output_directory(dir_ref, dir_new, exact=False):
@@ -111,9 +111,9 @@ def compare_data_output_directory(dir_ref, dir_new, exact=False):
             return FAILED_DIFF
         
         res = compare_data_output_files(fname_ref, fname_new, exact)
-        if not res:
+        if res != PASSED:
             log('Comparison failed.')
-            return FAILED_DIFF
+            return res
             
     return PASSED
     
