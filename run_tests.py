@@ -46,7 +46,7 @@ from test_utils import ToolPaths, report_test_error, report_test_success
 
 # import tester classes
 from tester_mdl import TesterMdl
-from tester_dm import TesterDm
+from tester_datamodel import TesterDataModel
 from tester_nutmeg import TesterNutmeg
 
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
@@ -77,9 +77,9 @@ class TestInfo(TestSetInfo):
 
 # list of test directories with classes that are designed to test them
 TEST_SET_DIRS = [
-    TestSetInfo('tests', 'mdl', TesterMdl)
-    #TestSetInfo('examples_dm', TesterDm),
-    #TestSetInfo('tests_nutmeg', TesterNutmeg)
+    #TestSetInfo('tests', 'mdl', TesterMdl),
+    #TestSetInfo('examples', 'datamodel', TesterDataModel),
+    TestSetInfo('tests', 'nutmeg_positive', TesterNutmeg)
 ]
 
 

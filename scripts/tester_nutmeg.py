@@ -25,9 +25,9 @@ import sys
 import shutil
 import toml
 import subprocess
+from typing import List, Dict
 
 import data_output_diff
-
 from test_settings import *
 from tester_base import TesterBase
 from test_utils import ToolPaths, report_test_error, report_test_success, replace_in_file
@@ -90,7 +90,7 @@ TEST_TYPE_ID_TO_NAME = {
     TEST_TYPE_FILE_MATCH_PATTERN: 'FILE_MATCH_PATTERN'
 }
 
-TEST_TYPE_NAME_TO_ID = {y:x for x,y in TEST_TYPE_ID_TO_NAME.items()}
+TEST_TYPE_NAME_TO_ID = {y: x for x,y in TEST_TYPE_ID_TO_NAME.items()}
     
 
 class CheckInfo:
@@ -112,28 +112,27 @@ class TestDescription:
 
 
 class TestDescriptionParser:
-    def __init__(self, test_dir):
-        self.test_dir = test_dir
+    def __init__(self, test_src_path: str):
+        self.test_src_path = test_src_path
 
-    def parse_error(self, msg):
-        log(msg + " While parsing " + os.path.join(self.test_dir, TEST_DESCRIPTION_FILE) + ".")
+    def parse_error(self, msg: str):
+        log(msg + " While parsing " + os.path.join(self.test_src_path, TEST_DESCRIPTION_FILE) + ".")
 
-    def parse_warning(self, msg):
-        log(msg + " While parsing " + os.path.join(self.test_dir, TEST_DESCRIPTION_FILE) + ".")
+    def parse_warning(self, msg: str):
+        log(msg + " While parsing " + os.path.join(self.test_src_path, TEST_DESCRIPTION_FILE) + ".")
 
-    def get_dict_value(self, d, key):
+    def get_dict_value(self, d: Dict, key: str) -> str:
         if key not in d:
             self.parse_error("Required field '" + key + "' not found.")
         res = d[key]
         return res
     
-    def check_supported_keys(self, d, keys):
+    def check_supported_keys(self, d: Dict, keys: List[str]) -> None:
         for key in d.keys():
             if key not in keys:
                 self.parse_error("Unknown field '" + key + "' in " + str(d) + ".")
     
-    def parse_run_info(self, top_dict):
-        
+    def parse_run_info(self, top_dict: Dict) -> RunInfo:
         run_dict = self.get_dict_value(top_dict, KEY_RUN)
         self.check_supported_keys(run_dict, SUBKEYS_RUN)
         
@@ -148,12 +147,12 @@ class TestDescriptionParser:
             res.command_line_options = run_dict[KEY_COMMAND_LINE_OPTIONS]
         return res
         
-    def get_test_type(self, value):
+    def get_test_type(self, value: str) -> int:
         if value not in TEST_TYPE_NAME_TO_ID:
             self.parse_error("Value of testType '" + value + "' is not supported.")
         return TEST_TYPE_NAME_TO_ID[value]
         
-    def parse_check_info(self, check_dict):
+    def parse_check_info(self, check_dict: Dict) -> CheckInfo:
         res = CheckInfo()
         self.check_supported_keys(check_dict, SUBKEYS_CHECKS)
         
@@ -174,8 +173,8 @@ class TestDescriptionParser:
         
         return res
     
-    def parse_test_description(self):
-        top_dict = toml.load(os.path.join(self.test_dir, TEST_DESCRIPTION_FILE))
+    def parse_test_description(self) -> TestDescription:
+        top_dict = toml.load(os.path.join(self.test_src_path, TEST_DESCRIPTION_FILE))
         
         res = TestDescription()
         res.run_info = self.parse_run_info(top_dict)
@@ -190,33 +189,33 @@ class TestDescriptionParser:
   
 
 class TesterNutmeg(TesterBase):
-    def __init___(self, test_dir: str, tool_paths: ToolPaths):
-        super(TesterNutmeg, self).__init__(test_dir, tool_paths)
+    def __init___(self, test_src_path: str, tool_paths: ToolPaths):
+        super(TesterNutmeg, self).__init__(test_src_path, tool_paths)
 
-    def check_prerequisites(self): 
+    def check_prerequisites(self) -> None:
         if not os.path.exists(self.tool_paths.mcell_binary):
             fatal_error("Could not find executable '" + self.tool_paths.mcell_binary + ".")
 
-    def nutmeg_log(self, msg, test_type):
-        full_msg = TEST_TYPE_ID_TO_NAME[test_type] + ": " + msg + "\n"
-        log_fname = os.path.join(self.test_work_dir, NUTMEG_LOG_FILE_NAME)
+    def nutmeg_log(self, msg, test_type) -> None:
+        full_msg = TEST_TYPE_ID_TO_NAME[test_type] + ": " + msg
+        log_fname = os.path.join(self.test_work_path, NUTMEG_LOG_FILE_NAME)
         with open(log_fname, "a+") as fout:
-            fout.write(full_msg)
+            fout.write(full_msg + "\n")
         log(self.test_name + ": " + full_msg)
 
     # returns exit code returned by mcell
-    def run_mcell_for_nutmeg(self, run_info: RunInfo):
-        fout = open(os.path.join(self.test_work_dir, STDOUT_FILE_NAME), "w")
-        ferr = open(os.path.join(self.test_work_dir, STDERR_FILE_NAME), "w")
-        flog = open(os.path.join(self.test_work_dir, LOG_FILE_NAME), "w")
+    def run_mcell_for_nutmeg(self, run_info: RunInfo) -> int:
+        fout = open(os.path.join(self.test_work_path, STDOUT_FILE_NAME), "w")
+        ferr = open(os.path.join(self.test_work_path, STDERR_FILE_NAME), "w")
+        flog = open(os.path.join(self.test_work_path, LOG_FILE_NAME), "w")
 
         mcell_cmd = [ self.tool_paths.mcell_binary ]
         mcell_cmd += run_info.command_line_options
-        mcell_cmd.append(os.path.join(self.test_dir, run_info.mdlfile))
-        flog.write(str.join(" ", mcell_cmd) + " (" + str(mcell_cmd) + ")\ncwd: " + self.test_work_dir + "\n")
+        mcell_cmd.append(os.path.join(self.test_src_path, run_info.mdlfile))
+        flog.write(str.join(" ", mcell_cmd) + " (" + str(mcell_cmd) + ")\ncwd: " + self.test_work_path + "\n")
 
         try:
-            run_res = subprocess.run(mcell_cmd, stdout=fout, stderr=ferr, cwd=self.test_work_dir, timeout=MCELL_TIMEOUT)
+            run_res = subprocess.run(mcell_cmd, stdout=fout, stderr=ferr, cwd=self.test_work_path, timeout=MCELL_TIMEOUT)
             mcell_ec = run_res.returncode
 
         except subprocess.TimeoutExpired:
@@ -229,14 +228,14 @@ class TesterNutmeg(TesterBase):
 
         return mcell_ec
 
-    def run_check(self, check: CheckInfo, mcell_ec: int):
+    def run_check(self, check: CheckInfo, mcell_ec: int) -> int:
 
         res = FAILED_DIFF
         if check.test_type == TEST_TYPE_COMPARE_COUNTS:
             # exact file compare
             res = data_output_diff.compare_data_output_files(
-                os.path.join('..', self.test_dir, REF_NUTMEG_DATA_DIR, check.data_file),
-                os.path.join(self.test_work_dir, check.data_file),
+                os.path.join('..', self.test_src_path, REF_NUTMEG_DATA_DIR, check.data_file),
+                os.path.join(self.test_work_path, check.data_file),
                 exact=True)
             self.nutmeg_log("Comparison result of '" + check.data_file + "': " + RESULT_NAMES[res], check.test_type)
         elif check.test_type == TEST_TYPE_CHECK_SUCCESS:
@@ -250,7 +249,7 @@ class TesterNutmeg(TesterBase):
 
         return res
 
-    def run_and_validate_test(self, test_description: TestDescription):
+    def run_and_validate_test(self, test_description: TestDescription) -> int:
         # 1) run mcell while capturing std and err output to different files
         #    non-zero exit code might be an expected result
         mcell_ec = self.run_mcell_for_nutmeg(test_description.run_info)
@@ -263,7 +262,7 @@ class TesterNutmeg(TesterBase):
 
         return PASSED
 
-    def test(self):
+    def test(self) -> int:
         self.check_prerequisites()
 
         if self.should_be_skipped():
@@ -272,7 +271,7 @@ class TesterNutmeg(TesterBase):
         self.clean_and_create_work_dir()
         
         # transform the result ito something more readable or keep as dictionary?
-        parser = TestDescriptionParser(self.test_dir)
+        parser = TestDescriptionParser(self.test_src_path)
         test_description = parser.parse_test_description()
 
         res = self.run_and_validate_test(test_description)
