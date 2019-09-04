@@ -37,18 +37,17 @@ UPDATE_REFERENCE=False
 MCELL_ARGS = ['-seed', '1']
 SEED_DIR = 'seed_00001'
 
+
 class TesterMdl(TesterBase):
     def __init___(self, test_dir: str, tool_paths: ToolPaths):
         super(TesterMdl, self).__init__(test_dir, tool_paths)
     
-    
-    def check_prerequisites(self): 
+    def check_prerequisites(self) -> None:
         if not os.path.exists(self.tool_paths.mcell_binary):
-            fatal_error("Could not find executable '" + self.tool_paths.mcell_binary + ".") 
-
+            fatal_error("Could not find executable '" + self.tool_paths.mcell_binary + ".")
         
-    def update_reference(self):
-        reference = os.path.join('..', self.test_dir, REF_VIZ_OUTPUT_DIR, SEED_DIR)
+    def update_reference(self) -> None:
+        reference = os.path.join('..', self.test_src_path, REF_VIZ_OUTPUT_DIR, SEED_DIR)
         new_res = os.path.join(VIZ_OUTPUT_DIR, SEED_DIR)
 
         log("Updating reference " + reference + " with data from " + new_res + " (cwd:" + os.getcwd() + ")")
@@ -59,9 +58,8 @@ class TesterMdl(TesterBase):
             shutil.rmtree(reference)
             
         shutil.copytree(new_res, reference)
-        
 
-    def test(self):
+    def test(self) -> int:
         self.check_prerequisites()
 
         if self.should_be_skipped():
@@ -69,7 +67,7 @@ class TesterMdl(TesterBase):
 
         self.clean_and_create_work_dir()
         
-        res = self.run_mcell(MCELL_ARGS, os.path.join('..', self.test_dir, MAIN_MDL_FILE))
+        res = self.run_mcell(MCELL_ARGS, os.path.join('..', self.test_src_path, MAIN_MDL_FILE))
     
         if not UPDATE_REFERENCE:
             res = self.check_reference_data(SEED_DIR)

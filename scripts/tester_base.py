@@ -24,6 +24,7 @@ import abc
 import os
 import sys
 import shutil
+from typing import List, Dict
 
 import data_output_diff
 
@@ -37,61 +38,58 @@ from utils import run, log, fatal_error
 # TODO: maybe move check_preconditions and other things such as initialization 
 # out, 
 class TesterBase:
-    def __init__(self, test_dir: str, tool_paths: ToolPaths):
+    def __init__(self, test_full_path: str, tool_paths: ToolPaths):
         # paths to the binaries
         self.tool_paths = tool_paths
 
         # full path to the test        
-        self.test_dir = test_dir
+        self.test_src_path = test_full_path
         
         # name of the specific test, e.g. 0000_1_mol_type_diffuse
-        self.test_name = os.path.basename(self.test_dir)
+        self.test_name = os.path.basename(self.test_src_path)
 
-        # full path to the test set, e.g. /nadata/cnl/home/ahusar/src/mcell_tests/tests_mdl/
-        self.test_set_dir = os.path.dirname(self.test_dir)
+        # full path to the test set, e.g. /nadata/cnl/home/ahusar/src/mcell_tests/tests/mdl/
+        self.test_set_path = os.path.dirname(self.test_src_path)
 
-        # full of the test set, e.g. tests_mdl
-        self.test_set_name = os.path.basename(self.test_set_dir)
+        # full path to the test category, e.g. /nadata/cnl/home/ahusar/src/mcell_tests/tests/
+        self.test_category_path = os.path.dirname(self.test_set_path)
 
         # working directory for this specific test
-        self.test_work_dir = os.path.abspath(os.path.join(self.tool_paths.work_dir, self.test_set_name, self.test_name))
+        self.test_work_path = os.path.abspath(
+            os.path.join(self.tool_paths.work_path,
+                         os.path.basename(self.test_category_path),
+                         os.path.basename(self.test_set_path),
+                         self.test_name
+            )
+        )
         
     @abc.abstractmethod        
-    def test(self):
-        pass # normally is an integer PASSED, FAILED_MCELL, ... returned
+    def test(self) -> int:
+        pass  # normally is an integer PASSED, FAILED_MCELL, ... returned
     
-    
-    def should_be_skipped(self):
-        if os.path.exists(os.path.join(self.test_dir, 'skip')):
+    def should_be_skipped(self) -> bool:
+        if os.path.exists(os.path.join(self.test_src_path, 'skip')):
             log("SKIP : " + self.test_name)
             return True
         else:
             return False
-         
     
-    def clean_and_create_work_dir(self): 
+    def clean_and_create_work_dir(self) -> None:
         # work dir, e.g. /nadata/cnl/home/ahusar/src/mcell_tests/work         
-        if not os.path.exists(self.tool_paths.work_dir):
-            os.mkdir(self.tool_paths.work_dir)
-        os.chdir(self.tool_paths.work_dir)
-        
-        # test set dir under 'work'
-        if not os.path.exists(self.test_set_name):
-            os.mkdir(self.test_set_name)
-        os.chdir(self.test_set_name)
-        
-        if os.path.exists(self.test_name):
+        if not os.path.exists(self.tool_paths.work_path):
+            os.mkdir(self.tool_paths.work_path)
+
+        if os.path.exists(self.test_work_path):
             # log("Erasing '" + self.test_name + "' in " + os.getcwd())
-            shutil.rmtree(self.test_name)
+            shutil.rmtree(self.test_work_path)
             
-        os.mkdir(self.test_name)
-        os.chdir(self.test_name)
+        os.makedirs(self.test_work_path)
+        os.chdir(self.test_work_path)
         
-        assert self.test_work_dir == os.getcwd()
+        assert self.test_work_path == os.getcwd()
 
-
-    def check_reference(self, seed_dir, ref_dir_name, test_dir_name, exact_diff, msg):
-        ref_path = os.path.join('..', self.test_dir, ref_dir_name, seed_dir)
+    def check_reference(self, seed_dir: str, ref_dir_name: str, test_dir_name: str, exact_diff: bool, msg: str) -> int:
+        ref_path = os.path.join('..', self.test_src_path, ref_dir_name, seed_dir)
         if not os.path.exists(ref_path):
             return PASSED
         
@@ -104,10 +102,9 @@ class TesterBase:
             report_test_error(self.test_name, msg)
         return res
 
-
-    def check_reference_data(self, seed_dir):
+    def check_reference_data(self, seed_dir: str) -> int:
         
-        # TODO: report weeror when there are no ref data
+        # TODO: report error when there are no ref data
         # has_ref_data = False
         
         res = self.check_reference(
@@ -135,15 +132,14 @@ class TesterBase:
         
         return res           
 
-
     # main_mdl_file - full path needst to be provided
-    def run_mcell(self, mcell_args, main_mdl_file):
+    def run_mcell(self, mcell_args: List[str], main_mdl_file: str) -> int:
         cmd = [ self.tool_paths.mcell_binary ]
         cmd += mcell_args
         cmd += [ main_mdl_file ]
         
         # should we enable mcellr mode?
-        mdlr_rules_file = os.path.join(self.test_work_dir, MAIN_MDLR_RULES_FILE)
+        mdlr_rules_file = os.path.join(self.test_work_path, MAIN_MDLR_RULES_FILE)
         if os.path.exists(mdlr_rules_file):
             cmd += [ '-r', mdlr_rules_file ]
         
