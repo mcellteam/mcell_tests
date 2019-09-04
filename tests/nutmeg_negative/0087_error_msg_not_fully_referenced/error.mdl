@@ -1,0 +1,18 @@
+ITERATIONS = 1
+TIME_STEP = 1e-6
+
+DEFINE_MOLECULES
+{
+  vm { DIFFUSION_CONSTANT_3D = 1e-06 TARGET_ONLY }
+}
+
+Boxy BOX
+{
+  CORNERS = [-0.1, -0.1, -0.1],[0.1, 0.1, 0.1]
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-05
+  {COUNT[vm,Boxy]}=> "./react_data/vm.Boxy.dat"
+}

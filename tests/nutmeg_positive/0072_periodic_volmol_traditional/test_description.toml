@@ -1,0 +1,20 @@
+author = "Jacob Czech <jczech@psc.edu>"
+date = "2015-11-25"
+description = "Tests that traditional periodic boundary code works for counting volume molecules in regions."
+keywords = ["periodic"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  countMaximum = [600]
+  countMinimum = [400]
+  dataFile = "vm.sampling_box.dat"
+  maxTime = 0.00005
+  minTime = 0.00005
+  testType = "COUNT_MINMAX"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main.mdl"]
+

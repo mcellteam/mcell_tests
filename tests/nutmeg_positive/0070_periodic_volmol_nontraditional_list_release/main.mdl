@@ -1,0 +1,52 @@
+ITERATIONS = 10
+TIME_STEP = 1e-8
+
+DEFINE_MOLECULES
+{
+  vm { DIFFUSION_CONSTANT_3D = 0 }
+}
+
+PERIODIC_BOX
+{
+  CORNERS = [-0.2, -0.2, -0.2],[0.2, 0.2, 0.2]
+  PERIODIC_TRADITIONAL = FALSE
+  PERIODIC_X = TRUE
+  PERIODIC_Y = TRUE
+  PERIODIC_Z = TRUE
+}
+
+Boxy BOX
+{
+  CORNERS = [-0.199, -0.199, -0.199],[0.199, 0.199, 0.199]
+}
+
+INSTANTIATE Scene OBJECT
+{
+  Boxy OBJECT Boxy {}
+  Release_Site RELEASE_SITE
+  {
+    SHAPE = LIST
+    MOLECULE_POSITIONS
+    {
+      vm [0.0, 0.0, 0.0]
+    }
+    PERIODIC_BOX_INITIAL = [0,0,0]
+  }
+  Release_Site2 RELEASE_SITE
+  {
+    SHAPE = LIST
+    MOLECULE_POSITIONS
+    {
+      vm [0.0, 0.0, 0.0]
+      vm [0.0, 0.0, 0.0]
+    }
+    PERIODIC_BOX_INITIAL = [1,0,0]
+  }
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-6
+  {COUNT[vm,Scene.Boxy,[0,0,0]]}=> "./vm.000.dat"
+  {COUNT[vm,Scene.Boxy,[1,0,0]]}=> "./vm.100.dat"
+}

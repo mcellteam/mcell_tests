@@ -1,0 +1,29 @@
+author = "Jed Wing <jed@salk.edu>"
+date = "2008-09-16"
+description = "This is in response to a bug report from Boris, who noticed that recent versions of MCell, when given reactions: a+b -> c [rate1]\na+b -> d [rate2]\na+b -> e [rate3]\nwould give three probability reports with different probabilities, as appropriate, but the reports would all reference the same set of products."
+keywords = ["regression"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "run_%d.0.log"
+  matchPattern = "Probability.*set for a\\{0\\} \\+ b\\{0\\} -> c\\{0\\}"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  dataFile = "run_%d.0.log"
+  matchPattern = "Probability.*set for a\\{0\\} \\+ b\\{0\\} -> d\\{0\\}"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  dataFile = "run_%d.0.log"
+  matchPattern = "Probability.*set for a\\{0\\} \\+ b\\{0\\} -> e\\{0\\}"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  mdlfiles = ["test.mdl"]
+

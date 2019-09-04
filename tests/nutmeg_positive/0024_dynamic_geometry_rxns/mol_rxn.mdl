@@ -1,0 +1,22 @@
+DEFINE_MOLECULES
+{
+  vm1 { DIFFUSION_CONSTANT_3D = 1e-5 }
+  vm2 { DIFFUSION_CONSTANT_3D = 1e-5 }
+  vm3 { DIFFUSION_CONSTANT_3D = 1e-5 }
+  inert { DIFFUSION_CONSTANT_3D = 1e-5 }
+  sm1 { DIFFUSION_CONSTANT_2D = 1e-6 }
+  sm2 { DIFFUSION_CONSTANT_2D = 1e-6 }
+}
+
+DEFINE_REACTIONS
+{
+  vm2 + vm2 -> vm3 [1e8] : rxn1
+  vm1 -> NULL [5e3] : rxn2
+  sm1' + sm1' -> sm2' [5] : rxn3
+}
+
+DEFINE_SURFACE_CLASSES
+{
+  transp_inert { TRANSPARENT = inert }
+}
+

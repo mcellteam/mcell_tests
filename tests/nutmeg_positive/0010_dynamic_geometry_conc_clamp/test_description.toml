@@ -1,0 +1,20 @@
+author = "Jacob Czech"
+date = "2015-10-21"
+description = "Test if concentration clamps work with dynamic geometries."
+keywords = ["dynamic geometry"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "A_outside.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "B_inside.dat"
+  testType = "ZERO_COUNTS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main.mdl"]
+

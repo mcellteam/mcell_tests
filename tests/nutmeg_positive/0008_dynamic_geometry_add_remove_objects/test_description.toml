@@ -1,0 +1,37 @@
+author = "Jacob Czech"
+date = "2014-12-10"
+description = "Test if meshes can be added and removed after a dynamic geometry event."
+keywords = ["dynamic geometry"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "vm_A.dat"
+  templateFile = "vm_A_ref.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "vm_B.dat"
+  templateFile = "vm_B_ref.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "vm_C.dat"
+  templateFile = "vm_C_ref.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "vm_D.dat"
+  templateFile = "vm_D_ref.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "vm_world.dat"
+  referenceFile = "vm_world_ref.dat"
+  testType = "COMPARE_COUNTS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main.mdl"]
+

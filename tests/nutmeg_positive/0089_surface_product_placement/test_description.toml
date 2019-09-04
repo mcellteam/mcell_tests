@@ -1,0 +1,77 @@
+author = "Boris Kaminsky <borisk@psc.edu"
+date = "2011-09-15"
+description = "Test of part of the code related to surface products placement. We test here some aspects of surface reactions in particular how surface products replace surface reactants. The detailed description of the policies is in the document 'src/docs/policy_surf_products_placement.doc'."
+keywords = ["reactions"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "box_1.dat"
+  haveHeader = true
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_2.dat"
+  haveHeader = true
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_3.dat"
+  haveHeader = true
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_4_I.dat"
+  haveHeader = true
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_4_b_A3.dat"
+  haveHeader = true
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_5.dat"
+  haveHeader = true
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_6.dat"
+  haveHeader = true
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_7.dat"
+  haveHeader = true
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_8.dat"
+  haveHeader = true
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_9.dat"
+  haveHeader = true
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_10.dat"
+  haveHeader = true
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_11.dat"
+  haveHeader = true
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_12.dat"
+  haveHeader = true
+  testType = "POSITIVE_COUNTS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

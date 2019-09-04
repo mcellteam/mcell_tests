@@ -1,0 +1,146 @@
+author = "Jacob Czech"
+date = "2015-09-15"
+description = "This test is to make sure that all count types (triggers, hits, crossings, all_enclosed, reactions) work when using dynamic geometries with reactions"
+keywords = ["dynamic geometry"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  countMaximum = [676, 353, 349, 131, 345, 114, 81, 60, 154, 500, 311, 88, 12534, 69284, 40363, 0, 12577, 69284, 40368, 500, 832, 606, 351, 349, 471, 380]
+  countMinimum = [538, 301, 323, 76, 318, 30, 5, 23, 40, 125, -223, 15, 363, 8787, -32665, 0, 310, 8787, -32483, 125, 329, 102, 318, 323, 305, 293]
+  dataFile = "counts.txt"
+  haveHeader = true
+  maxTime = 0.0001
+  minTime = 0.0001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [417, 222, 413, 76, 365, 75, 41, 75, 73, 580, 335, 96, 20109, 111319, 66066, 0, 20146, 111319, 66068, 580, 414, 378, 550, 413, 818, 602]
+  countMinimum = [322, 173, 388, 36, 345, 12, 9, 21, 36, 79, -253, 11, 517, 14037, -53466, 0, 472, 14037, -53367, 79, 319, 48, 218, 388, 401, 157]
+  dataFile = "counts.txt"
+  haveHeader = true
+  maxTime = 0.0002
+  minTime = 0.0002
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [267, 173, 444, 54, 372, 47, 34, 86, 59, 613, 346, 102, 24667, 136777, 81798, 0, 24713, 136777, 81800, 613, 363, 229, 645, 444, 1047, 754]
+  countMinimum = [183, 110, 413, 22, 356, 8, 0, 16, 19, 56, -268, 6, 643, 17314, -66198, 0, 586, 17314, -66130, 56, 111, 69, 162, 413, 438, 49]
+  dataFile = "counts.txt"
+  haveHeader = true
+  maxTime = 0.0003
+  minTime = 0.0003
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [174, 133, 456, 42, 373, 31, 25, 91, 55, 626, 350, 107, 27475, 152445, 90717, 0, 27528, 152445, 90719, 626, 359, 145, 698, 456, 1188, 839]
+  countMinimum = [100, 87, 433, 20, 362, 4, 1, 14, 10, 49, -274, 7, 722, 19163, -73416, 0, 658, 19163, -73361, 49, -42, 79, 131, 433, 459, -12]
+  dataFile = "counts.txt"
+  haveHeader = true
+  maxTime = 0.0004
+  minTime = 0.0004
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [104, 114, 464, 35, 377, 15, 20, 93, 54, 644, 357, 107, 29117, 161900, 96296, 0, 29165, 161900, 96297, 644, 362, 110, 724, 464, 1286, 890]
+  countMinimum = [54, 70, 442, 13, 366, 1, 0, 14, 0, 34, -282, 3, 762, 20280, -77931, 0, 703, 20280, -77887, 34, -150, 70, 120, 442, 469, -48]
+  dataFile = "counts.txt"
+  haveHeader = true
+  maxTime = 0.0005
+  minTime = 0.0005
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [69, 99, 470, 29, 378, 11, 20, 93, 53, 649, 358, 113, 30135, 167383, 99957, 0, 30183, 167383, 99958, 649, 361, 103, 746, 470, 1334, 919]
+  countMinimum = [28, 59, 450, 11, 369, -2, -1, 14, -5, 32, -283, 6, 787, 21070, -80894, 0, 728, 21070, -80857, 32, -204, 48, 107, 450, 477, -68]
+  dataFile = "counts.txt"
+  haveHeader = true
+  maxTime = 0.0006
+  minTime = 0.0006
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [45, 87, 473, 26, 379, 7, 18, 96, 54, 653, 359, 109, 30743, 170785, 102375, 0, 30789, 170785, 102376, 653, 361, 99, 762, 473, 1365, 936]
+  countMinimum = [14, 53, 456, 9, 370, -1, -1, 12, -10, 30, -284, 1, 796, 21522, -82850, 0, 739, 21522, -82818, 30, -239, 34, 97, 456, 483, -79]
+  dataFile = "counts.txt"
+  haveHeader = true
+  maxTime = 0.0007
+  minTime = 0.0007
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [32, 77, 477, 23, 379, 6, 18, 97, 53, 654, 359, 111, 31122, 172910, 104068, 0, 31174, 172910, 104069, 654, 360, 93, 782, 477, 1376, 948]
+  countMinimum = [6, 44, 461, 9, 372, -2, -3, 12, -13, 30, -284, 2, 810, 21824, -84221, 0, 744, 21824, -84191, 30, -256, 21, 82, 461, 491, -87]
+  dataFile = "counts.txt"
+  haveHeader = true
+  maxTime = 0.0008
+  minTime = 0.0008
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [21, 69, 480, 19, 379, 3, 16, 98, 54, 656, 359, 110, 31381, 174298, 105237, 0, 31423, 174298, 105237, 656, 360, 87, 794, 480, 1385, 954]
+  countMinimum = [4, 39, 465, 8, 374, -1, -2, 10, -18, 30, -287, 1, 799, 22021, -85166, 0, 747, 22021, -85141, 30, -268, 15, 75, 465, 495, -90]
+  dataFile = "counts.txt"
+  haveHeader = true
+  maxTime = 0.0009
+  minTime = 0.0009
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [16, 64, 480, 18, 380, 3, 15, 100, 55, 658, 359, 108, 31526, 175207, 105936, 0, 31575, 175207, 105936, 658, 359, 83, 798, 480, 1391, 959]
+  countMinimum = [0, 39, 467, 7, 374, -1, -3, 9, -21, 30, -285, 4, 806, 22106, -85732, 0, 745, 22106, -85709, 30, -276, 11, 73, 467, 497, -93]
+  dataFile = "counts.txt"
+  haveHeader = true
+  maxTime = 0.001
+  minTime = 0.001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  dataFile = "inert.trigger.dat"
+  description = ""
+  haveExactTime = true
+  outputTime = 0.000001
+  testType = "CHECK_TRIGGERS"
+  triggerType = "molCounts"
+  xrange = [-0.1, 0.1]
+  yrange = [-0.1, 0.1]
+  zrange = [-0.1, 0.1]
+
+[[checks]]
+  dataFile = "inert.all_crossings.dat"
+  description = ""
+  haveExactTime = true
+  outputTime = 0.000001
+  testType = "CHECK_TRIGGERS"
+  triggerType = "hits"
+  xrange = [-0.1, 0.1]
+  yrange = [-0.1, 0.1]
+  zrange = [-0.1, 0.1]
+
+[[checks]]
+  dataFile = "inert.back_crossings.dat"
+  description = ""
+  haveExactTime = true
+  outputTime = 0.000001
+  testType = "CHECK_TRIGGERS"
+  triggerType = "hits"
+  xrange = [-0.1, 0.1]
+  yrange = [-0.1, 0.1]
+  zrange = [-0.1, 0.1]
+
+[[checks]]
+  dataFile = "inert.front_crossings.dat"
+  description = ""
+  haveExactTime = true
+  outputTime = 0.000001
+  testType = "CHECK_TRIGGERS"
+  triggerType = "hits"
+  xrange = [-0.1, 0.1]
+  yrange = [-0.1, 0.1]
+  zrange = [-0.1, 0.1]
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main_dg.mdl"]
+

@@ -1,0 +1,27 @@
+ITERATIONS = 10
+TIME_STEP = 1e-6
+
+DEFINE_MOLECULES
+{
+  vm { DIFFUSION_CONSTANT_3D = 1e-06 }
+}
+
+MetaBox OBJECT {
+  Boxy BOX
+  {
+    CORNERS = [-0.1, -0.1, -0.1],[0.1, 0.1, 0.1]
+  }
+}
+
+INSTANTIATE Scene OBJECT
+{
+  MetaBox OBJECT MetaBox{}
+  Release_Site RELEASE_SITE
+  {
+    SHAPE = Scene.MetaBox
+    MOLECULE = vm
+    NUMBER_TO_RELEASE = 100
+  }
+  
+}
+

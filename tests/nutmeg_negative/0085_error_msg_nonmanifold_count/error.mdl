@@ -1,0 +1,34 @@
+ITERATIONS = 1
+TIME_STEP = 1e-6
+
+DEFINE_MOLECULES
+{
+  vm { DIFFUSION_CONSTANT_3D = 1e-06 }
+}
+
+Plane POLYGON_LIST
+{
+  VERTEX_LIST
+  {
+    [ -0.1, -0.1, 0.0 ]
+    [  0.1, -0.1, 0.0 ]
+    [ -0.1,  0.1, 0.0 ]
+    [  0.1,  0.1, 0.0 ]
+  }
+  ELEMENT_CONNECTIONS
+  {
+    [ 1, 3, 2 ]
+    [ 0, 1, 2 ]
+  }
+}
+
+INSTANTIATE Scene OBJECT
+{
+  Plane OBJECT Plane{}
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-05
+  {COUNT[vm,Scene.Plane]}=> "./react_data/vm.Scene.Plane.dat"
+}

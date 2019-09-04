@@ -1,0 +1,32 @@
+TIME_STEP = 1E-5
+ITERATIONS = 152
+
+PARTITION_X = [[-1 TO 1 STEP 0.02]]
+PARTITION_Y = [[-1 TO 1 STEP 0.02]]
+PARTITION_Z = [[-1 TO 1 STEP 0.02]]
+
+DYNAMIC_GEOMETRY = "list_of_geometry.txt"
+
+DEFINE_MOLECULES
+{
+  vm { DIFFUSION_CONSTANT_3D = 1e-05 }
+}
+
+INSTANTIATE Scene OBJECT
+{
+  Release_Site RELEASE_SITE
+  {
+    SHAPE = DGScene.Icosphere
+    MOLECULE = vm
+    NUMBER_TO_RELEASE = 100
+  }
+}
+
+sprintf(seed,"%05g",SEED)
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-05
+  {COUNT[vm,WORLD]}=> "./vm_World.dat"
+  {COUNT[vm,DGScene.Icosphere]}=> "./vm_Icosphere.dat"
+}

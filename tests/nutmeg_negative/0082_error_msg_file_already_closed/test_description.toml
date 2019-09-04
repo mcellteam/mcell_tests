@@ -1,0 +1,24 @@
+author = "Jed Wing <jed@salk.edu>, updated by Jacob Czech <jczech@psc.edu>"
+date = "2008-04-04, updated on 2016-01-11"
+description = "This tests runs a collection of mdls which are all invalid and should thus return error code 1."
+includes = ["exit_code_1"]
+keywords = ["parser"]
+
+[[checks]]
+  fileNames = ["err_%d.0.log"]
+  testType = "CHECK_NONEMPTY_FILES"
+
+[[checks]]
+  fileNames = ["run_%d.0.log", "invalid-025.tmp"]
+  testType = "CHECK_EMPTY_FILES"
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "File stream 'file' has already been closed"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["error.mdl"]
+

@@ -1,0 +1,6 @@
+INCLUDE_FILE = "b.mdl"
+
+INSTANTIATE DGScene OBJECT
+{
+  B OBJECT B{}
+}

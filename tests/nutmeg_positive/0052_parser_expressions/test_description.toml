@@ -1,0 +1,21 @@
+author = "Boris Kaminski <borisk@psc.edu>"
+date = "2011-03-23"
+description = "Test basic numerical expressions in MCell parser."
+keywords = ["parser"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  fileNames = ["my_file.dat", "exp.dat"]
+  testType = "CHECK_NONEMPTY_FILES"
+
+[[checks]]
+  dataFile = "exp.dat"
+  referenceFile = "exp_ref.dat"
+  testType = "COMPARE_COUNTS"
+
+[run]
+  commandlineOpts = []
+  mdlfiles = ["test.mdl"]
+

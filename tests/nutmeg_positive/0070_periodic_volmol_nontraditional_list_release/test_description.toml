@@ -1,0 +1,27 @@
+author = "Jacob Czech <jczech@psc.edu>"
+date = "2016-04-18"
+description = """\
+              Ensure that list releases work for volume molecules and \
+              non-traditional PBCs." 
+              """
+keywords = ["periodic"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  countMaximum = [1]
+  countMinimum = [1]
+  dataFile = "vm.000.dat"
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [2]
+  countMinimum = [2]
+  dataFile = "vm.100.dat"
+  testType = "COUNT_MINMAX"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main.mdl"]
+

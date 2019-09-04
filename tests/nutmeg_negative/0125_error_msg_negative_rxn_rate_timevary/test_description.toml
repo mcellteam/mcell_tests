@@ -1,0 +1,15 @@
+author = "Jacob Czech"
+date = "2016-01-13"
+description = "Verify that a error is generated when a negative time-varying rate constant is found."
+keywords = ["error messages"]
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "Error: reaction rate constants should be zero or positive."
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["error.mdl"]
+

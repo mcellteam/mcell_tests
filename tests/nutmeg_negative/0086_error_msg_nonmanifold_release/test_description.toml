@@ -1,0 +1,23 @@
+author = "Jacob Czech <jczech@psc.edu>"
+date = "2017-04-11"
+description = "Print error message if trying to release in non-manifold object."
+includes = ["exit_code_1"]
+keywords = ["error messages"]
+
+[[checks]]
+  fileNames = ["err_%d.0.log"]
+  testType = "CHECK_NONEMPTY_FILES"
+
+[[checks]]
+  fileNames = ["run_%d.0.log"]
+  testType = "CHECK_EMPTY_FILES"
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "Error: Cannot release a 3D molecule inside the unclosed region 'Scene.Plane,ALL'."
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["error.mdl"]

@@ -1,0 +1,15 @@
+author = "Jacob Czech"
+date = "2016-03-29"
+description = "Verify that an error is generated when trying to combine WORLD counts with a specific periodic box (e.g. [0,0,0])."
+keywords = ["error messages", "periodic"]
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "Error: Invalid combination of WORLD with periodic box counting"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["error.mdl"]
+

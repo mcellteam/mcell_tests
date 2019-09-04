@@ -1,0 +1,22 @@
+author = "Boris Kaminsky <borisk@psc.edu"
+date = "2011-08-31"
+description = "This test evaluates surface products placement done on sphere in the presence of restrictive regions. Expected count results: 'r4.dat' - positive, 'r5.dat' - zeros."
+keywords = ["reactions"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "r4.dat"
+  haveHeader = true
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "r5.dat"
+  haveHeader = true
+  testType = "ZERO_COUNTS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

@@ -1,0 +1,268 @@
+/*
+   MDL file test4.main.mdl
+
+   This documents a problem with the git repository version of MCell.
+
+   The test geometry is just a simple box with one region per side.
+  
+   Interestingly, it runs when more molecules are deleted, even when they
+   do not even get to live in this test case (e.g., the problem does not happen
+   after deleting dex3_020_m from DEFINE_MOLECULES)
+
+   It crashes whenever the number of partitions becomes small.  E.g., np = 3, 4, 5, ... :
+
+========================================================================
+$ mcell.git test4.main.mdl
+
+MCell initializing simulation...
+MCell[0]: random sequence 1
+MCell 3.2.1 (commit: 1d5cafe  date: Sat, 15 Nov 2014 22:57:53 -0500)
+  Running on erbelix at Sun Dec 28 16:35:57 2014
+
+  Copyright (C) 2006 - 2014 by
+    The National Center for Multiscale Modeling of Biological Systems,
+    The Salk Institute for Biological Studies, and
+    Pittsburgh Supercomputing Center, Carnegie Mellon University,
+
+
+**********************************************************************
+MCell development is supported by the NIGMS-funded (P41GM103712)
+National Center for Multiscale Modeling of Biological Systems (MMBioS)
+Please acknowledge MCell in your publications.
+**********************************************************************
+
+Defining molecules with the following theoretical average diffusion distances:
+  l_r_bar=0.0334731355 um for dex3_110_m
+  l_r_bar=0.0334731355 um for dex3_020_m
+  l_r_bar=0.0334731355 um for dex3_120_m
+  l_r_bar=0.0334731355 um for dex3_220_m
+  l_r_bar=0.0334731355 um for dex3_001_m
+  l_r_bar=0.0334731355 um for dex3_101_m
+  l_r_bar=0.0334731355 um for dex3_201_m
+  l_r_bar=0.0334731355 um for dex3_011_m
+  l_r_bar=0.0334731355 um for dex3_111_m
+  l_r_bar=0.0334731355 um for dex3_211_m
+  l_r_bar=0.0334731355 um for dex3_021_m
+  l_r_bar=0.0334731355 um for dex3_121_m
+  l_r_bar=0.0334731355 um for dex3_221_m
+  l_r_bar=0.0334731355 um for dex3_002_m
+  l_r_bar=0.0334731355 um for dex3_102_m
+  l_r_bar=0.0334731355 um for dex3_202_m
+  l_r_bar=0.0334731355 um for dex3_012_m
+  l_r_bar=0.0334731355 um for dex3_112_m
+  l_r_bar=0.0334731355 um for dex3_212_m
+  l_r_bar=0.0334731355 um for dex3_022_m
+  l_r_bar=0.0334731355 um for dex3_122_m
+  l_r_bar=0.0334731355 um for dex3_222_m
+
+mcell.git: ../src/mcell_reactions.c:1738: concat_rx_name: Assertion `is_complex2 == 0' failed.
+*****************************
+MCell dying due to signal 6.
+Please report this to the mcell developers by emailing <mcell@salk.edu>.
+*****************************
+*/
+
+
+dex3_nm = 2.0E3              // number of released molecules
+dex3_dc = 2.2E-6             // free 3D diffusion constant [cm^2 / s]
+dex3_rc = 2.0E20             // reaction constant at the periodic environment boundary
+
+pl = 12.0                    // length to partition [microns]
+np = 5                       // number of partitions in each direction
+
+TIME_STEP = 1.0E-6
+ITERATIONS = 10
+
+PARTITION_X = [[-pl/2.0 TO pl/2.0 STEP pl/np]]
+PARTITION_Y = [[-pl/2.0 TO pl/2.0 STEP pl/np]]
+PARTITION_Z = [[-pl/2.0 TO pl/2.0 STEP pl/np]]
+
+environ_box POLYGON_LIST {
+  VERTEX_LIST {
+    [     -6.00000,     -6.00000,     -6.00000]
+    [      6.00000,     -6.00000,     -6.00000]
+    [      6.00000,      6.00000,     -6.00000]
+    [     -6.00000,      6.00000,     -6.00000]
+    [     -6.00000,     -6.00000,      6.00000]
+    [      6.00000,     -6.00000,      6.00000]
+    [      6.00000,      6.00000,      6.00000]
+    [     -6.00000,      6.00000,      6.00000]
+  }
+  ELEMENT_CONNECTIONS {
+    [3, 0, 7]
+    [7, 0, 4]
+    [1, 2, 5]
+    [5, 2, 6]
+    [0, 1, 4]
+    [4, 1, 5]
+    [2, 3, 6]
+    [6, 3, 7]
+    [0, 2, 1]
+    [0, 3, 2]
+    [4, 5, 6]
+    [4, 6, 7]
+  }
+  DEFINE_SURFACE_REGIONS {
+    x_low_sr {
+      ELEMENT_LIST = [0, 1]
+    }
+    x_high_sr {
+      ELEMENT_LIST = [2, 3]
+    }
+    y_low_sr {
+      ELEMENT_LIST = [4, 5]
+    }
+    y_high_sr {
+      ELEMENT_LIST = [6, 7]
+    }
+    z_low_sr {
+      ELEMENT_LIST = [8, 9]
+    }
+    z_high_sr {
+      ELEMENT_LIST = [10, 11]
+    }
+  }
+}
+
+DEFINE_MOLECULES {
+  dex3_110_m {
+    DIFFUSION_CONSTANT_3D = dex3_dc
+  }
+  dex3_020_m {
+    DIFFUSION_CONSTANT_3D = dex3_dc
+  }
+  dex3_120_m {
+    DIFFUSION_CONSTANT_3D = dex3_dc
+  }
+  dex3_220_m {
+    DIFFUSION_CONSTANT_3D = dex3_dc
+  }
+  dex3_001_m {
+    DIFFUSION_CONSTANT_3D = dex3_dc
+  }
+  dex3_101_m {
+    DIFFUSION_CONSTANT_3D = dex3_dc
+  }
+  dex3_201_m {
+    DIFFUSION_CONSTANT_3D = dex3_dc
+  }
+  dex3_011_m {
+    DIFFUSION_CONSTANT_3D = dex3_dc
+  } 
+  dex3_111_m {
+    DIFFUSION_CONSTANT_3D = dex3_dc
+  }
+  dex3_211_m {
+    DIFFUSION_CONSTANT_3D = dex3_dc
+  }
+  dex3_021_m {
+    DIFFUSION_CONSTANT_3D = dex3_dc
+  }
+  dex3_121_m {
+    DIFFUSION_CONSTANT_3D = dex3_dc
+  }
+  dex3_221_m {
+    DIFFUSION_CONSTANT_3D = dex3_dc
+  }
+  dex3_002_m {
+    DIFFUSION_CONSTANT_3D = dex3_dc
+  }
+  dex3_102_m {
+    DIFFUSION_CONSTANT_3D = dex3_dc
+  }
+  dex3_202_m {
+    DIFFUSION_CONSTANT_3D = dex3_dc
+  }
+  dex3_012_m {
+    DIFFUSION_CONSTANT_3D = dex3_dc
+  } 
+  dex3_112_m {
+    DIFFUSION_CONSTANT_3D = dex3_dc
+  }
+  dex3_212_m {
+    DIFFUSION_CONSTANT_3D = dex3_dc
+  }
+  dex3_022_m {
+    DIFFUSION_CONSTANT_3D = dex3_dc
+  }
+  dex3_122_m {
+    DIFFUSION_CONSTANT_3D = dex3_dc
+  }
+  dex3_222_m {
+    DIFFUSION_CONSTANT_3D = dex3_dc
+  }
+}
+
+DEFINE_SURFACE_CLASSES
+{
+  x_low_sc {
+    REFLECTIVE = ALL_MOLECULES
+  } 
+  x_high_sc {
+    REFLECTIVE = ALL_MOLECULES
+  } 
+  y_low_sc {
+    REFLECTIVE = ALL_MOLECULES
+  }
+  y_high_sc {
+    REFLECTIVE = ALL_MOLECULES
+  } 
+  z_low_sc {
+    REFLECTIVE = ALL_MOLECULES
+  }
+  z_high_sc {
+    REFLECTIVE = ALL_MOLECULES
+  }
+}
+
+DEFINE_REACTIONS {
+   dex3_111_m' @z_low_sc, <-> dex3_110_m' [>dex3_rc, <dex3_rc]
+   dex3_111_m' @z_high_sc, <-> dex3_112_m' [>dex3_rc, <dex3_rc]
+}
+
+MODIFY_SURFACE_REGIONS {
+  environ_box[x_low_sr] {
+    SURFACE_CLASS = x_low_sc
+  }
+  environ_box[x_high_sr] {
+    SURFACE_CLASS = x_high_sc
+  }
+  environ_box[y_low_sr] {
+    SURFACE_CLASS = y_low_sc
+  }
+  environ_box[y_high_sr] {
+    SURFACE_CLASS = y_high_sc
+  }
+  environ_box[z_low_sr] {
+    SURFACE_CLASS = z_low_sc
+  }
+  environ_box[z_high_sr] {
+    SURFACE_CLASS = z_high_sc
+  }
+}
+
+INSTANTIATE world OBJECT {
+  environ_box OBJECT environ_box { }
+
+  dex3_rs RELEASE_SITE {
+    SHAPE = SPHERICAL
+    LOCATION = [0.0, 0.0, 0.0]
+    SITE_DIAMETER = 0.0
+    MOLECULE = dex3_111_m
+    NUMBER_TO_RELEASE = dex3_nm
+    RELEASE_PROBABILITY = 1.0
+  }
+}
+
+VIZ_OUTPUT {
+  MODE = ASCII
+  FILENAME = "./test_data/test"
+  MOLECULES {
+    NAME_LIST {
+      ALL_MOLECULES
+    }
+    ITERATION_NUMBERS {
+      ALL_DATA @ [[0 TO 100 STEP 1]]
+    }
+  }
+}

@@ -1,0 +1,52 @@
+author = "Boris Kaminsky <borisk@psc.edu"
+date = "2011-06-27"
+description = "Surface reactants cannot search for reaction partners across restrictive region borders. If all of the reactants are behind restrictive region border (REFLECTIVE/ABSORPTIVE) the reaction should not happen. Restrictive border is considered 'inside-out' when it is e.g. REFLECTIVE relative to the molecule's own region, or 'outside-in' when REFLECTIVE to the neighbor region. We test here the property that reactant cannot look for potential reaction partners across the restrictive region border. Static surface molecules occupy all available slots on the meshes.\nNote: all molecule counts except for 'box_5.dat' and 'box_8.dat' should contain all zeros."
+keywords = ["reactions"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "box_1.dat"
+  haveHeader = true
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_2.dat"
+  haveHeader = true
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_3.dat"
+  haveHeader = true
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_4.dat"
+  haveHeader = true
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_6.dat"
+  haveHeader = true
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_7.dat"
+  haveHeader = true
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_5.dat"
+  haveHeader = true
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_8.dat"
+  haveHeader = true
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

@@ -1,0 +1,5 @@
+0 ./geom1.mdl
+100e-6 ./geom2.mdl
+200e-6 ./geom3.mdl
+300e-6 ./geom4.mdl
+400e-6 ./geom5.mdl

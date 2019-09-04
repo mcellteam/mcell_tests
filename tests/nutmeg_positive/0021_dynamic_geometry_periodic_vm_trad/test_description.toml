@@ -1,0 +1,35 @@
+author = "Jacob Czech"
+date = "2016-05-09"
+description = "Test if DGs and traditional PBCs work with VMs."
+keywords = ["dynamic geometry", "periodic"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  countMaximum = [50]
+  countMinimum = [50]
+  dataFile = "vm1.WORLD.dat"
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [50]
+  countMinimum = [50]
+  dataFile = "vm2.WORLD.dat"
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [50]
+  countMinimum = [50]
+  dataFile = "vm1.cube.dat"
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [50]
+  countMinimum = [50]
+  dataFile = "vm2.cube.dat"
+  testType = "COUNT_MINMAX"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main.mdl"]

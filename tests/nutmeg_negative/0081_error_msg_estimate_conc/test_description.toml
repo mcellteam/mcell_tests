@@ -1,0 +1,23 @@
+author = "Jacob Czech <jczech@psc.edu>"
+date = "2017-04-12"
+description = "Error checking when using ESTIMATE_CONC with surface molecules"
+includes = ["exit_code_1"]
+keywords = ["error messages"]
+
+[[checks]]
+  fileNames = ["err_%d.0.log"]
+  testType = "CHECK_NONEMPTY_FILES"
+
+[[checks]]
+  fileNames = ["run_%d.0.log"]
+  testType = "CHECK_EMPTY_FILES"
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "Error: ESTIMATE_CONC counting on regions is implemented only for volume molecules, while sm is a surface molecule."
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["error.mdl"]

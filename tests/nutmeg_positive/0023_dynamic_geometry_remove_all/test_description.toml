@@ -1,0 +1,17 @@
+author = "Jacob Czech"
+date = "2015-05-22"
+description = "Try removing all the mesh objects during a dynamic geometry event."
+keywords = ["dynamic geometry"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "vm.dat"
+  referenceFile = "vm_ref.dat"
+  testType = "COMPARE_COUNTS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main.mdl"]
+

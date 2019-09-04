@@ -1,0 +1,22 @@
+author = "Jacob Czech"
+date = "2015-05-20"
+description = "Make sure surface molecules stay on a surface region after a dynamic geometry event"
+keywords = ["dynamic geometry"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "sm.sr1.dat"
+  referenceFile = "sm.sr1_ref.dat"
+  testType = "COMPARE_COUNTS"
+
+[[checks]]
+  dataFile = "sm.sr2.dat"
+  referenceFile = "sm.sr2_ref.dat"
+  testType = "COMPARE_COUNTS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main.mdl"]
+

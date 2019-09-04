@@ -1,0 +1,60 @@
+/****************************************************************************
+ * Test 01: Nearly every parser option.
+ *
+ *    A mostly non-sensical test which simply exercises the parser checking for
+ *    anomalous behavior.  This test should not provoke any errors, provided
+ *    that counting-5.txt does not exist in its reaction output directory.
+ *    (This is to test the "no overwrite" output mode for counting.)
+ *
+ *    This variant produces most types of VIZ output using most of the
+ *    different available notations.
+ *
+ * Author: Jed Wing <jed@salk.edu>
+ * Date:   2008-04-04
+ ****************************************************************************/
+
+basename = "parser_viz_everything"
+INCLUDE_FILE = "../../common/parser_defaults.mdl"
+i_notify     = "valid/notifications_off.mdl"
+INCLUDE_FILE = "../../common/parser_common.mdl"
+NOTIFICATIONS {
+    VOLUME_OUTPUT_REPORT            = OFF
+    REACTION_OUTPUT_REPORT          = OFF
+    VIZ_OUTPUT_REPORT               = OFF
+    FILE_OUTPUT_REPORT              = OFF
+    MOLECULE_COLLISION_REPORT       = OFF
+}
+
+/* 04. ASCII-mode viz output, VIZ_OUTPUT notation */
+thisvizdir = vizdir & "/04 - ASCII new/"
+VIZ_OUTPUT
+{
+    MODE = ASCII
+    FILENAME = thisvizdir & "world"
+    MOLECULES
+    {
+        NAME_LIST { ALL_MOLECULES }
+        ITERATION_NUMBERS
+        {
+            ALL_DATA     @ [2, 3]
+            POSITIONS    @ [[0 TO 100 STEP 10]]
+        }
+    }
+}
+
+/* 05. ASCII-mode viz output, VIZ_OUTPUT notation */
+thisvizdir = vizdir & "/05 - ASCII new/"
+VIZ_OUTPUT
+{
+    MODE = ASCII
+    FILENAME = thisvizdir & "world"
+    MOLECULES
+    {
+        NAME_LIST { ALL_MOLECULES }
+        TIME_POINTS
+        {
+            ALL_DATA     @ [2e-6, 3e-6]
+            POSITIONS    @ [[0 TO 1e-4 STEP 1e-5]]
+        }
+    }
+}

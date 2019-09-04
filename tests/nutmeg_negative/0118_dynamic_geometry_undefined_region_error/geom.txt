@@ -1,0 +1,2 @@
+0 ./geom1.mdl
+1e-6 ./geom2.mdl

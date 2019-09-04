@@ -1,0 +1,35 @@
+author = "Jed Wing <jed@salk.edu>"
+date = "2009-07-31"
+description = "surface molecule diffusion gives incorrect counts for enclosed counts."
+keywords = ["regression"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "A.dat"
+  haveHeader = true
+  testType = "COUNT_CONSTRAINTS"
+
+  [[checks.countConstraints]]
+    query = [1, -1, -1]
+    target = 0
+
+[[checks]]
+  countMaximum = [50, 50, 50]
+  countMinimum = [50, 0, 0]
+  dataFile = "A.dat"
+  haveHeader = true
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  dataFile = "A.dat"
+  haveHeader = true
+  means = [50.0, 25.0, 25.0]
+  testType = "COUNT_EQUILIBRIUM"
+  tolerances = [0.0, 5.0, 5.0]
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

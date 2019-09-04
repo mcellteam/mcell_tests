@@ -1,0 +1,19 @@
+author = "Jacob Czech <jczech@psc.edu>"
+date = "2015-03-31"
+description = "This test verifies that the count statements of unimolecular reactions fall within three standard deviations of the expected value at various points throughout the trajectory. Although each reaction is essentially of the form A->null[5000], each of the five reactions exercises different features of MCell. For example, one uses a variable rate constant file (with each value set to 5000). Another one happens at a surface class which covers the entire geometry. This test was created to address a problem with diffusing surface molecules undergoing a unimolecular reaction. See commit c825f1c for more information."
+keywords = ["reactions"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  absDeviation = [50, 50, 50, 50, 50]
+  dataFile = "counts.txt"
+  haveHeader = false
+  referenceFile = "mean.txt"
+  testType = "COMPARE_COUNTS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

@@ -1,0 +1,35 @@
+author = "Jacob Czech"
+date = "2016-05-06"
+description = "Test if DGs and traditional PBCs work with SMs."
+keywords = ["dynamic geometry", "periodic"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  countMaximum = [50]
+  countMinimum = [50]
+  dataFile = "sm1.WORLD.dat"
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [50]
+  countMinimum = [50]
+  dataFile = "sm2.WORLD.dat"
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [50]
+  countMinimum = [50]
+  dataFile = "sm1.plane.dat"
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [50]
+  countMinimum = [50]
+  dataFile = "sm2.plane.dat"
+  testType = "COUNT_MINMAX"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main.mdl"]

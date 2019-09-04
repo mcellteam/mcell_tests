@@ -1,0 +1,15 @@
+author = "Jacob Czech"
+date = "2016-01-08"
+description = "Verify that an error is generated when trying to use a surface class in the wrong place in a reaction."
+keywords = ["error messages"]
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "Error: surface class can be listed only as the last reactant on the left-hand side of the reaction with the preceding '@' sign."
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["error.mdl"]
+

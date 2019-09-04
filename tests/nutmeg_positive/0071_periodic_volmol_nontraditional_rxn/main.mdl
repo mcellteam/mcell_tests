@@ -1,0 +1,172 @@
+dt = 1e-8
+
+ITERATIONS = 1000
+TIME_STEP = dt
+
+PARTITION_X = [[-0.21 TO 0.21 STEP 0.02]]
+PARTITION_Y = [[-0.21 TO 0.21 STEP 0.02]]
+PARTITION_Z = [[-0.21 TO 0.21 STEP 0.02]]
+
+DEFINE_MOLECULES
+{
+  A { DIFFUSION_CONSTANT_3D = 1e-06 }
+  B { DIFFUSION_CONSTANT_3D = 1e-06 }
+  C { DIFFUSION_CONSTANT_3D = 1e-06 }
+  D { DIFFUSION_CONSTANT_3D = 1e-06 }
+  E { DIFFUSION_CONSTANT_3D = 1e-06 }
+  F { DIFFUSION_CONSTANT_3D = 1e-06 }
+  G { DIFFUSION_CONSTANT_3D = 1e-06 }
+}
+
+PERIODIC_BOX
+{
+  CORNERS = [-0.2, -0.2, -0.2],[0.2, 0.2, 0.2]
+  PERIODIC_TRADITIONAL = FALSE
+  PERIODIC_X = TRUE
+  PERIODIC_Y = TRUE
+  PERIODIC_Z = TRUE
+}
+
+boxy BOX
+{
+  CORNERS = [-0.199999, -0.199999, -0.199999],[0.199999, 0.199999, 0.199999]
+}
+
+plane POLYGON_LIST
+{
+  VERTEX_LIST
+  {
+    [ 0.18, -0.199999, -0.199999 ]
+    [ 0.18, 0.199999,  -0.199999 ]
+    [ 0.18, -0.199999, 0.199999 ]
+    [ 0.18, 0.199999,  0.199999 ]
+  }
+  ELEMENT_CONNECTIONS
+  {
+    [ 1, 3, 2 ]
+    [ 0, 1, 2 ]
+  }
+}
+
+DEFINE_SURFACE_CLASSES
+{
+  transp
+  {
+    TRANSPARENT = ALL_MOLECULES;
+  }
+  sc {}
+}
+
+MODIFY_SURFACE_REGIONS
+{
+  boxy[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  plane[ALL]
+  {
+    SURFACE_CLASS = sc
+  }
+}
+
+DEFINE_REACTIONS
+{
+  A + B -> C [1e8] : ab_c
+  D -> E [1e5] : d_e
+  F; @ sc; -> G; [1e9] : f_g
+}
+
+INSTANTIATE Scene OBJECT
+{
+  plane OBJECT plane {}
+  boxy OBJECT boxy {}
+  relA RELEASE_SITE
+  {
+    SHAPE = CUBIC
+    MOLECULE = A
+    NUMBER_TO_RELEASE = 1000
+    SITE_DIAMETER = 0.0
+    LOCATION = [0.19999, 0.0, 0.0]
+  }
+  relB RELEASE_SITE
+  {
+    SHAPE = CUBIC
+    MOLECULE = B
+    NUMBER_TO_RELEASE = 1000
+    SITE_DIAMETER = 0.0
+    LOCATION = [0.19999, 0.0, 0.0]
+  }
+  relD RELEASE_SITE
+  {
+    SHAPE = CUBIC
+    MOLECULE = D
+    NUMBER_TO_RELEASE = 1000
+    SITE_DIAMETER = 0.0
+    LOCATION = [0.19999, 0.0, 0.0]
+  }
+  relF RELEASE_SITE
+  {
+    SHAPE = CUBIC
+    MOLECULE = F
+    NUMBER_TO_RELEASE = 1000
+    SITE_DIAMETER = 0.0
+    LOCATION = [0.19999, 0.0, 0.0]
+  }
+}
+
+sprintf(seed,"%05g",SEED)
+
+REACTION_DATA_OUTPUT
+{
+  STEP=dt
+  {COUNT[ab_c,WORLD]}=> "./ab_c.WORLD.dat"
+  {COUNT[ab_c,Scene.boxy,[0,0,0]]}=> "./ab_c.000.dat"
+  {COUNT[ab_c,Scene.boxy,[1,0,0]]}=> "./ab_c.100.dat"
+
+  {COUNT[d_e,Scene.boxy,[0,0,0]]}=> "./d_e.000.dat"
+  {COUNT[d_e,Scene.boxy,[1,0,0]]}=> "./d_e.100.dat"
+  {COUNT[d_e,WORLD]}=> "./d_e.WORLD.dat"
+
+  {COUNT[f_g,Scene.boxy,[0,0,0],ALL_ENCLOSED]}=> "./f_g.000.dat"
+  {COUNT[f_g,Scene.boxy,[1,0,0],ALL_ENCLOSED]}=> "./f_g.100.dat"
+  {COUNT[f_g,WORLD]}=> "./f_g.WORLD.dat"
+
+  {COUNT[A,Scene.boxy,[0,0,0]]}=> "./A.000.dat"
+  {COUNT[A,Scene.boxy,[1,0,0]]}=> "./A.100.dat"
+  {COUNT[A,WORLD]}=> "./A.world.dat"
+
+  {COUNT[B,Scene.boxy,[0,0,0]]}=> "./B.000.dat"
+  {COUNT[B,Scene.boxy,[1,0,0]]}=> "./B.100.dat"
+  {COUNT[B,WORLD]}=> "./B.world.dat"
+
+  {COUNT[C,Scene.boxy,[0,0,0]]}=> "./C.000.dat"
+  {COUNT[C,Scene.boxy,[1,0,0]]}=> "./C.100.dat"
+  {COUNT[C,WORLD]}=> "./C.world.dat"
+
+  {COUNT[D,Scene.boxy,[0,0,0]]}=> "./D.000.dat"
+  {COUNT[D,Scene.boxy,[1,0,0]]}=> "./D.100.dat"
+  {COUNT[D,WORLD]}=> "./D.world.dat"
+
+  {COUNT[E,Scene.boxy,[0,0,0]]}=> "./E.000.dat"
+  {COUNT[E,Scene.boxy,[1,0,0]]}=> "./E.100.dat"
+  {COUNT[E,WORLD]}=> "./E.world.dat"
+
+  {COUNT[F,Scene.boxy,[0,0,0]]}=> "./F.000.dat"
+  {COUNT[F,Scene.boxy,[1,0,0]]}=> "./F.100.dat"
+  {COUNT[F,WORLD]}=> "./F.world.dat"
+
+  {COUNT[G,Scene.boxy,[0,0,0]]}=> "./G.000.dat"
+  {COUNT[G,Scene.boxy,[1,0,0]]}=> "./G.100.dat"
+  {COUNT[G,WORLD]}=> "./G.world.dat"
+}
+
+/*VIZ_OUTPUT*/
+/*{*/
+/*  MODE = CELLBLENDER*/
+/*  FILENAME = "./viz_data/mirror/Scene"*/
+/*  MOLECULES*/
+/*  {*/
+/*    NAME_LIST {ALL_MOLECULES}*/
+/*    ITERATION_NUMBERS {ALL_DATA @ ALL_ITERATIONS}*/
+/*  }*/
+/*}*/

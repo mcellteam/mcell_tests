@@ -1,0 +1,167 @@
+author = "Jed Wing <jed@salk.edu>"
+date = "2008-12-05"
+description = "Test all surface reaction types, as well as simple tests of equilibrium and reaction rates. A quantitative test of the basic *-surface reaction types (uni, bi) in various combinations with surface (and some volume) molecules and always with surface class as one of the reactants. This test is completely identical to the surface_1 test except that we add surface class to all reactions and we do not test for trimolecular reactions."
+keywords = ["reactions"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "V_out.dat"
+  haveHeader = true
+  means = [500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0]
+  testType = "COUNT_EQUILIBRIUM"
+  tolerances = [25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0]
+
+[[checks]]
+  baseTime = 0.0
+  dataFile = "rxn_out.dat"
+  haveHeader = true
+  means = [100000.0, 100000.0, 100000.0, 100000.0, 100000.0, 100000.0, 100000.0, 100000.0, 100000.0, 100000.0, 100000.0, 100000.0, 100000.0, 100000.0, 100000.0, 100000.0, 100000.0, 100000.0]
+  minTime = 0.005
+  testType = "COUNT_RATES"
+  tolerances = [15000.0, 15000.0, 15000.0, 15000.0, 15000.0, 15000.0, 15000.0, 15000.0, 15000.0, 15000.0, 15000.0, 15000.0, 15000.0, 15000.0, 15000.0, 15000.0, 15000.0, 15000.0]
+
+[[checks]]
+  dataFile = "b13_u_out.dat"
+  haveHeader = true
+  means = [500.0, 500.0]
+  testType = "COUNT_EQUILIBRIUM"
+  tolerances = [50.0, 50.0]
+
+[[checks]]
+  baseTime = 0.0
+  dataFile = "b13_u_rxn_out.dat"
+  haveHeader = true
+  means = [33000.0, 33000.0, 33000.0, 33000.0, 33000.0, 33000.0]
+  minTime = 0.005
+  testType = "COUNT_RATES"
+  tolerances = [9900.0, 9900.0, 9900.0, 9900.0, 9900.0, 9900.0]
+
+[[checks]]
+  dataFile = "b14_u_out.dat"
+  haveHeader = true
+  means = [1000.0, 1000.0]
+  testType = "COUNT_EQUILIBRIUM"
+  tolerances = [50.0, 50.0]
+
+[[checks]]
+  baseTime = 0.0
+  dataFile = "b14_u_rxn_out.dat"
+  haveHeader = true
+  means = [80000.0, 80000.0, 40000.0, 40000.0, 24000.0, 24000.0]
+  minTime = 0.005
+  testType = "COUNT_RATES"
+  tolerances = [24000.0, 24000.0, 12000.0, 12000.0, 7200.0, 7200.0]
+
+[[checks]]
+  dataFile = "b15_u_out.dat"
+  haveHeader = true
+  means = [1000.0, 1000.0]
+  testType = "COUNT_EQUILIBRIUM"
+  tolerances = [50.0, 50.0]
+
+[[checks]]
+  baseTime = 0.0
+  dataFile = "b15_u_rxn_out.dat"
+  haveHeader = true
+  means = [24000.0, 24000.0, 40000.0, 40000.0, 80000.0, 80000.0]
+  minTime = 0.005
+  testType = "COUNT_RATES"
+  tolerances = [7200.0, 7200.0, 12000.0, 12000.0, 24000.0, 24000.0]
+
+[[checks]]
+  baseTime = 0.0
+  dataFile = "b16_b_rxn_out.dat"
+  haveHeader = true
+  means = [51000.0, 51000.0, 51000.0]
+  minTime = 0.005
+  testType = "COUNT_RATES"
+  tolerances = [10200.0, 10200.0, 10200.0]
+
+[[checks]]
+  baseTime = 0.0
+  dataFile = "b17_b_rxn_out.dat"
+  haveHeader = true
+  means = [72600.0, 36300.0, 21800.0]
+  minTime = 0.005
+  testType = "COUNT_RATES"
+  tolerances = [10400.0, 7300.0, 4400.0]
+
+[[checks]]
+  dataFile = "V_out.dat"
+  haveHeader = true
+  testType = "COUNT_CONSTRAINTS"
+
+  [[checks.countConstraints]]
+    query = [0, 1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    target = 0
+
+  [[checks.countConstraints]]
+    query = [0, 0, 0, 1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    target = 0
+
+  [[checks.countConstraints]]
+    query = [0, 0, 0, 0, 0, 1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    target = 0
+
+  [[checks.countConstraints]]
+    query = [0, 0, 0, 0, 0, 0, 0, 1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    target = 0
+
+  [[checks.countConstraints]]
+    query = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    target = 0
+
+  [[checks.countConstraints]]
+    query = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    target = 0
+
+  [[checks.countConstraints]]
+    query = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    target = 0
+
+  [[checks.countConstraints]]
+    query = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    target = 0
+
+  [[checks.countConstraints]]
+    query = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
+    target = 1000
+
+  [[checks.countConstraints]]
+    query = [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+    target = 1000
+
+  [[checks.countConstraints]]
+    query = [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+    target = 1000
+
+  [[checks.countConstraints]]
+    query = [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+    target = 1000
+
+  [[checks.countConstraints]]
+    query = [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
+    target = 1000
+
+  [[checks.countConstraints]]
+    query = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
+    target = 1000
+
+  [[checks.countConstraints]]
+    query = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+    target = 1000
+
+  [[checks.countConstraints]]
+    query = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+    target = 1000
+
+  [[checks.countConstraints]]
+    query = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+    target = 1000
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

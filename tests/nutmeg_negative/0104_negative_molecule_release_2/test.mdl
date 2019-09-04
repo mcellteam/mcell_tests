@@ -1,0 +1,63 @@
+ITERATIONS = 2000
+TIME_STEP = 1e-06
+
+DEFINE_MOLECULES {
+  sm { DIFFUSION_CONSTANT_2D = 1e-06 }
+  vm { DIFFUSION_CONSTANT_3D = 1e-06 }
+  vm_t { DIFFUSION_CONSTANT_3D = 1e-06 }
+}
+
+DEFINE_REACTIONS {
+  vm + vm_t -> vm + vm_t [1e8]
+}
+
+Cube BOX {
+  CORNERS = [-0.5, -0.5, -0.5],[0.5, 0.5, 0.5]
+}
+
+DEFINE_RELEASE_PATTERN destroy_pattern {
+  DELAY = 0.001
+  NUMBER_OF_TRAINS = 1
+}
+
+INSTANTIATE Scene OBJECT
+{
+  Cube OBJECT Cube {}
+  destroy_sm RELEASE_SITE
+  {
+   SHAPE = Scene.Cube
+   MOLECULE = sm'
+   NUMBER_TO_RELEASE = -1000
+   RELEASE_PATTERN = destroy_pattern
+  }
+  create_sm RELEASE_SITE
+  {
+   SHAPE = Scene.Cube
+   MOLECULE = sm'
+   NUMBER_TO_RELEASE = 1000
+  }
+  create_vm RELEASE_SITE
+  {
+   SHAPE = Scene.Cube
+   MOLECULE = vm
+   NUMBER_TO_RELEASE = 1000
+  }
+  destroy_vm RELEASE_SITE
+  {
+   SHAPE = CUBIC
+   LOCATION = [0, 0, 0]
+   SITE_DIAMETER = 0.5
+   MOLECULE = vm
+   NUMBER_TO_RELEASE = -1000
+   RELEASE_PATTERN = destroy_pattern
+  }
+}
+
+sprintf(seed,"%05g",SEED)
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-06
+  {COUNT[sm, WORLD]}=> "./react_data/sm.World.dat"
+  {COUNT[vm, WORLD]}=> "./react_data/vm.World.dat"
+}

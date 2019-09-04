@@ -1,0 +1,53 @@
+// This MDL is only used to generate the minimums and maximums used in the
+// test_description file. It acts as a reference point to compare against an
+// incredibly similar example. The only difference is that the test case uses a
+// simple case of dynamic geometries.
+
+ITERATIONS = 1000
+TIME_STEP = 1e-6
+
+main_id = "no_dg"
+
+INCLUDE_FILE = "./mol_rxn.mdl"
+INCLUDE_FILE = "./cube.mdl"
+INCLUDE_FILE = "./small_cube.mdl"
+
+MODIFY_SURFACE_REGIONS
+{
+  SmallCube[ALL]
+  {
+    SURFACE_CLASS = transp_inert
+  }
+}
+
+INSTANTIATE Scene OBJECT
+{
+  Cube OBJECT Cube{}
+  SmallCube OBJECT SmallCube{}
+  rel_inert RELEASE_SITE
+  {
+    SHAPE = Scene.SmallCube
+    MOLECULE = inert
+    NUMBER_TO_RELEASE = 100
+  }
+  rel_vm1 RELEASE_SITE
+  {
+    SHAPE = Scene.Cube
+    MOLECULE = vm1
+    NUMBER_TO_RELEASE = 1000
+  }
+  rel_vm2 RELEASE_SITE
+  {
+    SHAPE = Scene.Cube
+    MOLECULE = vm2
+    NUMBER_TO_RELEASE = 1000
+  }
+  rel_sm1 RELEASE_SITE
+  {
+    SHAPE = Scene.SmallCube
+    MOLECULE = sm1'
+    NUMBER_TO_RELEASE = 1000
+  }
+}
+
+INCLUDE_FILE = "./rxn_data.mdl"

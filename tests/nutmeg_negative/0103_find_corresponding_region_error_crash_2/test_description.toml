@@ -1,0 +1,15 @@
+author = "Jed Wing <jed@salk.edu>"
+date = "2009-04-12"
+description = "Due to an error in the error-reporting code, if find_corresponding_region failed, a crash can be produced instead of a diagnostic.  This is identical to test find_corresponding_error_region_crash_1, but the order of the operands is reversed in the offending expression."
+includes = ["exit_code_1"]
+keywords = ["regression"]
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "Can't find new region corresponding to foo\\.boxB,ALL for world\\.bar\\.rs \\(copy of foo\\.bar\\.rs\\)"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  mdlfiles = ["test.mdl"]
+

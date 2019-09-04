@@ -1,0 +1,39 @@
+ITERATIONS = 50
+TIME_STEP = 1e-06
+VACANCY_SEARCH_DISTANCE = 10
+
+PERIODIC_BOX
+{
+  CORNERS = [-0.2, -0.2, -0.2],[0.2, 0.2, 0.2]
+  PERIODIC_TRADITIONAL = FALSE
+  PERIODIC_X = TRUE
+  PERIODIC_Y = TRUE
+  PERIODIC_Z = TRUE
+}
+
+DEFINE_MOLECULES
+{
+  sm { DIFFUSION_CONSTANT_2D = 1e-06 }
+}
+
+INCLUDE_FILE = "geometry.mdl"
+
+INSTANTIATE Scene OBJECT
+{
+  Plane OBJECT Plane {}
+  rel_sm RELEASE_SITE
+  {
+   SHAPE = Scene.Plane
+   MOLECULE = sm'
+   NUMBER_TO_RELEASE = 50
+   PERIODIC_BOX_INITIAL = [0,0,0]
+  }
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-6
+  {COUNT[sm,Scene.Plane[nothinghere],[1,0,0]]}=> "./sm.plane.nh.100.dat"
+  {COUNT[sm,Scene.Plane[nothinghere],[0,0,0]]}=> "./sm.plane.nh.000.dat"
+  {COUNT[sm,WORLD]}=> "./sm.world.dat"
+}

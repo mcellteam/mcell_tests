@@ -1,0 +1,12 @@
+author = "Jed Wing <jed@salk.edu>"
+date = "2008-04-12"
+description = "Under certain circumstances, mol-grid-grid reactions could lead to a crash.  The wrong variable was being used to index into the array of matching reactions in the mol-grid-grid case, causing mcell to access outside the bounds of the array.  This may not reliably fail, and may depend on the compiler and architecture."
+keywords = ["regression"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

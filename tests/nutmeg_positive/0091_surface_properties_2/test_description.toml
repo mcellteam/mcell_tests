@@ -1,0 +1,27 @@
+author = "Boris Kaminsky <borisk@psc.edu"
+date = "2011-03-04"
+description = "Combination of ALL_MOLECULES with surface properties (REFLECTIVE/TRANSPARENT/ABSORPTIVE). Volume molecules are released inside a set of enclosed meshes. Let some of the meshes be REFLECTIVE, or TRANSPARENT, or ABSORPTIVE. This test check validity of ALL_VOLUME_MOLECULES statement in combination with REFLECTIVE/TRANSPARENT/ABSORPTIVE properties of meshes.The properties of inner cubes change from REFLECTIVE to TRANSPARENT to ABSORPTIVE for ALL_MOLECULES as we move from one collection to another. Volume molecules A,B,C are released inside the inner cube. We count molecules in the space between the cubes."
+keywords = ["reactions"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "refl.dat"
+  haveHeader = true
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "absorb.dat"
+  haveHeader = true
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "transp.dat"
+  haveHeader = true
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

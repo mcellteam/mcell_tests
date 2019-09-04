@@ -1,0 +1,123 @@
+ITERATIONS = 10
+TIME_STEP = 1e-6
+
+WARNINGS
+{
+  LARGE_MOLECULAR_DISPLACEMENT = IGNORED
+}
+
+DEFINE_MOLECULES
+{
+  vm1 { DIFFUSION_CONSTANT_3D = 0 }
+  vm2 { DIFFUSION_CONSTANT_3D = 0 }
+  vm3 { DIFFUSION_CONSTANT_3D = 0 }
+  vm4 { DIFFUSION_CONSTANT_3D = 0 }
+  vm5 { DIFFUSION_CONSTANT_3D = 0 }
+}
+
+DEFINE_SURFACE_CLASSES
+{
+  transp_out_vm2345
+  {
+    TRANSPARENT = vm2,
+    TRANSPARENT = vm3,
+    TRANSPARENT = vm4,
+    TRANSPARENT = vm5,
+  }
+  transp_out_vm345
+  {
+    TRANSPARENT = vm3,
+    TRANSPARENT = vm4,
+    TRANSPARENT = vm5,
+  }
+  transp_in_45
+  {
+    TRANSPARENT = vm4'
+    TRANSPARENT = vm5'
+  }
+  transp_in_5
+  {
+    TRANSPARENT = vm5'
+  }
+}
+
+DYNAMIC_GEOMETRY = "./list_of_geometry.txt"
+
+INSTANTIATE Scene OBJECT
+{
+  rel_vm1 RELEASE_SITE
+  {
+    SHAPE = CUBIC
+    MOLECULE = vm1
+    NUMBER_TO_RELEASE = 100
+    SITE_DIAMETER = 0.0
+    LOCATION = [0.0, 0.0, 0.0]
+  }
+  rel_vm2 RELEASE_SITE
+  {
+    SHAPE = CUBIC
+    MOLECULE = vm2
+    NUMBER_TO_RELEASE = 100
+    SITE_DIAMETER = 0.0
+    LOCATION = [0.0, 0.0, 0.0]
+  }
+  rel_vm3 RELEASE_SITE
+  {
+    SHAPE = CUBIC
+    MOLECULE = vm3
+    NUMBER_TO_RELEASE = 100
+    SITE_DIAMETER = 0.0
+    LOCATION = [0.0, 0.0, 0.0]
+  }
+  rel_vm4 RELEASE_SITE
+  {
+    SHAPE = CUBIC
+    MOLECULE = vm4
+    NUMBER_TO_RELEASE = 100
+    SITE_DIAMETER = 0.0
+    LOCATION = [0.0, 0.0, 0.0]
+  }
+  rel_vm5 RELEASE_SITE
+  {
+    SHAPE = CUBIC
+    MOLECULE = vm5
+    NUMBER_TO_RELEASE = 100
+    SITE_DIAMETER = 0.0
+    LOCATION = [0.0, 0.0, 0.0]
+  }
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-6
+  // vm1
+  {COUNT[vm1,DGScene.Linner],
+  COUNT[vm1,DGScene.Louter]-COUNT[vm1,DGScene.Linner],
+  COUNT[vm1,DGScene.Rinner],
+  COUNT[vm1,DGScene.Router]-COUNT[vm1,DGScene.Rinner],
+  COUNT[vm1,WORLD]-COUNT[vm1,DGScene.Louter]-COUNT[vm1,DGScene.Router]}=> "./vm1.dat"
+  // vm2
+  {COUNT[vm2,DGScene.Linner],
+  COUNT[vm2,DGScene.Louter]-COUNT[vm2,DGScene.Linner],
+  COUNT[vm2,DGScene.Rinner],
+  COUNT[vm2,DGScene.Router]-COUNT[vm2,DGScene.Rinner],
+  COUNT[vm2,WORLD]-COUNT[vm2,DGScene.Louter]-COUNT[vm2,DGScene.Router]}=> "./vm2.dat"
+  // vm3
+  {COUNT[vm3,DGScene.Linner],
+  COUNT[vm3,DGScene.Louter]-COUNT[vm3,DGScene.Linner],
+  COUNT[vm3,DGScene.Rinner],
+  COUNT[vm3,DGScene.Router]-COUNT[vm3,DGScene.Rinner],
+  COUNT[vm3,WORLD]-COUNT[vm3,DGScene.Louter]-COUNT[vm3,DGScene.Router]}=> "./vm3.dat"
+  // vm4
+  {COUNT[vm4,DGScene.Linner],
+  COUNT[vm4,DGScene.Louter]-COUNT[vm4,DGScene.Linner],
+  COUNT[vm4,DGScene.Rinner],
+  COUNT[vm4,DGScene.Router]-COUNT[vm4,DGScene.Rinner],
+  COUNT[vm4,WORLD]-COUNT[vm4,DGScene.Louter]-COUNT[vm4,DGScene.Router]}=> "./vm4.dat"
+  // vm5
+  {COUNT[vm5,DGScene.Linner],
+  COUNT[vm5,DGScene.Louter]-COUNT[vm5,DGScene.Linner],
+  COUNT[vm5,DGScene.Rinner],
+  COUNT[vm5,DGScene.Router]-COUNT[vm5,DGScene.Rinner],
+  COUNT[vm5,WORLD]-COUNT[vm5,DGScene.Louter]-COUNT[vm5,DGScene.Router]}=> "./vm5.dat"
+}

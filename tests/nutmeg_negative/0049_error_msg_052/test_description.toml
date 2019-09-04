@@ -1,0 +1,24 @@
+author = "Jed Wing <jed@salk.edu>, updated by Jacob Czech <jczech@psc.edu>"
+date = "2008-04-04, updated on 2016-01-12"
+description = "Print error message"
+includes = ["exit_code_1"]
+keywords = ["parser"]
+
+[[checks]]
+  fileNames = ["err_%d.0.log"]
+  testType = "CHECK_NONEMPTY_FILES"
+
+[[checks]]
+  fileNames = ["run_%d.0.log"]
+  testType = "CHECK_EMPTY_FILES"
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "You must use the LIST shape to specify molecule positions in a release."
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["invalid-052.mdl"]
+

@@ -1,0 +1,22 @@
+author = "Jacob Czech"
+date = "2015-10-20"
+description = "Test if release patterns work with dynamic geometries."
+keywords = ["dynamic geometry"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "vm.WORLD.dat"
+  referenceFile = "vm.WORLD_ref.dat"
+  testType = "COMPARE_COUNTS"
+
+[[checks]]
+  dataFile = "sm.WORLD.dat"
+  referenceFile = "sm.WORLD_ref.dat"
+  testType = "COMPARE_COUNTS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main.mdl"]
+

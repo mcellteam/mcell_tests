@@ -1,0 +1,26 @@
+author = "Markus Dittrich <dittrich@psc.edu>"
+date = "2015-05-07"
+description = "This check tests that counting of surface molecules using the ALL_ENCLOSED keyword works properly.\n Previous MCell versions had a bug which caused surface molecule counts to go negative when using the ALL_ENCLOSED keyword. This behavior could be triggered reliably by decreasing the partition size and thus  the size of subvolumes. The issue was due to a bug in collide_sv_time which would report incorrect times for the next collision with subvolume boundaries. This in turn would lead MCell to count certain wall crossings multiple times screwing up the logic for deciding if a molecule is enclosed in a volume or not. The bug was fixed with commit ID 61735063e6."
+keywords = ["regression"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  countMaximum = [100]
+  countMinimum = [100]
+  dataFile = "A.World.dat"
+  haveHeader = false
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [100]
+  countMinimum = [0]
+  dataFile = "A.Cube.dat"
+  haveHeader = false
+  testType = "COUNT_MINMAX"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

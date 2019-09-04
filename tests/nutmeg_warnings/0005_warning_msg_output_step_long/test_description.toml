@@ -1,0 +1,15 @@
+author = "Jacob Czech"
+date = "2016-01-13"
+description = "Verify that a warning is generated when output step time is too long."
+keywords = ["warning messages"]
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "Warning: output step time too long.\n  Setting output step time to 1e-06 seconds."
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["warning.mdl"]
+

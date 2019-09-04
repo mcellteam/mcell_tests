@@ -1,0 +1,42 @@
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-05
+  /*HEADER = "# "*/
+
+  {
+    COUNT[vm1, WORLD] : "vm1.WORLD",
+    COUNT[vm2, WORLD] : "vm2.WORLD",
+    COUNT[vm3, WORLD] : "vm3.WORLD",
+    COUNT[sm1, WORLD] : "sm1.WORLD",
+    COUNT[sm2, WORLD] : "sm2.WORLD",
+    /*COUNT[vm1, DGScene.SmallCube]*0.5 : "vm1x0.5.SmallCube",*/
+    COUNT[vm1, DGScene.SmallCube] : "vm1.SmallCube",
+    COUNT[vm2, DGScene.SmallCube] : "vm2.SmallCube",
+    COUNT[vm3, DGScene.SmallCube] : "vm3.SmallCube",
+    COUNT[sm1, DGScene.SmallCube] : "sm1.SmallCube",
+    COUNT[sm2, DGScene.SmallCube] : "sm2.SmallCube",
+    COUNT[sm1, DGScene.SmallCube[sr]] : "sm1.SmallCube_sr",
+    COUNT[sm2, DGScene.SmallCube[sr]] : "sm2.SmallCube_sr",
+    COUNT[vm1, DGScene.Cube[sr], ALL_HITS] : "vm1.sr_all_hits",
+    COUNT[vm1, DGScene.Cube[ALL], ALL_HITS] : "vm1.allreg_all_hits",
+    COUNT[vm1, DGScene.Cube[sr], FRONT_HITS] : "vm1.sr_front_hits",
+    COUNT[vm1, DGScene.Cube[ALL], FRONT_HITS] : "vm1.allreg_front_hits",
+    COUNT[vm1, DGScene.Cube[sr], BACK_HITS] : "vm1.sr_back_hits",
+    COUNT[vm1, DGScene.Cube[ALL], BACK_HITS] : "vm1.allreg_back_hits",
+    COUNT[sm1, DGScene.Cube[ALL], ALL_ENCLOSED] : "sm1.all_enclosed",
+    COUNT[sm2, DGScene.Cube[ALL], ALL_ENCLOSED] : "sm2.all_enclosed",
+    COUNT[vm1, DGScene.Cube[ALL], ALL_ENCLOSED] : "vm1.all_enclosed",
+    COUNT[vm2, DGScene.Cube[ALL], ALL_ENCLOSED] : "vm2.all_enclosed",
+    COUNT[vm3, DGScene.Cube[ALL], ALL_ENCLOSED] : "vm3.all_enclosed",
+    COUNT[rxn1, WORLD] : "rxn1.WORLD",
+    COUNT[rxn2, WORLD] : "rxn2.WORLD",
+    COUNT[rxn3, WORLD] : "rxn3.WORLD"
+  } => "counts.txt"
+
+  {TRIGGER[inert, DGScene.SmallCube[ALL]]}=> "./inert.trigger.dat"
+  {TRIGGER[inert, DGScene.SmallCube[ALL], FRONT_CROSSINGS]}=> "./inert.front_crossings.dat"
+  {TRIGGER[inert, DGScene.SmallCube[ALL], BACK_CROSSINGS]}=> "./inert.back_crossings.dat"
+  {TRIGGER[inert, DGScene.SmallCube[ALL], ALL_CROSSINGS]}=> "./inert.all_crossings.dat"
+
+}
+

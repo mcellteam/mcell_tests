@@ -1,0 +1,55 @@
+ITERATIONS = 1000
+TIME_STEP = 1e-06
+
+PERIODIC_BOX
+{
+  CORNERS = [-0.1, -0.1, -0.1],[0.1, 0.1, 0.1]
+  PERIODIC_TRADITIONAL = TRUE
+  PERIODIC_X = TRUE
+  PERIODIC_Y = TRUE
+  PERIODIC_Z = TRUE
+}
+
+DEFINE_MOLECULES
+{
+  sm { DIFFUSION_CONSTANT_2D = 1e-07 }
+}
+
+INCLUDE_FILE = "geometry.mdl"
+
+INSTANTIATE Scene OBJECT
+{
+  Plane OBJECT Plane {}
+  BiggerCube OBJECT BiggerCube {}
+  SmallerCube OBJECT SmallerCube {}
+  Release_Site RELEASE_SITE
+  {
+   SHAPE = Scene.Plane[sr_inner]
+   MOLECULE = sm'
+   NUMBER_TO_RELEASE = 1
+   RELEASE_PROBABILITY = 1
+  }
+}
+
+/*VIZ_OUTPUT*/
+/*{*/
+/*  MODE = CELLBLENDER*/
+/*  FILENAME = "./viz_data/Scene"*/
+/*  MOLECULES*/
+/*  {*/
+/*    NAME_LIST {ALL_MOLECULES}*/
+/*    ITERATION_NUMBERS {ALL_DATA @ ALL_ITERATIONS}*/
+/*  }*/
+/*}*/
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-6
+  {COUNT[sm,Scene.Plane[sr_outer]] +
+   COUNT[sm,Scene.Plane[sr_inner]]}=> "./sm.total.dat"
+  {COUNT[sm,Scene.Plane[sr_outer]]}=> "./sm.outer.dat"
+  {COUNT[sm,Scene.Plane[sr_inner]]}=> "./sm.inner.dat"
+  {COUNT[sm,Scene.Plane[ALL]]}=> "./sm.dat"
+  {COUNT[sm,Scene.BiggerCube,ALL_ENCLOSED]}=> "./sm.big_enclosed.dat"
+  {COUNT[sm,Scene.SmallerCube,ALL_ENCLOSED]}=> "./sm.small_enclosed.dat"
+}

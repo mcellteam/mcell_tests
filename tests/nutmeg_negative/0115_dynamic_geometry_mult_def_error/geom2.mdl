@@ -1,0 +1,10 @@
+INCLUDE_FILE = "c.mdl"
+// Multiple definitions of B should trigger an error
+INCLUDE_FILE = "b.mdl"
+INCLUDE_FILE = "b.mdl"
+
+INSTANTIATE DGScene OBJECT
+{
+  B OBJECT B{}
+  C OBJECT C{}
+}

@@ -1,0 +1,25 @@
+author = "Markus Dittrich <dittrich@psc.edu>"
+date = "2014-08-14"
+description = "Check that volume release of a molecule in a simple spherical and torus region (i.e. a region specification without boolean operators) releases exactly the correct number of molecules."
+keywords = ["releases"]
+
+[[checks]]
+  exitCode = 0
+  testType = "CHECK_EXIT_CODE"
+
+[[checks]]
+  dataFile = "run_%d.0.log"
+  matchPattern = "Released 2505 A from \"Scene.A_releaser\" at iteration 0."
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  dataFile = "run_%d.0.log"
+  matchPattern = "Released 7074 A from \"Scene.A_torus_releaser\" at iteration 0."
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  mdlfiles = ["test.mdl"]
+  numSeeds = 10
+

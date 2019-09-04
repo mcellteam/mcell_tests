@@ -1,0 +1,46 @@
+CHECKPOINT_ITERATIONS = 250
+
+CHECKPOINT_OUTFILE = "chkpt"
+
+ITERATIONS = 10000
+TIME_STEP = 1e-7
+
+DEFINE_MOLECULES
+{
+  A { DIFFUSION_CONSTANT_3D = 1e-06 }
+}
+
+
+DEFINE_RELEASE_PATTERN Release_Pattern1
+{
+  DELAY = 100E-7
+  RELEASE_INTERVAL = 300e-7
+}
+
+
+DEFINE_REACTIONS
+{
+  A -> NULL [1e5] : my_rxn
+}
+
+
+INSTANTIATE Scene OBJECT
+{
+  Release_Site2 RELEASE_SITE
+  {
+    SHAPE = CUBIC
+    MOLECULE = A
+    NUMBER_TO_RELEASE = 200
+    SITE_DIAMETER = 0.0
+    LOCATION = [1.0, 0.0, 0.0]
+    RELEASE_PATTERN = Release_Pattern1
+  }
+}
+
+sprintf(seed,"%05g",SEED)
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-07
+  {COUNT[A,WORLD]}=> "./react_data/seed_" & seed & "/A.World.dat"
+}

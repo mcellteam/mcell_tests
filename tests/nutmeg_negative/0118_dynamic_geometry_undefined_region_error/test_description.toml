@@ -1,0 +1,15 @@
+author = "Jacob Czech"
+date = "2015-12-11"
+description = "Verify that an error is generated when trying to release in an undefined region. This was created to mimic a problem Bob encountered."
+keywords = ["dynamic geometry"]
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "Undefined region: Scene.A,ALL"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["error.mdl"]
+

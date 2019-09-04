@@ -1,0 +1,16 @@
+author = "Markus Dittrich <dittrich@psc.edu>"
+date = "2014-07-11"
+description = "This test checks that MCell properly catches out of bounds vertex access in POLYGON_LIST (instead of segfaulting). A check was added to MCell on 07/11 in response to an email to mcell-dev by Namrata Mohapatra. He had a Matlab generated input geometry with out of bounds vertex indices causing MCell to segfault."
+includes = ["exit_code_1"]
+keywords = ["regression"]
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "Error: object world.sample has elements with out of bounds vertex indices"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

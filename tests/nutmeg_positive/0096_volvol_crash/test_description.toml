@@ -1,0 +1,12 @@
+author = "Jed Wing <jed@salk.edu>"
+date = "2008-10-3"
+description = "Volume-volume reactions result in a crash using the new outcome_products"
+keywords = ["regression"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

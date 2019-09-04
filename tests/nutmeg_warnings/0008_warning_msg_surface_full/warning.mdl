@@ -1,0 +1,25 @@
+ITERATIONS = 1
+TIME_STEP = 1e-6
+
+DEFINE_MOLECULES
+{
+  sm { DIFFUSION_CONSTANT_2D = 0 }
+}
+
+Boxy BOX
+{
+  CORNERS = [-0.001, -0.001, -0.001],[0.001, 0.001, 0.001]
+}
+
+INSTANTIATE Scene OBJECT
+{
+  Boxy OBJECT Boxy{}
+  rel_sm RELEASE_SITE
+  {
+    SHAPE = Scene.Boxy
+    MOLECULE = sm'
+    NUMBER_TO_RELEASE = 100
+  }
+  
+}
+

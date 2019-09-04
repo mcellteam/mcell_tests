@@ -1,0 +1,5 @@
+0 geom1.mdl
+5e-6 geom2.mdl
+10e-6 geom1.mdl
+15e-6 geom2.mdl
+20e-6 geom1.mdl

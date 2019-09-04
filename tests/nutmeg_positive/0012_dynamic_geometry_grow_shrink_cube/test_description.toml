@@ -1,0 +1,32 @@
+author = "Jacob Czech"
+date = "2015-06-09"
+description = "Make sure molecules don't leak out of the growing and shrinking cube."
+keywords = ["dynamic geometry"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "vm.box.dat"
+  referenceFile = "vm.box.ref.dat"
+  testType = "COMPARE_COUNTS"
+
+[[checks]]
+  dataFile = "vm.world.dat"
+  referenceFile = "vm.world.ref.dat"
+  testType = "COMPARE_COUNTS"
+
+[[checks]]
+  dataFile = "vm.diff.dat"
+  referenceFile = "vm.diff.ref.dat"
+  testType = "COMPARE_COUNTS"
+
+[[checks]]
+  dataFile = "sm.box.dat"
+  referenceFile = "sm.box.ref.dat"
+  testType = "COMPARE_COUNTS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main.mdl"]
+

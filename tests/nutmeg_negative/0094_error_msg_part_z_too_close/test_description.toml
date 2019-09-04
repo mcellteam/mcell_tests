@@ -1,0 +1,24 @@
+author = "Jed Wing <jed@salk.edu>, updated by Jacob Czech <jczech@psc.edu>"
+date = "2016-01-19"
+description = "Print error message if Z-axis is not partitioned."
+includes = ["exit_code_1"]
+keywords = ["error messages"]
+
+[[checks]]
+  fileNames = ["err_%d.0.log"]
+  testType = "CHECK_NONEMPTY_FILES"
+
+[[checks]]
+  fileNames = ["run_%d.0.log"]
+  testType = "CHECK_EMPTY_FILES"
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "Error: Z partitions closer than interaction diameter"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["error.mdl"]
+

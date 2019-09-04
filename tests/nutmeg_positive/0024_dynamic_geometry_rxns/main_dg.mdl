@@ -1,0 +1,39 @@
+ITERATIONS = 1000
+TIME_STEP = 1e-6
+
+main_id = "dg"
+
+INCLUDE_FILE = "./mol_rxn.mdl"
+
+DYNAMIC_GEOMETRY = "./list.txt"
+
+INSTANTIATE Scene OBJECT
+{
+  rel_inert RELEASE_SITE
+  {
+    SHAPE = DGScene.SmallCube
+    MOLECULE = inert
+    NUMBER_TO_RELEASE = 100
+  }
+  rel_vm1 RELEASE_SITE
+  {
+    SHAPE = DGScene.Cube
+    MOLECULE = vm1
+    NUMBER_TO_RELEASE = 1000
+  }
+  rel_vm2 RELEASE_SITE
+  {
+    SHAPE = DGScene.Cube
+    MOLECULE = vm2
+    NUMBER_TO_RELEASE = 1000
+  }
+  rel_sm1 RELEASE_SITE
+  {
+    SHAPE = DGScene.SmallCube
+    MOLECULE = sm1'
+    NUMBER_TO_RELEASE = 1000
+  }
+}
+
+
+INCLUDE_FILE = "./rxn_data_dg.mdl"

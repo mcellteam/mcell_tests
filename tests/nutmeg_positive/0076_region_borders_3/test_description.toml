@@ -1,0 +1,52 @@
+author = "Boris Kaminsky <borisk@psc.edu"
+date = "2011-03-04"
+description = "REFLECTIVE/ABSORPTIVE/TRANSPARENT properties of REGION border are being tested on the cube for ALL_MOLECULES and ALL_SURFACE_MOLECULES keywords. The test involves six cubes with simple region border geometry. Region r1 is TOP, and region r2 consist of all other sides. For each of the above cubes region r1 is assigned surface class that has properties such TRANSPARENT/REFLECTIVE/ABSORPTIVE for ALL_MOLECULES or ALL_SURFACE_MOLECULES. Initially we place surface molecules A and B in the amount of 100 molecules of each type inside region r1. We count molecules A and B in the regions r1 and r2."
+keywords = ["reactions"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "refl_all_mols.dat"
+  haveHeader = true
+  referenceFile = "refl_all_mols_ref.dat"
+  testType = "COMPARE_COUNTS"
+
+[[checks]]
+  dataFile = "refl_all_surface_mols.dat"
+  haveHeader = true
+  referenceFile = "refl_all_surface_mols_ref.dat"
+  testType = "COMPARE_COUNTS"
+
+[[checks]]
+  dataFile = "absorb_all_mols.dat"
+  haveHeader = true
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "absorb_all_surface_mols.dat"
+  haveHeader = true
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "transp_all_mols.dat"
+  haveHeader = true
+  testType = "COUNT_CONSTRAINTS"
+
+  [[checks.countConstraints]]
+    query = [1, 1, 1, 1]
+    target = 200
+
+[[checks]]
+  dataFile = "transp_all_surface_mols.dat"
+  haveHeader = true
+  testType = "COUNT_CONSTRAINTS"
+
+  [[checks.countConstraints]]
+    query = [1, 1, 1, 1]
+    target = 200
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

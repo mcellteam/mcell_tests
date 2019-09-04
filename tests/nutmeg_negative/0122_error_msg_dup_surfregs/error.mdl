@@ -1,0 +1,4 @@
+ITERATIONS = 10
+TIME_STEP = 1e-6
+
+INCLUDE_FILE = "a.mdl"

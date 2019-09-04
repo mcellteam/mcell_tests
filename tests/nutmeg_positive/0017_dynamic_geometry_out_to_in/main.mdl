@@ -1,0 +1,98 @@
+ITERATIONS = 10
+TIME_STEP = 1e-6
+
+WARNINGS
+{
+  LARGE_MOLECULAR_DISPLACEMENT = IGNORED
+}
+
+DEFINE_MOLECULES
+{
+  vm1 { DIFFUSION_CONSTANT_3D = 1e-08 }
+  vm2 { DIFFUSION_CONSTANT_3D = 1e-08 }
+  vm3 { DIFFUSION_CONSTANT_3D = 1e-08 }
+  vm4 { DIFFUSION_CONSTANT_3D = 1e-08 }
+}
+
+DEFINE_SURFACE_CLASSES
+{
+  transp_vm234
+  {
+    TRANSPARENT = vm2'
+    TRANSPARENT = vm3'
+    TRANSPARENT = vm4'
+  }
+  transp_vm34
+  {
+    TRANSPARENT = vm3'
+    TRANSPARENT = vm4'
+  }
+  transp_vm4
+  {
+    TRANSPARENT = vm4'
+  }
+}
+
+DYNAMIC_GEOMETRY = "./list_of_geometry.txt"
+
+INSTANTIATE Scene OBJECT
+{
+  rel_vm1 RELEASE_SITE
+  {
+    SHAPE = CUBIC
+    MOLECULE = vm1
+    NUMBER_TO_RELEASE = 100
+    SITE_DIAMETER = 0.0
+    LOCATION = [0.31, 0.0, 0.0]
+  }
+  rel_vm2 RELEASE_SITE
+  {
+    SHAPE = CUBIC
+    MOLECULE = vm2
+    NUMBER_TO_RELEASE = 100
+    SITE_DIAMETER = 0.0
+    LOCATION = [0.31, 0.0, 0.0]
+  }
+  rel_vm3 RELEASE_SITE
+  {
+    SHAPE = CUBIC
+    MOLECULE = vm3
+    NUMBER_TO_RELEASE = 100
+    SITE_DIAMETER = 0.0
+    LOCATION = [0.31, 0.0, 0.0]
+  }
+  rel_vm4 RELEASE_SITE
+  {
+    SHAPE = CUBIC
+    MOLECULE = vm4
+    NUMBER_TO_RELEASE = 100
+    SITE_DIAMETER = 0.0
+    LOCATION = [0.31, 0.0, 0.0]
+  }
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-06
+  HEADER=OFF
+  // vm1
+  {COUNT[vm1,DGScene.A]:"A",
+   COUNT[vm1,DGScene.B]-COUNT[vm1,DGScene.A]:"B",
+   COUNT[vm1,DGScene.C]-COUNT[vm1,DGScene.B]:"C",
+   COUNT[vm1,WORLD]-COUNT[vm1,DGScene.C]:"WORLD"}=> "./vm1.dat"
+  // vm2
+  {COUNT[vm2,DGScene.A]:"A",
+   COUNT[vm2,DGScene.B]-COUNT[vm2,DGScene.A]:"B",
+   COUNT[vm2,DGScene.C]-COUNT[vm2,DGScene.B]:"C",
+   COUNT[vm2,WORLD]-COUNT[vm2,DGScene.C]:"WORLD"}=> "./vm2.dat"
+  // vm3
+  {COUNT[vm3,DGScene.A]:"A",
+   COUNT[vm3,DGScene.B]-COUNT[vm3,DGScene.A]:"B",
+   COUNT[vm3,DGScene.C]-COUNT[vm3,DGScene.B]:"C",
+   COUNT[vm3,WORLD]-COUNT[vm3,DGScene.C]:"WORLD"}=> "./vm3.dat"
+  // vm4
+  {COUNT[vm4,DGScene.A]:"A",
+   COUNT[vm4,DGScene.B]-COUNT[vm4,DGScene.A]:"B",
+   COUNT[vm4,DGScene.C]-COUNT[vm4,DGScene.B]:"C",
+   COUNT[vm4,WORLD]-COUNT[vm4,DGScene.C]:"WORLD"}=> "./vm4.dat"
+}

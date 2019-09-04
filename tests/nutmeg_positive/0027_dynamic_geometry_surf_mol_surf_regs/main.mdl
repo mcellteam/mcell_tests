@@ -1,0 +1,33 @@
+ITERATIONS = 10
+TIME_STEP = 1e-6
+
+VACANCY_SEARCH_DISTANCE = 0.1
+
+DEFINE_MOLECULES
+{
+  sm { DIFFUSION_CONSTANT_2D = 1e-07 }
+}
+
+DEFINE_SURFACE_CLASSES
+{
+  sc { REFLECTIVE = sm }
+}
+
+DYNAMIC_GEOMETRY = "./geom.txt"
+
+INSTANTIATE Scene OBJECT
+{
+  Release_Site RELEASE_SITE
+  {
+    SHAPE = DGScene.Cube[sr1]
+    MOLECULE = sm'
+    NUMBER_TO_RELEASE = 100
+  }
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-06
+  {COUNT[sm,DGScene.Cube[sr1]]}=> "./sm.sr1.dat"
+  {COUNT[sm,DGScene.Cube[sr2]]}=> "./sm.sr2.dat"
+}

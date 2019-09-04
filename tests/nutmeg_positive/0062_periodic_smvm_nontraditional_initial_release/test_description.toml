@@ -1,0 +1,32 @@
+author = "Jacob Czech <jczech@psc.edu>"
+date = "2016-04-01"
+description = "Make sure we can release (and count) both VMs and SMs in periodic boxes other than [0,0,0]"
+keywords = ["periodic"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "vm.cube.000.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "sm.plane.000.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  countMaximum = [100]
+  countMinimum = [100]
+  dataFile = "vm.cube.111.dat"
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [100]
+  countMinimum = [100]
+  dataFile = "sm.plane.111.dat"
+  testType = "COUNT_MINMAX"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main.mdl"]
+

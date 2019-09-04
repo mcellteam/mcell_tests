@@ -1,0 +1,64 @@
+ITERATIONS = 200
+TIME_STEP = 1e-06
+
+PERIODIC_BOX {
+  CORNERS = [-0.75, -0.75, -0.75],[0.75, 0.75, 0.75]
+  PERIODIC_TRADITIONAL = TRUE
+  PERIODIC_X = TRUE
+  PERIODIC_Y = TRUE
+  PERIODIC_Z = TRUE
+}
+
+DYNAMIC_GEOMETRY = "dynamic_geometry.mdl"
+
+DEFINE_MOLECULES {
+  vm1 {DIFFUSION_CONSTANT_3D = 5e-5}
+  vm2 {DIFFUSION_CONSTANT_3D = 5e-5}
+}
+
+INSTANTIATE RelScene OBJECT
+{
+  rel_vm1 RELEASE_SITE
+  {
+    SHAPE = CUBIC
+    MOLECULE = vm1
+    NUMBER_TO_RELEASE = 50
+    SITE_DIAMETER = 0.0
+    LOCATION = [-0.3, 0.0, 0.0]
+  }
+  rel_vm2 RELEASE_SITE
+  {
+    SHAPE = CUBIC
+    MOLECULE = vm2
+    NUMBER_TO_RELEASE = 50
+    SITE_DIAMETER = 0.0
+    LOCATION = [0.3, 0.0, 0.0]
+  }
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-6
+  {COUNT[vm1,WORLD]}=> "./vm1.WORLD.dat"
+  {COUNT[vm2,WORLD]}=> "./vm2.WORLD.dat"
+
+  {COUNT[vm1,Scene.Cube]}=> "./vm1.cube.dat"
+  {COUNT[vm2,Scene.Cube]}=> "./vm2.cube.dat"
+
+  /*{COUNT[vm1,Scene.Cube[sr1]]}=> "./vm1.cube.sr1.dat"*/
+  /*{COUNT[vm1,Scene.Cube[sr2]]}=> "./vm1.cube.sr2.dat"*/
+
+  /*{COUNT[vm2,Scene.Cube[sr1]]}=> "./vm2.cube.sr1.dat"*/
+  /*{COUNT[vm2,Scene.Cube[sr2]]}=> "./vm2.cube.sr2.dat"*/
+}
+
+/*VIZ_OUTPUT*/
+/*{*/
+/*  MODE = CELLBLENDER*/
+/*  FILENAME = "./viz_data/Scene"*/
+/*  MOLECULES*/
+/*  {*/
+/*    NAME_LIST {ALL_MOLECULES}*/
+/*    ITERATION_NUMBERS {ALL_DATA @ ALL_ITERATIONS}*/
+/*  }*/
+/*}*/

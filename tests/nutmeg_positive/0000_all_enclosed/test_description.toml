@@ -8,8 +8,11 @@ keywords = ["reactions"]
 
 [[checks]]
   dataFile = "A.dat"
+  haveHeader = true
+  referenceFile = "A_ref.dat"
   testType = "COMPARE_COUNTS"
 
 [run]
+  commandlineOpts = ["-quiet"]
   mdlfiles = ["test.mdl"]
 

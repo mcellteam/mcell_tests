@@ -1,0 +1,21 @@
+author = "Jacob Czech <jczech@psc.edu>"
+date = "2016-03-08"
+description = """\
+              This test was created to ensure that MCell was correctly using \
+              a named reverse rate after a bug was found and fixed in MCell \
+              commit 2c5a9bdb.
+              """
+keywords = ["regression"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  countMinimum = [40]
+  dataFile = "vm.dat"
+  haveHeader = false
+  testType = "COUNT_MINMAX"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]

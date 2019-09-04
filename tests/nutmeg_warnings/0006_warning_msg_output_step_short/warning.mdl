@@ -1,0 +1,13 @@
+ITERATIONS = 1
+TIME_STEP = 1e-5
+
+DEFINE_MOLECULES
+{
+  vm { DIFFUSION_CONSTANT_3D = 1e-06 }
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-06
+  {COUNT[vm,WORLD]}=> "./react_data/vm.WORLD.dat"
+}

@@ -1,0 +1,22 @@
+author = "Jacob Czech"
+date = "2015-06-09"
+description = "Make sure molecules don't leak out of the dividing mesh."
+keywords = ["dynamic geometry"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "vm_World.dat"
+  referenceFile = "vm_World_ref.dat"
+  testType = "COMPARE_COUNTS"
+
+[[checks]]
+  dataFile = "vm_Icosphere.dat"
+  referenceFile = "vm_Icosphere_ref.dat"
+  testType = "COMPARE_COUNTS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main.mdl"]
+

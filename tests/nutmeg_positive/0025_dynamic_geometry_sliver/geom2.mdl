@@ -1,0 +1,6 @@
+INCLUDE_FILE = "sliver_geom.mdl"
+
+INSTANTIATE DGScene OBJECT
+{
+  sliver OBJECT sliver {TRANSLATE = [0, 0.01, 0]}
+}

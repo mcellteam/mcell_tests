@@ -1,0 +1,33 @@
+author = "Jed Wing <jed@salk.edu>"
+date = "2008-09-10"
+description = "When two surface molecules undergo a reaction in which both reagents are preserved, and in which both reagents change orientation, counting does not occur properly. \nFailure: as flippy increases, a000- and b000- remain 0. \nSuccess: a000- and b000- increase to non-zero values\n flippy increases\n at all times a000- + a000+ == 300\n at all times b000- + b000+ == 300"
+keywords = ["regression"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "counts.txt"
+  haveHeader = true
+  testType = "COUNT_CONSTRAINTS"
+
+  [[checks.countConstraints]]
+    query = [1, 1, 0, 0, 0]
+    target = 300
+
+  [[checks.countConstraints]]
+    query = [0, 0, 1, 1, 0]
+    target = 300
+
+[[checks]]
+  countMaximum = [260, 260, 260, 260, 100000000]
+  countMinimum = [40, 40, 40, 40, 10000]
+  dataFile = "counts.txt"
+  haveHeader = true
+  minTime = 0.00005
+  testType = "COUNT_MINMAX"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

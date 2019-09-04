@@ -1,0 +1,34 @@
+author = "Jacob Czech <jczech@psc.edu>"
+date = "2016-02-18"
+description = "Tests that periodic boundary conditions work for counting surface molecules."
+keywords = ["periodic"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  countMaximum = [1]
+  countMinimum = [1]
+  dataFile = "sm.all.dat"
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [1]
+  countMinimum = [1]
+  dataFile = "sm.sr.dat"
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [1]
+  countMinimum = [1]
+  dataFile = "sm.lrg_enclosed.dat"
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  dataFile = "sm.enclosed.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main.mdl"]
+

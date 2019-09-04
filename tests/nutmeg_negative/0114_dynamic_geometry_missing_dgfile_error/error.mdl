@@ -1,0 +1,5 @@
+ITERATIONS = 200
+TIME_STEP = 1e-06
+
+DYNAMIC_GEOMETRY = "dynamic_geometry.mdl"
+

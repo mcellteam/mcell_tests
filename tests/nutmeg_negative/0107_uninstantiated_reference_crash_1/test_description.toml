@@ -1,0 +1,15 @@
+author = "Jed Wing <jed@salk.edu>"
+date = "2009-06-15"
+description = "An instantiated release site can reference an uninstantiated object as its shape, leading to a crash."
+includes = ["exit_code_1"]
+keywords = ["regression"]
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "Region neither instanced nor grouped with release site."
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  mdlfiles = ["test.mdl"]
+

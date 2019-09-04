@@ -1,0 +1,130 @@
+author = "Boris Kaminsky <borisk@psc.edu"
+date = "2010-12-08"
+description = "Region border properties tested on sphere. REFLECTIVE/ABSORPTIVE/TRANSPARENT properties of REGION border tested on sphere with much more complex shape of the region and boundary of the region crossing the sphere apex. Also tested HITS/CROSSINGS statements with COUNT/TRIGGER statements. The test is done on the sphere with complex region border geometry. Region  r1 boundary crosses the apex of the sphere. Region r1 borders are REFLECTIVE for molecule A, ABSORPTIVE for B, and TRANSPARENT for C.  Initially we place 100 molecules of each type inside region r1. We check that all molecules A are contained within r1 and there are none of them in the surrounding region r2. Because B has high diffusion coefficient, they all get absorbed at the border, and after some time we should register none of them inside either r1 or r2. The total count of C as sum across regions r1 and r2 is constant over the simulation. Region r3 borders are REFLECTIVE for molecules D and E. We place 100 molecules D there that also undergo unimolecular reaction D @ surface_class -> E[rate].  We check that total sum of D and E within the region r3 is equal to 100. Also TRIGGER statements are checked."
+keywords = ["reactions"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "A.dat"
+  haveHeader = true
+  referenceFile = "A_ref.dat"
+  testType = "COMPARE_COUNTS"
+
+[[checks]]
+  dataFile = "B.dat"
+  haveHeader = true
+  referenceFile = "B_ref.dat"
+  testType = "COMPARE_COUNTS"
+
+[[checks]]
+  dataFile = "A_hits.dat"
+  haveHeader = true
+  testType = "COUNT_CONSTRAINTS"
+
+  [[checks.countConstraints]]
+    query = [1, 1, -1]
+    target = 0
+
+[[checks]]
+  dataFile = "A_hits.dat"
+  haveHeader = true
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "C_cross.dat"
+  haveHeader = true
+  testType = "COUNT_CONSTRAINTS"
+
+  [[checks.countConstraints]]
+    query = [1, 1, -1]
+    target = 0
+
+[[checks]]
+  dataFile = "C_cross.dat"
+  haveHeader = true
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "C_trigger_fr_hits.dat"
+  haveHeader = true
+  outputTime = 0.000001
+  testType = "CHECK_TRIGGERS"
+  triggerType = "hits"
+  xRange = [-1.0, 1.0]
+  yRange = [-1.0, 1.0]
+  zRange = [-1.0, 1.0]
+
+[[checks]]
+  dataFile = "C_trigger_back_hits.dat"
+  haveHeader = true
+  outputTime = 0.000001
+  testType = "CHECK_TRIGGERS"
+  triggerType = "hits"
+  xRange = [-1.0, 1.0]
+  yRange = [-1.0, 1.0]
+  zRange = [-1.0, 1.0]
+
+[[checks]]
+  dataFile = "C_trigger_all_hits.dat"
+  haveHeader = true
+  outputTime = 0.000001
+  testType = "CHECK_TRIGGERS"
+  triggerType = "hits"
+  xRange = [-1.0, 1.0]
+  yRange = [-1.0, 1.0]
+  zRange = [-1.0, 1.0]
+
+[[checks]]
+  dataFile = "C_trigger_fr_cross.dat"
+  haveHeader = true
+  outputTime = 0.000001
+  testType = "CHECK_TRIGGERS"
+  triggerType = "hits"
+  xRange = [-1.0, 1.0]
+  yRange = [-1.0, 1.0]
+  zRange = [-1.0, 1.0]
+
+[[checks]]
+  dataFile = "C_trigger_back_cross.dat"
+  haveHeader = true
+  outputTime = 0.000001
+  testType = "CHECK_TRIGGERS"
+  triggerType = "hits"
+  xRange = [-1.0, 1.0]
+  yRange = [-1.0, 1.0]
+  zRange = [-1.0, 1.0]
+
+[[checks]]
+  dataFile = "C_trigger_all_cross.dat"
+  haveHeader = true
+  outputTime = 0.000001
+  testType = "CHECK_TRIGGERS"
+  triggerType = "hits"
+  xRange = [-1.0, 1.0]
+  yRange = [-1.0, 1.0]
+  zRange = [-1.0, 1.0]
+
+[[checks]]
+  dataFile = "C.dat"
+  haveHeader = true
+  testType = "COUNT_CONSTRAINTS"
+
+  [[checks.countConstraints]]
+    query = [1, 1]
+    target = 100
+
+[[checks]]
+  dataFile = "r2.dat"
+  haveHeader = true
+  testType = "COUNT_CONSTRAINTS"
+
+  [[checks.countConstraints]]
+    query = [1, 1]
+    target = 100
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

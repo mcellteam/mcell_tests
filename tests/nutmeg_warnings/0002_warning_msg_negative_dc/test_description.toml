@@ -1,0 +1,15 @@
+author = "Jacob Czech"
+date = "2016-01-13"
+description = "Verify that a warning is generated when a negative diffusion constant is found."
+keywords = ["warning messages"]
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "Warning: negative diffusion constant found, setting to zero and continuing."
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["warning.mdl"]
+

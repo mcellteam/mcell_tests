@@ -1,0 +1,36 @@
+/****************************************************************************
+ * This test checks that MCell properly catches out of bounds vertex
+ * access in POLYGON_LIST (instead of segfaulting).
+ *
+ * A check was added to MCell on 07/11 in response to an email to
+ * mcell-dev by Namrata Mohapatra. He had a Matlab generated input
+ * geometry with out of bounds vertex indices causing mcell to segfault.
+ *
+ * Author: Markus Dittrich <dittrich@psc.edu>
+ * Date:   2014-07-11
+ ****************************************************************************/
+
+TIME_STEP     = 1e-5
+ITERATIONS    = 10
+
+DEFINE_MOLECULES {
+    Ca     { DIFFUSION_CONSTANT_3D = 2.5e-8 }
+    B     { DIFFUSION_CONSTANT = 2.5e-8 }
+}
+
+INSTANTIATE world OBJECT 
+{
+    sample POLYGON_LIST {
+        VERTEX_LIST {
+            [-0.01, -0.01, -0.01 ]
+            [-0.01,  0.01, -0.01 ]
+            [-0.01, -0.01,  0.01 ]
+            [-0.01,  0.01,  0.01 ]
+        }
+        ELEMENT_CONNECTIONS {
+            [0,3,5]  /* out of bounds vertex access!! */
+            [0,2,3]
+        }
+    }
+}
+

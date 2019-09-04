@@ -1,0 +1,37 @@
+ITERATIONS = 15
+TIME_STEP = 1e-6
+
+WARNINGS
+{
+  LARGE_MOLECULAR_DISPLACEMENT = IGNORED
+}
+
+DYNAMIC_GEOMETRY = "./geom.txt"
+
+DEFINE_MOLECULES
+{
+  vm { DIFFUSION_CONSTANT_3D = 0 }
+}
+
+INSTANTIATE Scene OBJECT
+{
+  rel_vm RELEASE_SITE
+  {
+    SHAPE = DGScene.A
+    MOLECULE = vm
+    NUMBER_TO_RELEASE = 1000
+    SITE_DIAMETER = 0.0
+    LOCATION = [0.0, 0.0, 0.0]
+  }
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-06
+  HEADER=OFF
+  {COUNT[vm,WORLD]}=> "./vm_world.dat"
+  {COUNT[vm,DGScene.A]}=> "./vm_A.dat"
+  {COUNT[vm,DGScene.B]}=> "./vm_B.dat"
+  {COUNT[vm,DGScene.C]}=> "./vm_C.dat"
+  {COUNT[vm,DGScene.D]}=> "./vm_D.dat"
+}

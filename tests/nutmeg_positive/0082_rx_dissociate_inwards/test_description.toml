@@ -1,0 +1,25 @@
+author = "Jed Wing <jed@salk.edu>"
+date = "2008-09-10"
+description = "When a surface molecule undergoes a reaction to become a volume molecule, orientation must be respected.\nFailure: as g decreases, mi increases faster than m.\nSuccess: at all times m == mi\nat all times m + g == 1000"
+keywords = ["regression"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "molecules.txt"
+  haveHeader = true
+  testType = "COUNT_CONSTRAINTS"
+
+  [[checks.countConstraints]]
+    query = [1, 1, 0]
+    target = 1000
+
+  [[checks.countConstraints]]
+    query = [0, 1, -1]
+    target = 0
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

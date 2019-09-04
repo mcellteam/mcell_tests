@@ -1,0 +1,19 @@
+author = "Jacob Czech <jczech@psc.edu>"
+date = "2016-04-22"
+description = "Print error message"
+includes = ["exit_code_1"]
+keywords = ["argparse", "error messages"]
+
+[[checks]]
+  fileNames = ["stderr_%d.0.log"]
+  testType = "CHECK_NONEMPTY_FILES"
+
+[[checks]]
+  dataFile = "stderr_%d.0.log"
+  matchPattern = "MCell: command-line argument syntax error: Iteration report interval must be an integer: XXX"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  commandlineOpts = ["-logfreq", "XXX"]
+  mdlfiles = ["error.mdl"]

@@ -1,0 +1,32 @@
+author = "Jacob Czech"
+date = "2015-10-15"
+description = "Verify that meta objects work correctly with dynamic geometries."
+keywords = ["dynamic geometry"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "vm.Scene.Meta.Cube.dat"
+  referenceFile = "vm.Scene.Meta.Cube_ref.dat"
+  testType = "COMPARE_COUNTS"
+
+[[checks]]
+  dataFile = "vm.WORLD.dat"
+  referenceFile = "vm.WORLD_ref.dat"
+  testType = "COMPARE_COUNTS"
+
+[[checks]]
+  dataFile = "sm.Scene.Meta.Cube.dat"
+  referenceFile = "sm.Scene.Meta.Cube_ref.dat"
+  testType = "COMPARE_COUNTS"
+
+[[checks]]
+  dataFile = "sm.WORLD.dat"
+  referenceFile = "sm.WORLD_ref.dat"
+  testType = "COMPARE_COUNTS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main.mdl"]
+

@@ -1,0 +1,64 @@
+/******************************************************************************
+ *
+ * This tests checks that negative molecule releases work as expected for
+ * volume molecules for which no reactions are defined. Thanks to Jacob
+ * for providing this test case.
+ * 
+ * Author: Markus Dittrich <dittrich@psc.edu>
+ * Date  : 05-14-2014
+ *
+ ******************************************************************************/
+ITERATIONS = 2000
+TIME_STEP = 1e-06
+
+DEFINE_MOLECULES {
+  sm { DIFFUSION_CONSTANT_2D = 1e-06 }
+  vm { DIFFUSION_CONSTANT_3D = 1e-06 }
+}
+
+Cube BOX {
+  CORNERS = [-0.5, -0.5, -0.5],[0.5, 0.5, 0.5]
+}
+
+DEFINE_RELEASE_PATTERN destroy_pattern {
+  DELAY = 0.001
+  NUMBER_OF_TRAINS = 1
+}
+
+INSTANTIATE Scene OBJECT
+{
+  Cube OBJECT Cube {}
+  destroy_sm RELEASE_SITE
+  {
+   SHAPE = Scene.Cube
+   MOLECULE = sm'
+   NUMBER_TO_RELEASE = -1000
+   RELEASE_PATTERN = destroy_pattern
+  }
+  create_sm RELEASE_SITE
+  {
+   SHAPE = Scene.Cube
+   MOLECULE = sm'
+   NUMBER_TO_RELEASE = 1000
+  }
+  create_vm RELEASE_SITE
+  {
+   SHAPE = Scene.Cube
+   MOLECULE = vm
+   NUMBER_TO_RELEASE = 1000
+  }
+  destroy_vm RELEASE_SITE
+  {
+   SHAPE = Scene.Cube
+   MOLECULE = vm
+   NUMBER_TO_RELEASE = -1000
+   RELEASE_PATTERN = destroy_pattern
+  }
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-06
+  {COUNT[sm, WORLD]}=> "./sm.World.dat"
+  {COUNT[vm, WORLD]}=> "./vm.World.dat"
+}
