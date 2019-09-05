@@ -8,17 +8,14 @@ keywords = ["dynamic geometry"]
 
 [[checks]]
   dataFile = "sm.sr1.dat"
-  templateFile = "sm.sr1_ref.dat"
   testType = "DIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "sm.sr2.dat"
-  templateFile = "sm.sr2_ref.dat"
   testType = "DIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "sm.sr3.dat"
-  templateFile = "sm.sr3_ref.dat"
   testType = "DIFF_FILE_CONTENT"
 
 [run]

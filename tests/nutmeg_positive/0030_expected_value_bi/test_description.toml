@@ -11,7 +11,7 @@ keywords = ["reactions"]
   dataFile = "counts.txt"
   haveHeader = false
   referenceFile = "mean.txt"
-  testType = "COMPARE_COUNTS"
+  testType = "DIFF_FILE_CONTENT"
 
 [run]
   commandlineOpts = ["-quiet"]

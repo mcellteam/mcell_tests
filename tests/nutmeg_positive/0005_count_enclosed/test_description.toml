@@ -10,14 +10,12 @@ keywords = ["regression"]
   countMaximum = [100]
   countMinimum = [100]
   dataFile = "A.World.dat"
-  haveHeader = false
   testType = "COUNT_MINMAX"
 
 [[checks]]
   countMaximum = [100]
   countMinimum = [0]
   dataFile = "A.Cube.dat"
-  haveHeader = false
   testType = "COUNT_MINMAX"
 
 [run]

@@ -9,7 +9,7 @@ keywords = ["dynamic geometry"]
 [[checks]]
   dataFile = "vm.dat"
   referenceFile = "vm_ref.dat"
-  testType = "COMPARE_COUNTS"
+  testType = "DIFF_FILE_CONTENT"
 
 [run]
   commandlineOpts = ["-quiet"]

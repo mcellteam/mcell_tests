@@ -20,7 +20,7 @@ keywords = ["reactions"]
   dataFile = "box_3_r5.dat"
   haveHeader = true
   referenceFile = "box_3_r5_ref.dat"
-  testType = "COMPARE_COUNTS"
+  testType = "DIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "box_3_r6.dat"
@@ -31,7 +31,7 @@ keywords = ["reactions"]
   dataFile = "box_1_A.dat"
   haveHeader = true
   referenceFile = "box_1_A_ref.dat"
-  testType = "COMPARE_COUNTS"
+  testType = "DIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "box_1_B.dat"

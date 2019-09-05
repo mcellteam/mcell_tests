@@ -68,23 +68,32 @@ KEY_NUM_MATCHES = 'numMatches' # only 1 supported
 KEY_MATCH_PATTERN = 'matchPattern'
 KEY_HAVE_HEADER = 'haveHeader' # ignored
 KEY_REFERENCE_FILE = 'referenceFile'
+KEY_COUNT_MINIMUM = 'countMinimum'
+KEY_COUNT_MAXIMUM = 'countMaximum'
 
-
-SUBKEYS_CHECKS = [KEY_FILE_NAMES, KEY_DATA_FILE, KEY_HAVE_HEADER, KEY_REFERENCE_FILE, KEY_TEST_TYPE]
+SUBKEYS_CHECKS = [
+    KEY_FILE_NAMES, KEY_DATA_FILE, KEY_HAVE_HEADER, 
+    KEY_REFERENCE_FILE, KEY_TEST_TYPE, KEY_COUNT_MINIMUM, KEY_COUNT_MAXIMUM
+]
 
 TEST_TYPE_INVALID = -1
 TEST_TYPE_CHECK_SUCCESS = 0
 TEST_TYPE_CHECK_EXIT_CODE = 1
 
-TEST_TYPE_COMPARE_COUNTS = 10  # exact match with a reference file
-TEST_TYPE_ZERO_COUNTS = 11
-TEST_TYPE_POSITIVE_OR_ZERO_COUNTS = 12
-TEST_TYPE_POSITIVE_COUNTS = 13
+TEST_TYPE_DIFF_FILE_CONTENT = 10  # exact match with a reference file, same as original DIFF_FILE_CONTENT
 
-TEST_TYPE_CHECK_NONEMPTY_FILES = 20
-TEST_TYPE_CHECK_EMPTY_FILES = 21
+TEST_TYPE_ZERO_COUNTS = 20
+TEST_TYPE_POSITIVE_OR_ZERO_COUNTS = 21
+TEST_TYPE_POSITIVE_COUNTS = 22
+TEST_TYPE_COUNT_MINMAX = 23
 
-TEST_TYPE_FILE_MATCH_PATTERN = 30
+TEST_TYPE_CHECK_NONEMPTY_FILES = 30
+TEST_TYPE_CHECK_EMPTY_FILES = 31
+
+TEST_TYPE_FILE_MATCH_PATTERN = 40
+
+
+TEST_TYPE_UPDATE_REFERENCE = 50
 
 
 TEST_TYPE_ID_TO_NAME = {
@@ -92,15 +101,18 @@ TEST_TYPE_ID_TO_NAME = {
     TEST_TYPE_CHECK_SUCCESS: 'CHECK_SUCCESS',
     TEST_TYPE_CHECK_EXIT_CODE: 'CHECK_EXIT_CODE',
 
-    TEST_TYPE_COMPARE_COUNTS: 'COMPARE_COUNTS',
+    TEST_TYPE_DIFF_FILE_CONTENT: 'DIFF_FILE_CONTENT',
     TEST_TYPE_ZERO_COUNTS: 'ZERO_COUNTS',
     TEST_TYPE_POSITIVE_OR_ZERO_COUNTS: 'POSITIVE_OR_ZERO_COUNTS',
     TEST_TYPE_POSITIVE_COUNTS: 'POSITIVE_COUNTS',
+    TEST_TYPE_COUNT_MINMAX: 'COUNT_MINMAX',
 
     TEST_TYPE_CHECK_NONEMPTY_FILES: 'CHECK_NONEMPTY_FILES',
     TEST_TYPE_CHECK_EMPTY_FILES: 'CHECK_EMPTY_FILES',
 
-    TEST_TYPE_FILE_MATCH_PATTERN: 'FILE_MATCH_PATTERN'
+    TEST_TYPE_FILE_MATCH_PATTERN: 'FILE_MATCH_PATTERN',
+    
+    TEST_TYPE_UPDATE_REFERENCE: 'COUNT_CONSTRAINTS'
 }
 
 TEST_TYPE_NAME_TO_ID = {y: x for x,y in TEST_TYPE_ID_TO_NAME.items()}
@@ -110,6 +122,8 @@ class CheckInfo:
     def __init__(self):
         self.test_type = TEST_TYPE_INVALID
         self.data_file = ''
+        self.count_minimum = ''  # for TEST_TYPE_COUNT_MINMAX
+        self.count_maximum = ''  # for TEST_TYPE_COUNT_MINMAX
 
 
 class RunInfo:
@@ -172,24 +186,49 @@ class TestDescriptionParser:
         test_type_str = self.get_dict_value(check_dict, KEY_TEST_TYPE)
         res.test_type = self.get_test_type(test_type_str)
         
-        if res.test_type in [TEST_TYPE_COMPARE_COUNTS, TEST_TYPE_ZERO_COUNTS,
+        if res.test_type in [TEST_TYPE_DIFF_FILE_CONTENT, TEST_TYPE_ZERO_COUNTS,
                  TEST_TYPE_POSITIVE_OR_ZERO_COUNTS, TEST_TYPE_POSITIVE_COUNTS]:
 
             res.data_file = self.get_dict_value(check_dict, KEY_DATA_FILE)
+            
             if KEY_HAVE_HEADER in check_dict:
                 self.parse_warning("Key " + KEY_HAVE_HEADER + " is ignored")
             if KEY_REFERENCE_FILE in check_dict:
                 self.parse_warning("Key " + KEY_REFERENCE_FILE + " is ignored")
+                
+        elif res.test_type == TEST_TYPE_COUNT_MINMAX:
+            res.data_file = self.get_dict_value(check_dict, KEY_DATA_FILE)
+
+            min_list = self.get_dict_value(check_dict, KEY_COUNT_MINIMUM)
+            if len(min_list) != 1:
+                self.parse_error("Key " + KEY_COUNT_MINIMUM + " must contain a list with a single value")
+            res.count_minimum = min_list[0]
+            
+            max_list = self.get_dict_value(check_dict, KEY_COUNT_MAXIMUM)
+            if len(max_list) != 1:
+                self.parse_error("Key " + KEY_COUNT_MINIMUM + " must contain a list with a single value")
+            res.count_maximum = max_list[0]
+
+            if KEY_HAVE_HEADER in check_dict:
+                self.parse_warning("Key " + KEY_HAVE_HEADER + " is ignored")
+                
         elif res.test_type == TEST_TYPE_CHECK_SUCCESS:
             # no other attributesw are relevant
             pass
         else:
             self.parse_error("Check type '" + test_type_str + "' is not supported yet.")
+            res.test_type = TEST_TYPE_UPDATE_REFERENCE
+            res.data_file = self.get_dict_value(check_dict, KEY_DATA_FILE)
         
         return res
     
     def parse_test_description(self) -> TestDescription:
-        top_dict = toml.load(os.path.join(self.test_src_path, TEST_DESCRIPTION_FILE))
+        test_description = os.path.join(self.test_src_path, TEST_DESCRIPTION_FILE)
+        if not os.path.exists(test_description):
+            self.parse_error("Could not open nutmeg test specification file '" + test_description + "'.")
+            return None
+        
+        top_dict = toml.load(test_description)
         
         res = TestDescription()
         res.run_info = self.parse_run_info(top_dict)
@@ -242,33 +281,55 @@ class TesterNutmeg(TesterBase):
         flog.close()
 
         return mcell_ec
+    
+    def report_check_counts_error(self, line: str, check: CheckInfo):
+        minmax_str = ""
+        if check.test_type == TEST_TYPE_COUNT_MINMAX:
+            minmax_str = "min: " + str(check.count_minimum) + ", max: " + str(check.count_maximum)  
+        
+        self.nutmeg_log(
+            "Count check failed for line '" + line + "' " + minmax_str, check.test_type)
+        
 
-    def check_counts(self, test_type: int, data_file: str) -> int:
-        data_file_path = os.path.join(self.test_work_path, data_file)
+    def check_counts(self, check: CheckInfo) -> int:
+        data_file_path = os.path.join(self.test_work_path, check.data_file)
         # expecting that the data file contains only two columns: iteration and value
+        res = PASSED
         try:
             with open(data_file_path, "r") as fin:
                 for line in fin:
                     val = int(line.split(' ')[1])
-                    if test_type == TEST_TYPE_ZERO_COUNTS:
+                    if check.test_type == TEST_TYPE_ZERO_COUNTS:
                         if val != 0:
-                            return FAILED_NUTMEG_SPEC
-                    elif test_type == TEST_TYPE_POSITIVE_OR_ZERO_COUNTS:
+                            res = FAILED_NUTMEG_SPEC
+                    elif check.test_type == TEST_TYPE_POSITIVE_OR_ZERO_COUNTS:
                         if val < 0:
-                            return FAILED_NUTMEG_SPEC
-                    elif test_type == TEST_TYPE_POSITIVE_COUNTS:
+                            res = FAILED_NUTMEG_SPEC
+                    elif check.test_type == TEST_TYPE_POSITIVE_COUNTS:
                         if val <= 0:
-                            return FAILED_NUTMEG_SPEC
+                            res = FAILED_NUTMEG_SPEC
+                    elif check.test_type == TEST_TYPE_COUNT_MINMAX:
+                        if val < check.count_minimum or val > check.count_maximum:
+                            res = FAILED_NUTMEG_SPEC
+                    else:
+                        fatal_error("Unknown test type in check_counts: " + str(check.test_type))\
+                        
+                    if res != PASSED:
+                        self.report_check_counts_error(line, check)
+                        return res
+                        
+                        
         except Exception as e:
             self.nutmeg_log(
                 "Failed while parsing data file '" + data_file + "', exception " + str(e.args), check.test_type)
+            return FAILED_NUTMEG_SPEC
 
         return PASSED
 
     def run_check(self, check: CheckInfo, mcell_ec: int) -> int:
 
         res = FAILED_DIFF
-        if check.test_type == TEST_TYPE_COMPARE_COUNTS:
+        if check.test_type == TEST_TYPE_DIFF_FILE_CONTENT:
             # exact file compare
             res = data_output_diff.compare_data_output_files(
                 os.path.join('..', self.test_src_path, REF_NUTMEG_DATA_DIR, check.data_file),
@@ -276,15 +337,26 @@ class TesterNutmeg(TesterBase):
                 exact=True)
             self.nutmeg_log("Comparison result of '" + check.data_file + "': " + RESULT_NAMES[res], check.test_type)
 
-        elif check.test_type in [TEST_TYPE_ZERO_COUNTS, TEST_TYPE_POSITIVE_OR_ZERO_COUNTS, TEST_TYPE_POSITIVE_COUNTS]:
-            res = self.check_counts(check.test_type, check.data_file)
-
+        elif check.test_type in [TEST_TYPE_ZERO_COUNTS, TEST_TYPE_POSITIVE_OR_ZERO_COUNTS, 
+                                 TEST_TYPE_POSITIVE_COUNTS, TEST_TYPE_COUNT_MINMAX]:
+            res = self.check_counts(check)
+            self.nutmeg_log("Comparison result of '" + check.data_file + "': " + RESULT_NAMES[res], check.test_type)
+                
         elif check.test_type == TEST_TYPE_CHECK_SUCCESS:
             if mcell_ec == 0:
                 self.nutmeg_log("Mcell exit code is 0 as expected.", check.test_type)
                 res = PASSED
             else:
                 self.nutmeg_log("Expected exit code 0 but mcell returned " + str(mcell_ec), check.test_type)
+
+        elif check.test_type == TEST_TYPE_UPDATE_REFERENCE:
+            ref_dir = os.path.join(self.test_src_path, REF_NUTMEG_DATA_DIR)
+            if not os.path.exists(ref_dir):
+                os.mkdir(ref_dir)
+            ref_file = os.path.join(self.test_work_path, check.data_file)
+            self.nutmeg_log("Updating contents in " + ref_dir + " with " + ref_file + ".", check.test_type)
+            shutil.copy(ref_file, ref_dir)
+            res = NUTMEG_UPDATED_REFERENCE
         else:
             fatal_error("Unexpected check type " + TEST_TYPE_ID_TO_NAME[check.test_type])
 
@@ -314,6 +386,8 @@ class TesterNutmeg(TesterBase):
         # transform the result ito something more readable or keep as dictionary?
         parser = TestDescriptionParser(self.test_src_path)
         test_description = parser.parse_test_description()
+        if test_description is None:
+            return FAILED_NUTMEG_SPEC        
 
         res = self.run_and_validate_test(test_description)
          

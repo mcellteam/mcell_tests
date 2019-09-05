@@ -8,9 +8,7 @@ keywords = ["reactions"]
 
 [[checks]]
   dataFile = "A.dat"
-  haveHeader = true
-  referenceFile = "A_ref.dat"
-  testType = "COMPARE_COUNTS"
+  testType = "DIFF_FILE_CONTENT"
 
 [run]
   commandlineOpts = ["-quiet"]

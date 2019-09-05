@@ -10,13 +10,13 @@ keywords = ["reactions"]
   dataFile = "A.dat"
   haveHeader = true
   referenceFile = "A_ref.dat"
-  testType = "COMPARE_COUNTS"
+  testType = "DIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "B.dat"
   haveHeader = true
   referenceFile = "B_ref.dat"
-  testType = "COMPARE_COUNTS"
+  testType = "DIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "A_hits.dat"
