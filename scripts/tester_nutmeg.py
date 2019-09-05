@@ -74,19 +74,32 @@ SUBKEYS_CHECKS = [KEY_FILE_NAMES, KEY_DATA_FILE, KEY_HAVE_HEADER, KEY_REFERENCE_
 
 TEST_TYPE_INVALID = -1
 TEST_TYPE_CHECK_SUCCESS = 0
-TEST_TYPE_COMPARE_COUNTS = 1  # exact match with a reference file
-TEST_TYPE_CHECK_NONEMPTY_FILES = 2
-TEST_TYPE_CHECK_EMPTY_FILES = 3
-TEST_TYPE_CHECK_EXIT_CODE = 4
-TEST_TYPE_FILE_MATCH_PATTERN = 5 
+TEST_TYPE_CHECK_EXIT_CODE = 1
+
+TEST_TYPE_COMPARE_COUNTS = 10  # exact match with a reference file
+TEST_TYPE_ZERO_COUNTS = 11
+TEST_TYPE_POSITIVE_OR_ZERO_COUNTS = 12
+TEST_TYPE_POSITIVE_COUNTS = 13
+
+TEST_TYPE_CHECK_NONEMPTY_FILES = 20
+TEST_TYPE_CHECK_EMPTY_FILES = 21
+
+TEST_TYPE_FILE_MATCH_PATTERN = 30
+
 
 TEST_TYPE_ID_TO_NAME = {
     TEST_TYPE_INVALID: 'INVALID',
     TEST_TYPE_CHECK_SUCCESS: 'CHECK_SUCCESS',
-    TEST_TYPE_COMPARE_COUNTS: 'COMPARE_COUNTS', 
+    TEST_TYPE_CHECK_EXIT_CODE: 'CHECK_EXIT_CODE',
+
+    TEST_TYPE_COMPARE_COUNTS: 'COMPARE_COUNTS',
+    TEST_TYPE_ZERO_COUNTS: 'ZERO_COUNTS',
+    TEST_TYPE_POSITIVE_OR_ZERO_COUNTS: 'POSITIVE_OR_ZERO_COUNTS',
+    TEST_TYPE_POSITIVE_COUNTS: 'POSITIVE_COUNTS',
+
     TEST_TYPE_CHECK_NONEMPTY_FILES: 'CHECK_NONEMPTY_FILES',
     TEST_TYPE_CHECK_EMPTY_FILES: 'CHECK_EMPTY_FILES',
-    TEST_TYPE_CHECK_EXIT_CODE: 'CHECK_EXIT_CODE',
+
     TEST_TYPE_FILE_MATCH_PATTERN: 'FILE_MATCH_PATTERN'
 }
 
@@ -159,7 +172,9 @@ class TestDescriptionParser:
         test_type_str = self.get_dict_value(check_dict, KEY_TEST_TYPE)
         res.test_type = self.get_test_type(test_type_str)
         
-        if res.test_type == TEST_TYPE_COMPARE_COUNTS:
+        if res.test_type in [TEST_TYPE_COMPARE_COUNTS, TEST_TYPE_ZERO_COUNTS,
+                 TEST_TYPE_POSITIVE_OR_ZERO_COUNTS, TEST_TYPE_POSITIVE_COUNTS]:
+
             res.data_file = self.get_dict_value(check_dict, KEY_DATA_FILE)
             if KEY_HAVE_HEADER in check_dict:
                 self.parse_warning("Key " + KEY_HAVE_HEADER + " is ignored")
@@ -209,7 +224,7 @@ class TesterNutmeg(TesterBase):
         ferr = open(os.path.join(self.test_work_path, STDERR_FILE_NAME), "w")
         flog = open(os.path.join(self.test_work_path, LOG_FILE_NAME), "w")
 
-        mcell_cmd = [ self.tool_paths.mcell_binary ]
+        mcell_cmd = [self.tool_paths.mcell_binary]
         mcell_cmd += run_info.command_line_options
         mcell_cmd.append(os.path.join(self.test_src_path, run_info.mdlfile))
         flog.write(str.join(" ", mcell_cmd) + " (" + str(mcell_cmd) + ")\ncwd: " + self.test_work_path + "\n")
@@ -228,6 +243,28 @@ class TesterNutmeg(TesterBase):
 
         return mcell_ec
 
+    def check_counts(self, test_type: int, data_file: str) -> int:
+        data_file_path = os.path.join(self.test_work_path, data_file)
+        # expecting that the data file contains only two columns: iteration and value
+        try:
+            with open(data_file_path, "r") as fin:
+                for line in fin:
+                    val = int(line.split(' ')[1])
+                    if test_type == TEST_TYPE_ZERO_COUNTS:
+                        if val != 0:
+                            return FAILED_NUTMEG_SPEC
+                    elif test_type == TEST_TYPE_POSITIVE_OR_ZERO_COUNTS:
+                        if val < 0:
+                            return FAILED_NUTMEG_SPEC
+                    elif test_type == TEST_TYPE_POSITIVE_COUNTS:
+                        if val <= 0:
+                            return FAILED_NUTMEG_SPEC
+        except Exception as e:
+            self.nutmeg_log(
+                "Failed while parsing data file '" + data_file + "', exception " + str(e.args), check.test_type)
+
+        return PASSED
+
     def run_check(self, check: CheckInfo, mcell_ec: int) -> int:
 
         res = FAILED_DIFF
@@ -238,6 +275,10 @@ class TesterNutmeg(TesterBase):
                 os.path.join(self.test_work_path, check.data_file),
                 exact=True)
             self.nutmeg_log("Comparison result of '" + check.data_file + "': " + RESULT_NAMES[res], check.test_type)
+
+        elif check.test_type in [TEST_TYPE_ZERO_COUNTS, TEST_TYPE_POSITIVE_OR_ZERO_COUNTS, TEST_TYPE_POSITIVE_COUNTS]:
+            res = self.check_counts(check.test_type, check.data_file)
+
         elif check.test_type == TEST_TYPE_CHECK_SUCCESS:
             if mcell_ec == 0:
                 self.nutmeg_log("Mcell exit code is 0 as expected.", check.test_type)

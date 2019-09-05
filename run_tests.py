@@ -152,7 +152,7 @@ def report_results(results: Dict) -> None:
         print(RESULT_NAMES[value] + ": " + str(key))
         if value == PASSED:
             passed += 1
-        elif value == FAILED_MCELL or value == FAILED_DIFF or value == FAILED_DM_TO_MDL_CONVERSION:
+        elif value in [FAILED_MCELL, FAILED_DIFF, FAILED_DM_TO_MDL_CONVERSION, FAILED_NUTMEG_SPEC]:
             failed += 1
         elif value == SKIPPED:
             skipped += 1

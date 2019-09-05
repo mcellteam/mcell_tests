@@ -9,17 +9,14 @@ keywords = ["regression"]
 
 [[checks]]
   dataFile = "vm.dat"
-  haveHeader = false
   testType = "ZERO_COUNTS"
 
 [[checks]]
   dataFile = "open.dat"
-  haveHeader = true
   testType = "POSITIVE_COUNTS"
 
 [[checks]]
   dataFile = "closed.dat"
-  haveHeader = false
   testType = "ZERO_COUNTS"
 [run]
   mdlfiles = ["test.mdl"]
