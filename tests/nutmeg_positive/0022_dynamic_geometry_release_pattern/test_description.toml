@@ -8,12 +8,10 @@ keywords = ["dynamic geometry"]
 
 [[checks]]
   dataFile = "vm.WORLD.dat"
-  referenceFile = "vm.WORLD_ref.dat"
   testType = "DIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "sm.WORLD.dat"
-  referenceFile = "sm.WORLD_ref.dat"
   testType = "DIFF_FILE_CONTENT"
 
 [run]

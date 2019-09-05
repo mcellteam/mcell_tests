@@ -10,7 +10,6 @@ keywords = ["reactions"]
   absDeviation = [50, 50, 50, 50, 50]
   dataFile = "counts.txt"
   haveHeader = false
-  referenceFile = "mean.txt"
   testType = "DIFF_FILE_CONTENT"
 
 [run]

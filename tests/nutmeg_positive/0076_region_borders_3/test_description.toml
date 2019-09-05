@@ -8,29 +8,22 @@ keywords = ["reactions"]
 
 [[checks]]
   dataFile = "refl_all_mols.dat"
-  haveHeader = true
-  referenceFile = "refl_all_mols_ref.dat"
   testType = "DIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "refl_all_surface_mols.dat"
-  haveHeader = true
-  referenceFile = "refl_all_surface_mols_ref.dat"
   testType = "DIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "absorb_all_mols.dat"
-  haveHeader = true
   testType = "ZERO_COUNTS"
 
 [[checks]]
   dataFile = "absorb_all_surface_mols.dat"
-  haveHeader = true
   testType = "ZERO_COUNTS"
 
 [[checks]]
   dataFile = "transp_all_mols.dat"
-  haveHeader = true
   testType = "COUNT_CONSTRAINTS"
 
   [[checks.countConstraints]]
@@ -39,7 +32,6 @@ keywords = ["reactions"]
 
 [[checks]]
   dataFile = "transp_all_surface_mols.dat"
-  haveHeader = true
   testType = "COUNT_CONSTRAINTS"
 
   [[checks.countConstraints]]

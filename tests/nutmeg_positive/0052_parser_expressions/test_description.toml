@@ -12,7 +12,6 @@ keywords = ["parser"]
 
 [[checks]]
   dataFile = "exp.dat"
-  referenceFile = "exp_ref.dat"
   testType = "DIFF_FILE_CONTENT"
 
 [run]

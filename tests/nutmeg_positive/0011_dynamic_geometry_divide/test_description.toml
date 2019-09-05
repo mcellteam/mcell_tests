@@ -8,12 +8,10 @@ keywords = ["dynamic geometry"]
 
 [[checks]]
   dataFile = "vm_World.dat"
-  referenceFile = "vm_World_ref.dat"
   testType = "DIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "vm_Icosphere.dat"
-  referenceFile = "vm_Icosphere_ref.dat"
   testType = "DIFF_FILE_CONTENT"
 
 [run]

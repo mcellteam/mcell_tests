@@ -9,18 +9,14 @@ keywords = ["reactions"]
 [[checks]]
   dataFile = "A.dat"
   haveHeader = true
-  referenceFile = "A_ref.dat"
   testType = "DIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "B.dat"
-  haveHeader = true
-  referenceFile = "B_ref.dat"
   testType = "DIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "A_hits.dat"
-  haveHeader = true
   testType = "COUNT_CONSTRAINTS"
 
   [[checks.countConstraints]]
@@ -29,12 +25,10 @@ keywords = ["reactions"]
 
 [[checks]]
   dataFile = "A_hits.dat"
-  haveHeader = true
   testType = "POSITIVE_OR_ZERO_COUNTS"
 
 [[checks]]
   dataFile = "C_cross.dat"
-  haveHeader = true
   testType = "COUNT_CONSTRAINTS"
 
   [[checks.countConstraints]]
@@ -43,7 +37,6 @@ keywords = ["reactions"]
 
 [[checks]]
   dataFile = "C_cross.dat"
-  haveHeader = true
   testType = "POSITIVE_OR_ZERO_COUNTS"
 
 [[checks]]
