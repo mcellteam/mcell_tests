@@ -4,8 +4,7 @@ description = "Check that volume release of a molecule in a simple spherical and
 keywords = ["releases"]
 
 [[checks]]
-  exitCode = 0
-  testType = "CHECK_EXIT_CODE"
+  testType = "CHECK_SUCCESS"
 
 [[checks]]
   dataFile = "run_%d.0.log"
@@ -21,5 +20,5 @@ keywords = ["releases"]
 
 [run]
   mdlfiles = ["test.mdl"]
-  numSeeds = 10
+  # numSeeds = 10
 

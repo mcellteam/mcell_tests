@@ -8,7 +8,6 @@ keywords = ["regression"]
 
 [[checks]]
   dataFile = "refl.dat"
-  haveHeader = true
   testType = "POSITIVE_COUNTS"
 
 [run]

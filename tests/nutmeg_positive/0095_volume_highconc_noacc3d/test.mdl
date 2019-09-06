@@ -14,7 +14,7 @@
 
 countdir = ""
 
-iterations = 10000
+iterations = 2000
 timestep = 1e-6
 boxdims = 0.25
 voldiffconst = 2.0e-6
@@ -46,7 +46,7 @@ ITERATIONS = iterations
 TIME_STEP = timestep
 TIME_STEP_MAX = 1.0
 
-INCLUDE_FILE = "../../common/volmols.mdl"
+INCLUDE_FILE = "volmols.mdl"
 
 DEFINE_REACTIONS {
   V_u                     -> I_u   [rf_u] : fwd_u    /* unimol */

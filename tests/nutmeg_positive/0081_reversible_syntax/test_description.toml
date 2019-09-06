@@ -9,5 +9,4 @@ keywords = ["regression"]
 [run]
   commandlineOpts = ["-quiet"]
   mdlfiles = ["test.mdl"]
-  numSeeds = 100
 

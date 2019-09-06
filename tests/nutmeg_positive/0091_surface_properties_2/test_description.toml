@@ -8,17 +8,14 @@ keywords = ["reactions"]
 
 [[checks]]
   dataFile = "refl.dat"
-  haveHeader = true
   testType = "ZERO_COUNTS"
 
 [[checks]]
   dataFile = "absorb.dat"
-  haveHeader = true
   testType = "ZERO_COUNTS"
 
 [[checks]]
   dataFile = "transp.dat"
-  haveHeader = true
   testType = "POSITIVE_OR_ZERO_COUNTS"
 
 [run]

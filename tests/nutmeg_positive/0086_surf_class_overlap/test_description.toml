@@ -8,21 +8,11 @@ keywords = ["surface_classes"]
 
 [[checks]]
   dataFile = "sm.Plane.abs.dat"
-  haveHeader = false
-  testType = "COUNT_CONSTRAINTS"
-
-  [[checks.countConstraints]]
-    query = [1, -1]
-    target = 0
+  testType = "DIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "sm.Plane.refl.dat"
-  haveHeader = false
-  testType = "COUNT_CONSTRAINTS"
-
-  [[checks.countConstraints]]
-    query = [1, -1]
-    target = 0
+  testType = "DIFF_FILE_CONTENT"
 
 [run]
   commandlineOpts = ["-quiet"]

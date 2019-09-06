@@ -8,24 +8,7 @@ keywords = ["regression"]
 
 [[checks]]
   dataFile = "counts.txt"
-  haveHeader = true
-  testType = "COUNT_CONSTRAINTS"
-
-  [[checks.countConstraints]]
-    query = [1, 1, 0, 0, 0]
-    target = 300
-
-  [[checks.countConstraints]]
-    query = [0, 0, 1, 1, 0]
-    target = 300
-
-[[checks]]
-  countMaximum = [260, 260, 260, 260, 100000000]
-  countMinimum = [40, 40, 40, 40, 10000]
-  dataFile = "counts.txt"
-  haveHeader = true
-  minTime = 0.00005
-  testType = "COUNT_MINMAX"
+  testType = "DIFF_FILE_CONTENT"
 
 [run]
   commandlineOpts = ["-quiet"]

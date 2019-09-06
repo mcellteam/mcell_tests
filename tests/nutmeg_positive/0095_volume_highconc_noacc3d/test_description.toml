@@ -8,96 +8,11 @@ keywords = ["reactions"]
 
 [[checks]]
   dataFile = "V_out.dat"
-  haveHeader = true
-  means = [500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0]
-  testType = "COUNT_EQUILIBRIUM"
-  tolerances = [25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0]
+  testType = "DIFF_FILE_CONTENT"
 
 [[checks]]
-  baseTime = 0.0
   dataFile = "rxn_out.dat"
-  haveHeader = true
-  means = [100000.0, 100000.0, 100000.0, 100000.0, 100000.0, 20000.0, 20000.0, 20000.0, 100000.0, 100000.0, 100000.0, 100000.0, 100000.0, 20000.0, 20000.0, 20000.0]
-  minTime = 0.005
-  testType = "COUNT_RATES"
-  tolerances = [15000.0, 15000.0, 15000.0, 15000.0, 15000.0, 6000.0, 6000.0, 5000.0, 15000.0, 15000.0, 15000.0, 15000.0, 15000.0, 6000.0, 6000.0, 5000.0]
-
-[[checks]]
-  dataFile = "V_out.dat"
-  haveHeader = true
-  testType = "COUNT_CONSTRAINTS"
-
-  [[checks.countConstraints]]
-    query = [0, 1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    target = 0
-
-  [[checks.countConstraints]]
-    query = [0, 0, 0, 1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    target = 0
-
-  [[checks.countConstraints]]
-    query = [0, 0, 0, 0, 0, 1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    target = 0
-
-  [[checks.countConstraints]]
-    query = [0, 0, 0, 0, 0, 0, 0, 1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    target = 0
-
-  [[checks.countConstraints]]
-    query = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    target = 0
-
-  [[checks.countConstraints]]
-    query = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    target = 0
-
-  [[checks.countConstraints]]
-    query = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    target = 0
-
-  [[checks.countConstraints]]
-    query = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    target = 0
-
-  [[checks.countConstraints]]
-    query = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    target = 0
-
-  [[checks.countConstraints]]
-    query = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0]
-    target = 0
-
-  [[checks.countConstraints]]
-    query = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
-    target = 1000
-
-  [[checks.countConstraints]]
-    query = [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
-    target = 1000
-
-  [[checks.countConstraints]]
-    query = [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
-    target = 1000
-
-  [[checks.countConstraints]]
-    query = [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
-    target = 1000
-
-  [[checks.countConstraints]]
-    query = [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
-    target = 1000
-
-  [[checks.countConstraints]]
-    query = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
-    target = 1000
-
-  [[checks.countConstraints]]
-    query = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
-    target = 1000
-
-  [[checks.countConstraints]]
-    query = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-    target = 1000
+  testType = "DIFF_FILE_CONTENT"
 
 [run]
   commandlineOpts = ["-quiet"]

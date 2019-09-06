@@ -17,7 +17,7 @@
 
 countdir = ""
 
-iterations = 10000
+iterations = 2000
 timestep = 1e-6
 boxdims = 0.25
 voldiffconst = 2.0e-6
@@ -47,8 +47,8 @@ ITERATIONS = iterations
 TIME_STEP = timestep
 TIME_STEP_MAX = 1.0
 
-INCLUDE_FILE = "../../common/volmols.mdl"
-INCLUDE_FILE = "../../common/surfmols.mdl"
+INCLUDE_FILE = "volmols.mdl"
+INCLUDE_FILE = "surfmols.mdl"
 
 DEFINE_MOLECULES {
   A_u {DIFFUSION_CONSTANT_2D = surfdiffconst}

@@ -22,7 +22,7 @@ WARNINGS
 
 countdir = ""
 
-iterations = 2500
+iterations = 300  // originally 2500
 timestep = 1.0e-6
 boxdims = 0.25
 voldiffconst = 2.0e-6
@@ -62,8 +62,8 @@ ITERATIONS = iterations
 TIME_STEP = timestep
 TIME_STEP_MAX = 1.0
 
-INCLUDE_FILE = "../../common/volmols.mdl"
-INCLUDE_FILE = "../../common/surfmols.mdl"
+INCLUDE_FILE = "volmols.mdl"
+INCLUDE_FILE = "surfmols.mdl"
 
 /* extra molecules for simultaneous multiple reactions */
 DEFINE_MOLECULES {
