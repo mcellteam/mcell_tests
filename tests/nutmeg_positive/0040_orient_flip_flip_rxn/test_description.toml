@@ -8,32 +8,7 @@ keywords = ["regression"]
 
 [[checks]]
   dataFile = "counts.txt"
-  haveHeader = true
-  testType = "COUNT_CONSTRAINTS"
-
-  [[checks.countConstraints]]
-    query = [1, 0, 0, 0, -1, 0]
-    target = 0
-
-  [[checks.countConstraints]]
-    query = [0, 1, 0, -1, 0, 0]
-    target = 0
-
-  [[checks.countConstraints]]
-    query = [1, 1, -1, 0, 0, 0]
-    target = 0
-
-  [[checks.countConstraints]]
-    query = [0, 0, 0, 1, 1, -1]
-    target = 0
-
-  [[checks.countConstraints]]
-    query = [0, 0, 1, 0, 0, 0]
-    target = 1000
-
-  [[checks.countConstraints]]
-    query = [0, 0, 0, 0, 0, 1]
-    target = 1000
+  testType = "DIFF_FILE_CONTENT"
 
 [run]
   commandlineOpts = ["-quiet"]

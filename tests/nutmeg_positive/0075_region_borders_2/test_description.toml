@@ -8,7 +8,6 @@ keywords = ["reactions"]
 
 [[checks]]
   dataFile = "A.dat"
-  haveHeader = true
   testType = "DIFF_FILE_CONTENT"
 
 [[checks]]
@@ -17,105 +16,43 @@ keywords = ["reactions"]
 
 [[checks]]
   dataFile = "A_hits.dat"
-  testType = "COUNT_CONSTRAINTS"
-
-  [[checks.countConstraints]]
-    query = [1, 1, -1]
-    target = 0
-
-[[checks]]
-  dataFile = "A_hits.dat"
-  testType = "POSITIVE_OR_ZERO_COUNTS"
+  testType = "FDIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "C_cross.dat"
-  testType = "COUNT_CONSTRAINTS"
-
-  [[checks.countConstraints]]
-    query = [1, 1, -1]
-    target = 0
-
-[[checks]]
-  dataFile = "C_cross.dat"
-  testType = "POSITIVE_OR_ZERO_COUNTS"
+  testType = "FDIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "C_trigger_fr_hits.dat"
-  haveHeader = true
-  outputTime = 0.000001
-  testType = "CHECK_TRIGGERS"
-  triggerType = "hits"
-  xRange = [-1.0, 1.0]
-  yRange = [-1.0, 1.0]
-  zRange = [-1.0, 1.0]
+  testType = "FDIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "C_trigger_back_hits.dat"
-  haveHeader = true
-  outputTime = 0.000001
-  testType = "CHECK_TRIGGERS"
-  triggerType = "hits"
-  xRange = [-1.0, 1.0]
-  yRange = [-1.0, 1.0]
-  zRange = [-1.0, 1.0]
+  testType = "FDIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "C_trigger_all_hits.dat"
-  haveHeader = true
-  outputTime = 0.000001
-  testType = "CHECK_TRIGGERS"
-  triggerType = "hits"
-  xRange = [-1.0, 1.0]
-  yRange = [-1.0, 1.0]
-  zRange = [-1.0, 1.0]
+  testType = "FDIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "C_trigger_fr_cross.dat"
-  haveHeader = true
-  outputTime = 0.000001
-  testType = "CHECK_TRIGGERS"
-  triggerType = "hits"
-  xRange = [-1.0, 1.0]
-  yRange = [-1.0, 1.0]
-  zRange = [-1.0, 1.0]
+  testType = "FDIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "C_trigger_back_cross.dat"
-  haveHeader = true
-  outputTime = 0.000001
-  testType = "CHECK_TRIGGERS"
-  triggerType = "hits"
-  xRange = [-1.0, 1.0]
-  yRange = [-1.0, 1.0]
-  zRange = [-1.0, 1.0]
+  testType = "FDIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "C_trigger_all_cross.dat"
-  haveHeader = true
-  outputTime = 0.000001
-  testType = "CHECK_TRIGGERS"
-  triggerType = "hits"
-  xRange = [-1.0, 1.0]
-  yRange = [-1.0, 1.0]
-  zRange = [-1.0, 1.0]
+  testType = "FDIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "C.dat"
-  haveHeader = true
-  testType = "COUNT_CONSTRAINTS"
-
-  [[checks.countConstraints]]
-    query = [1, 1]
-    target = 100
+  testType = "FDIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "r2.dat"
-  haveHeader = true
-  testType = "COUNT_CONSTRAINTS"
-
-  [[checks.countConstraints]]
-    query = [1, 1]
-    target = 100
+  testType = "FDIFF_FILE_CONTENT"
 
 [run]
   commandlineOpts = ["-quiet"]

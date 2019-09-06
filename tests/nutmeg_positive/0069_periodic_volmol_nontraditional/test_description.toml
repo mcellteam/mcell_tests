@@ -120,23 +120,11 @@ keywords = ["periodic"]
 
 [[checks]]
   dataFile = "vm.trigger.000.dat"
-  haveExactTime = true
-  outputTime = 0.000001
-  testType = "CHECK_TRIGGERS"
-  triggerType = "molCounts"
-  xrange = [-0.15001, 0.15001]
-  yrange = [-0.15001, 0.15001]
-  zrange = [-0.15001, 0.15001]
+  testType = "DIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "vm.trigger.100.dat"
-  haveExactTime = true
-  outputTime = 0.000001
-  testType = "CHECK_TRIGGERS"
-  triggerType = "molCounts"
-  xrange = [0.24999, 0.55001]
-  yrange = [-0.15001, 0.15001]
-  zrange = [-0.15001, 0.15001]
+  testType = "DIFF_FILE_CONTENT"
 
 [run]
   commandlineOpts = ["-quiet"]

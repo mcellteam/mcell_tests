@@ -7,9 +7,7 @@ keywords = ["reactions"]
   testType = "CHECK_SUCCESS"
 
 [[checks]]
-  absDeviation = [50, 50, 50, 50, 50]
   dataFile = "counts.txt"
-  haveHeader = false
   testType = "DIFF_FILE_CONTENT"
 
 [run]

@@ -8,12 +8,10 @@ keywords = ["reactions"]
 
 [[checks]]
   dataFile = "r4.dat"
-  haveHeader = true
   testType = "POSITIVE_COUNTS"
 
 [[checks]]
   dataFile = "r5.dat"
-  haveHeader = true
   testType = "ZERO_COUNTS"
 
 [run]

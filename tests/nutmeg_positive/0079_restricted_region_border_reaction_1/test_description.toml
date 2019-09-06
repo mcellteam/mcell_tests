@@ -8,42 +8,34 @@ keywords = ["reactions"]
 
 [[checks]]
   dataFile = "box_1.dat"
-  haveHeader = true
   testType = "ZERO_COUNTS"
 
 [[checks]]
   dataFile = "box_2.dat"
-  haveHeader = true
   testType = "ZERO_COUNTS"
 
 [[checks]]
   dataFile = "box_3.dat"
-  haveHeader = true
   testType = "ZERO_COUNTS"
 
 [[checks]]
   dataFile = "box_4.dat"
-  haveHeader = true
   testType = "ZERO_COUNTS"
 
 [[checks]]
   dataFile = "box_6.dat"
-  haveHeader = true
   testType = "ZERO_COUNTS"
 
 [[checks]]
   dataFile = "box_7.dat"
-  haveHeader = true
   testType = "ZERO_COUNTS"
 
 [[checks]]
   dataFile = "box_5.dat"
-  haveHeader = true
   testType = "POSITIVE_OR_ZERO_COUNTS"
 
 [[checks]]
   dataFile = "box_8.dat"
-  haveHeader = true
   testType = "POSITIVE_OR_ZERO_COUNTS"
 
 [run]

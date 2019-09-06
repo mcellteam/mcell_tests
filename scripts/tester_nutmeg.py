@@ -24,6 +24,7 @@ import os
 import sys
 import shutil
 import toml
+import re
 import subprocess
 from typing import List, Dict
 
@@ -70,10 +71,15 @@ KEY_HAVE_HEADER = 'haveHeader' # ignored
 KEY_REFERENCE_FILE = 'referenceFile'
 KEY_COUNT_MINIMUM = 'countMinimum'
 KEY_COUNT_MAXIMUM = 'countMaximum'
+KEY_MIN_TIME = 'minTime'
+KEY_MAX_TIME = 'maxTime'
 
 SUBKEYS_CHECKS = [
     KEY_FILE_NAMES, KEY_DATA_FILE, KEY_HAVE_HEADER, 
-    KEY_REFERENCE_FILE, KEY_TEST_TYPE, KEY_COUNT_MINIMUM, KEY_COUNT_MAXIMUM
+    KEY_REFERENCE_FILE, KEY_TEST_TYPE, 
+    KEY_COUNT_MINIMUM, KEY_COUNT_MAXIMUM,
+    KEY_MIN_TIME, KEY_MAX_TIME,
+    KEY_NUM_MATCHES, KEY_MATCH_PATTERN
 ]
 
 TEST_TYPE_INVALID = -1
@@ -81,6 +87,7 @@ TEST_TYPE_CHECK_SUCCESS = 0
 TEST_TYPE_CHECK_EXIT_CODE = 1
 
 TEST_TYPE_DIFF_FILE_CONTENT = 10  # exact match with a reference file, same as original DIFF_FILE_CONTENT
+TEST_TYPE_FDIFF_FILE_CONTENT = 11  # match with allowed tolerance  
 
 TEST_TYPE_ZERO_COUNTS = 20
 TEST_TYPE_POSITIVE_OR_ZERO_COUNTS = 21
@@ -102,6 +109,8 @@ TEST_TYPE_ID_TO_NAME = {
     TEST_TYPE_CHECK_EXIT_CODE: 'CHECK_EXIT_CODE',
 
     TEST_TYPE_DIFF_FILE_CONTENT: 'DIFF_FILE_CONTENT',
+    TEST_TYPE_FDIFF_FILE_CONTENT: 'FDIFF_FILE_CONTENT',
+    
     TEST_TYPE_ZERO_COUNTS: 'ZERO_COUNTS',
     TEST_TYPE_POSITIVE_OR_ZERO_COUNTS: 'POSITIVE_OR_ZERO_COUNTS',
     TEST_TYPE_POSITIVE_COUNTS: 'POSITIVE_COUNTS',
@@ -122,8 +131,15 @@ class CheckInfo:
     def __init__(self):
         self.test_type = TEST_TYPE_INVALID
         self.data_file = ''
-        self.count_minimum = ''  # for TEST_TYPE_COUNT_MINMAX
-        self.count_maximum = ''  # for TEST_TYPE_COUNT_MINMAX
+        self.count_minimum = None  # for TEST_TYPE_COUNT_MINMAX
+        self.count_maximum = None  # for TEST_TYPE_COUNT_MINMAX
+        self.min_time = None  # optional for TEST_TYPE_COUNT_MINMAX
+        self.max_time = None  # optional for TEST_TYPE_COUNT_MINMAX
+        self.match_pattern = None
+
+    def __repr__(self):
+        attrs = vars(self)
+        return ", ".join("%s: %s" % item for item in attrs.items())
 
 
 class RunInfo:
@@ -186,8 +202,7 @@ class TestDescriptionParser:
         test_type_str = self.get_dict_value(check_dict, KEY_TEST_TYPE)
         res.test_type = self.get_test_type(test_type_str)
         
-        if res.test_type in [TEST_TYPE_DIFF_FILE_CONTENT, TEST_TYPE_ZERO_COUNTS,
-                 TEST_TYPE_POSITIVE_OR_ZERO_COUNTS, TEST_TYPE_POSITIVE_COUNTS]:
+        if res.test_type in [TEST_TYPE_DIFF_FILE_CONTENT, TEST_TYPE_FDIFF_FILE_CONTENT]:
 
             res.data_file = self.get_dict_value(check_dict, KEY_DATA_FILE)
             
@@ -196,22 +211,51 @@ class TestDescriptionParser:
             if KEY_REFERENCE_FILE in check_dict:
                 self.parse_warning("Key " + KEY_REFERENCE_FILE + " is ignored")
                 
-        elif res.test_type == TEST_TYPE_COUNT_MINMAX:
+        elif res.test_type in [TEST_TYPE_ZERO_COUNTS, TEST_TYPE_POSITIVE_OR_ZERO_COUNTS, 
+                               TEST_TYPE_POSITIVE_COUNTS, TEST_TYPE_COUNT_MINMAX]:
             res.data_file = self.get_dict_value(check_dict, KEY_DATA_FILE)
 
-            min_list = self.get_dict_value(check_dict, KEY_COUNT_MINIMUM)
-            if len(min_list) != 1:
-                self.parse_error("Key " + KEY_COUNT_MINIMUM + " must contain a list with a single value")
-            res.count_minimum = min_list[0]
-            
-            max_list = self.get_dict_value(check_dict, KEY_COUNT_MAXIMUM)
-            if len(max_list) != 1:
-                self.parse_error("Key " + KEY_COUNT_MINIMUM + " must contain a list with a single value")
-            res.count_maximum = max_list[0]
+            if KEY_COUNT_MINIMUM in check_dict:
+                min_list = self.get_dict_value(check_dict, KEY_COUNT_MINIMUM)
+                if len(min_list) != 1:
+                    self.parse_error("Key " + KEY_COUNT_MINIMUM + " must contain a list with a single value")
+                    return None
+                res.count_minimum = min_list[0]
 
+            if KEY_COUNT_MAXIMUM in check_dict:
+                max_list = check_dict[KEY_COUNT_MAXIMUM]
+                if len(max_list) != 1:
+                    self.parse_error("Key " + KEY_COUNT_MINIMUM + " must contain a list with a single value")
+                    return None
+                res.count_maximum = max_list[0]
+            
+            if KEY_MIN_TIME in check_dict:
+                res.min_time = check_dict[KEY_MIN_TIME]
+            if KEY_MAX_TIME in check_dict:
+                res.max_time = check_dict[KEY_MAX_TIME]
+                
             if KEY_HAVE_HEADER in check_dict:
                 self.parse_warning("Key " + KEY_HAVE_HEADER + " is ignored")
                 
+        elif res.test_type == TEST_TYPE_FILE_MATCH_PATTERN:
+            data_file_from_toml = self.get_dict_value(check_dict, KEY_DATA_FILE)
+            if data_file_from_toml == STDOUT_FILE_NAME_FROM_TOML:
+                res.data_file = STDOUT_FILE_NAME
+            elif data_file_from_toml == STDERR_FILE_NAME_FROM_TOML:
+                res.data_file = STDERR_FILE_NAME
+            else:
+                self.parse_error(
+                    "Value for " + KEY_DATA_FILE + " FILE_MATCH_PATTERN must be either " + 
+                    STDOUT_FILE_NAME_FROM_TOML + " or " + STDERR_FILE_NAME_FROM_TOML)
+                return None
+            
+            res.match_pattern = self.get_dict_value(check_dict, KEY_MATCH_PATTERN)
+            if KEY_NUM_MATCHES in check_dict:
+                num_matches = self.get_dict_value(check_dict, KEY_NUM_MATCHES)
+                if num_matches != 1:
+                    self.parse_error("Value for " + KEY_NUM_MATCHES + " must be only 1.")
+                    return None
+            
         elif res.test_type == TEST_TYPE_CHECK_SUCCESS:
             # no other attributesw are relevant
             pass
@@ -237,7 +281,10 @@ class TestDescriptionParser:
         if not checks_list:
             self.parse_error("There must be at least one check.")
         for check in checks_list: 
-            res.check_infos.append(self.parse_check_info(check))
+            info = self.parse_check_info(check)
+            if info is None:
+                return None
+            res.check_infos.append(info)
             
         return res
   
@@ -298,18 +345,32 @@ class TesterNutmeg(TesterBase):
         try:
             with open(data_file_path, "r") as fin:
                 for line in fin:
-                    val = int(line.split(' ')[1])
+                    vals = line.split(' ')
+                    if vals[0] == '#':
+                        continue  # header
+                    time = float(vals[0])
+                    val = int(vals[1])
+
+                    time_constraint_valid = True
+                    if check.min_time is not None: 
+                        time_constraint_valid = time >= check.min_time
+
+                    if check.max_time is not None:
+                        time_constraint_valid = time_constraint_valid and time <= check.max_time
+                    
                     if check.test_type == TEST_TYPE_ZERO_COUNTS:
-                        if val != 0:
+                        if time_constraint_valid and val != 0:
                             res = FAILED_NUTMEG_SPEC
                     elif check.test_type == TEST_TYPE_POSITIVE_OR_ZERO_COUNTS:
-                        if val < 0:
+                        if time_constraint_valid and val < 0:
                             res = FAILED_NUTMEG_SPEC
                     elif check.test_type == TEST_TYPE_POSITIVE_COUNTS:
-                        if val <= 0:
+                        if time_constraint_valid and val <= 0:
                             res = FAILED_NUTMEG_SPEC
                     elif check.test_type == TEST_TYPE_COUNT_MINMAX:
-                        if val < check.count_minimum or val > check.count_maximum:
+                        if time_constraint_valid and \
+                            ((check.count_minimum is not None and val < check.count_minimum) or \
+                             (check.count_maximum is not None and val > check.count_maximum)):
                             res = FAILED_NUTMEG_SPEC
                     else:
                         fatal_error("Unknown test type in check_counts: " + str(check.test_type))\
@@ -321,20 +382,36 @@ class TesterNutmeg(TesterBase):
                         
         except Exception as e:
             self.nutmeg_log(
-                "Failed while parsing data file '" + data_file + "', exception " + str(e.args), check.test_type)
+                "Failed while parsing data file '" + data_file_path + "', exception " + str(e.args), check.test_type)
             return FAILED_NUTMEG_SPEC
 
         return PASSED
 
+    def check_match_pattern(self, check: CheckInfo) -> int:
+        data_file_path = os.path.join(self.test_work_path, check.data_file)
+        try:   
+            with open(data_file_path, "r") as fin:
+                matcher = re.compile(check.match_pattern)
+                for line in fin:
+                    if matcher.search(line):
+                        return PASSED
+                
+        except Exception as e:
+            self.nutmeg_log(
+                "Failed while parsing data file '" + data_file_path + "', exception " + str(e.args), check.test_type)
+            return FAILED_NUTMEG_SPEC
+
+        return FAILED_NUTMEG_SPEC
+
     def run_check(self, check: CheckInfo, mcell_ec: int) -> int:
 
         res = FAILED_DIFF
-        if check.test_type == TEST_TYPE_DIFF_FILE_CONTENT:
+        if check.test_type in [TEST_TYPE_DIFF_FILE_CONTENT, TEST_TYPE_FDIFF_FILE_CONTENT]:
             # exact file compare
             res = data_output_diff.compare_data_output_files(
                 os.path.join('..', self.test_src_path, REF_NUTMEG_DATA_DIR, check.data_file),
                 os.path.join(self.test_work_path, check.data_file),
-                exact=True)
+                exact=(check.test_type == TEST_TYPE_DIFF_FILE_CONTENT) )
             self.nutmeg_log("Comparison result of '" + check.data_file + "': " + RESULT_NAMES[res], check.test_type)
 
         elif check.test_type in [TEST_TYPE_ZERO_COUNTS, TEST_TYPE_POSITIVE_OR_ZERO_COUNTS, 
@@ -348,6 +425,10 @@ class TesterNutmeg(TesterBase):
                 res = PASSED
             else:
                 self.nutmeg_log("Expected exit code 0 but mcell returned " + str(mcell_ec), check.test_type)
+
+        elif check.test_type == TEST_TYPE_FILE_MATCH_PATTERN:
+            res = self.check_match_pattern(check)
+            self.nutmeg_log("Finding pattern " + check.match_pattern + " in " + check.data_file + "': " + RESULT_NAMES[res], check.test_type)
 
         elif check.test_type == TEST_TYPE_UPDATE_REFERENCE:
             ref_dir = os.path.join(self.test_src_path, REF_NUTMEG_DATA_DIR)

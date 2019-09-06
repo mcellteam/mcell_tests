@@ -42,7 +42,7 @@ DEFINE_REACTIONS
 }
 
 
-INCLUDE_FILE = "../../common/overlappingSRs_Icosphere.mdl"
+INCLUDE_FILE = "overlappingSRs_Icosphere.mdl"
 
 INSTANTIATE World OBJECT {
 	Icosphere OBJECT Icosphere{}

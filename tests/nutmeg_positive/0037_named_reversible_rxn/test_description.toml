@@ -13,7 +13,6 @@ keywords = ["regression"]
 [[checks]]
   countMinimum = [40]
   dataFile = "vm.dat"
-  haveHeader = false
   testType = "COUNT_MINMAX"
 
 [run]

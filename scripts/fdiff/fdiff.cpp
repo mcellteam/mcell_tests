@@ -42,7 +42,7 @@ using namespace std;
 typedef float float_t;
 
 const float_t EPS = 1e-10;
-const int MAX_NR_OF_VALUES = 7;
+const int MAX_NR_OF_VALUES = 32;
 
 
 struct line_info {
@@ -55,6 +55,18 @@ struct line_info {
     memset(values, 0, MAX_NR_OF_VALUES * sizeof(float_t));
   }
 };
+
+
+string trim(const string& str)
+{
+    size_t first = str.find_first_not_of(' ');
+    if (string::npos == first)
+    {
+        return str;
+    }
+    size_t last = str.find_last_not_of(' ');
+    return str.substr(first, (last - first + 1));
+}
 
 bool parse_line(const string& line, line_info& info) {
   info.clear();
@@ -73,6 +85,10 @@ bool parse_line(const string& line, line_info& info) {
     }
   }
   info.name = line.substr(pos1, pos2);
+  if (info.name == "#") {
+    info.num_parsed_values = 0;
+    return true; // header
+  }
 
   string num;
   for (int i = 0; i < MAX_NR_OF_VALUES; i++) {
@@ -111,6 +127,9 @@ string fdiff_streams(ifstream& ref, ifstream& test) {
   while (!ref.eof() && !test.eof()) {
     getline(ref, ref_line);
     getline(test, test_line);
+
+    ref_line = trim(ref_line);
+    test_line = trim(test_line);
 
     if (!parse_line(ref_line, ref_info)) {
       return "Could not read reference line";

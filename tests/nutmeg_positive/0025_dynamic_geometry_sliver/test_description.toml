@@ -14,7 +14,6 @@ keywords = ["leak"]
   countMaximum = [65]
   countMinimum = [30]
   dataFile = "vm.sliver.dat"
-  haveHeader = false
   maxTime = 0.0005
   minTime = 0.00049
   testType = "COUNT_MINMAX"

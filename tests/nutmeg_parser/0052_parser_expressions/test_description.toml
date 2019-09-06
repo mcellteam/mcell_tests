@@ -7,8 +7,8 @@ keywords = ["parser"]
   testType = "CHECK_SUCCESS"
 
 [[checks]]
-  fileNames = ["my_file.dat", "exp.dat"]
-  testType = "CHECK_NONEMPTY_FILES"
+  dataFile = "my_file.dat"
+  testType = "DIFF_FILE_CONTENT"
 
 [[checks]]
   dataFile = "exp.dat"

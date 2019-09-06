@@ -8,13 +8,11 @@ keywords = ["regression"]
 
 [[checks]]
   dataFile = "sm.World.dat"
-  haveHeader = false
   minTime = 0.001
   testType = "ZERO_COUNTS"
 
 [[checks]]
   dataFile = "vm.World.dat"
-  haveHeader = false
   minTime = 0.001
   testType = "ZERO_COUNTS"
 

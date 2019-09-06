@@ -50,7 +50,7 @@ DEFINE_REACTIONS
 }
 
 
-INCLUDE_FILE = "../../common/sphere_apex_region.mdl"
+INCLUDE_FILE = "sphere_apex_region.mdl"
 
 INSTANTIATE world OBJECT 
 {
