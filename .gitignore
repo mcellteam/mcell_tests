@@ -9,3 +9,5 @@
 /tests/*/dump4.txt
 /benchmarks/*/oprofile_data
 /work/
+/**/*_files/
+/**/*.blend1
