@@ -10,6 +10,11 @@
 
 [[set]]
   category = 'tests'
+  testSet = 'mcellr_datamodel'
+  testerClass = 'TesterDataModel'
+
+[[set]]
+  category = 'tests'
   testSet = 'nutmeg_positive'
   testerClass = 'TesterNutmeg'
 
