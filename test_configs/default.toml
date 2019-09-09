@@ -1,0 +1,19 @@
+[[set]]
+  category = 'tests'
+  testSet = 'mdl'
+  testerClass = 'TesterMdl'
+  
+[[set]]
+  category = 'examples'
+  testSet = 'datamodel'
+  testerClass = 'TesterDataModel'
+
+[[set]]
+  category = 'tests'
+  testSet = 'nutmeg_positive'
+  testerClass = 'TesterNutmeg'
+
+[[set]]
+  category = 'tests'
+  testSet = 'nutmeg_negative'
+  testerClass = 'TesterNutmeg'

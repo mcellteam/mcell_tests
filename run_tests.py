@@ -32,10 +32,12 @@ import subprocess
 import multiprocessing
 import itertools 
 import re
+import argparse
 import shutil
 from datetime import datetime
 from threading import Timer
 from typing import List, Dict
+import toml
 
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -52,6 +54,48 @@ from tester_nutmeg import TesterNutmeg
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
 
 from utils import run, log, fatal_error
+
+DEFAULT_CONFIG_PATH = os.path.join('test_configs', 'default.toml')
+KEY_SET = 'set'
+KEY_CATEGORY = 'category'
+KEY_TEST_SET = 'testSet'
+KEY_TESTER_CLASS = 'testerClass'
+
+
+class TestOptions:
+    def __init__(self):
+        self.sequential = False
+        self.config = DEFAULT_CONFIG_PATH
+        self.pattern = False
+
+    def __repr__(self):
+        attrs = vars(self)
+        return ", ".join("%s: %s" % item for item in attrs.items())
+            
+# FIXME: insert into TestOptions class         
+def create_argparse() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description='MCell testing tool')
+    parser.add_argument('-s', '--sequential', action='store_true', help='run testing sequentially (default is parallel)')
+    parser.add_argument('-c', '--config', type=str, help='load testing config from a specified file (default is test_configs/default.toml')
+    parser.add_argument('-p', '--pattern', type=str, help='regex pattern to filter tests to be run, the pattern is matched against the test path')
+    return parser
+
+# FIXME: insert into TestOptions class       
+def process_opts() -> TestOptions:
+    parser = create_argparse()
+    args = parser.parse_args()
+    print(args)
+    
+    opts = TestOptions()
+    
+    if args.sequential:
+        opts.sequential = True
+    if args.config:
+        opts.config = args.config
+    if args.pattern:
+        opts.pattern = args.pattern
+
+    return opts
 
 
 class TestSetInfo:
@@ -75,15 +119,6 @@ class TestInfo(TestSetInfo):
         return self.category + '/' + self.test_set_name + '/' + os.path.basename(self.test_path)
 
 
-# list of test directories with classes that are designed to test them
-TEST_SET_DIRS = [
-    TestSetInfo('tests', 'mdl', TesterMdl),
-    TestSetInfo('examples', 'datamodel', TesterDataModel),
-    TestSetInfo('tests', 'nutmeg_positive', TesterNutmeg),
-    TestSetInfo('tests', 'nutmeg_negative', TesterNutmeg)
-]
-
-
 # returns a list of TestInfo objects
 def get_test_dirs(test_set_info: TestSetInfo) -> List[TestInfo]:
     res = []
@@ -105,14 +140,47 @@ def run_single_test(test_info: TestInfo, tool_paths: ToolPaths) -> int:
     return res
     
     
-def collect_and_run_tests(tool_paths: ToolPaths, test_pattern: str, parallel: bool) -> Dict:
+def get_dict_value(d: Dict, key: str, fname: str) -> str:
+    if key not in d:
+        fatal_error("Required field '" + key + "' not found in '" + fname + "'.")
+    res = d[key]
+    return res
+    
+def load_test_config(config_path: str) -> List[TestSetInfo]:
+    top_dict = toml.load(config_path)
+    
+    res = []
+    if KEY_SET in top_dict:
+        sets_list = get_dict_value(top_dict, KEY_SET, config_path)
+        for set in sets_list:
+            category = get_dict_value(set, KEY_CATEGORY, config_path)
+            test_set_name = get_dict_value(set, KEY_TEST_SET, config_path)
+            class_name = get_dict_value(set, KEY_TESTER_CLASS, config_path)
+            if class_name == 'TesterMdl':
+                tester_class = TesterMdl  
+            elif class_name == 'TesterDataModel':
+                tester_class = TesterDataModel  
+            elif class_name == 'TesterNutmeg':
+                tester_class = TesterNutmeg
+            else:
+                fatal_error("Unknown tester class '" + class_name + "' in '" + config_path + "'.")
+                
+            res.append(TestSetInfo(category, test_set_name, tester_class))
+                  
+    return res
+
+    
+def collect_and_run_tests(tool_paths: ToolPaths, opts: TestOptions) -> Dict:
+    
+    test_set_infos = load_test_config(opts.config)
+    
     test_infos = []
-    for test_set in TEST_SET_DIRS:
+    for test_set in test_set_infos:
         test_infos += get_test_dirs(test_set)
 
     filtered_test_infos = []
     for info in test_infos:
-        if not test_pattern or re.search(test_pattern, info.test_path):
+        if not opts.pattern or re.search(opts.pattern, info.test_path):
             filtered_test_infos.append(info)
 
     filtered_test_infos.sort(key=lambda x: x.get_full_name())
@@ -123,7 +191,7 @@ def collect_and_run_tests(tool_paths: ToolPaths, test_pattern: str, parallel: bo
 
     results = {}
     work_dir = os.getcwd()
-    if not parallel:
+    if opts.sequential:
         for info in filtered_test_infos:
             log("Testing " + info.test_path)
             res = run_single_test(info, tool_paths)
@@ -170,17 +238,9 @@ def run_tests(install_dirs: Dict, argv=[]) -> None:
     tool_paths = ToolPaths(install_dirs)
     log(str(tool_paths))
     
-    test_pattern = ''
-    parallel = True
-    if len(argv) == 2 or len(argv) == 3:
-        if argv[1] == 'sequential':
-            parallel = False
-            if len(argv) == 3:
-                test_pattern = argv[2]
-        else:
-            test_pattern = argv[1]
+    opts = process_opts()
     
-    results = collect_and_run_tests(tool_paths, test_pattern, parallel)
+    results = collect_and_run_tests(tool_paths, opts)
     report_results(results)
 
 
