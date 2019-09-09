@@ -14,7 +14,8 @@ keywords = ["parser"]
 
 [[checks]]
   dataFile = "err_%d.0.log"
-  matchPattern = "Undefined array variable: NORMAL"
+  # previously: matchPattern = "Undefined array variable: NORMAL"
+  matchPattern = "Undefined placeholder value: NORMAL"
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"
 

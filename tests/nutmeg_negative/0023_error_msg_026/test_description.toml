@@ -14,8 +14,8 @@ keywords = ["parser"]
 
 [[checks]]
   dataFile = "err_%d.0.log"
-  matchPattern = "Undefined file stream: file"
-  numMatches = 1
+  # previously: matchPattern = "Undefined file stream: file"
+  matchPattern = "Undefined trigger: file"
   testType = "FILE_MATCH_PATTERN"
 
 [run]

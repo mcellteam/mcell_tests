@@ -63,7 +63,7 @@ SUBKEYS_RUN = [KEY_COMMAND_LINE_OPTIONS, KEY_MDL_FILES]
 KEY_CHECKS = 'checks'
 
 KEY_TEST_TYPE = 'testType'
-KEY_FILE_NAMES = 'dataFile' 
+KEY_FILE_NAMES = 'fileNames' 
 KEY_DATA_FILE = 'dataFile' 
 KEY_NUM_MATCHES = 'numMatches' # only 1 supported
 KEY_MATCH_PATTERN = 'matchPattern'
@@ -81,6 +81,10 @@ SUBKEYS_CHECKS = [
     KEY_MIN_TIME, KEY_MAX_TIME,
     KEY_NUM_MATCHES, KEY_MATCH_PATTERN
 ]
+
+KEY_INCLUDES = 'includes'
+VALUE_INCLUDES_EXIT_CODE_1 = 'exit_code_1'
+
 
 TEST_TYPE_INVALID = -1
 TEST_TYPE_CHECK_SUCCESS = 0
@@ -130,12 +134,13 @@ TEST_TYPE_NAME_TO_ID = {y: x for x,y in TEST_TYPE_ID_TO_NAME.items()}
 class CheckInfo:
     def __init__(self):
         self.test_type = TEST_TYPE_INVALID
-        self.data_file = ''
+        self.data_file = None
         self.count_minimum = None  # for TEST_TYPE_COUNT_MINMAX
         self.count_maximum = None  # for TEST_TYPE_COUNT_MINMAX
         self.min_time = None  # optional for TEST_TYPE_COUNT_MINMAX
         self.max_time = None  # optional for TEST_TYPE_COUNT_MINMAX
         self.match_pattern = None
+        self.exit_code = None # for TEST_TYPE_CHECK_EXIT_CODE
 
     def __repr__(self):
         attrs = vars(self)
@@ -194,6 +199,28 @@ class TestDescriptionParser:
         if value not in TEST_TYPE_NAME_TO_ID:
             self.parse_error("Value of testType '" + value + "' is not supported.")
         return TEST_TYPE_NAME_TO_ID[value]
+    
+    def get_data_file_name(self, check_dict: Dict) -> str:
+        if KEY_DATA_FILE in check_dict:
+            data_file_from_toml = check_dict[KEY_DATA_FILE]
+            
+        elif KEY_FILE_NAMES in check_dict:
+            file_names = check_dict[KEY_FILE_NAMES]
+            if len(file_names) != 1:
+                self.parse_error("There can be just one file in fileNames.")
+            data_file_from_toml = file_names[0]
+            
+        else:
+            self.parse_error(
+                "Expected either '" + KEY_DATA_FILE + 
+                "' or '" + KEY_FILE_NAMES + "' key to be present.")
+            
+        if data_file_from_toml == STDOUT_FILE_NAME_FROM_TOML:
+            return STDOUT_FILE_NAME
+        elif data_file_from_toml == STDERR_FILE_NAME_FROM_TOML:
+            return STDERR_FILE_NAME
+        else:
+            return data_file_from_toml 
         
     def parse_check_info(self, check_dict: Dict) -> CheckInfo:
         res = CheckInfo()
@@ -238,16 +265,7 @@ class TestDescriptionParser:
                 self.parse_warning("Key " + KEY_HAVE_HEADER + " is ignored")
                 
         elif res.test_type == TEST_TYPE_FILE_MATCH_PATTERN:
-            data_file_from_toml = self.get_dict_value(check_dict, KEY_DATA_FILE)
-            if data_file_from_toml == STDOUT_FILE_NAME_FROM_TOML:
-                res.data_file = STDOUT_FILE_NAME
-            elif data_file_from_toml == STDERR_FILE_NAME_FROM_TOML:
-                res.data_file = STDERR_FILE_NAME
-            else:
-                self.parse_error(
-                    "Value for " + KEY_DATA_FILE + " FILE_MATCH_PATTERN must be either " + 
-                    STDOUT_FILE_NAME_FROM_TOML + " or " + STDERR_FILE_NAME_FROM_TOML)
-                return None
+            res.data_file = self.get_data_file_name(check_dict)
             
             res.match_pattern = self.get_dict_value(check_dict, KEY_MATCH_PATTERN)
             if KEY_NUM_MATCHES in check_dict:
@@ -255,10 +273,14 @@ class TestDescriptionParser:
                 if num_matches != 1:
                     self.parse_error("Value for " + KEY_NUM_MATCHES + " must be only 1.")
                     return None
-            
+                
+        elif res.test_type in [TEST_TYPE_CHECK_EMPTY_FILES, TEST_TYPE_CHECK_NONEMPTY_FILES]:
+            res.data_file = self.get_data_file_name(check_dict)         
+        
         elif res.test_type == TEST_TYPE_CHECK_SUCCESS:
-            # no other attributesw are relevant
+            # no other attributes are relevant
             pass
+        
         else:
             self.parse_error("Check type '" + test_type_str + "' is not supported yet.")
             res.test_type = TEST_TYPE_UPDATE_REFERENCE
@@ -273,18 +295,28 @@ class TestDescriptionParser:
             return None
         
         top_dict = toml.load(test_description)
-        
+
+        # general run info        
         res = TestDescription()
         res.run_info = self.parse_run_info(top_dict)
         
-        checks_list = self.get_dict_value(top_dict, KEY_CHECKS)
-        if not checks_list:
-            self.parse_error("There must be at least one check.")
-        for check in checks_list: 
-            info = self.parse_check_info(check)
-            if info is None:
-                return None
-            res.check_infos.append(info)
+        # checks
+        if KEY_CHECKS in top_dict:
+            checks_list = self.get_dict_value(top_dict, KEY_CHECKS)
+            for check in checks_list: 
+                info = self.parse_check_info(check)
+                if info is None:
+                    return None
+                res.check_infos.append(info)
+            
+           
+        # there can be also line  'includes = ["exit_code_1"]' 
+        if KEY_INCLUDES in top_dict:
+            if top_dict[KEY_INCLUDES] == VALUE_INCLUDES_EXIT_CODE_1:
+                exit_1 = CheckInfo()
+                exit_1.test_type = TEST_TYPE_CHECK_EXIT_CODE
+                exit_1.exit_code = 1
+                res.check_infos.append(exit_1) 
             
         return res
   
@@ -438,6 +470,15 @@ class TesterNutmeg(TesterBase):
             self.nutmeg_log("Updating contents in " + ref_dir + " with " + ref_file + ".", check.test_type)
             shutil.copy(ref_file, ref_dir)
             res = NUTMEG_UPDATED_REFERENCE
+            
+        elif check.test_type in [TEST_TYPE_CHECK_EMPTY_FILES, TEST_TYPE_CHECK_NONEMPTY_FILES]:
+            ref_file = os.path.join(self.test_work_path, check.data_file)
+            sz = os.path.getsize(ref_file)
+            if check.test_type == TEST_TYPE_CHECK_EMPTY_FILES:
+                res = sz == 0
+            else:
+                res = sz != 0
+            
         else:
             fatal_error("Unexpected check type " + TEST_TYPE_ID_TO_NAME[check.test_type])
 

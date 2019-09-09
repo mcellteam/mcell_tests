@@ -79,7 +79,8 @@ class TestInfo(TestSetInfo):
 TEST_SET_DIRS = [
     #TestSetInfo('tests', 'mdl', TesterMdl),
     #TestSetInfo('examples', 'datamodel', TesterDataModel),
-    TestSetInfo('tests', 'nutmeg_positive', TesterNutmeg)
+    #TestSetInfo('tests', 'nutmeg_positive', TesterNutmeg),
+    TestSetInfo('tests', 'nutmeg_negative', TesterNutmeg)
 ]
 
 

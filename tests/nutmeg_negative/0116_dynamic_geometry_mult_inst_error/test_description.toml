@@ -5,8 +5,10 @@ keywords = ["dynamic geometry"]
 
 [[checks]]
   dataFile = "err_%d.0.log"
-  templateFile = "err_ref.log"
-  testType = "DIFF_FILE_CONTENT"
+  matchPattern = "Object already defined: DGScene.B"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
 
 [run]
   commandlineOpts = ["-quiet"]
