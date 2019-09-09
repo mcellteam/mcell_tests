@@ -35,7 +35,7 @@ from test_utils import ToolPaths, report_test_error, report_test_success, replac
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
-from utils import run, log, fatal_error
+from utils import run, execute, log, fatal_error
 
 
 TEST_DESCRIPTION_FILE = 'test_description.toml'
@@ -56,8 +56,10 @@ KEY_RUN = 'run'
 
 KEY_COMMAND_LINE_OPTIONS = 'commandlineOpts'
 KEY_MDL_FILES = 'mdlfiles'
+KEY_JSON_FILE = 'jsonFile'
+KEY_MAX_MEMORY = 'maxMemory'
 
-SUBKEYS_RUN = [KEY_COMMAND_LINE_OPTIONS, KEY_MDL_FILES]
+SUBKEYS_RUN = [KEY_COMMAND_LINE_OPTIONS, KEY_MDL_FILES, KEY_JSON_FILE, KEY_MAX_MEMORY]
 
 
 KEY_CHECKS = 'checks'
@@ -149,8 +151,10 @@ class CheckInfo:
 
 class RunInfo:
     def __init__(self):
-        self.mdlfile = ''
+        self.mdl_file = None
+        self.json_file = None
         self.command_line_options = []
+        self.max_memory = None
 
 
 class TestDescription:
@@ -186,10 +190,23 @@ class TestDescriptionParser:
         
         res = RunInfo()
         
-        mdlfiles = self.get_dict_value(run_dict, KEY_MDL_FILES)
-        if len(mdlfiles) != 1:
-            self.parse_error("There can be just one mdl file (key mdlfiles).")
-        res.mdlfile = mdlfiles[0]  
+        if KEY_MDL_FILES in run_dict:
+            mdlfiles = run_dict[KEY_MDL_FILES]
+            if len(mdlfiles) != 1:
+                self.parse_error("There can be just one mdl file (key '" + KEY_MDL_FILES + "').")
+            res.mdl_file = mdlfiles[0]  
+
+        if KEY_JSON_FILE in run_dict:
+            res.json_file = run_dict[KEY_JSON_FILE]
+
+        if KEY_MAX_MEMORY in run_dict:
+            res.max_memory = run_dict[KEY_MAX_MEMORY]
+            
+            
+        if res.mdl_file and res.json_file:
+            self.parse_error("Only one of '" + KEY_MDL_FILES + "' and '" + KEY_JSON_FILE + "' can be specified.")
+        if not res.mdl_file and not res.json_file:
+            self.parse_error("One of '" + KEY_MDL_FILES + "' and '" + KEY_JSON_FILE + "' must be specified.")
         
         if KEY_COMMAND_LINE_OPTIONS in run_dict:
             res.command_line_options = run_dict[KEY_COMMAND_LINE_OPTIONS]
@@ -344,11 +361,31 @@ class TesterNutmeg(TesterBase):
 
         mcell_cmd = [self.tool_paths.mcell_binary]
         mcell_cmd += run_info.command_line_options
-        mcell_cmd.append(os.path.join(self.test_src_path, run_info.mdlfile))
+        
+        if not run_info.json_file:
+            # run_info.mdl_file is in the test directory
+            mcell_cmd.append(os.path.join(self.test_src_path, run_info.mdl_file))
+        else:
+            # run_info.mdl_file is in the work directory
+            mcell_cmd.append(os.path.join(self.test_work_path, run_info.mdl_file))
+        
         flog.write(str.join(" ", mcell_cmd) + " (" + str(mcell_cmd) + ")\ncwd: " + self.test_work_path + "\n")
 
+        # should we enable mcellr mode?
+        mdlr_rules_file = os.path.join(self.test_work_path, MAIN_MDLR_RULES_FILE)
+        if os.path.exists(mdlr_rules_file):
+            mcell_cmd += [ '-r', mdlr_rules_file ]
+
         try:
-            run_res = subprocess.run(mcell_cmd, stdout=fout, stderr=ferr, cwd=self.test_work_path, timeout=MCELL_TIMEOUT)
+            shell = False
+            if run_info.max_memory:    
+                shell = True
+                # insert call to ulimit in front, may be not supported on Windows...
+                mcell_cmd = 'ulimit -sv ' + str(run_info.max_memory * 1000) + ';' + str.join(" ", mcell_cmd)  
+            
+            run_res = subprocess.run(
+                mcell_cmd, shell=shell, 
+                stdout=fout, stderr=ferr, cwd=self.test_work_path, timeout=MCELL_TIMEOUT)
             mcell_ec = run_res.returncode
 
         except subprocess.TimeoutExpired:
@@ -485,11 +522,19 @@ class TesterNutmeg(TesterBase):
         return res
 
     def run_and_validate_test(self, test_description: TestDescription) -> int:
-        # 1) run mcell while capturing std and err output to different files
+                
+        # 1) convert json file if needed
+        if test_description.run_info.json_file: 
+            res = self.run_dm_to_mdl_conversion(test_description.run_info.json_file)
+            if res != PASSED:
+                return res
+            test_description.run_info.mdl_file = MAIN_MDL_FILE
+        
+        # 2) run mcell while capturing std and err output to different files
         #    non-zero exit code might be an expected result
         mcell_ec = self.run_mcell_for_nutmeg(test_description.run_info)
 
-        # 2) run all checks
+        # 3) run all checks
         for check in test_description.check_infos:
             res = self.run_check(check, mcell_ec)
             if res != PASSED:

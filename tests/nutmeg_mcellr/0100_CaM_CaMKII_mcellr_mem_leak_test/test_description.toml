@@ -5,10 +5,7 @@ description = "Regression test for case when generating .gdta file by nfSIM too 
 [[checks]]
   testType = "CHECK_SUCCESS"
 
-[[checks]]
-  testType = "CHECK_RESOURCE_USAGE"
-  maxMemory = 50 # MB
-
 [run]
   jsonFile = "0100_CaM_CaMKII_mcellr_mem_leak_test.json"
+  maxMemory = 40 # MB
 

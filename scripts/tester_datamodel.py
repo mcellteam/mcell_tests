@@ -26,7 +26,7 @@ import shutil
 
 from test_settings import *
 from tester_base import TesterBase
-from test_utils import ToolPaths, report_test_error, report_test_success, replace_in_file
+from test_utils import ToolPaths, report_test_error, report_test_success
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
@@ -48,25 +48,7 @@ class TesterDataModel(TesterBase):
             
         if not os.path.exists(self.tool_paths.data_model_to_mdl_script):
             fatal_error("Could not find data model conversion script '" + self.tool_paths.data_model_to_mdl_script + ".")
-         
-    def run_dm_to_mdl_conversion(self) -> None:
-        # the conversion python script is considered a separate utility, 
-        # we run it through bash 
-        cmd = [ 
-            PYTHON_BINARY, self.tool_paths.data_model_to_mdl_script, 
-            os.path.join(self.test_src_path, self.test_name + '.json'), MAIN_MDL_FILE ]
-        log_name = self.test_name+'.dm_to_mdl.log'
-        exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name)
-        if exit_code != 0:
-            report_test_error(self.test_name, "JSON to mdl conversion failed, see '" + os.path.join(self.test_name, log_name) + "'.")
-            return FAILED_DM_TO_MDL_CONVERSION
-        else:
-            return PASSED
 
-    def change_viz_output_to_ascii(self) -> int:
-        fname = os.path.join(self.test_work_path, 'Scene.viz_output.mdl')
-        replace_in_file(fname, 'CELLBLENDER', 'ASCII')
-        return PASSED
 
     def update_reference(self) -> None:
         viz_reference = os.path.join(self.test_src_path, REF_VIZ_DATA_DIR, SEED_DIR)
@@ -163,7 +145,7 @@ class TesterDataModel(TesterBase):
 
         self.clean_and_create_work_dir()
         
-        res = self.run_dm_to_mdl_conversion()
+        res = self.run_dm_to_mdl_conversion(self.test_name + '.json')
         if res != PASSED:
             return res
         

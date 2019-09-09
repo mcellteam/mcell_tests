@@ -29,7 +29,7 @@ from typing import List, Dict
 import data_output_diff
 
 from test_settings import *
-from test_utils import ToolPaths, report_test_error, report_test_success
+from test_utils import ToolPaths, report_test_error, report_test_success, replace_in_file
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
@@ -150,3 +150,23 @@ class TesterBase:
             return FAILED_MCELL
         else:
             return PASSED
+         
+    def run_dm_to_mdl_conversion(self, json_file_name) -> None:
+        # the conversion python script is considered a separate utility, 
+        # we run it through bash 
+        cmd = [ 
+            PYTHON_BINARY, self.tool_paths.data_model_to_mdl_script, 
+            os.path.join(self.test_src_path, json_file_name), MAIN_MDL_FILE ]
+        log_name = self.test_name+'.dm_to_mdl.log'
+        exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name)
+        if exit_code != 0:
+            report_test_error(self.test_name, "JSON to mdl conversion failed, see '" + os.path.join(self.test_name, log_name) + "'.")
+            return FAILED_DM_TO_MDL_CONVERSION
+        else:
+            return PASSED
+
+    def change_viz_output_to_ascii(self) -> int:
+        fname = os.path.join(self.test_work_path, 'Scene.viz_output.mdl')
+        replace_in_file(fname, 'CELLBLENDER', 'ASCII')
+        return PASSED
+    
