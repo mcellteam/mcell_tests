@@ -77,9 +77,9 @@ class TestInfo(TestSetInfo):
 
 # list of test directories with classes that are designed to test them
 TEST_SET_DIRS = [
-    #TestSetInfo('tests', 'mdl', TesterMdl),
-    #TestSetInfo('examples', 'datamodel', TesterDataModel),
-    #TestSetInfo('tests', 'nutmeg_positive', TesterNutmeg),
+    TestSetInfo('tests', 'mdl', TesterMdl),
+    TestSetInfo('examples', 'datamodel', TesterDataModel),
+    TestSetInfo('tests', 'nutmeg_positive', TesterNutmeg),
     TestSetInfo('tests', 'nutmeg_negative', TesterNutmeg)
 ]
 
