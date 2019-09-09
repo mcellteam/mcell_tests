@@ -10,7 +10,7 @@
 
 [[set]]
   category = 'tests'
-  testSet = 'mcellr_datamodel'
+  testSet = 'datamodel_mcellr'
   testerClass = 'TesterDataModel'
 
 [[set]]
