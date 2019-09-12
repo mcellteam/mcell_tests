@@ -58,9 +58,17 @@ def main():
     viz_list = m.mcell_add_to_species_list(species_chol_sym, True, 1, viz_list)
     
     m.mcell_create_viz_output(
-        world, "./viz_data/test", viz_list, 0, iterations, 1, True)
+        world, "./viz_data/Scene", viz_list, 0, iterations, 1, True)
 
+    sc_name = 'reflect_chol'
+    sc_sym = m.create_surf_class(world, sc_name)
     
+    m.mcell_add_surf_class_properties(
+                world, m.RFLCT, sc_sym, species_chol_sym, 0)
+
+    m.mcell_assign_surf_class_to_region(sc_sym, raft1_reg)
+    m.mcell_assign_surf_class_to_region(sc_sym, raft2_reg)
+
     # Their releases
     # orientation? - should be ' (up)
     release_chol_raft1 = m.create_region_release_site(
@@ -82,6 +90,7 @@ def main():
 
 
     # Initialize simulation
+    # m.mcell_update_root_instance(world) # FIXME: insert into init sim
     m.mcell_init_simulation(world)
     m.mcell_init_output(world)
     
