@@ -58,7 +58,7 @@ def main():
     viz_list = m.mcell_add_to_species_list(species_chol_sym, True, 1, viz_list)
     
     m.mcell_create_viz_output(
-        world, "./viz_data/Scene", viz_list, 0, iterations, 1, True)
+        world, "./viz_data/seed_00001/Scene", viz_list, 0, iterations, 1, True)
 
     sc_name = 'reflect_chol'
     sc_sym = m.create_surf_class(world, sc_name)
@@ -72,11 +72,11 @@ def main():
     # Their releases
     # orientation? - should be ' (up)
     release_chol_raft1 = m.create_region_release_site(
-        world, scene, ico_mesh, 'raft1_rel', raft1_name, 250, 0, species_chol_sym)  # 0 - constant number to release
+        world, scene, ico_mesh, 'raft1_rel', raft1_name, 250, 0, species_chol_sym, True, 1)  # 0 - constant number to release
     release_chol_raft2 = m.create_region_release_site(
-        world, scene, ico_mesh, 'raft2_rel', raft2_name, 100, 0, species_chol_sym)
+        world, scene, ico_mesh, 'raft2_rel', raft2_name, 100, 0, species_chol_sym, True, 1)
     release_rf = m.create_region_release_site(
-        world, scene, ico_mesh, 'ico_rel', 'ALL', 1000, 0, species_rf_sym)    
+        world, scene, ico_mesh, 'ico_rel', 'ALL', 1000, 0, species_rf_sym, True, 1)    
     
 
     # define reactions
