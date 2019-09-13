@@ -6,6 +6,8 @@ import os
 import sys
 import pandas as pd
 import numpy as np
+#import matplotlib.mlab as mlab
+#import matplotlib.pyplot as plt
 
 MCELL_DIR = os.environ.get('MCELL_DIR', '')
 
@@ -80,7 +82,7 @@ def load_hits_data(fname):
 def main():
     world = MCellSim(seed=1)
     world.set_time_step(time_step=1e-6)
-    iterations=1000 # 1000
+    iterations=1000
     world.set_iterations(iterations)
 
     # add geometry objects
@@ -96,45 +98,73 @@ def main():
     species_b = Species("b", 1e-6)
     world.add_species([species_a, species_b])
     
-    # Their releases
+    # Their releases 
+    # Note: we are releasing molecules form a single point, this means that for several initial iterations, 
+    # there will be less hits, it would be better to do release the molecules uniformly in the top and bottom half-cubes
     rel_diameter = Vector3(0.0, 0.0, 0.0)
-    world.create_release_site(species_a, 10, "spherical", Vector3(0.0, 0.0, 0.1), rel_diameter)
-    world.create_release_site(species_b, 10, "spherical", Vector3(0.0, 0.0, -0.1), rel_diameter)
+    world.create_release_site(species_a, 500, "spherical", Vector3(0.0, 0.0, 0.1), rel_diameter)
+    world.create_release_site(species_b, 500, "spherical", Vector3(0.0, 0.0, -0.1), rel_diameter)
     
     # Create viz data
     world.add_viz([species_a, species_b], ascii_output=True)
     
     # Create counter for hits of the plane
     # TODO: make this API nicer     
-    species_sym = world._species[species_a.name]
+    species_sym_a = world._species[species_a.name]
     mesh = world._mesh_objects[plane_obj.name]
     
     mesh_sym = mcell_get_obj_sym(mesh)
-    count_str = "react_data/seed_%04d/%s.%s.hits.dat" % (
+    count_str_a = "react_data/seed_%04d/%s.%s.hits.dat" % (
             world._seed, species_a.name, plane_obj.name)
-    count_list, os, out_times, output = create_count(
-        world._world, mesh_sym, species_sym, count_str, step=1e-5, 
+    count_list_a, os_a, out_times_a, output_a = create_count(
+        world._world, mesh_sym, species_sym_a, count_str_a, step=1e-5, 
         report_flags=(REPORT_ALL_HITS | REPORT_TRIGGER), exact_time=1, buffer_size=1)
-    world._counts[count_str] = (count_list, os, out_times, output)
+    world._counts[count_str_a] = (count_list_a, os_a, out_times_a, output_a)
+
+    species_sym_b = world._species[species_b.name]
+    count_str_b = "react_data/seed_%04d/%s.%s.hits.dat" % (
+            world._seed, species_b.name, plane_obj.name)
+    count_list_b, os_b, out_times_b, output_b = create_count(
+        world._world, mesh_sym, species_sym_b, count_str_b, step=1e-5, 
+        report_flags=(REPORT_ALL_HITS | REPORT_TRIGGER), exact_time=1, buffer_size=1)
+    world._counts[count_str_b] = (count_list_b, os_b, out_times_b, output_b)
 
     # Dump internal mcell state
     #world.dump()
     
     # Run for several interations
+    hits_a = []
+    hits_b = []
     output_freq = 100
     world.set_output_freq(output_freq)
     for i in range(iterations + 1):
         world.run_iteration()
         
         # for now, we are loading all data each iteration...
-        # but this will be optimized little later 
-        df = load_hits_data(count_str)
-        df = df[ np.abs(df['iter'] - i/1e6) < 1e-8 ]
-        if not df.empty:
-            print("Hit in iteration " + str(i))
-            print(df)
+        # this will be optimized later 
+        df_a = load_hits_data(count_str_a)
+        df_a = df_a[ np.abs(df_a['iter'] - i/1e6) < 1e-8 ]
+        hits_a.append(len(df_a))
         
-    #world.dump()
+        #if not df_a.empty:
+        #    print("Hits from top in iteration " + str(i))
+        #    print(df_a)
+
+        df_b = load_hits_data(count_str_b)
+        df_b = df_b[ np.abs(df_b['iter'] - i/1e6) < 1e-8 ]
+        hits_b.append(len(df_b))
+        
+        
+    # print differences in hits for each iterations
+    for i in range(0, len(hits_a)):
+        print(str(i) + ": " + str(hits_a[i] - hits_b[i]))
+    
+    
+    # Show histogram:
+    #num_bins = 50
+    #n, bins, patches = plt.hist(hits_a, num_bins, facecolor='blue', alpha=0.5)
+    #plt.show()
+    
         
     world.end_sim()
     
