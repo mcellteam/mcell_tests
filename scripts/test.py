@@ -15,7 +15,7 @@ VIZ_OUTPUT_DIR = os.path.join('4.', 'viz_data')
 REF_VIZ_OUTPUT_DIR = 'ref_viz_data'
 SEED_DIR = 'seed_00001'
 
-TEST_DIR = os.path.join('..', 'tests')
+TEST_DIR = os.path.join('..', 'tests_mdl')
 MCELL_BINARY =os.path.join('..', '..', 'mcell', 'build', 'mcell')
 MCELL_ARGS = ['-mcell4', '-seed', '1']
 MAIN_MDL_FILE = 'Scene.main.mdl'
