@@ -66,7 +66,8 @@ class TestOptions:
     def __init__(self):
         self.sequential = False
         self.config = DEFAULT_CONFIG_PATH
-        self.pattern = False
+        self.pattern = None
+        self.mcell_build_path_override = None 
 
     def __repr__(self):
         attrs = vars(self)
@@ -78,6 +79,7 @@ def create_argparse() -> argparse.ArgumentParser:
     parser.add_argument('-s', '--sequential', action='store_true', help='run testing sequentially (default is parallel)')
     parser.add_argument('-c', '--config', type=str, help='load testing config from a specified file (default is test_configs/default.toml')
     parser.add_argument('-p', '--pattern', type=str, help='regex pattern to filter tests to be run, the pattern is matched against the test path')
+    parser.add_argument('-m', '--mcell-build-path', type=str, help='ovverride of the default mcell build path (cellblender path stays the same)')
     return parser
 
 # FIXME: insert into TestOptions class       
@@ -94,6 +96,9 @@ def process_opts() -> TestOptions:
         opts.config = args.config
     if args.pattern:
         opts.pattern = args.pattern
+        
+    if args.mcell_build_path:
+        opts.mcell_build_path_override = args.mcell_build_path 
 
     return opts
 
@@ -235,10 +240,13 @@ def report_results(results: Dict) -> None:
 
 
 def run_tests(install_dirs: Dict, argv=[]) -> None:
+    opts = process_opts()
+
+    if opts.mcell_build_path_override:
+        install_dirs[REPO_NAME_MCELL] = opts.mcell_build_path_override 
+    
     tool_paths = ToolPaths(install_dirs)
     log(str(tool_paths))
-    
-    opts = process_opts()
     
     results = collect_and_run_tests(tool_paths, opts)
     report_results(results)
