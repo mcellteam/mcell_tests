@@ -3,7 +3,7 @@
 // at least for testing
 
 
-
+/*
 // change of size, just one point
 A POLYGON_LIST
 {
@@ -39,21 +39,60 @@ INSTANTIATE DGScene OBJECT
 {
   A OBJECT A{}
 }
+*/
+
 
 // vertex must be already instantiated
-
+/*
 VERTEX A[0] 
 {
 	TRANSLATE = [  0.01,  0.01, -0.01 ]
 }
 
-or 
+// and:
 
 VERTEX A[0] 
 { 
-	MOVE_TO = [  0.02,  0.02, -0.02 ]
+	TO = [  0.02,  0.02, -0.02 ]
 }
 
-// also scale and rotate? does it make sense? against what origin? - probably not...
 
+// --- or 
+// should be extensible to whole objects later
+TRANSLATE {
+{
 
+	 A[0, ... , N] 
+	 = [  0.01,  0.01, -0.01 ]
+}
+
+or 
+
+MOVE A[0] 
+{ 
+	TO = [  0.02,  0.02, -0.02 ]
+}
+*/
+
+// -- or 
+
+TRANSFORM {
+	// A[n] represents a vertex of an object
+ 	OBJECT_LIST { A[0], A[2], A[3] }
+ 	// or VERTEX_LIST?
+ 	 
+ 	// A represents the whole object 
+ 	// OBJECT_LIST = { A }
+ 	
+ 	// MOVE_TO - probably do not support initially, too many weird behaviors
+ 	//   given also that the main purpose of having this feature in MDL is testing.. 
+ 	//   for vertices: move all vertices to the given position, 
+ 	//       makes sense mainly when there is a single vertex 
+ 	//   for objects: move the "upper left front" (whichever vertex it is?)
+ 	//   
+ 	//MOVE_TO = [ 0.02,  0.02, -0.02 ]
+ 	
+ 	
+ 	// TRANSLATE - move each vertex by a specified value
+ 	TRANSLATE = [ 0.01,  0.01, -0.01 ]
+}
