@@ -1,7 +1,4 @@
 /work/*
-/.cproject
-/.project
-/.pydevproject
 /tests/*/4.
 /tests/*/viz_data
 /tests/*/react_data
