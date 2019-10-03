@@ -244,6 +244,10 @@ def report_results(results: Dict) -> None:
         log("\n-- SUCCESS --")
 
 
+def check_file_exists(name):
+    if not os.path.exists(name):
+        fatal_error("Required file '" + name + "' does not exist")
+
 def run_tests(install_dirs: Dict, argv=[]) -> None:
     opts = process_opts()
 
@@ -256,6 +260,10 @@ def run_tests(install_dirs: Dict, argv=[]) -> None:
     # FIXME: use arguments directly to initialize ToolPaths    
     tool_paths = ToolPaths(install_dirs)
     log(str(tool_paths))
+    
+    # maybre move to ToolPaths
+    check_file_exists(tool_paths.mcell_binary)
+    check_file_exists(tool_paths.data_model_to_mdl_script) 
     
     results = collect_and_run_tests(tool_paths, opts)
     report_results(results)
