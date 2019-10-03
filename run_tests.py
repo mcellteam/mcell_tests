@@ -222,7 +222,7 @@ def collect_and_run_tests(tool_paths: ToolPaths, opts: TestOptions) -> Dict:
     return results
 
 
-def report_results(results: Dict) -> None:
+def report_results(results: Dict) -> int:
     print("\n**** RESULTS ****")
     passed = 0
     failed = 0
@@ -240,15 +240,17 @@ def report_results(results: Dict) -> None:
            
     if failed != 0:
         log("\n!! THERE WERE ERRORS !!")
+        return 1
     else:
         log("\n-- SUCCESS --")
+        return 0
 
 
 def check_file_exists(name):
     if not os.path.exists(name):
         fatal_error("Required file '" + name + "' does not exist")
 
-def run_tests(install_dirs: Dict, argv=[]) -> None:
+def run_tests(install_dirs: Dict, argv=[]) -> int:
     opts = process_opts()
 
     if opts.mcell_build_path_override:
@@ -266,10 +268,12 @@ def run_tests(install_dirs: Dict, argv=[]) -> None:
     check_file_exists(tool_paths.data_model_to_mdl_script) 
     
     results = collect_and_run_tests(tool_paths, opts)
-    report_results(results)
+    ec = report_results(results)
+    return ec
 
 
 if __name__ == '__main__':
-    run_tests({}, sys.argv)
+    ec = run_tests({}, sys.argv)
+    sys.exit(ec)
     
 
