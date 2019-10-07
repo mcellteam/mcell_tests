@@ -68,13 +68,12 @@ class TesterMdl(TesterBase):
         self.clean_and_create_work_dir()
         
         res = self.run_mcell(MCELL_ARGS, os.path.join('..', self.test_src_path, MAIN_MDL_FILE))
-    
+        if res != PASSED and not self.expected_wrong_ec():
+            return res
+        
         if not UPDATE_REFERENCE:
             res = self.check_reference_data(SEED_DIR)
         else:
-            if res != PASSED:
-                fatal_error("Tried to update reference data but mcell execution failed!")
-                
             self.update_reference()
         
         return res

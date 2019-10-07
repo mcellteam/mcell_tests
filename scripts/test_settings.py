@@ -32,6 +32,9 @@ MAIN_MDL_FILE = 'Scene.main.mdl'
 MAIN_MDLR_RULES_FILE = 'Scene.mdlr_rules.xml'
 
 MCELL_BINARY = 'mcell'
+PYMCELL_MODULE = 'pymcell.py'
+PYMCELL_DIR = 'python' 
+MCELL_DIR_VARIABLE = 'MCELL_DIR'
 
 PYTHON_BINARY = 'python'
 DATA_MODEL_TO_MDL_DIR = 'mdl'

@@ -35,6 +35,8 @@ THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
 from utils import run, log, fatal_error
 
+VERBOSE_DIFF = False
+
 # TODO: maybe move check_preconditions and other things such as initialization 
 # out, 
 class TesterBase:
@@ -73,6 +75,13 @@ class TesterBase:
             return True
         else:
             return False
+
+    def expected_wrong_ec(self) -> bool:
+        if os.path.exists(os.path.join(self.test_src_path, 'expected_wrong_ec')):
+            log("EXPECTING WRONG EXIT CODE : " + self.test_name)
+            return True
+        else:
+            return False
     
     def clean_and_create_work_dir(self) -> None:
         # work dir, e.g. /nadata/cnl/home/ahusar/src/mcell_tests/work         
@@ -90,6 +99,11 @@ class TesterBase:
 
     def check_reference(self, seed_dir: str, ref_dir_name: str, test_dir_name: str, exact_diff: bool, msg: str) -> int:
         ref_path = os.path.join('..', self.test_src_path, ref_dir_name, seed_dir)
+        if VERBOSE_DIFF:
+            if os.path.exists(ref_path):
+                log("DIFF DIR EXISTS: checking reference directory " + ref_path)
+            else:
+                log("DIFF NO REF DIR: checking reference directory " + ref_path)
         if not os.path.exists(ref_path):
             return PASSED
         
