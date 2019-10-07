@@ -40,7 +40,15 @@ VERBOSE_DIFF = False
 # TODO: maybe move check_preconditions and other things such as initialization 
 # out, 
 class TesterBase:
-    def __init__(self, test_src_path: str, tool_paths: ToolPaths):
+    def __init__(self, test_src_path: str, args: List[str], tool_paths: ToolPaths):
+        
+        self.mcell4_testing = False
+        if args:
+            if args == ['mcell4']:
+                self.mcell4_testing = True
+            else:
+                fatal_error("The only supported testing argument is 'mcell4' for now.")
+        
         # paths to the binaries
         self.tool_paths = tool_paths
 
@@ -122,12 +130,12 @@ class TesterBase:
         # has_ref_data = False
         
         res = self.check_reference(
-            seed_dir, REF_VIZ_DATA_DIR, VIZ_DATA_DIR, False, "Viz data diff failed.")
+            seed_dir, get_ref_viz_data_dir(self.mcell4_testing), get_viz_data_dir(self.mcell4_testing), False, "Viz data diff failed.")
         if res != PASSED:
             return res
 
         res = self.check_reference(
-            seed_dir, REF_REACT_DATA_DIR, REACT_DATA_DIR, False, "React data diff failed.")
+            seed_dir, get_ref_react_data_dir(self.mcell4_testing), get_react_data_dir(self.mcell4_testing), False, "React data diff failed.")
         if res != PASSED:
             return res
 
@@ -165,7 +173,7 @@ class TesterBase:
         else:
             return PASSED
          
-    def run_dm_to_mdl_conversion(self, json_file_name) -> None:
+    def run_dm_to_mdl_conversion(self, json_file_name: str) -> None:
         # the conversion python script is considered a separate utility, 
         # we run it through bash 
         cmd = [ 

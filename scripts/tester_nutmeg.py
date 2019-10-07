@@ -339,10 +339,13 @@ class TestDescriptionParser:
   
 
 class TesterNutmeg(TesterBase):
-    def __init___(self, test_src_path: str, tool_paths: ToolPaths):
-        super(TesterNutmeg, self).__init__(test_src_path, tool_paths)
+    def __init___(self, test_src_path: str, args: List[str], tool_paths: ToolPaths):
+        super(TesterNutmeg, self).__init__(test_src_path, args, tool_paths)
 
     def check_prerequisites(self) -> None:
+        if self.mcell4_testing: 
+            fatal_error("TesterNutmeg does not support mcell4 testing yet")
+        
         if not os.path.exists(self.tool_paths.mcell_binary):
             fatal_error("Could not find executable '" + self.tool_paths.mcell_binary + ".")
 

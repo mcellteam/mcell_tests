@@ -23,6 +23,7 @@ This module contains functions to check tests in tests_mdl.
 import os
 import sys
 import shutil
+from typing import List, Dict
 
 from test_settings import *
 from tester_base import TesterBase
@@ -34,13 +35,13 @@ from utils import run, log, fatal_error
 
 UPDATE_REFERENCE=False
 
-MCELL_ARGS = ['-seed', '1']
+MCELL_BASE_ARGS = ['-seed', '1']
 SEED_DIR = 'seed_00001'
 
 
 class TesterMdl(TesterBase):
-    def __init___(self, test_dir: str, tool_paths: ToolPaths):
-        super(TesterMdl, self).__init__(test_dir, tool_paths)
+    def __init___(self, test_dir: str, args: List[str], tool_paths: ToolPaths):
+        super(TesterMdl, self).__init__(test_dir, args, tool_paths)
     
     def check_prerequisites(self) -> None:
         if not os.path.exists(self.tool_paths.mcell_binary):
@@ -67,7 +68,11 @@ class TesterMdl(TesterBase):
 
         self.clean_and_create_work_dir()
         
-        res = self.run_mcell(MCELL_ARGS, os.path.join('..', self.test_src_path, MAIN_MDL_FILE))
+        mcell_args = MCELL_BASE_ARGS
+        if self.mcell4_testing:
+            mcell_args.append('-mcell4')
+        
+        res = self.run_mcell(mcell_args, os.path.join('..', self.test_src_path, MAIN_MDL_FILE))
         if res != PASSED and not self.expected_wrong_ec():
             return res
         

@@ -23,6 +23,7 @@ This module contains functions to check tests in tests_mdl.
 import os
 import sys
 import shutil
+from typing import List, Dict
 
 from test_settings import *
 from tester_base import TesterBase
@@ -38,10 +39,13 @@ SEED_DIR = 'seed_0001'
 
 
 class TesterPymcell(TesterBase):
-    def __init___(self, test_dir: str, tool_paths: ToolPaths):
-        super(TesterMdl, self).__init__(test_dir, tool_paths)
+    def __init___(self, test_dir: str, args: List[str], tool_paths: ToolPaths):
+        super(TesterMdl, self).__init__(test_dir, args, tool_paths)
     
     def check_prerequisites(self) -> None:
+        if self.mcell4_testing: 
+            fatal_error("TesterPymcell does not support mcell4 testing yet")
+            
         if not os.path.exists(self.tool_paths.pymcell_module):
             fatal_error("Could not find module '" + self.tool_paths.pymcell_module + ".")
         

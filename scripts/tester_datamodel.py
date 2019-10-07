@@ -23,6 +23,8 @@ This module contains functions to check tests in tests_mdl.
 import os
 import sys
 import shutil
+from typing import List, Dict
+
 
 from test_settings import *
 from tester_base import TesterBase
@@ -34,15 +36,18 @@ from utils import run, log, fatal_error
 
 UPDATE_REFERENCE = False
 
-MCELL_ARGS = ['-seed', '1']
+MCELL_BASE_ARGS = ['-seed', '1']
 SEED_DIR = 'seed_00001'
 
 
 class TesterDataModel(TesterBase):
-    def __init___(self, test_src_path: str, tool_paths: ToolPaths):
-        super(TesterMdl, self).__init__(test_src_path, tool_paths)
+    def __init___(self, test_src_path: str, args: List[str], tool_paths: ToolPaths):
+        super(TesterMdl, self).__init__(test_src_path, args, tool_paths)
 
-    def check_prerequisites(self) -> None:
+    def check_prerequisites(self) -> None:        
+        if self.mcell4_testing: 
+            fatal_error("TesterDataModel does not support mcell4 testing yet")
+        
         if not os.path.exists(self.tool_paths.mcell_binary):
             fatal_error("Could not find executable '" + self.tool_paths.mcell_binary + ".")
             
@@ -51,8 +56,8 @@ class TesterDataModel(TesterBase):
 
 
     def update_reference(self) -> None:
-        viz_reference = os.path.join(self.test_src_path, REF_VIZ_DATA_DIR, SEED_DIR)
-        viz_res = os.path.join(self.test_work_path, VIZ_DATA_DIR, SEED_DIR)
+        viz_reference = os.path.join(self.test_src_path, get_ref_viz_data_dir(self.mcell4_testing), SEED_DIR)
+        viz_res = os.path.join(self.test_work_path, get_viz_data_dir(self.mcell4_testing), SEED_DIR)
 
         if os.path.exists(viz_res):
             # remove whole directory
@@ -78,8 +83,8 @@ class TesterDataModel(TesterBase):
             shutil.copyfile(os.path.join(viz_res, files[-1]), os.path.join(viz_reference, files[-1]))
             
         # copy the whole react data files 
-        react_reference = os.path.join(self.test_src_path, REF_REACT_DATA_DIR, SEED_DIR)
-        react_res = os.path.join(self.test_work_path, REACT_DATA_DIR, SEED_DIR)
+        react_reference = os.path.join(self.test_src_path, get_ref_react_data_dir(self.mcell4_testing), SEED_DIR)
+        react_res = os.path.join(self.test_work_path, get_react_data_dir(self.mcell4_testing), SEED_DIR)
         
         if os.path.exists(react_res):
             # remove whole directory
@@ -153,7 +158,7 @@ class TesterDataModel(TesterBase):
         if res != PASSED:
             return res
          
-        res = self.run_mcell(MCELL_ARGS, os.path.join(self.test_work_path, MAIN_MDL_FILE))
+        res = self.run_mcell(MCELL_BASE_ARGS, os.path.join(self.test_work_path, MAIN_MDL_FILE))
         if res != PASSED and not self.expected_wrong_ec():
             return res
         

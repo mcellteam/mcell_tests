@@ -61,6 +61,7 @@ KEY_SET = 'set'
 KEY_CATEGORY = 'category'
 KEY_TEST_SET = 'testSet'
 KEY_TESTER_CLASS = 'testerClass'
+KEY_ARGS = 'args'
 
 
 class TestOptions:
@@ -110,17 +111,18 @@ def process_opts() -> TestOptions:
 
 
 class TestSetInfo:
-    def __init__(self, category: str, test_set_name: str, tester_class: str):
+    def __init__(self, category: str, test_set_name: str, tester_class: str, args: List[str]):
         self.category = category  # e.g. tests or examples
         self.test_set_name = test_set_name  # e.g. nutmeg_positive
         self.tester_class = tester_class  # class derived from TesterBase
+        self.args = args # enabled when mcell4 should be tested
 
 
 # we are only adding the specific test directory
 class TestInfo(TestSetInfo):
     def __init__(self, test_set_info: TestSetInfo, test_path: str):
         self.test_path = test_path  # full path to the test directory
-        super(TestInfo, self).__init__(test_set_info.category, test_set_info.test_set_name, test_set_info.tester_class)
+        super(TestInfo, self).__init__(test_set_info.category, test_set_info.test_set_name, test_set_info.tester_class, test_set_info.args)
 
     def __repr__(self):
         return '[' + str(self.tester_class) + ']:' + os.path.join(self.test_path)
@@ -145,7 +147,7 @@ def get_test_dirs(test_set_info: TestSetInfo) -> List[TestInfo]:
     
 def run_single_test(test_info: TestInfo, tool_paths: ToolPaths) -> int:
     log("STARTED: " + test_info.get_full_name() + " at " + datetime.now().strftime('%H:%M:%S'))
-    test_obj = test_info.tester_class(test_info.test_path, tool_paths)
+    test_obj = test_info.tester_class(test_info.test_path, test_info.args, tool_paths)
     res = test_obj.test()
     log("FINISHED: " + test_info.get_full_name() + " at " + datetime.now().strftime('%H:%M:%S'))
     return res
@@ -178,7 +180,10 @@ def load_test_config(config_path: str) -> List[TestSetInfo]:
             else:
                 fatal_error("Unknown tester class '" + class_name + "' in '" + config_path + "'.")
                 
-            res.append(TestSetInfo(category, test_set_name, tester_class))
+            args = []
+            if KEY_ARGS in set:
+                args = set[KEY_ARGS]
+            res.append(TestSetInfo(category, test_set_name, tester_class, args))
                   
     return res
 
