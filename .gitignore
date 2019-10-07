@@ -2,9 +2,9 @@
 /.cproject
 /.project
 /.pydevproject
-/tests_mdl/*/4.
-/tests_mdl/*/viz_data
-/tests_mdl/*/react_data
-/tests_mdl/*/dump3.txt
-/tests_mdl/*/dump4.txt
+**/4.
+**/viz_data
+**/react_data
+**/dump*
+**/dump*
 /benchmarks/*/oprofile_data

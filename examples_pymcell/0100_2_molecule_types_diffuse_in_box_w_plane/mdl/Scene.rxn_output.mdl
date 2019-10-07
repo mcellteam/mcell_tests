@@ -1,0 +1,7 @@
+REACTION_DATA_OUTPUT
+{
+  OUTPUT_BUFFER_SIZE=1  // to dump data immediatelly
+  STEP=1e-6
+  { TRIGGER[a,Scene.Plane[reg],ALL_HITS] }=> "./react_data/seed_" & seed & "/a.Plane.hits.dat"
+}
+
