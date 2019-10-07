@@ -1,0 +1,21 @@
+author = "Markus Dittrich <dittrich@psc.edu>"
+date = "2014-07-07"
+description = "Test the ability to continue a simulation in the presence of checkpoint iterations. Tests the new EXIT/NOEXIT capability of CHECKPOINT_ITERATIONS and the KEEP_CHECKPOINT_FILES keyword."
+keywords = ["parser"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  fileNames = ["stderr_%d.0.log", "stdout_%d.0.log"]
+  testType = "CHECK_EMPTY_FILES"
+
+[[checks]]
+  IDRange = ["20000000", "30000000", "40000000", "50000000", "60000000", "70000000", "80000000", "90000000", "100000000", "110000000", "120000000"]
+  fileNames = ["parser_checkpoint_iterations_keep_files.cp.%d"]
+  testType = "CHECK_NONEMPTY_FILES"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

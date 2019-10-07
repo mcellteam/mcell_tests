@@ -1,0 +1,80 @@
+ITERATIONS = 2000
+TIME_STEP = 1e-06
+VACANCY_SEARCH_DISTANCE = 10
+SURFACE_GRID_DENSITY = 60000
+
+PERIODIC_BOX {
+  CORNERS = [-0.1, -0.1, -0.1],[0.1, 0.1, 0.1]
+  PERIODIC_TRADITIONAL = FALSE
+  PERIODIC_X = TRUE
+  PERIODIC_Y = TRUE
+  PERIODIC_Z = TRUE
+}
+
+DEFINE_MOLECULES
+{
+  sm { DIFFUSION_CONSTANT_2D = 1e-06 }
+}
+
+DEFINE_REACTIONS
+{
+  sm' -> NULL ["rc.txt"] : rxn
+}
+
+INCLUDE_FILE = "geometry.mdl"
+
+INSTANTIATE Scene OBJECT
+{
+  Plane OBJECT Plane {}
+  Release_Site RELEASE_SITE
+  {
+   SHAPE = Scene.Plane[near_edge]
+   MOLECULE = sm'
+   NUMBER_TO_RELEASE = 100
+   RELEASE_PROBABILITY = 1
+  }
+}
+
+/*sprintf(seed,"%05g",SEED)*/
+/*VIZ_OUTPUT*/
+/*{*/
+/*  MODE = CELLBLENDER*/
+/*  FILENAME = "./viz_data/seed_" & seed & "/Scene"*/
+/*  MOLECULES*/
+/*  {*/
+/*    NAME_LIST {ALL_MOLECULES}*/
+/*    ITERATION_NUMBERS {ALL_DATA @ ALL_ITERATIONS}*/
+/*  }*/
+/*}*/
+
+REACTION_DATA_OUTPUT {
+  STEP=1e-6
+  // molecule counts in "left" and "right" PB
+  {COUNT[sm,Scene.Plane[ALL],[0,0,0]]}=> "./sm.000.dat"
+  {COUNT[sm,Scene.Plane[ALL],[1,0,0]]}=> "./sm.100.dat"
+
+  {COUNT["sm'",Scene.Plane[ALL],[1,0,0]]}=> "./sm'.quoted.100.dat"
+  {COUNT["sm,",Scene.Plane[ALL],[1,0,0]]}=> "./sm,.quoted.100.dat"
+  {COUNT["sm;",Scene.Plane[ALL],[1,0,0]]}=> "./sm;.quoted.100.dat"
+
+  {COUNT["sm'",Scene.Plane[ALL],[0,0,0]]}=> "./sm'.quoted.000.dat"
+  {COUNT["sm,",Scene.Plane[ALL],[0,0,0]]}=> "./sm,.quoted.000.dat"
+  {COUNT["sm;",Scene.Plane[ALL],[0,0,0]]}=> "./sm;.quoted.000.dat"
+
+  {COUNT["sm*",Scene.Plane[ALL],[0,0,0]]}=> "./sm.star.000.dat"
+  {COUNT["sm*",Scene.Plane[ALL],[1,0,0]]}=> "./sm.star.100.dat"
+
+  // all possible sm orientations in left PB
+  {COUNT[sm{1},Scene.Plane[ALL],[0,0,0]]}=> "./sm'.000.dat"
+  {COUNT[sm{-1},Scene.Plane[ALL],[0,0,0]]}=> "./sm,.000.dat"
+  {COUNT[sm{0},Scene.Plane[ALL],[0,0,0]]}=> "./sm;.000.dat"
+
+  // all possible sm orientations in right PB
+  {COUNT[sm{1},Scene.Plane[ALL],[1,0,0]]}=> "./sm'.100.dat"
+  {COUNT[sm{-1},Scene.Plane[ALL],[1,0,0]]}=> "./sm,.100.dat"
+  {COUNT[sm{0},Scene.Plane[ALL],[1,0,0]]}=> "./sm;.100.dat"
+
+  // reaction counts in "left" and "right" PB
+  {COUNT[rxn,Scene.Plane[ALL],[0,0,0]]}=> "./rxn.000.dat"
+  {COUNT[rxn,Scene.Plane[ALL],[1,0,0]]}=> "./rxn.100.dat"
+}

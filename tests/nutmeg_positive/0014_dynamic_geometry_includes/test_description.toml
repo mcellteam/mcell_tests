@@ -1,0 +1,32 @@
+author = "Jacob Czech"
+date = "2015-10-06"
+description = "Test if include files work with dynamic geometries."
+keywords = ["dynamic geometry"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "vm_A.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "vm_B.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "vm_C.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "vm_D.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "vm_world.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main.mdl"]
+

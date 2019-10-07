@@ -1,0 +1,305 @@
+ITERATIONS = 100000
+TIME_STEP = 5e-06
+VACANCY_SEARCH_DISTANCE = 100
+
+INCLUDE_FILE = "geometry.mdl"
+
+DEFINE_SURFACE_CLASSES
+{
+   reflect {REFLECTIVE = ALL_MOLECULES}
+}
+
+MODIFY_SURFACE_REGIONS
+{
+   synapse[obj_wall]
+   {
+      SURFACE_CLASS = reflect
+   }
+   synapse[wall]
+   {
+      SURFACE_CLASS = reflect
+   }
+   SpineHead[obj_wall]
+   {
+      SURFACE_CLASS = reflect
+   }
+   PresynapticBouton[obj_wall]
+   {
+      SURFACE_CLASS = reflect
+   }
+   PresynapticBouton[presynaptic_membrane]
+   {
+      SURFACE_CLASS = reflect
+   }
+   SpineHead[post_membrane]
+   {
+      SURFACE_CLASS = reflect
+   }
+}
+
+
+/* Model Parameters */
+   Nav = 6.022e8               /* Avogadro number based on a volume size of 1 cubic um */
+   rxn_layer_t = 0.01
+   vol_wall = 47.58/rxn_layer_t  /*Surface area*/
+   vol_synapse = 12.83261
+   vol_postm = 0.7853/rxn_layer_t  /*Surface area*/
+   vol_postc = 0.35996
+   vol_prem = 0.7853/rxn_layer_t  /*Surface area*/
+   vol_pre = 0.3813
+   N = 6.022e8
+   Glu_in_total = 0
+   Glu_out_total = 0.7
+   NMDA_total = 10
+   AMPA_total = 100
+   kf1 = 0.00762205247426104*Nav
+   kb1 = 4.26e6
+   kf2 = 4.71604118233145e-06*Nav
+   kb2 = 3.26e3
+   kf3 = 4.24e3
+   kb3 = 9.00e2
+   kf4 = 2.89e3
+   kb4 = 3.92e1
+   kf5 = 0.00210893390900033*Nav
+   kb5 = 4.57e1
+   kf6 = 1.72e2
+   kb6 = 0.727
+   kf7 = 16.8
+   kb7 = 190.4
+   kf8 = 17.7
+   kb8 = 4.0
+   kf9 = 0.00166057788110262
+   kb9 = 17.1
+   kf10 = 10
+   kb10 = 548
+   kf11 = 12.8
+   kb11 = 50
+   kf12 = 0.00166057788110262
+   kb12 = 15.6
+   kf13 = 10
+   kb13 = 273
+   kf14 = 10
+   kb14 = 548
+   kf15 = 12.8e3
+   kb15 = 8.30288940551312e-05
+   kf16 = 2.1
+   kb16 = 0.87
+   kf17 = 2.2
+   kb17 = 1.6
+   kf18 = 2e6
+   kb18 = 0.166057788110262
+   kf19 = 0.0547990700763866
+   kb19 = 2e6
+   kf20 = 0.166057788110262
+   kb20 = 2e6
+   kf21 = 0.498173364330787
+   kb21 = 1e7
+   kf22 = 0.0298904018598472
+   kb22 = 180
+   kf23 = 2000
+   kb23 = 239
+   kf25 = 5e5
+   kb25 = 0.166057788110262
+   kf26 = 0.0547990700763866
+   kb26 = 2e6
+   kf27 = 0.166057788110262
+   kb27 = 2e6
+   kf29 = 1e5
+   kb29 = 2.73995350381933e-08
+   kf30 = 0.498173364330787
+   kb30 = 2e6
+   kf31 = 200
+   kb31 = 230
+   kf32 = 1e9
+   kb32 = 0
+   kf33 = 1e3
+   kb33 = 0
+   kf34 = 1e3
+   kb34 = 0
+
+/* Diffusion bloc */
+   T = 298.15      /* Temperature, K */
+   h = rxn_layer_t      /* Thickness of 2D compartment, um */
+   Rs = 0.002564      /* Radius of a (spherical) molecule in 3D compartment, um */
+   Rc = 0.0015      /* Radius of a (cylindrical) molecule in 2D compartment, um */
+   gamma = 0.5722      /* Euler's constant */
+   KB = 1.3806488e-19     /* Boltzmann constant, cm^2.kg/K.s^2 */
+   mu_wall = 1e-9      /* Viscosity in compartment wall, kg/um.s */
+   mu_synapse = 1e-9      /* Viscosity in compartment synapse, kg/um.s */
+   mu_post_membrane = 1e-9      /* Viscosity in compartment post_membrane, kg/um.s */
+   mu_SpineHead = 1e-9      /* Viscosity in compartment SpineHead, kg/um.s */
+   mu_presynaptic_membrane = 1e-9      /* Viscosity in compartment presynaptic_membrane, kg/um.s */
+   mu_PresynapticBouton = 1e-9      /* Viscosity in compartment PresynapticBouton, kg/um.s */
+
+DEFINE_MOLECULES
+{
+   s1 /* @synapse::Glu_out(a) */
+   {
+      DIFFUSION_CONSTANT_3D = KB*T/(6*PI*mu_synapse*Rs)
+   }
+   s2 /* @SpineHead::Glu_in(a) */
+   {
+      DIFFUSION_CONSTANT_3D = KB*T/(6*PI*mu_SpineHead*Rs)
+   }
+   s3 /* @post_membrane::AMPA(glu,glu,s1~c,s2~nd) */
+   {
+      DIFFUSION_CONSTANT_2D = KB*T*LOG((mu_post_membrane*h/(Rc*(mu_synapse+mu_SpineHead)/2))-gamma)/(4*PI*mu_post_membrane*h)
+   }
+   s4 /* @post_membrane::NMDA(glu,glu,mg~b,s1~c,s2~nd) */
+   {
+      DIFFUSION_CONSTANT_2D = KB*T*LOG((mu_post_membrane*h/(Rc*(mu_synapse+mu_SpineHead)/2))-gamma)/(4*PI*mu_post_membrane*h)
+   }
+   s5 /* @post_membrane::AMPA(glu!1,glu,s1~c,s2~nd).Glu_out(a!1)@synapse */
+   {
+      DIFFUSION_CONSTANT_2D = KB*T*LOG((mu_post_membrane*h/(Rc*(mu_synapse+mu_SpineHead)/2))-gamma)/(4*PI*mu_post_membrane*h)
+   }
+   s6 /* @post_membrane::Glu_out(a!1)@synapse.Glu_out(a!2)@synapse.NMDA(glu!1,glu!2,mg~b,s1~c,s2~nd) */
+   {
+      DIFFUSION_CONSTANT_2D = KB*T*LOG((mu_post_membrane*h/(Rc*(mu_synapse+mu_SpineHead)/2))-gamma)/(4*PI*mu_post_membrane*h)
+   }
+   s7 /* @post_membrane::NMDA(glu,glu,mg~ub,s1~c,s2~nd) */
+   {
+      DIFFUSION_CONSTANT_2D = KB*T*LOG((mu_post_membrane*h/(Rc*(mu_synapse+mu_SpineHead)/2))-gamma)/(4*PI*mu_post_membrane*h)
+   }
+   s8 /* @post_membrane::AMPA(glu!1,glu!2,s1~c,s2~nd).Glu_out(a!1)@synapse.Glu_out(a!2)@synapse */
+   {
+      DIFFUSION_CONSTANT_2D = KB*T*LOG((mu_post_membrane*h/(Rc*(mu_synapse+mu_SpineHead)/2))-gamma)/(4*PI*mu_post_membrane*h)
+   }
+   s9 /* @post_membrane::AMPA(glu!1,glu,s1~c,s2~d).Glu_out(a!1)@synapse */
+   {
+      DIFFUSION_CONSTANT_2D = KB*T*LOG((mu_post_membrane*h/(Rc*(mu_synapse+mu_SpineHead)/2))-gamma)/(4*PI*mu_post_membrane*h)
+   }
+   s10 /* @post_membrane::Glu_out(a!1)@synapse.Glu_out(a!2)@synapse.NMDA(glu!1,glu!2,mg~b,s1~o,s2~nd) */
+   {
+      DIFFUSION_CONSTANT_2D = KB*T*LOG((mu_post_membrane*h/(Rc*(mu_synapse+mu_SpineHead)/2))-gamma)/(4*PI*mu_post_membrane*h)
+   }
+   s11 /* @post_membrane::Glu_out(a!1)@synapse.Glu_out(a!2)@synapse.NMDA(glu!1,glu!2,mg~ub,s1~c,s2~nd) */
+   {
+      DIFFUSION_CONSTANT_2D = KB*T*LOG((mu_post_membrane*h/(Rc*(mu_synapse+mu_SpineHead)/2))-gamma)/(4*PI*mu_post_membrane*h)
+   }
+   s12 /* @post_membrane::Glu_out(a!1)@synapse.Glu_out(a!2)@synapse.NMDA(glu!1,glu!2,mg~b,s1~c,s2~d) */
+   {
+      DIFFUSION_CONSTANT_2D = KB*T*LOG((mu_post_membrane*h/(Rc*(mu_synapse+mu_SpineHead)/2))-gamma)/(4*PI*mu_post_membrane*h)
+   }
+   s13 /* @post_membrane::AMPA(glu!1,glu!2,s1~o,s2~nd).Glu_out(a!1)@synapse.Glu_out(a!2)@synapse */
+   {
+      DIFFUSION_CONSTANT_2D = KB*T*LOG((mu_post_membrane*h/(Rc*(mu_synapse+mu_SpineHead)/2))-gamma)/(4*PI*mu_post_membrane*h)
+   }
+   s14 /* @post_membrane::AMPA(glu!1,glu!2,s1~c,s2~d).Glu_out(a!1)@synapse.Glu_out(a!2)@synapse */
+   {
+      DIFFUSION_CONSTANT_2D = KB*T*LOG((mu_post_membrane*h/(Rc*(mu_synapse+mu_SpineHead)/2))-gamma)/(4*PI*mu_post_membrane*h)
+   }
+   s15 /* @post_membrane::Glu_out(a!1)@synapse.Glu_out(a!2)@synapse.NMDA(glu!1,glu!2,mg~ub,s1~o,s2~nd) */
+   {
+      DIFFUSION_CONSTANT_2D = KB*T*LOG((mu_post_membrane*h/(Rc*(mu_synapse+mu_SpineHead)/2))-gamma)/(4*PI*mu_post_membrane*h)
+   }
+   s16 /* @post_membrane::Glu_out(a!1)@synapse.Glu_out(a!2)@synapse.NMDA(glu!1,glu!2,mg~ub,s1~c,s2~d) */
+   {
+      DIFFUSION_CONSTANT_2D = KB*T*LOG((mu_post_membrane*h/(Rc*(mu_synapse+mu_SpineHead)/2))-gamma)/(4*PI*mu_post_membrane*h)
+   }
+   s17 /* @post_membrane::AMPA(glu!1,glu!2,s1~o,s2~d).Glu_out(a!1)@synapse.Glu_out(a!2)@synapse */
+   {
+      DIFFUSION_CONSTANT_2D = KB*T*LOG((mu_post_membrane*h/(Rc*(mu_synapse+mu_SpineHead)/2))-gamma)/(4*PI*mu_post_membrane*h)
+   }
+}
+
+/* Reactions bloc */
+DEFINE_REACTIONS
+{
+    s3' + s1' -> s5'    [2*kf1]       /* BNG R1  */
+    s4' + s1' + s1' -> s6'    [kf9]       /* BNG R9  */
+    s4' -> s7'    [kf11]       /* BNG R11  */
+    s5' -> s3' + s1'    [kb1]       /* BNG R1(reverse)  */
+    s5' + s1' -> s8'    [kf2]       /* BNG R2  */
+    s5' -> s9'    [kf4]       /* BNG R4  */
+    s6' -> s4' + s1' + s1'    [kb9]       /* BNG R9(reverse)  */
+    s6' -> s10'    [kf10]       /* BNG R10  */
+    s7' -> s4'    [kb11]       /* BNG R11(reverse)  */
+    s7' + s1' + s1' -> s11'    [kf12]       /* BNG R12  */
+    s6' -> s11'    [kf14]       /* BNG R14  */
+    s6' -> s12'    [kf16]       /* BNG R16  */
+    s8' -> s5' + s1'    [2*kb2]       /* BNG R2(reverse)  */
+    s8' -> s13'    [kf3]       /* BNG R3  */
+    s9' -> s5'    [kb4]       /* BNG R4(reverse)  */
+    s9' + s1' -> s14'    [kf5]       /* BNG R5  */
+    s8' -> s14'    [kf6]       /* BNG R6  */
+    s10' -> s6'    [kb10]       /* BNG R10(reverse)  */
+    s11' -> s7' + s1' + s1'    [kb12]       /* BNG R12(reverse)  */
+    s11' -> s15'    [kf13]       /* BNG R13  */
+    s11' -> s6'    [kb14]       /* BNG R14(reverse)  */
+    s10' -> s15'    [kf15]       /* BNG R15  */
+    s12' -> s6'    [kb16]       /* BNG R16(reverse)  */
+    s11' -> s16'    [kf17]       /* BNG R17  */
+    s13' -> s8'    [kb3]       /* BNG R3(reverse)  */
+    s14' -> s9' + s1'    [2*kb5]       /* BNG R5(reverse)  */
+    s14' -> s8'    [kb6]       /* BNG R6(reverse)  */
+    s14' -> s17'    [kf7]       /* BNG R7  */
+    s13' -> s17'    [kf8]       /* BNG R8  */
+    s15' -> s11'    [kb13]       /* BNG R13(reverse)  */
+    s15' -> s10'    [kb15]       /* BNG R15(reverse)  */
+    s16' -> s11'    [kb17]       /* BNG R17(reverse)  */
+    s17' -> s14'    [kb7]       /* BNG R7(reverse)  */
+    s17' -> s13'    [kb8]       /* BNG R8(reverse)  */
+}
+
+INSTANTIATE Scene OBJECT
+{
+   PresynapticBouton OBJECT PresynapticBouton { SCALE = [1, 1, 1] }
+   SpineHead OBJECT SpineHead { SCALE = [1, 1, 1] }
+   synapse OBJECT synapse { SCALE = [1, 1, 1] }
+
+   s1_rel RELEASE_SITE
+   {
+    SHAPE = Scene.synapse[obj_wall] - Scene.SpineHead[obj_wall] - Scene.PresynapticBouton[obj_wall]
+    MOLECULE = s1
+    NUMBER_TO_RELEASE = Glu_out_total
+    RELEASE_PROBABILITY = 1
+   }
+   s2_rel RELEASE_SITE
+   {
+    SHAPE = Scene.SpineHead
+    MOLECULE = s2
+    NUMBER_TO_RELEASE = Glu_in_total
+    RELEASE_PROBABILITY = 1
+   }
+   s3_rel RELEASE_SITE
+   {
+    SHAPE = Scene.SpineHead[post_membrane]
+    MOLECULE = s3'
+    NUMBER_TO_RELEASE = AMPA_total
+    RELEASE_PROBABILITY = 1
+   }
+   s4_rel RELEASE_SITE
+   {
+    SHAPE = Scene.SpineHead[post_membrane]
+    MOLECULE = s4'
+    NUMBER_TO_RELEASE = NMDA_total
+    RELEASE_PROBABILITY = 1
+   }
+}
+
+/* Observables bloc */
+REACTION_DATA_OUTPUT
+{
+   STEP = 1e-6
+
+   /*Glu_out*/
+   { COUNT[s1,WORLD] }=> "./react_data/Glu_out.dat"
+
+   /*Glu_in*/
+   { COUNT[s2,WORLD] }=> "./react_data/Glu_in.dat"
+
+   /*Glu_occ*/
+   { COUNT[s5,WORLD] + 2*COUNT[s6,WORLD] + 2*COUNT[s8,WORLD] + COUNT[s9,WORLD] + 2*COUNT[s10,WORLD] + 2*COUNT[s11,WORLD] + 2*COUNT[s12,WORLD] + 2*COUNT[s13,WORLD] + 2*COUNT[s14,WORLD] + 2*COUNT[s15,WORLD] + 2*COUNT[s16,WORLD] + 2*COUNT[s17,WORLD] }=> "./react_data/Glu_occ.dat"
+
+}
+
+VIZ_OUTPUT {
+   MODE = CELLBLENDER
+   FILENAME = "./viz_data/synaptic_simple2"
+   MOLECULES
+   {
+      NAME_LIST {ALL_MOLECULES}
+      ITERATION_NUMBERS {ALL_DATA @ [1, 100, [200 TO 100000 STEP 100]]}
+   }
+}

@@ -1,0 +1,116 @@
+ITERATIONS = 5000
+TIME_STEP = 1e-06
+
+DEFINE_MOLECULES
+{
+  vm { DIFFUSION_CONSTANT_3D = 5e-06 }
+}
+
+DEFINE_SURFACE_CLASSES
+{
+  transp { TRANSPARENT = vm; }
+  absorb { ABSORPTIVE = vm; }
+  clamp { CLAMP_CONCENTRATION vm, = 2e-05 }
+}
+
+box POLYGON_LIST
+{
+  VERTEX_LIST
+  {
+    [ -0.0999999269843102, 1.00999999046326, -0.100000001490116 ]
+    [ 0.100000075995922, 1.00999999046326, -0.100000001490116 ]
+    [ 0.0999999269843102, -1.00999999046326, -0.100000001490116 ]
+    [ -0.100000075995922, -1.00999999046326, -0.100000001490116 ]
+    [ -0.0999999269843102, 1.00999999046326, 0.100000001490116 ]
+    [ 0.100000075995922, 1.00999999046326, 0.100000001490116 ]
+    [ 0.0999999269843102, -1.00999999046326, 0.100000001490116 ]
+    [ -0.100000075995922, -1.00999999046326, 0.100000001490116 ]
+  }
+  ELEMENT_CONNECTIONS
+  {
+    [ 1, 2, 3 ]
+    [ 7, 6, 5 ]
+    [ 4, 5, 1 ]
+    [ 5, 6, 2 ]
+    [ 2, 6, 7 ]
+    [ 0, 3, 7 ]
+    [ 0, 1, 3 ]
+    [ 4, 7, 5 ]
+    [ 0, 4, 1 ]
+    [ 1, 5, 2 ]
+    [ 3, 2, 7 ]
+    [ 4, 0, 7 ]
+  }
+  DEFINE_SURFACE_REGIONS
+  {
+    left_end
+    {
+      ELEMENT_LIST = [4, 10]
+    }
+    right_end
+    {
+      ELEMENT_LIST = [2, 8]
+    }
+  }
+}
+
+count_box POLYGON_LIST
+{
+  VERTEX_LIST
+  {
+    [ -0.109999999403954, 0.995587229728699, -0.109999999403954 ]
+    [ 0.109999999403954, 0.995587229728699, -0.109999999403954 ]
+    [ 0.109999924898148, -0.997500002384186, -0.109999999403954 ]
+    [ -0.11000007390976, -0.997500002384186, -0.109999999403954 ]
+    [ -0.109999999403954, 0.995587229728699, 0.109999999403954 ]
+    [ 0.109999999403954, 0.995587229728699, 0.109999999403954 ]
+    [ 0.109999924898148, -0.997500002384186, 0.109999999403954 ]
+    [ -0.11000007390976, -0.997500002384186, 0.109999999403954 ]
+  }
+  ELEMENT_CONNECTIONS
+  {
+    [ 1, 2, 3 ]
+    [ 7, 6, 5 ]
+    [ 4, 5, 1 ]
+    [ 5, 6, 2 ]
+    [ 2, 6, 7 ]
+    [ 0, 3, 7 ]
+    [ 0, 1, 3 ]
+    [ 4, 7, 5 ]
+    [ 0, 4, 1 ]
+    [ 1, 5, 2 ]
+    [ 3, 2, 7 ]
+    [ 4, 0, 7 ]
+  }
+}
+
+MODIFY_SURFACE_REGIONS
+{
+  box[left_end]
+  {
+    SURFACE_CLASS = clamp
+  }
+  box[right_end]
+  {
+    SURFACE_CLASS = absorb
+  }
+  count_box[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+}
+
+INSTANTIATE Scene OBJECT
+{
+  box OBJECT box {}
+  count_box OBJECT count_box {}
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-06
+  {COUNT[vm,Scene.box]}=> "./vm.box.dat"
+  {COUNT[vm,Scene.count_box]}=> "./vm.count_box.dat"
+  {COUNT[vm,Scene.count_box, FRONT_CROSSINGS]}=> "./vm.fc.count_box.dat"
+  {COUNT[vm,Scene.count_box, BACK_CROSSINGS]}=> "./vm.bc.count_box.dat"
+}

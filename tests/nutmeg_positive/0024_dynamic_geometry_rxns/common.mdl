@@ -1,0 +1,107 @@
+DEFINE_MOLECULES
+{
+  vm1 { DIFFUSION_CONSTANT_3D = 1e-5 }
+  vm2 { DIFFUSION_CONSTANT_3D = 1e-5 }
+  vm3 { DIFFUSION_CONSTANT_3D = 1e-5 }
+  inert { DIFFUSION_CONSTANT_3D = 1e-5 }
+  sm1 { DIFFUSION_CONSTANT_2D = 1e-6 }
+  sm2 { DIFFUSION_CONSTANT_2D = 1e-6 }
+}
+
+DEFINE_REACTIONS
+{
+  vm2 + vm2 -> vm3 [1e8] : rxn1
+  vm1 -> NULL [5e3] : rxn2
+  sm1' + sm1' -> sm2' [5] : rxn3
+}
+
+DEFINE_SURFACE_CLASSES
+{
+  transp_inert { TRANSPARENT = inert }
+}
+
+INCLUDE_FILE = "./geom1.mdl"
+
+MODIFY_SURFACE_REGIONS
+{
+  SmallCube[ALL]
+  {
+    SURFACE_CLASS = transp_inert
+  }
+}
+
+INSTANTIATE Scene OBJECT
+{
+  Cube OBJECT Cube{}
+  SmallCube OBJECT SmallCube{}
+  rel_inert RELEASE_SITE
+  {
+    SHAPE = Scene.SmallCube
+    MOLECULE = inert
+    NUMBER_TO_RELEASE = 100
+  }
+  rel_vm1 RELEASE_SITE
+  {
+    SHAPE = Scene.Cube
+    MOLECULE = vm1
+    NUMBER_TO_RELEASE = 1000
+  }
+  rel_vm2 RELEASE_SITE
+  {
+    SHAPE = Scene.Cube
+    MOLECULE = vm2
+    NUMBER_TO_RELEASE = 1000
+  }
+  rel_sm1 RELEASE_SITE
+  {
+    SHAPE = Scene.SmallCube
+    MOLECULE = sm1'
+    NUMBER_TO_RELEASE = 1000
+  }
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-05
+
+  {COUNT[vm1, WORLD]}=> "./dat/" & main_id & "/vm1.WORLD.dat"
+  {COUNT[vm2, WORLD]}=> "./dat/" & main_id & "/vm2.WORLD.dat"
+  {COUNT[vm3, WORLD]}=> "./dat/" & main_id & "/vm3.WORLD.dat"
+  {COUNT[sm1, WORLD]}=> "./dat/" & main_id & "/sm1.WORLD.dat"
+  {COUNT[sm2, WORLD]}=> "./dat/" & main_id & "/sm2.WORLD.dat"
+
+  {COUNT[vm1, Scene.SmallCube]*0.5}=> "./dat/" & main_id & "/vm1x0.5.SmallCube.dat"
+
+  {COUNT[vm1, Scene.SmallCube]}=> "./dat/" & main_id & "/vm1.SmallCube.dat"
+  {COUNT[vm2, Scene.SmallCube]}=> "./dat/" & main_id & "/vm2.SmallCube.dat"
+  {COUNT[vm3, Scene.SmallCube]}=> "./dat/" & main_id & "/vm3.SmallCube.dat"
+  {COUNT[sm1, Scene.SmallCube]}=> "./dat/" & main_id & "/sm1.SmallCube.dat"
+  {COUNT[sm2, Scene.SmallCube]}=> "./dat/" & main_id & "/sm2.SmallCube.dat"
+
+  {COUNT[sm1, Scene.SmallCube[sr]]}=> "./dat/" & main_id & "/sm1.SmallCube_sr.dat"
+  {COUNT[sm2, Scene.SmallCube[sr]]}=> "./dat/" & main_id & "/sm2.SmallCube_sr.dat"
+
+  {COUNT[vm1, Scene.Cube[sr], ALL_HITS]}=> "./dat/" & main_id & "/vm1.sr_all_hits.dat"
+  {COUNT[vm1, Scene.Cube[ALL], ALL_HITS]}=> "./dat/" & main_id & "/vm1.allreg_all_hits.dat"
+
+  {COUNT[vm1, Scene.Cube[sr], FRONT_HITS]}=> "./dat/" & main_id & "/vm1.sr_front_hits.dat"
+  {COUNT[vm1, Scene.Cube[ALL], FRONT_HITS]}=> "./dat/" & main_id & "/vm1.allreg_front_hits.dat"
+
+  {COUNT[vm1, Scene.Cube[sr], BACK_HITS]}=> "./dat/" & main_id & "/vm1.sr_back_hits.dat"
+  {COUNT[vm1, Scene.Cube[ALL], BACK_HITS]}=> "./dat/" & main_id & "/vm1.allreg_back_hits.dat"
+
+  {COUNT[sm1, Scene.Cube[ALL], ALL_ENCLOSED]}=> "./dat/" & main_id & "/sm1.all_enclosed.dat"
+  {COUNT[sm2, Scene.Cube[ALL], ALL_ENCLOSED]}=> "./dat/" & main_id & "/sm2.all_enclosed.dat"
+  {COUNT[vm1, Scene.Cube[ALL], ALL_ENCLOSED]}=> "./dat/" & main_id & "/vm1.all_enclosed.dat"
+  {COUNT[vm2, Scene.Cube[ALL], ALL_ENCLOSED]}=> "./dat/" & main_id & "/vm2.all_enclosed.dat"
+  {COUNT[vm3, Scene.Cube[ALL], ALL_ENCLOSED]}=> "./dat/" & main_id & "/vm3.all_enclosed.dat"
+
+  {TRIGGER[inert, Scene.SmallCube[ALL]]}=> "./dat/" & main_id & "/inert.trigger.dat"
+  {TRIGGER[inert, Scene.SmallCube[ALL], FRONT_CROSSINGS]}=> "./dat/" & main_id & "/inert.front_crossings.dat"
+  {TRIGGER[inert, Scene.SmallCube[ALL], BACK_CROSSINGS]}=> "./dat/" & main_id & "/inert.back_crossings.dat"
+  {TRIGGER[inert, Scene.SmallCube[ALL], ALL_CROSSINGS]}=> "./dat/" & main_id & "/inert.all_crossings.dat"
+
+  {COUNT[rxn1, WORLD]}=> "./dat/" & main_id & "/rxn1.WORLD.dat"
+  {COUNT[rxn2, WORLD]}=> "./dat/" & main_id & "/rxn2.WORLD.dat"
+  {COUNT[rxn3, WORLD]}=> "./dat/" & main_id & "/rxn3.WORLD.dat"
+}

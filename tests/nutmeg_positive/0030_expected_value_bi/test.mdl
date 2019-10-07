@@ -1,0 +1,119 @@
+ITERATIONS = 1000
+TIME_STEP = 1e-06
+
+DEFINE_MOLECULES
+{
+  vm1 { DIFFUSION_CONSTANT_3D = 1e-05 }
+  vm2 { DIFFUSION_CONSTANT_3D = 1e-05 }
+  vm3 { DIFFUSION_CONSTANT_3D = 1e-05 }
+  vm4 { DIFFUSION_CONSTANT_3D = 1e-05 }
+  sm1 { DIFFUSION_CONSTANT_2D = 1e-06 }
+  sm2 { DIFFUSION_CONSTANT_2D = 1e-06 }
+}
+
+Cube POLYGON_LIST
+{
+  VERTEX_LIST
+  {
+    [  0.1,  0.1, -0.1 ]
+    [  0.1, -0.1, -0.1 ]
+    [ -0.1, -0.1, -0.1 ]
+    [ -0.1,  0.1, -0.1 ]
+    [  0.1,  0.1,  0.1 ]
+    [  0.1, -0.1,  0.1 ]
+    [ -0.1, -0.1,  0.1 ]
+    [ -0.1,  0.1,  0.1 ]
+  }
+  ELEMENT_CONNECTIONS
+  {
+    [ 0, 1, 2 ]
+    [ 4, 7, 5 ]
+    [ 0, 4, 1 ]
+    [ 1, 5, 2 ]
+    [ 2, 6, 7 ]
+    [ 4, 0, 7 ]
+    [ 3, 0, 2 ]
+    [ 4, 5, 1 ]
+    [ 0, 3, 7 ]
+    [ 7, 6, 5 ]
+    [ 3, 2, 7 ]
+    [ 5, 6, 2 ]
+  }
+}
+
+// This is only used for reactions
+DEFINE_SURFACE_CLASSES
+{
+  empty_sc {}
+}
+
+// Assign empty_sc to all of the Cube
+MODIFY_SURFACE_REGIONS
+{
+  Cube[ALL] { SURFACE_CLASS = empty_sc }
+}
+
+
+DEFINE_REACTIONS
+{
+  vm1 + vm1 -> NULL [5e7]
+  vm2' + sm1' -> NULL [5e7]
+  vm3 + vm3 -> NULL ["rates.txt"]
+  vm4' + sm2' @ empty_sc, -> NULL [5e7]
+}
+
+
+INSTANTIATE Scene OBJECT
+{
+  Cube OBJECT Cube {}
+  sm1_rel RELEASE_SITE
+  {
+   SHAPE = Scene.Cube
+   MOLECULE = sm1,
+   NUMBER_TO_RELEASE = 1000
+  }
+  sm2_rel RELEASE_SITE
+  {
+   SHAPE = Scene.Cube
+   MOLECULE = sm2,
+   NUMBER_TO_RELEASE = 1000
+  }
+  vm1_rel RELEASE_SITE
+  {
+   SHAPE = Scene.Cube
+   MOLECULE = vm1
+   NUMBER_TO_RELEASE = 1000
+  }
+  vm2_rel RELEASE_SITE
+  {
+   SHAPE = Scene.Cube
+   MOLECULE = vm2
+   NUMBER_TO_RELEASE = 1000
+  }
+  vm3_rel RELEASE_SITE
+  {
+   SHAPE = Scene.Cube
+   MOLECULE = vm3
+   NUMBER_TO_RELEASE = 1000
+  }
+  vm4_rel RELEASE_SITE
+  {
+   SHAPE = Scene.Cube
+   MOLECULE = vm4
+   NUMBER_TO_RELEASE = 1000
+  }
+}
+
+REACTION_DATA_OUTPUT
+{
+  OUTPUT_BUFFER_SIZE = 50
+  STEP = 1e-6
+  {
+    COUNT[vm1, Scene.Cube] : "vm1",
+    COUNT[vm2, Scene.Cube] : "vm2",
+    COUNT[vm3, Scene.Cube] : "vm3",
+    COUNT[vm4, Scene.Cube] : "vm4",
+    COUNT[sm1, Scene.Cube] : "sm1",
+    COUNT[sm2, Scene.Cube] : "sm2"
+  } => "counts.txt"
+}

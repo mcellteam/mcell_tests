@@ -1,0 +1,16 @@
+author = "Boris Kaminsky <borisk@psc.edu"
+date = "2011-03-25"
+description = "Testing of the REACTION_DATA_OUTPUT statement COUNT[name, region, ALL_ENCLOSED]. Surface molecules A are placed on the surfaces of both 'outer' and 'inner' cubes, such that 'inner' cube is completely inside 'outer' one. The COUNT statement above written for 'outer' cube will effectively calculate number of molecules A for the inner cube."
+keywords = ["reactions"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "A.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

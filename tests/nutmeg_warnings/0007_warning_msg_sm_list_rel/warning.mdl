@@ -1,0 +1,22 @@
+ITERATIONS = 1
+TIME_STEP = 1e-6
+
+DEFINE_MOLECULES
+{
+  sm { DIFFUSION_CONSTANT_2D = 0 }
+}
+
+INSTANTIATE Scene OBJECT
+{
+  rel_sm RELEASE_SITE
+  {
+    SHAPE = LIST
+    MOLECULE_POSITIONS
+    {
+      sm' [0.0, 0.0, 0.0]
+    }
+  }
+  
+  
+}
+

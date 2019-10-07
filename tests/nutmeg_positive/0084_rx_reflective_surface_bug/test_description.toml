@@ -1,0 +1,16 @@
+author = "Boris Kaminsky <borisk@psc.edu>"
+date = "2011-01-14"
+description = "Testing reaction between volume molecule and surface when surface class is declared REFLECTIVE and when it is REFLECTIVE by default. \nVolume molecules A are released inside boxes 'box_refl', and B inside  'box_default'. Let one box 'box_refl' interior be REFLECTIVE through SURFACE_CLASS 'my_refl'.  Let another box 'box_default' also has interior REFLECTIVE but through the SURFACE_CLASS 'my_default' (in fact default property).\nReflective surfaces we can specify directly through SURFACE_CLASS 'my_refl{REFLECTIVE = A}' or indirectly through SURFACE_CLASS 'my_default {} ' using the fact that all surfaces by default are REFLECTIVE. \nThe bug in the code prevented reaction of the type vol_mol' @ my_refl; -> ... [rate] to happen, while reaction of the type vol_mol' @ my_default; -> ...[rate] did happened.\nHere we test the bug fix."
+keywords = ["regression"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "refl.dat"
+  testType = "POSITIVE_COUNTS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

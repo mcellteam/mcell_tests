@@ -1,0 +1,16 @@
+author = "Jed Wing <jed@salk.edu>"
+date = "2008-09-05"
+description = "In a grid mol + vol mol reaction V' + G' -> V, + G, (i.e. where both molecules are preserved and change orientation), the updated orientation of the grid molecule is not counted."
+keywords = ["regression"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "counts.txt"
+  testType = "DIFF_FILE_CONTENT"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

@@ -1,0 +1,16 @@
+author = "Jacob Czech <jczech@psc.edu>"
+date = "2016-02-01"
+description = "This test verifies that the count statements of bimolecular reactions fall within a reasonable range of the expected value throughout the trajectory."
+keywords = ["reactions"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "counts.txt"
+  testType = "DIFF_FILE_CONTENT"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

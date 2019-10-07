@@ -1,0 +1,24 @@
+author = "Jacob Czech <jczech@psc.edu>"
+date = "2016-04-01"
+description = "There should be no molecules outside of the PBs on the 'nothinghere' region"
+keywords = ["periodic"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "sm.world.dat"
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "sm.plane.nh.000.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "sm.plane.nh.100.dat"
+  testType = "ZERO_COUNTS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main.mdl"]
+

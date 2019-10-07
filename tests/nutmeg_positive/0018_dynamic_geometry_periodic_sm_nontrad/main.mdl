@@ -1,0 +1,58 @@
+ITERATIONS = 200
+TIME_STEP = 1e-06
+
+PERIODIC_BOX {
+  CORNERS = [-0.75, -0.75, -0.75],[0.75, 0.75, 0.75]
+  PERIODIC_TRADITIONAL = FALSE
+  PERIODIC_X = TRUE
+  PERIODIC_Y = TRUE
+  PERIODIC_Z = TRUE
+}
+
+DYNAMIC_GEOMETRY = "dynamic_geometry.mdl"
+
+DEFINE_MOLECULES {
+  sm1 {DIFFUSION_CONSTANT_2D = 1e-5}
+  sm2 {DIFFUSION_CONSTANT_2D = 1e-5}
+}
+
+INSTANTIATE RelScene OBJECT
+{
+  rel_sm1 RELEASE_SITE {
+    SHAPE = Scene.Plane[sr1]
+    MOLECULE = sm1'
+    NUMBER_TO_RELEASE = 50
+  }
+  rel_sm2 RELEASE_SITE {
+    SHAPE = Scene.Plane[sr2]
+    MOLECULE = sm2'
+    NUMBER_TO_RELEASE = 50
+  }
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-6
+  {COUNT[sm1,WORLD]}=> "./sm1.WORLD.dat"
+  {COUNT[sm2,WORLD]}=> "./sm2.WORLD.dat"
+
+  {COUNT[sm1,Scene.Plane,[0,0,0]]}=> "./sm1.plane.dat"
+  {COUNT[sm2,Scene.Plane,[0,0,0]]}=> "./sm2.plane.dat"
+
+  {COUNT[sm1,Scene.Plane[sr1],[0,0,0]]}=> "./sm1.plane.sr1.dat"
+  {COUNT[sm1,Scene.Plane[sr2],[0,0,0]]}=> "./sm1.plane.sr2.dat"
+
+  {COUNT[sm2,Scene.Plane[sr1],[0,0,0]]}=> "./sm2.plane.sr1.dat"
+  {COUNT[sm2,Scene.Plane[sr2],[0,0,0]]}=> "./sm2.plane.sr2.dat"
+}
+
+/*VIZ_OUTPUT*/
+/*{*/
+/*  MODE = CELLBLENDER*/
+/*  FILENAME = "./viz_data/Scene"*/
+/*  MOLECULES*/
+/*  {*/
+/*    NAME_LIST {ALL_MOLECULES}*/
+/*    ITERATION_NUMBERS {ALL_DATA @ ALL_ITERATIONS}*/
+/*  }*/
+/*}*/

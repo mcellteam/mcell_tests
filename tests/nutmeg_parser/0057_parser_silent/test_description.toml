@@ -1,0 +1,186 @@
+author = "Jed Wing <jed@salk.edu>"
+date = "2008-04-04"
+description = "A mostly non-sensical test which simply exercises the parser checking for anomalous behavior.  This test should not provoke any errors, provided that counting-5.txt does not exist in its reaction output directory. (This is to test the \"no overwrite\" output mode for counting.) This variant should produce no viz output and no notifications."
+keywords = ["parser"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  countMaximum = [5]
+  countMinimum = [5]
+  dataFile = "dat/counting-1.txt"
+  description = "Constant count of 5"
+  haveHeader = false
+  maxTime = 0.0001
+  minTime = 0.0
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [6]
+  countMinimum = [6]
+  dataFile = "dat/counting-2.txt"
+  description = "Constant count of 6. Exact time turned off -- should have no effect on counts"
+  haveHeader = false
+  maxTime = 0.0001
+  minTime = 0.0
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [7]
+  countMinimum = [7]
+  dataFile = "dat/counting-3.txt"
+  description = "Constant count of 7. Header explicitly turned off -- should have no effect on counts."
+  haveHeader = false
+  maxTime = 0.0001
+  minTime = 0.0
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [8]
+  countMinimum = [8]
+  dataFile = "dat/counting-4.txt"
+  description = "Constant count of 8. Exact time turned on -- should have no effect on counts."
+  haveHeader = false
+  maxTime = 0.0001
+  minTime = 0.0
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [9]
+  countMinimum = [9]
+  dataFile = "dat/counting-5.txt"
+  description = "Constant count of 9. Header turned off (YES/NO syntax, rather than NONE)."
+  haveHeader = false
+  maxTime = 0.0001
+  minTime = 0.0
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [10]
+  countMinimum = [10]
+  dataFile = "dat/counting-6.txt"
+  description = "Constant count of 10. Header turned but on but no custom header given."
+  haveHeader = true
+  maxTime = 0.0001
+  minTime = 0.0
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [11, 12, 13]
+  countMinimum = [11, 12, 13]
+  dataFile = "dat/counting-7.txt"
+  description = "Constant counts of 11, 12, 13. Custom header 'Duck, Duck, Goose' given."
+  haveHeader = true
+  maxTime = 0.0001
+  minTime = 0.0
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  dataFile = "dat/counting-19.txt"
+  description = "Trigger for count of s_v_4 in world.big_object.newbox. Could try to validate against counting-8.txt. Exact time is left at default (ON)."
+  haveExactTime = true
+  outputTime = 0.000001
+  testType = "CHECK_TRIGGERS"
+  triggerType = "molCounts"
+  xrange = [-20.0, 20.0]
+  yrange = [-20.0, 20.0]
+  zrange = [-20.0, 20.0]
+
+[[checks]]
+  dataFile = "dat/counting-20.txt"
+  description = "Trigger for count of s_v_4 in world.big_object.newbox. Could try to validate against counting-8.txt. Exact time is explicitly turned OFF."
+  haveExactTime = false
+  outputTime = 0.000001
+  testType = "CHECK_TRIGGERS"
+  triggerType = "molCounts"
+  xrange = [-20.0, 20.0]
+  yrange = [-20.0, 20.0]
+  zrange = [-20.0, 20.0]
+
+[[checks]]
+  dataFile = "dat/counting-21.txt"
+  description = "Trigger for count of s_v_0 in world.big_object.newbox. Could try to validate against counting-8.txt  Exact time is explicitly turned ON."
+  haveExactTime = true
+  outputTime = 0.000001
+  testType = "CHECK_TRIGGERS"
+  triggerType = "molCounts"
+  xrange = [-20.0, 20.0]
+  yrange = [-20.0, 20.0]
+  zrange = [-20.0, 20.0]
+
+[[checks]]
+  IDRange = ["1:12", "14", "15", "19:21"]
+  fileNames = ["dat/counting-%d.txt"]
+  testType = "CHECK_NONEMPTY_FILES"
+
+[[checks]]
+  IDrange = ["0", "100"]
+  fileNames = ["vol_dat/vo.%d.dat"]
+  testType = "CHECK_NONEMPTY_FILES"
+
+[[checks]]
+  IDRange = ["1", "10", "100"]
+  fileNames = ["vol_dat/ovo.%d.dat"]
+  testType = "CHECK_NONEMPTY_FILES"
+
+[[checks]]
+  fileNames = ["vol_dat/nvo.100.dat", "parser_silent-expressions.dat", "parser_silent.dat", "run_%d.0.log"]
+  testType = "CHECK_NONEMPTY_FILES"
+
+[[checks]]
+  dataFile = "parser_silent-expressions.dat"
+  testType = "CHECK_EXPRESSIONS"
+
+[[checks]]
+  dataFile = "parser_silent.dat"
+  templateFile = "parser_silent_template.dat"
+  templateParameters = ["TODAY_DAY"]
+  testType = "DIFF_FILE_CONTENT"
+
+[[checks]]
+  Xdim = 25
+  Ydim = 25
+  Zdim = 25
+  dataFile = "vol_dat/vo.0.dat"
+  testType = "CHECK_LEGACY_VOL_OUTPUT"
+
+[[checks]]
+  Xdim = 25
+  Ydim = 25
+  Zdim = 25
+  dataFile = "vol_dat/vo.100.dat"
+  testType = "CHECK_LEGACY_VOL_OUTPUT"
+
+[[checks]]
+  Xdim = 1
+  Ydim = 2
+  Zdim = 4
+  dataFile = "vol_dat/ovo.1.dat"
+  testType = "CHECK_LEGACY_VOL_OUTPUT"
+
+[[checks]]
+  Xdim = 1
+  Ydim = 2
+  Zdim = 4
+  dataFile = "vol_dat/ovo.10.dat"
+  testType = "CHECK_LEGACY_VOL_OUTPUT"
+
+[[checks]]
+  Xdim = 1
+  Ydim = 2
+  Zdim = 4
+  dataFile = "vol_dat/ovo.100.dat"
+  testType = "CHECK_LEGACY_VOL_OUTPUT"
+
+[[checks]]
+  Xdim = 1
+  Ydim = 1
+  Zdim = 1
+  dataFile = "vol_dat/nvo.100.dat"
+  testType = "CHECK_LEGACY_VOL_OUTPUT"
+
+[run]
+  commandlineOpts = ["-iterations", "100"]
+  mdlfiles = ["test.mdl"]
+

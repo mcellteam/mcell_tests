@@ -1,0 +1,65 @@
+ITERATIONS = 1000
+TIME_STEP = 1e-06
+VACANCY_SEARCH_DISTANCE = 10
+
+PERIODIC_BOX {
+  CORNERS = [-0.1, -0.1, -0.1],[0.1, 0.1, 0.1]
+  PERIODIC_TRADITIONAL = FALSE
+  PERIODIC_X = TRUE
+  PERIODIC_Y = TRUE
+  PERIODIC_Z = TRUE
+}
+
+DEFINE_MOLECULES {
+  sm { DIFFUSION_CONSTANT_2D = 1e-06 }
+}
+
+DEFINE_SURFACE_CLASSES {
+  sc {}
+}
+
+INCLUDE_FILE = "geometry.mdl"
+
+INSTANTIATE Scene OBJECT {
+  Plane OBJECT Plane {}
+  EnclosingBox OBJECT EnclosingBox {}
+  LargeEnclosingBox OBJECT EnclosingBox {SCALE=[2.0, 2.0, 2.0]}
+  Release_Site RELEASE_SITE {
+   SHAPE = Scene.Plane[sr_inner]
+   MOLECULE = sm'
+   NUMBER_TO_RELEASE = 1
+  }
+}
+
+REACTION_DATA_OUTPUT {
+  STEP=1e-6
+  {
+   COUNT[sm,Scene.Plane[ALL],[0,0,0]] +
+   COUNT[sm,Scene.Plane[ALL],[1,0,0]]
+  }=> "./sm.all.dat"
+  {
+   COUNT[sm,Scene.Plane[sr_outer],[0,0,0]] +
+   COUNT[sm,Scene.Plane[sr_inner],[0,0,0]] +
+   COUNT[sm,Scene.Plane[sr_outer],[1,0,0]] +
+   COUNT[sm,Scene.Plane[sr_inner],[1,0,0]]
+  }=> "./sm.sr.dat"
+  {
+   COUNT[sm,Scene.EnclosingBox,[0,0,0],ALL_ENCLOSED] +
+   COUNT[sm,Scene.EnclosingBox,[1,0,0],ALL_ENCLOSED]
+  }=> "./sm.enclosed.dat"
+  {
+   COUNT[sm,Scene.LargeEnclosingBox,[0,0,0],ALL_ENCLOSED] +
+   COUNT[sm,Scene.LargeEnclosingBox,[1,0,0],ALL_ENCLOSED]
+  }=> "./sm.lrg_enclosed.dat"
+}
+
+/*VIZ_OUTPUT*/
+/*{*/
+/*  MODE = CELLBLENDER*/
+/*  FILENAME = "./viz_data/Scene"*/
+/*  MOLECULES*/
+/*  {*/
+/*    NAME_LIST {ALL_MOLECULES}*/
+/*    ITERATION_NUMBERS {ALL_DATA @ ALL_ITERATIONS}*/
+/*  }*/
+/*}*/

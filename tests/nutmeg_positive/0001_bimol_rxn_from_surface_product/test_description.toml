@@ -1,0 +1,23 @@
+author = "Jacob Czech <jczech@psc.edu>"
+date = "2016-08-26"
+description = """Test that a surface molecule product can successfully engage \
+                 in a bimolecular reaction with a volume molecule."""
+keywords = ["regression"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "vm.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "open.dat"
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "closed.dat"
+  testType = "ZERO_COUNTS"
+[run]
+  mdlfiles = ["test.mdl"]
+

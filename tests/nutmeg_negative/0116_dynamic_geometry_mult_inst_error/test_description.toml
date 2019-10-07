@@ -1,0 +1,16 @@
+author = "Jacob Czech"
+date = "2015-12-09"
+description = "Multiple instantiations (DGScene.B) should trigger an error."
+keywords = ["dynamic geometry"]
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "Object already defined: DGScene.B"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["error.mdl"]
+

@@ -1,0 +1,15 @@
+author = "Jacob Czech"
+date = "2016-01-13"
+description = "Verify that a warning is generated when we can't find a surface to place a surface molecule."
+keywords = ["warning messages"]
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "Warning: Molecule release is unable to find surface upon which to place molecule sm."
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["warning.mdl"]
+

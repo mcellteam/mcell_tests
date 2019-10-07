@@ -1,0 +1,22 @@
+TIME_STEP     = 1e-6
+ITERATIONS    = 20
+
+DEFINE_MOLECULES {
+  A { DIFFUSION_CONSTANT = 5e-6 }
+  B { DIFFUSION_CONSTANT_3D = 5e-6 }
+}
+
+DEFINE_SURFACE_CLASSES {
+  clamp { 
+    CLAMP_CONC A, = 2 
+    CLAMP_CONC B' = 1
+  }
+}
+
+DYNAMIC_GEOMETRY = "./geom.txt"
+
+REACTION_DATA_OUTPUT {
+  STEP = 1e-6
+  {COUNT [A,DGScene.Cube] - COUNT[A,WORLD]} => "./A_outside.dat"
+  {COUNT [B,DGScene.Cube]} => "./B_inside.dat"
+}

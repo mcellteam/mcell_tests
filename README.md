@@ -1,2 +1,4 @@
 # mcell-tests
-New tests for MCell4
+
+Testsuite for mcell and cellblender. 
+Depends on mcell_tools repository.

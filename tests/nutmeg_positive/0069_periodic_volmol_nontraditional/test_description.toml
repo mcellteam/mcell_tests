@@ -1,0 +1,132 @@
+author = "Jacob Czech <jczech@psc.edu>"
+date = "2015-11-25"
+description = "Tests that periodic boundary conditions work for counting in regions."
+keywords = ["periodic"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  countMaximum = [600]
+  countMinimum = [400]
+  dataFile = "vm.000.dat"
+  maxTime = 0.00001
+  minTime = 0.00001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [600]
+  countMinimum = [400]
+  dataFile = "vm.100.dat"
+  maxTime = 0.00001
+  minTime = 0.00001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [11000]
+  countMinimum = [9000]
+  dataFile = "vm.FC.100.dat"
+  maxTime = 0.00001
+  minTime = 0.00001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [11000]
+  countMinimum = [9000]
+  dataFile = "vm.FC.000.dat"
+  maxTime = 0.00001
+  minTime = 0.00001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [11000]
+  countMinimum = [9000]
+  dataFile = "vm.BC.100.dat"
+  maxTime = 0.00001
+  minTime = 0.00001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [11000]
+  countMinimum = [9000]
+  dataFile = "vm.BC.000.dat"
+  maxTime = 0.00001
+  minTime = 0.00001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [22000]
+  countMinimum = [18000]
+  dataFile = "vm.AC.100.dat"
+  maxTime = 0.00001
+  minTime = 0.00001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [22000]
+  countMinimum = [18000]
+  dataFile = "vm.AC.000.dat"
+  maxTime = 0.00001
+  minTime = 0.00001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [11000]
+  countMinimum = [9000]
+  dataFile = "vm.FH.100.dat"
+  maxTime = 0.00001
+  minTime = 0.00001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [11000]
+  countMinimum = [9000]
+  dataFile = "vm.FH.000.dat"
+  maxTime = 0.00001
+  minTime = 0.00001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [11000]
+  countMinimum = [9000]
+  dataFile = "vm.BH.100.dat"
+  maxTime = 0.00001
+  minTime = 0.00001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [11000]
+  countMinimum = [9000]
+  dataFile = "vm.BH.000.dat"
+  maxTime = 0.00001
+  minTime = 0.00001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [22000]
+  countMinimum = [18000]
+  dataFile = "vm.AH.100.dat"
+  maxTime = 0.00001
+  minTime = 0.00001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [22000]
+  countMinimum = [18000]
+  dataFile = "vm.AH.000.dat"
+  maxTime = 0.00001
+  minTime = 0.00001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  dataFile = "vm.trigger.000.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "vm.trigger.100.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main.mdl"]
+

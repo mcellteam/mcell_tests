@@ -1,0 +1,86 @@
+ITERATIONS = 1000
+TIME_STEP = 1e-06
+
+DEFINE_MOLECULES
+{
+  sm1 { DIFFUSION_CONSTANT_2D = 1e-06 }
+  sm2 { DIFFUSION_CONSTANT_2D = 0 }
+  sm3 { DIFFUSION_CONSTANT_2D = 1e-06 }
+  sm4 { DIFFUSION_CONSTANT_2D = 1e-06 }
+  vm1 { DIFFUSION_CONSTANT_3D = 1e-07 }
+}
+
+INCLUDE_FILE = "geometry.mdl"
+
+// This is only used for reactions
+DEFINE_SURFACE_CLASSES
+{
+  empty_sc {}
+}
+
+// Assign empty_sc to all of the sphere
+MODIFY_SURFACE_REGIONS
+{
+  Icosphere[ALL] { SURFACE_CLASS = empty_sc }
+}
+
+// Four different unimolecular reactions testing out different features of
+// MCell, but all results should be essentially the same aside from noise.
+DEFINE_REACTIONS
+{
+  sm1' -> NULL [5000]             // reaction w/ diffusing surface molecules
+  sm2' -> NULL [5000]             // reaction w/ nondiffusing surface molecules
+  sm3' @ empty_sc' -> NULL [5000] // empty_sc is applied to all the sphere
+  sm4' -> NULL ["rates.txt"]      // Every entry in rates.txt is set to 5000
+  vm1  -> NULL [5000]             // basic reaction with volume molecule
+}
+
+
+INSTANTIATE Scene OBJECT
+{
+  Icosphere OBJECT Icosphere {}
+  sm1_rel RELEASE_SITE
+  {
+   SHAPE = Scene.Icosphere
+   MOLECULE = sm1'
+   NUMBER_TO_RELEASE = 1000
+  }
+  sm2_rel RELEASE_SITE
+  {
+   SHAPE = Scene.Icosphere
+   MOLECULE = sm2'
+   NUMBER_TO_RELEASE = 1000
+  }
+  sm3_rel RELEASE_SITE
+  {
+   SHAPE = Scene.Icosphere
+   MOLECULE = sm3'
+   NUMBER_TO_RELEASE = 1000
+  }
+  sm4_rel RELEASE_SITE
+  {
+   SHAPE = Scene.Icosphere
+   MOLECULE = sm4'
+   NUMBER_TO_RELEASE = 1000
+  }
+  vm1_rel RELEASE_SITE
+  {
+   SHAPE = Scene.Icosphere
+   MOLECULE = vm1
+   NUMBER_TO_RELEASE = 1000
+  }
+}
+
+REACTION_DATA_OUTPUT
+{
+  OUTPUT_BUFFER_SIZE = 50
+  STEP = 1e-6
+  /*HEADER = "# "*/
+  {
+    COUNT[sm1, Scene.Icosphere] : "sm1",
+    COUNT[sm2, Scene.Icosphere] : "sm2",
+    COUNT[sm3, Scene.Icosphere] : "sm3",
+    COUNT[sm4, Scene.Icosphere] : "sm4",
+    COUNT[vm1, Scene.Icosphere] : "vm1"
+  } => "counts.txt"
+}

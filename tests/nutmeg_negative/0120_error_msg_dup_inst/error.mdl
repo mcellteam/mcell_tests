@@ -1,0 +1,12 @@
+ITERATIONS = 10
+TIME_STEP = 1e-6
+
+// This double definition should trigger an error
+INCLUDE_FILE = "a.mdl"
+
+INSTANTIATE Scene OBJECT
+{
+  A OBJECT A{}
+  A OBJECT A{}
+}
+

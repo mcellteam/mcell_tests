@@ -1,0 +1,35 @@
+ITERATIONS = 25
+TIME_STEP = 1e-6
+
+DEFINE_MOLECULES
+{
+  vm { DIFFUSION_CONSTANT_3D = 5e-06 }
+  sm { DIFFUSION_CONSTANT_2D = 5e-06 }
+}
+
+DYNAMIC_GEOMETRY = "./list.txt"
+
+INSTANTIATE Scene OBJECT
+{
+  rel_vm RELEASE_SITE
+  {
+    SHAPE = DGScene.Meta.Cube
+    MOLECULE = vm
+    NUMBER_TO_RELEASE = 100
+  }
+  rel_sm RELEASE_SITE
+  {
+    SHAPE = DGScene.Meta.Cube
+    MOLECULE = sm'
+    NUMBER_TO_RELEASE = 100
+  }
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-6
+  {COUNT[vm,WORLD]}=> "./vm.WORLD.dat"
+  {COUNT[vm,DGScene.Meta.Cube]}=> "./vm.Scene.Meta.Cube.dat"
+  {COUNT[sm,WORLD]}=> "./sm.WORLD.dat"
+  {COUNT[sm,DGScene.Meta.Cube]}=> "./sm.Scene.Meta.Cube.dat"
+}

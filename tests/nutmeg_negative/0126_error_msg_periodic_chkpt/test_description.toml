@@ -1,0 +1,15 @@
+author = "Jacob Czech"
+date = "2016-03-22"
+description = "Verify that an error is generated when using PBCs with checkpointing."
+keywords = ["error messages", "periodic"]
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "Error: periodic boundary conditions do not currently work with checkpointing."
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["error.mdl"]
+

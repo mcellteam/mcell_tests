@@ -1,0 +1,164 @@
+author = "Boris Kaminsky <borisk@psc.edu"
+date = "2011-08-24"
+description = "Surface products placement in the presence of restrictive region borders. The policy of surface products placement is described in detail in the comments to the function 'outcome_products_random()' and 'outcome_products_trimol_reaction_random()' and also in the policy document in the 'docs; folder."
+keywords = ["reactions"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "box_1_r1.dat"
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_1_r3.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_2_r3.dat"
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_2_r2.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_3_r1.dat"
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_3_r2.dat"
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_4_r1.dat"
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_4_r2.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_5_r3.dat"
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_5_r4.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_6_r1.dat"
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_6_r5.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_7_r1.dat"
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_7_r3.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_8_r1.dat"
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_8_r4.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_9_r1.dat"
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_9_r2.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_10_r1.dat"
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_10_r2.dat"
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_11_r1.dat"
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_11_r2.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_12_r5.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_12_r6.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_13_r1.dat"
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_13_r3.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_14_r1.dat"
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_14_r3.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_15_r1.dat"
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_15_r2.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_16_r1.dat"
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_16_r2.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_17_r1.dat"
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_17_r2.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_18_r1.dat"
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_18_r2.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_19_r1.dat"
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_18_r2.dat"
+  testType = "ZERO_COUNTS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

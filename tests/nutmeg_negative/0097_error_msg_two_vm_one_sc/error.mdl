@@ -1,0 +1,18 @@
+TIME_STEP = 1e-6
+ITERATIONS = 1
+
+DEFINE_MOLECULES
+{
+  vm { DIFFUSION_CONSTANT_3D = 1e-06 }
+}
+
+DEFINE_SURFACE_CLASSES
+{
+  sc {}
+}
+
+DEFINE_REACTIONS
+{
+  vm' + vm' @ sc' -> NULL [1e3]
+}
+

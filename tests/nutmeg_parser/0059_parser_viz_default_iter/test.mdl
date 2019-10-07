@@ -1,0 +1,18 @@
+/****************************************************************************
+ * Test 01: Nearly every parser option.
+ *
+ *    A mostly non-sensical test which simply exercises the parser checking for
+ *    anomalous behavior.  This test should not provoke any errors, provided
+ *    that counting-5.txt does not exist in its reaction output directory.
+ *    (This is to test the "no overwrite" output mode for counting.)
+ *
+ *    This variant produces the default type of VIZ output (DREAMM mode), and
+ *    specifies output times using ITERATION_NUMBERS.
+ *
+ * Author: Jed Wing <jed@salk.edu>
+ * Date:   2008-04-04
+ ****************************************************************************/
+
+basename = "parser_viz_default_iter"
+INCLUDE_FILE = "../../common/parser_defaults.mdl"
+INCLUDE_FILE = "../../common/parser_common.mdl"

@@ -1,0 +1,136 @@
+author = "Jacob Czech <jczech@psc.edu>"
+date = "2016-04-19"
+description = """\
+              Tests that traditional periodic boundary code works with \
+              reactions involving SMs, VMs, and surface classes."\
+              """
+
+keywords = ["periodic"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+# world counts
+
+[[checks]]
+  countMaximum = [100]
+  countMinimum = [90]
+  dataFile = "vm1.world.dat"
+  maxTime = 0.000001
+  minTime = 0.0
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [0]
+  countMinimum = [0]
+  dataFile = "vm1.world.dat"
+  maxTime = 0.001
+  minTime = 0.001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [10]
+  countMinimum = [0]
+  dataFile = "vm2.world.dat"
+  maxTime = 0.000001
+  minTime = 0.0
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [100]
+  countMinimum = [90]
+  dataFile = "vm2.world.dat"
+  maxTime = 0.001
+  minTime = 0.001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [100]
+  countMinimum = [100]
+  dataFile = "sm.world.dat"
+  maxTime = 0.0
+  minTime = 0.001
+  testType = "COUNT_MINMAX"
+
+# plane counts
+
+[[checks]]
+  countMaximum = [100]
+  countMinimum = [100]
+  dataFile = "sm.plane.dat"
+  maxTime = 0.0
+  minTime = 0.001
+  testType = "COUNT_MINMAX"
+
+# top cube counts
+
+[[checks]]
+  countMaximum = [100]
+  countMinimum = [90]
+  dataFile = "vm1.top_cube.dat"
+  maxTime = 0.000001
+  minTime = 0.0
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [0]
+  countMinimum = [0]
+  dataFile = "vm1.top_cube.dat"
+  maxTime = 0.001
+  minTime = 0.001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [0]
+  countMinimum = [0]
+  dataFile = "vm2.top_cube.dat"
+  maxTime = 0.001
+  minTime = 0.0
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [0]
+  countMinimum = [0]
+  dataFile = "vm2.top_cube.dat"
+  maxTime = 0.001
+  minTime = 0.0
+  testType = "COUNT_MINMAX"
+
+# bottom cube counts
+
+[[checks]]
+  countMaximum = [0]
+  countMinimum = [0]
+  dataFile = "vm1.bottom_cube.dat"
+  maxTime = 0.001
+  minTime = 0.0
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [0]
+  countMinimum = [0]
+  dataFile = "vm1.bottom_cube.dat"
+  maxTime = 0.001
+  minTime = 0.0
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [10]
+  countMinimum = [0]
+  dataFile = "vm2.bottom_cube.dat"
+  maxTime = 0.000001
+  minTime = 0.0
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [100]
+  countMinimum = [90]
+  dataFile = "vm2.bottom_cube.dat"
+  maxTime = 0.001
+  minTime = 0.001
+  testType = "COUNT_MINMAX"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main.mdl"]
+

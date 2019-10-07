@@ -1,0 +1,12 @@
+author = "Jed Wing <jed@salk.edu>"
+date = "2008-04-24"
+description = "This is a bug encountered by Shirley Pepke (2008-04-24). When a per-species list is removed from the hash table, if the hash table has a collision for the element being removed, and the element removed was not the first element (i.e. was the element which originally experienced the collision), memory could be corrupted due to a bug in the hash table removal code."
+keywords = ["regression"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

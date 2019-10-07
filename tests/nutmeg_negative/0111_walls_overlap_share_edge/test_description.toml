@@ -1,0 +1,9 @@
+author = "Boris Kaminsky <borisk@psc.edu>"
+date = "2011-05-25"
+description = "Two small walls partially share an edge with a bigger wall and overlap bigger wall."
+includes = ["exit_code_1"]
+keywords = ["regression"]
+
+[run]
+  mdlfiles = ["test.mdl"]
+

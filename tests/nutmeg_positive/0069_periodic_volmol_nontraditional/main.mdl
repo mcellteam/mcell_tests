@@ -1,0 +1,103 @@
+dt = 1e-8
+
+ITERATIONS = 1000
+TIME_STEP = dt
+
+PARTITION_X = [[-0.21 TO 0.21 STEP 0.02]]
+PARTITION_Y = [[-0.21 TO 0.21 STEP 0.02]]
+PARTITION_Z = [[-0.21 TO 0.21 STEP 0.02]]
+
+DEFINE_MOLECULES
+{
+  vm { DIFFUSION_CONSTANT_3D = 1e-06 }
+}
+
+PERIODIC_BOX
+{
+  CORNERS = [-0.2, -0.2, -0.2],[0.2, 0.2, 0.2]
+  PERIODIC_TRADITIONAL = FALSE
+  PERIODIC_X = TRUE
+  PERIODIC_Y = TRUE
+  PERIODIC_Z = TRUE
+}
+
+boxy BOX
+{
+  CORNERS = [-0.199999, -0.199999, -0.199999],[0.199999, 0.199999, 0.199999]
+}
+
+sm_boxy BOX
+{
+  CORNERS = [-0.15, -0.15, -0.15],[0.15, 0.15, 0.15]
+}
+
+DEFINE_SURFACE_CLASSES
+{
+  transp
+  {
+    TRANSPARENT = ALL_MOLECULES;
+  }
+}
+
+MODIFY_SURFACE_REGIONS
+{
+  boxy[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  sm_boxy[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+}
+
+INSTANTIATE Scene OBJECT
+{
+  boxy OBJECT boxy {}
+  sm_boxy OBJECT sm_boxy {}
+  rel_vm RELEASE_SITE
+  {
+    SHAPE = CUBIC
+    MOLECULE = vm
+    NUMBER_TO_RELEASE = 1000
+    SITE_DIAMETER = 0.0
+    LOCATION = [0.19999, 0.0, 0.0]
+  }
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=dt
+  // Normal boring counts
+  {COUNT[vm,Scene.boxy,[0,0,0]]}=> "./vm.000.dat"
+  {COUNT[vm,Scene.boxy,[1,0,0]]}=> "./vm.100.dat"
+  // Trigger in smaller box
+  {TRIGGER[vm,Scene.sm_boxy,[0,0,0]]}=> "./vm.trigger.000.dat"
+  {TRIGGER[vm,Scene.sm_boxy,[1,0,0]]}=> "./vm.trigger.100.dat"
+  // Crossings
+  {COUNT[vm,Scene.boxy,[0,0,0],FRONT_CROSSINGS]}=> "./vm.FC.000.dat"
+  {COUNT[vm,Scene.boxy,[1,0,0],FRONT_CROSSINGS]}=> "./vm.FC.100.dat"
+  {COUNT[vm,Scene.boxy,[0,0,0],BACK_CROSSINGS]}=> "./vm.BC.000.dat"
+  {COUNT[vm,Scene.boxy,[1,0,0],BACK_CROSSINGS]}=> "./vm.BC.100.dat"
+  {COUNT[vm,Scene.boxy,[0,0,0],ALL_CROSSINGS]}=> "./vm.AC.000.dat"
+  {COUNT[vm,Scene.boxy,[1,0,0],ALL_CROSSINGS]}=> "./vm.AC.100.dat"
+  // Hits
+  {COUNT[vm,Scene.boxy,[0,0,0],FRONT_HITS]}=> "./vm.FH.000.dat"
+  {COUNT[vm,Scene.boxy,[1,0,0],FRONT_HITS]}=> "./vm.FH.100.dat"
+  {COUNT[vm,Scene.boxy,[0,0,0],BACK_HITS]}=> "./vm.BH.000.dat"
+  {COUNT[vm,Scene.boxy,[1,0,0],BACK_HITS]}=> "./vm.BH.100.dat"
+  {COUNT[vm,Scene.boxy,[0,0,0],ALL_HITS]}=> "./vm.AH.000.dat"
+  {COUNT[vm,Scene.boxy,[1,0,0],ALL_HITS]}=> "./vm.AH.100.dat"
+}
+
+/*VIZ_OUTPUT*/
+/*{*/
+/*  MODE = CELLBLENDER*/
+/*  FILENAME = "./viz_data/Scene"*/
+/*  MOLECULES*/
+/*  {*/
+/*    NAME_LIST {ALL_MOLECULES}*/
+/*    ITERATION_NUMBERS {ALL_DATA @ ALL_ITERATIONS}*/
+/*  }*/
+/*}*/
+

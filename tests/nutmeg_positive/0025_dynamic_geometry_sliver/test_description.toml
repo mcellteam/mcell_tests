@@ -1,0 +1,24 @@
+author = "Jacob Czech <jczech@psc.edu>"
+date = "2016-01-06"
+description = "Make sure that volume molecule products created in sharp corners don't leak out of the mesh when using dynamic geometries."
+keywords = ["leak"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "vm.diff.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  countMaximum = [65]
+  countMinimum = [30]
+  dataFile = "vm.sliver.dat"
+  maxTime = 0.0005
+  minTime = 0.00049
+  testType = "COUNT_MINMAX"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main.mdl"]
+

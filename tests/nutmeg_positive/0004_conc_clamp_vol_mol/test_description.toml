@@ -1,0 +1,20 @@
+author = "Markus Dittrich <dittrich@psc.edu>"
+date = "2014-12-11"
+description = "This test checks that a surface clamp for volume molecule releases molecules on the correct side of the surface"
+keywords = ["releases"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "B_outside.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "C_inside.dat"
+  testType = "ZERO_COUNTS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

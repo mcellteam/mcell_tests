@@ -1,0 +1,9 @@
+author = "Boris Kaminsky <borisk@psc.edu>"
+date = "2011-05-25"
+description = "Two walls of the object Cylinder are partially overlapped."
+includes = ["exit_code_1"]
+keywords = ["regression"]
+
+[run]
+  mdlfiles = ["test.mdl"]
+

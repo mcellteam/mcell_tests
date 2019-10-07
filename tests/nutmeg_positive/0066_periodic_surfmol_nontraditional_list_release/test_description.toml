@@ -1,0 +1,39 @@
+author = "Jacob Czech <jczech@psc.edu>"
+date = "2016-04-13"
+description = """\
+              Ensure we can release a molecule on the same tile so long as \
+              they are in different periodic boxes." 
+              """
+keywords = ["periodic"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  countMaximum = [1]
+  countMinimum = [1]
+  dataFile = "sm.000.dat"
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [1]
+  countMinimum = [1]
+  dataFile = "sm.100.dat"
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "Warning: Molecule release is unable to find surface upon which to place molecule sm."
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "Warning: Failed to release 1 molecules from list \"Scene.Release_Site3\" at iteration 0."
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main.mdl"]
+

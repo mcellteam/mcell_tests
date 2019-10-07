@@ -1,0 +1,52 @@
+author = "Jed Wing <jed@salk.edu>"
+date = "2008-12-05"
+description = "Test all surface reaction types, as well as simple tests of equilibrium and reaction rates. A quantitative test of the basic *-surface reaction types (uni, bi) in various combinations with surface (and some volume) molecules and always with surface class as one of the reactants. This test is completely identical to the surface_1 test except that we add surface class to all reactions and we do not test for trimolecular reactions."
+keywords = ["reactions"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "b13_u_out.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "b13_u_rxn_out.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "b14_u_out.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "b14_u_rxn_out.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "b15_u_out.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "b15_u_rxn_out.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "b16_b_rxn_out.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "b17_b_rxn_out.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "rxn_out.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "V_out.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

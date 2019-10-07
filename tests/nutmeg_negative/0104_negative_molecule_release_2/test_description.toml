@@ -1,0 +1,10 @@
+author = "Markus Dittrich <dittrich@psc.edu>"
+date = "2014-05-15"
+description = "This tests checks that MCell rejectss negative molecule releases on shapes (SHAPE = [CUBIC|SPHERICAL|..]) since these are only allowed on or within regions. Thanks to Jacob for providing this test case."
+includes = ["exit_code_1"]
+keywords = ["regression", "parser"]
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

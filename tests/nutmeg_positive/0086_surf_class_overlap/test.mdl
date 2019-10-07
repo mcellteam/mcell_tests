@@ -1,0 +1,104 @@
+/*
+ *
+ * This test checks that surface molecules of the same species are properly confined 
+ * within multiple overlapping surface regions that each have a distinct surface 
+ * class reflective or absorptive to the species. The correct behavior for this case 
+ * was established with commit id 0191aff7b7ca8d867e0358435e377846baa210c5.
+ * 
+ * author: Markus Dittrich
+ * data  : 03/13/2015 
+ */
+
+ITERATIONS = 1000
+TIME_STEP = 1e-06
+VACANCY_SEARCH_DISTANCE = 10
+
+SURFACE_GRID_DENSITY = 10000
+ACCURATE_3D_REACTIONS = TRUE
+CENTER_MOLECULES_ON_GRID = FALSE
+
+DEFINE_MOLECULES
+{
+  sm
+  {
+    DIFFUSION_CONSTANT_2D = 1e-06
+  }
+  sm1
+  {
+    DIFFUSION_CONSTANT_2D = 1e-06
+  }
+
+}
+
+DEFINE_SURFACE_CLASSES
+{
+  lsref
+  {
+    REFLECTIVE = sm'
+  }
+  rsref
+  {
+    REFLECTIVE = sm'
+  }
+  lsabs
+  {
+    ABSORPTIVE = sm1'
+  }
+  rsabs
+  {
+    ABSORPTIVE = sm1'
+  }
+
+}
+
+INCLUDE_FILE = "geometry.mdl"
+
+MODIFY_SURFACE_REGIONS
+{
+  Plane[lsr]
+  {
+    SURFACE_CLASS = lsref
+  }
+  Plane[rsr]
+  {
+    SURFACE_CLASS = rsref
+  }
+  Plane[lsa]
+  {
+    SURFACE_CLASS = lsabs
+  }
+  Plane[rsa]
+  {
+    SURFACE_CLASS = rsabs
+  }
+
+}
+
+INSTANTIATE Scene OBJECT
+{
+  Plane OBJECT Plane {}
+  Release_Site RELEASE_SITE
+  {
+   SHAPE = Scene.Plane[lsr] * Scene.Plane[rsr]
+   MOLECULE = sm'
+   NUMBER_TO_RELEASE = 100
+   RELEASE_PROBABILITY = 1
+  }
+  Release_Site_1 RELEASE_SITE
+  {
+   SHAPE = Scene.Plane[lsa] * Scene.Plane[rsa]
+   MOLECULE = sm1'
+   NUMBER_TO_RELEASE = 100
+   RELEASE_PROBABILITY = 1
+  }
+
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-06
+  {COUNT[sm,Scene.Plane[rsr]],COUNT[sm,Scene.Plane[lsr]]}=> "./sm.Plane.refl.dat"
+  {COUNT[sm1,Scene.Plane[rsa]],COUNT[sm1,Scene.Plane[lsa]]}=> "./sm.Plane.abs.dat"
+
+}
+

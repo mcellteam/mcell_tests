@@ -1,0 +1,16 @@
+author = "Jed Wing <jed@salk.edu>"
+date = "2009-03-28"
+description = "MCell fails to count oriented surface molecule reaction products in a simulation which has no waypoints.  This is a modified version of the test case Boris sent when he reported the bug."
+keywords = ["regression"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "counts.txt"
+  testType = "DIFF_FILE_CONTENT"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

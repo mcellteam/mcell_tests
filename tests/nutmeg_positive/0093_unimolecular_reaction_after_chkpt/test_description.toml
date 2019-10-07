@@ -1,0 +1,18 @@
+author = "Boris Kaminsky <borisk@psc.edu>"
+date = "2009-01-16"
+description = "The results of unimolecular reaction with variable reaction rate were incorrect due to the bug. This is a bug encountered by Jun Ma.  It represents itself as molecule's negative lifetime. It happened under two simultaneous conditions: checkpointing and unimolecular reactions with variable rates. It appeared that variable rates files were not properly read and molecule's scheduling times were not properly set up. For this test file the bug showed up as number of molecules B equal to 10 right after checkpoint."
+keywords = ["regression"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  CountMaximum = [10]
+  dataFile = "B_World.dat"
+  haveHeader = true
+  testType = "COUNT_MINMAX"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl", "test.mdl"]
+

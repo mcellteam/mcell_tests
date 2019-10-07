@@ -1,0 +1,44 @@
+author = "Boris Kaminsky <borisk@psc.edu"
+date = "2010-11-30"
+description = "Region borders properties tested on cube. REFLECTIVE/ABSORPTIVE/TRANSPARENT properties of REGION border tested on the cube. The test is done on the cube with simple region border geometry. Region r1 borders are REFLECTIVE for molecule A, ABSORPTIVE for B,and TRANSPARENT for C.  Initially we place 100 molecules of each type inside region r1. We check that all molecules A are contained within r1 and there are none of them in the surrounding region r2. Because B has high diffusion coefficient, they all get absorbed at the border, and after some time we should register none of them inside either r1 or r2. The total count of C as sum across regions r1 and r2 is constant over the simulation. Region r3 borders are REFLECTIVE for molecules D and E. We place 100 molecules D there that also undergo unimolecular reaction D @ surface_class -> E[rate].  We check that total sum of D and E within the region r3 is equal to 100."
+keywords = ["reactions"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "box_2_A.dat"
+  testType = "POSITIVE_COUNTS"
+
+[[checks]]
+  dataFile = "box_2_r4.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_3_r5.dat"
+  testType = "FDIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "box_3_r6.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_1_A.dat"
+  testType = "FDIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "box_1_B.dat"
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "box_1_C.dat"
+  testType = "FDIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "box_1_r3.dat"
+  testType = "FDIFF_FILE_CONTENT"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

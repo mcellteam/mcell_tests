@@ -1,0 +1,16 @@
+author = "Jed Wing <jed@salk.edu>"
+date = "2012-06-25"
+description = "surface molecule diffusion gives incorrect counts for enclosed counts."
+keywords = ["regression"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "S1_down.dat"
+  testType = "DIFF_FILE_CONTENT"
+  
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

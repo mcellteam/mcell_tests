@@ -1,0 +1,80 @@
+ITERATIONS = 1000
+TIME_STEP = 1e-06
+
+PERIODIC_BOX {
+  CORNERS = [-0.1, -0.1, -0.1],[0.1, 0.1, 0.1]
+  PERIODIC_TRADITIONAL = TRUE
+  PERIODIC_X = TRUE
+  PERIODIC_Y = TRUE
+  PERIODIC_Z = FALSE
+}
+
+DEFINE_MOLECULES {
+  vm1 { DIFFUSION_CONSTANT_3D = 1e-06 }
+  vm2 { DIFFUSION_CONSTANT_3D = 1e-06 }
+  sm { DIFFUSION_CONSTANT_2D = 1e-06 }
+}
+
+DEFINE_SURFACE_CLASSES {
+  transp { TRANSPARENT = ALL_MOLECULES; }
+  sc {}
+}
+
+DEFINE_REACTIONS {
+  vm1' + sm' @ sc' -> sm' + vm2, [1e+09]
+}
+
+INCLUDE_FILE = "geom.mdl"
+
+MODIFY_SURFACE_REGIONS {
+  TopCube[ALL] {
+    SURFACE_CLASS = transp
+  }
+  BottomCube[ALL] {
+    SURFACE_CLASS = transp
+  }
+  Plane[ALL] {
+    SURFACE_CLASS = sc
+  }
+}
+
+INSTANTIATE Scene OBJECT {
+  TopCube OBJECT TopCube {}
+  BottomCube OBJECT BottomCube {}
+  Plane OBJECT Plane {}
+}
+
+INSTANTIATE releases OBJECT {
+  rel_vm1 RELEASE_SITE {
+    SHAPE = Scene.TopCube
+    MOLECULE = vm1
+    NUMBER_TO_RELEASE = 100
+  }
+  rel_sm RELEASE_SITE {
+    SHAPE = Scene.Plane
+    MOLECULE = sm'
+    NUMBER_TO_RELEASE = 100
+  }
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-6
+  {COUNT[vm1,WORLD]}=> "./vm1.world.dat"
+  {COUNT[vm2,WORLD]}=> "./vm2.world.dat"
+  {COUNT[sm,WORLD]}=> "./sm.world.dat"
+  {COUNT[vm1,Scene.TopCube]}=> "./vm1.top_cube.dat"
+  {COUNT[vm2,Scene.TopCube]}=> "./vm2.top_cube.dat"
+  {COUNT[vm1,Scene.BottomCube]}=> "./vm1.bottom_cube.dat"
+  {COUNT[vm2,Scene.BottomCube]}=> "./vm2.bottom_cube.dat"
+  {COUNT[sm,Scene.Plane]}=> "./sm.plane.dat"
+}
+
+/*VIZ_OUTPUT {*/
+/*  MODE = CELLBLENDER*/
+/*  FILENAME = "./viz_data/Scene"*/
+/*  MOLECULES {*/
+/*    NAME_LIST {ALL_MOLECULES}*/
+/*    ITERATION_NUMBERS {ALL_DATA @ ALL_ITERATIONS}*/
+/*  }*/
+/*}*/

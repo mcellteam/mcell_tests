@@ -1,0 +1,21 @@
+/****************************************************************************
+ * Test the ability to continue a simulation in the presence of checkpoint
+ * iterations. Tests the new EXIT/NOEXIT capability of CHECKPOINT_ITERATIONS
+ * and the KEEP_CHECKPOINT_FILES keyword.
+ *
+ * Author: Markus Dittrich <dittrich@psc.edu>
+ * Date:   2014-07-08
+ ****************************************************************************/
+
+basename = "parser_checkpoint_iterations_keep_files"
+
+sprintf(seed, "%04g", SEED)
+
+INCLUDE_FILE = "../../common/timestamp.mdl"
+
+TIME_STEP                                   = 1. / 1e6
+ITERATIONS                                  = 125000000
+CHECKPOINT_INFILE                           = basename & ".cp"
+CHECKPOINT_OUTFILE                          = basename & ".cp"
+CHECKPOINT_ITERATIONS                       = 10000000 NOEXIT
+KEEP_CHECKPOINT_FILES = TRUE

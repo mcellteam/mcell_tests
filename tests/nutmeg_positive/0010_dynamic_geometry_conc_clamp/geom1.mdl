@@ -1,0 +1,16 @@
+INCLUDE_FILE = "cube.mdl"
+INCLUDE_FILE = "bigger_cube.mdl"
+
+MODIFY_SURFACE_REGIONS
+{
+  Cube[ALL]
+  {
+    SURFACE_CLASS = clamp
+  }
+}
+
+INSTANTIATE DGScene OBJECT 
+{
+  Cube OBJECT Cube {}
+  BiggerCube OBJECT BiggerCube {}
+}

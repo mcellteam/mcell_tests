@@ -1,0 +1,8 @@
+INCLUDE_FILE = "cube.mdl"
+INCLUDE_FILE = "bigger_cube.mdl"
+
+INSTANTIATE DGScene OBJECT 
+{
+  Cube OBJECT Cube {TRANSLATE = [0.005, 0, 0]}
+  BiggerCube OBJECT BiggerCube {TRANSLATE = [0.005, 0, 0]}
+}

@@ -1,0 +1,6 @@
+INCLUDE_FILE = "./cube.mdl"
+
+INSTANTIATE DGScene OBJECT
+{
+  Cube OBJECT Cube{}
+}

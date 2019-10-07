@@ -1,0 +1,12 @@
+author = "Markus Dittrich <dittrich@salk.edu>"
+date = "2014-12-29"
+description = "When parsing bimolecular reaction syntax '<->', MCell did not properly initialize the flag indicating if the product was a complex or not for the reverse reaction pathway. This led to reactions being incorrectly identified as complex resulting in a crash. Thanks a lot to Sabina Hrabetova for bringing this to our attention. This was fixed with commit ID 0eca73ee751"
+keywords = ["regression"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

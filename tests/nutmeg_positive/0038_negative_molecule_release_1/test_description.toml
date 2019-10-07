@@ -1,0 +1,22 @@
+author = "Markus Dittrich <dittrich@psc.edu>"
+date = "2014-05-14"
+description = "This tests checks that negative molecule releases work as expected for volume molecules for which no reactions are defined. Thanks to Jacob for providing this test case."
+keywords = ["regression"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "sm.World.dat"
+  minTime = 0.001
+  testType = "ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "vm.World.dat"
+  minTime = 0.001
+  testType = "ZERO_COUNTS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

@@ -1,0 +1,31 @@
+Cube POLYGON_LIST
+{
+  VERTEX_LIST
+  {
+    [  0.1,  0.1, -0.1 ]
+    [  0.1, -0.1, -0.1 ]
+    [ -0.1, -0.1, -0.1 ]
+    [ -0.1,  0.1, -0.1 ]
+    [  0.1,  0.1,  0.1 ]
+    [  0.1, -0.1,  0.1 ]
+    [ -0.1, -0.1,  0.1 ]
+    [ -0.1,  0.1,  0.1 ]
+  }
+  ELEMENT_CONNECTIONS
+  {
+    // hit 1 in blender
+    // Z=top/bottom X=left/right Y=front/back
+    [ 0, 1, 2 ] // 0  - bottom
+    [ 4, 7, 5 ] // 1  - top
+    [ 0, 4, 1 ] // 2  - right
+    [ 1, 5, 2 ] // 3  - front
+    [ 2, 6, 7 ] // 4  - left
+    [ 4, 0, 7 ] // 5  - back
+    [ 3, 0, 2 ] // 6  - bottom
+    [ 4, 5, 1 ] // 7  - right
+    [ 0, 3, 7 ] // 8  - back
+    [ 7, 6, 5 ] // 9  - top
+    [ 3, 2, 7 ] // 10 - left 
+    [ 5, 6, 2 ] // 11 - front
+  }
+}

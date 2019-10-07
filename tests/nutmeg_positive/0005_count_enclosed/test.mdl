@@ -1,0 +1,91 @@
+/* This check tests that counting of surface molecules using
+ the ALL_ENCLOSED keyword works properly.
+
+ Previous MCell versions had a bug which caused surface molecule 
+ counts to go negative when using the ALL_ENCLOSED keyword. This behavior 
+ could be triggered reliably by decreasing the partition size and thus 
+ the size of subvolumes.
+ The issue was due to a bug in collide_sv_time which would report
+ incorrect times for the next collision with subvolume boundaries. This
+ in turn would lead MCell to count certain wall crossings multiple
+ times screwing up the logic for deciding if a molecule is enclosed
+ in a volume or not. The bug was fixed with commit ID 61735063e6.
+
+ This test checks the the count N of molecules A whithin the cube is
+ between 0 <= N <= 100.
+
+ Author: Markus Dittrich
+ date  : 05/07/2015
+*/
+
+ITERATIONS = 1000
+TIME_STEP = 1e-06
+VACANCY_SEARCH_DISTANCE = 0.1
+
+SURFACE_GRID_DENSITY = 10000
+ACCURATE_3D_REACTIONS = TRUE
+CENTER_MOLECULES_ON_GRID = FALSE
+MICROSCOPIC_REVERSIBILITY = OFF
+
+NOTIFICATIONS
+{
+   PROBABILITY_REPORT = ON
+   DIFFUSION_CONSTANT_REPORT = BRIEF
+   FILE_OUTPUT_REPORT = OFF
+   FINAL_SUMMARY = ON
+   ITERATION_REPORT = ON
+   PARTITION_LOCATION_REPORT = OFF
+   VARYING_PROBABILITY_REPORT = ON
+   PROGRESS_REPORT = ON
+   RELEASE_EVENT_REPORT = ON
+   MOLECULE_COLLISION_REPORT = OFF
+}
+
+WARNINGS
+{
+   DEGENERATE_POLYGONS = WARNING
+   NEGATIVE_DIFFUSION_CONSTANT = WARNING
+   MISSING_SURFACE_ORIENTATION = ERROR
+   NEGATIVE_REACTION_RATE = WARNING
+   USELESS_VOLUME_ORIENTATION = WARNING
+   HIGH_REACTION_PROBABILITY = IGNORED
+   LIFETIME_TOO_SHORT = WARNING
+   LIFETIME_THRESHOLD = 50
+   MISSED_REACTIONS = WARNING
+   MISSED_REACTION_THRESHOLD = 0.001
+}
+
+PARTITION_X = [[-1.5 TO 1.5 STEP 0.02]]
+PARTITION_Y = [[-1.4 TO 1.4 STEP 0.02]]
+PARTITION_Z = [[-1.3 TO 1.4 STEP 0.02]]
+
+DEFINE_MOLECULES
+{
+  A
+  {
+    DIFFUSION_CONSTANT_2D = 1e-06
+  }
+}
+
+INCLUDE_FILE = "geometry.mdl"
+
+INSTANTIATE Scene OBJECT
+{
+  Cube OBJECT Cube {}
+  Plane OBJECT Plane {}
+  A_releaser RELEASE_SITE
+  {
+   SHAPE = Scene.Plane
+   MOLECULE = A'
+   NUMBER_TO_RELEASE = 100
+   RELEASE_PROBABILITY = 1
+  }
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-06
+  {COUNT[A,WORLD]}=> "A.World.dat"
+  {COUNT[A,Scene.Cube, ALL_ENCLOSED]}=> "A.Cube.dat"
+}
+

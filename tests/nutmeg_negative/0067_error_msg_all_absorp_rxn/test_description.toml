@@ -1,0 +1,23 @@
+author = "Jacob Czech <jczech@psc.edu>"
+date = "2017-04-11"
+description = "Print error message if surf class (absorptive to all molecules) is also used in a reaction."
+includes = ["exit_code_1"]
+keywords = ["error messages"]
+
+[[checks]]
+  fileNames = ["err_%d.0.log"]
+  testType = "CHECK_NONEMPTY_FILES"
+
+[[checks]]
+  fileNames = ["run_%d.0.log"]
+  testType = "CHECK_EMPTY_FILES"
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "Error: Combination of similarly oriented ABSORPTIVE reaction using ALL_MOLECULES and regular reaction for molecule 'a' for the same surface class 'sc' is not allowed."
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["error.mdl"]

@@ -1,0 +1,53 @@
+ITERATIONS = 500
+TIME_STEP = 1e-06
+
+PARTITION_X = [[-0.1001 TO 0.0001 STEP 0.02]]
+PARTITION_Y = [[-0.0001 TO 0.0001 STEP 0.02]]
+PARTITION_Z = [[-0.0001 TO 0.0001 STEP 0.02]]
+
+DYNAMIC_GEOMETRY_MOLECULE_PLACEMENT = NEAREST_POINT
+
+DYNAMIC_GEOMETRY = "./geom.txt"
+
+DEFINE_MOLECULES
+{
+  vm { DIFFUSION_CONSTANT_3D = 1e-09 }
+  sm { DIFFUSION_CONSTANT_2D = 0 }
+}
+
+DEFINE_REACTIONS
+{
+  sm' -> sm' + vm, [100000]
+}
+
+INSTANTIATE Scene OBJECT
+{
+  rel_sm RELEASE_SITE
+  {
+   SHAPE = LIST
+   SITE_DIAMETER = 0.0001
+   MOLECULE_POSITIONS
+   {
+     sm' [0, -0.100000001490116, 0]
+   }
+  }
+}
+
+/*VIZ_OUTPUT*/
+/*{*/
+/*  MODE = CELLBLENDER*/
+/*  FILENAME = "./viz_data/Scene"*/
+/*  MOLECULES*/
+/*  {*/
+/*    NAME_LIST {ALL_MOLECULES}*/
+/*    ITERATION_NUMBERS {ALL_DATA @ ALL_ITERATIONS}*/
+/*  }*/
+/*}*/
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-6
+  /*{COUNT[vm,WORLD]}=> "./vm.world.dat"*/
+  {COUNT[vm,DGScene.sliver]}=> "./vm.sliver.dat"
+  {COUNT[vm,WORLD]-COUNT[vm,DGScene.sliver]}=> "./vm.diff.dat"
+}

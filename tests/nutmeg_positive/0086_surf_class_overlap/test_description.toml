@@ -1,0 +1,20 @@
+author = "Markus Dittrich <dittrich@psc.edu"
+date = "2015-03-13"
+description = "This test checks that surface molecules of the same species are properly confined within multiple overlapping surface regions that each have a distinct surface class reflective or absorptive to the species. The correct behavior for this case was established with commit id 0191aff7b7ca8d867e0358435e377846baa210c5."
+keywords = ["surface_classes"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "sm.Plane.abs.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "sm.Plane.refl.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

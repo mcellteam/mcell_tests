@@ -1,0 +1,15 @@
+author = "Jacob Czech"
+date = "2016-03-29"
+description = "Verify that an error is generated when combining PERIODIC_TRADITIONAL with counts in a specific periodic box (e.g. [0,0,0])."
+keywords = ["error messages", "periodic"]
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "Error: Counting in virtual periodic boxes is invalid if PERIODIC_TRADITIONAL is TRUE"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["error.mdl"]
+

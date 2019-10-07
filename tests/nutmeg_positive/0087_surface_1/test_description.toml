@@ -1,0 +1,28 @@
+author = "Jed Wing <jed@salk.edu>"
+date = "2008-12-05"
+description = "Test all surface reaction types, as well as simple tests of equilibrium and reaction rates. A quantitative test of the basic *-surface reaction types (uni, bi, tri) in various combinations with surface (and some volume) molecules. Note that the bi-directional pathways are in here twice.  This is so that they can be tested via both the non-trimolecular and trimolecular code pathways. The latter is accomplished by adding a bogus trimolecular reaction involving the relevant molecules."
+keywords = ["reactions"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "b19_rxn_out_0001.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "b20_rxn_out_0001.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "rxn_out_0001.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "V_out_0001.dat"
+  testType = "DIFF_FILE_CONTENT"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

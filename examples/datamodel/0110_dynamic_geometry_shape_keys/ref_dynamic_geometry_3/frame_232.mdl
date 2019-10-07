@@ -1,0 +1,4 @@
+INCLUDE_FILE = "Cube_frame_232.mdl"
+INSTANTIATE Scene OBJECT {  /* write_mdl for each frame */
+  Cube OBJECT Cube {}
+}

@@ -1,0 +1,16 @@
+INCLUDE_FILE = "./cube.mdl"
+INCLUDE_FILE = "./small_cube.mdl"
+
+MODIFY_SURFACE_REGIONS
+{
+  SmallCube[ALL]
+  {
+    SURFACE_CLASS = transp_inert
+  }
+}
+
+INSTANTIATE DGScene OBJECT
+{
+  Cube OBJECT Cube{}
+  SmallCube OBJECT SmallCube{}
+}

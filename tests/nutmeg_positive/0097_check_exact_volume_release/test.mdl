@@ -1,0 +1,42 @@
+ITERATIONS = 1
+TIME_STEP = 1e-06
+VACANCY_SEARCH_DISTANCE = 10
+
+DEFINE_MOLECULES
+{
+  A
+  {
+    DIFFUSION_CONSTANT_3D = 2e-05
+  }
+}
+
+INCLUDE_FILE = "geometry.mdl"
+
+INSTANTIATE Scene OBJECT
+{
+  Sphere OBJECT Sphere {}
+  A_releaser RELEASE_SITE
+  {
+   SHAPE = Scene.Sphere
+   MOLECULE = A
+   CONCENTRATION = 1e-06
+   RELEASE_PROBABILITY = 1
+  }
+
+  Torus OBJECT Torus {}
+  A_torus_releaser RELEASE_SITE
+  {
+   SHAPE = Scene.Torus
+   MOLECULE = A
+   CONCENTRATION = 1e-05
+   RELEASE_PROBABILITY = 1
+  }
+}
+
+sprintf(seed,"%05g",SEED)
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-06
+  {COUNT[A,WORLD]}=> "./react_data/seed_" & seed & "/A.World.dat"
+}

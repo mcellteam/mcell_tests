@@ -1,0 +1,32 @@
+author = "Jacob Czech"
+date = "2015-09-15"
+description = "This test is to make sure that all count types (triggers, hits, crossings, all_enclosed, reactions) work when using dynamic geometries with reactions"
+keywords = ["dynamic geometry"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  dataFile = "counts.txt"
+  testType = "FDIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "inert.trigger.dat"
+  testType = "FDIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "inert.all_crossings.dat"
+  testType = "FDIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "inert.back_crossings.dat"
+  testType = "FDIFF_FILE_CONTENT"
+
+[[checks]]
+  dataFile = "inert.front_crossings.dat"
+  testType = "FDIFF_FILE_CONTENT"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main_dg.mdl"]
+

@@ -1,0 +1,55 @@
+/****************************************************************************
+ * Regression test 16: Volume molecule + surface reactions, such as those used
+ *    in absorptive or concentration clamped surfaces, were not properly
+ *    checking whether any ENCLOSED (or other waypoint-requiring) counts had
+ *    been requested.  This leads to a seg fault if no other waypoint-requiring
+ *    features are needed, and some unnecessary computation otherwise.
+ *    Also here we are testing keywords CLAMP_CONC, ESTIMATE_CONC,
+ *    DIFFUSION_CONSTANT
+ *
+ *    Failure: crash
+ *    Success: run exits successfully
+ *
+ * Author: Jed Wing <jed@salk.edu>
+ * Date:   2009-06-15
+ ****************************************************************************/
+
+TIME_STEP_MAX = 1e-5
+TIME_STEP     = 1e-5
+ITERATIONS    = 100
+INTERACTION_RADIUS = 0.0002
+
+PARTITION_X = [[-0.01    TO 0.01    STEP 0.002]]
+PARTITION_Y = [[-0.01    TO 0.01    STEP 0.002]]
+PARTITION_Z = [[-0.01    TO 0.01    STEP 0.002]]
+
+DEFINE_MOLECULES {
+    C     { DIFFUSION_CONSTANT_3D = 2.5e-8 }
+    B     { DIFFUSION_CONSTANT = 2.5e-8 }
+}
+
+DEFINE_SURFACE_CLASSES {
+    clamp   { 
+      CLAMP_CONC B, = 10 
+      CLAMP_CONC C' = 5
+    }
+}
+
+INSTANTIATE world OBJECT 
+{
+    container BOX {
+        CORNERS = [-0.01, -0.01, -0.01], [0.01, 0.01, 0.01]
+        DEFINE_SURFACE_REGIONS {
+            sides {
+                ELEMENT_LIST = [ALL_ELEMENTS]
+                SURFACE_CLASS = clamp
+            }
+        }
+    }
+}
+
+REACTION_DATA_OUTPUT {
+    STEP = 1e-5
+    {COUNT [B,world.container] - COUNT[B,WORLD]} => "./B_outside.dat"
+    {COUNT [C,world.container]} => "./C_inside.dat"
+}

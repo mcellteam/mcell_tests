@@ -1,0 +1,8 @@
+INCLUDE_FILE = "b.mdl"
+INCLUDE_FILE = "c.mdl"
+
+INSTANTIATE DGScene OBJECT
+{
+  B OBJECT B{}
+  C OBJECT C{}
+}

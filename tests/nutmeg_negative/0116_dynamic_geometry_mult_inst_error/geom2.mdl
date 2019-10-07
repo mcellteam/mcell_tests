@@ -1,0 +1,10 @@
+INCLUDE_FILE = "c.mdl"
+INCLUDE_FILE = "b.mdl"
+
+INSTANTIATE DGScene OBJECT
+{
+  // This double instantiation should trigger an error
+  B OBJECT B{}
+  B OBJECT B{}
+  C OBJECT C{}
+}

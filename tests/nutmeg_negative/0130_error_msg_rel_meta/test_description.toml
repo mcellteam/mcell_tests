@@ -1,0 +1,15 @@
+author = "Jacob Czech"
+date = "2016-01-13"
+description = "Verify that an error is generated when trying to release in a metaobject."
+keywords = ["error messages"]
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "Error: only BOX or POLYGON_LIST objects may be assigned to the SHAPE keyword in the RELEASE_SITE definition. Metaobjects or release objects are not allowed here."
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["error.mdl"]
+

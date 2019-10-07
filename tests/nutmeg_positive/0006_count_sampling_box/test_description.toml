@@ -1,0 +1,34 @@
+author = "Jacob Czech <jczech@psc.edu>"
+date = "2016-03-08"
+description = """\
+              This test was created to ensure that MCell does not over-count \
+              molecules as they enter an object via a transparent surface \
+              (e.g. a sampling box). This bug was discovered by Bob K and was \
+              fixed in MCell in commit 1561a18f.
+              """
+keywords = ["regression"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  countMaximum = [600]
+  countMinimum = [0]
+  dataFile = "vm.box.dat"
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  dataFile = "vm.count_box.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "vm.fc.count_box.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "vm.bc.count_box.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]

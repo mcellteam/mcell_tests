@@ -1,0 +1,10 @@
+INCLUDE_FILE = "./cube.mdl"
+
+Meta OBJECT {
+  Cube OBJECT Cube{TRANSLATE = [0.05, 0, 0]}
+}
+
+INSTANTIATE DGScene OBJECT
+{
+  Meta OBJECT Meta{}
+}

@@ -1,0 +1,130 @@
+author = "Jacob Czech <jczech@psc.edu>"
+date = "2015-11-25"
+description = "Tests that periodic boundary conditions work for counting reactions in regions."
+keywords = ["periodic", "reactions"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[[checks]]
+  countMaximum = [600]
+  countMinimum = [400]
+  dataFile = "ab_c.000.dat"
+  maxTime = 0.00001
+  minTime = 0.00001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [600]
+  countMinimum = [400]
+  dataFile = "ab_c.100.dat"
+  maxTime = 0.00001
+  minTime = 0.00001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [500]
+  countMinimum = [250]
+  dataFile = "d_e.000.dat"
+  maxTime = 0.00001
+  minTime = 0.00001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [500]
+  countMinimum = [250]
+  dataFile = "d_e.100.dat"
+  maxTime = 0.00001
+  minTime = 0.00001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [500]
+  countMinimum = [300]
+  dataFile = "f_g.000.dat"
+  maxTime = 0.00001
+  minTime = 0.00001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  countMaximum = [500]
+  countMinimum = [300]
+  dataFile = "f_g.100.dat"
+  maxTime = 0.00001
+  minTime = 0.00001
+  testType = "COUNT_MINMAX"
+
+[[checks]]
+  dataFile = "A.000.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+[[checks]]
+  dataFile = "A.100.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+[[checks]]
+  dataFile = "A.world.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "B.000.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+[[checks]]
+  dataFile = "B.100.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+[[checks]]
+  dataFile = "B.world.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "C.000.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+[[checks]]
+  dataFile = "C.100.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+[[checks]]
+  dataFile = "C.world.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "D.000.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+[[checks]]
+  dataFile = "D.100.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+[[checks]]
+  dataFile = "D.world.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "E.000.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+[[checks]]
+  dataFile = "E.100.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+[[checks]]
+  dataFile = "E.world.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "F.000.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+[[checks]]
+  dataFile = "F.100.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+[[checks]]
+  dataFile = "F.world.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+
+[[checks]]
+  dataFile = "G.000.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+[[checks]]
+  dataFile = "G.100.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+[[checks]]
+  dataFile = "G.world.dat"
+  testType = "POSITIVE_OR_ZERO_COUNTS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main.mdl"]
+

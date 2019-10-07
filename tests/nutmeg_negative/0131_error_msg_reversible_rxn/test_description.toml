@@ -1,0 +1,15 @@
+author = "Jacob Czech"
+date = "2016-01-08"
+description = "Verify that an error message is generated when trying to create a reversible reaction without a reversible rate."
+keywords = ["error messages"]
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "Error: reversible reaction indicated but no reverse rate supplied."
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["error.mdl"]
+

@@ -1,0 +1,11 @@
+author = "Jacob Czech"
+date = "2016-05-11"
+description = "Test if DGs and non-traditional PBCs work with SMs."
+keywords = ["dynamic geometry", "periodic"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["main.mdl"]

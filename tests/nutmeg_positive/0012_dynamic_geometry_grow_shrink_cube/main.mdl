@@ -1,0 +1,54 @@
+iter = 300
+dt = 1e-6
+ITERATIONS = iter
+TIME_STEP = dt
+
+DYNAMIC_GEOMETRY_MOLECULE_PLACEMENT = NEAREST_POINT
+DYNAMIC_GEOMETRY = "dyngeom.txt"
+
+WARNINGS
+{
+  LARGE_MOLECULAR_DISPLACEMENT = IGNORED
+}
+
+DEFINE_MOLECULES
+{
+  vm { DIFFUSION_CONSTANT_3D = 1e-05 }
+  sm { DIFFUSION_CONSTANT_2D = 0.0001 }
+}
+
+INSTANTIATE Releases OBJECT
+{
+  rel_vm RELEASE_SITE
+  {
+   SHAPE = Scene.box
+   MOLECULE = vm
+   NUMBER_TO_RELEASE = 1000
+  }
+  rel_sm RELEASE_SITE
+  {
+   SHAPE = Scene.box
+   MOLECULE = sm'
+   NUMBER_TO_RELEASE = 1000
+  }
+}
+
+/*VIZ_OUTPUT*/
+/*{*/
+/*  MODE = CELLBLENDER*/
+/*  FILENAME = "./viz_data/Scene"*/
+/*  MOLECULES*/
+/*  {*/
+/*    NAME_LIST {ALL_MOLECULES}*/
+/*    ITERATION_NUMBERS {ALL_DATA @ ALL_ITERATIONS}*/
+/*  }*/
+/*}*/
+
+REACTION_DATA_OUTPUT
+{
+  STEP=dt
+  {COUNT[vm,WORLD]}=> "./vm.world.dat"
+  {COUNT[vm,Scene.box]}=> "./vm.box.dat"
+  {COUNT[vm,WORLD]-COUNT[vm,Scene.box]}=> "./vm.diff.dat"
+  {COUNT[sm,Scene.box]}=> "./sm.box.dat"
+}

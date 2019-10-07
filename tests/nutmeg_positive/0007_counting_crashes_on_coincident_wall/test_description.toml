@@ -1,0 +1,12 @@
+author = "Jed Wing <jed@salk.edu>"
+date = "2009-02-13"
+description = "Counting crashes if a transparent wall is very very nearly coincident with a partition boundary."
+keywords = ["regression"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

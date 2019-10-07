@@ -1,0 +1,12 @@
+author = "Jed Wing <jed@salk.edu>"
+date = "2008-12-05"
+description = "Assertion fails when deep copying certain objects. This is a bug encountered by Daniel Sherwood (2008-04-24).  When a release site is cloned into a metaobject and the release site referred to a region in the original template object, and the fully qualified name of the release site was longer than the fully qualified name of the region, an assertion failure would occur due to an incorrect length calculation."
+keywords = ["regression"]
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["test.mdl"]
+

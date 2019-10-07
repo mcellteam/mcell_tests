@@ -1,0 +1,48 @@
+ITERATIONS = 1000
+TIME_STEP = 1e-06
+
+PERIODIC_BOX {
+  CORNERS = [-0.75, -0.75, -0.75],[0.75, 0.75, 0.75]
+  PERIODIC_TRADITIONAL = FALSE
+  PERIODIC_X = TRUE
+  PERIODIC_Y = TRUE
+  PERIODIC_Z = TRUE
+}
+
+DYNAMIC_GEOMETRY = "dynamic_geometry.mdl"
+
+DEFINE_MOLECULES {
+  vm {DIFFUSION_CONSTANT_3D = 1e-5}
+}
+
+INSTANTIATE RelScene OBJECT
+{
+  rel_vm RELEASE_SITE
+  {
+    SHAPE = CUBIC
+    MOLECULE = vm
+    NUMBER_TO_RELEASE = 100
+    SITE_DIAMETER = 0.0
+    LOCATION = [0.0, 0.0, 0.0]
+  }
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-6
+  {COUNT[vm,WORLD]}=> "./vm.WORLD.dat"
+  {COUNT[vm,Scene.Cube,[0,0,0]]}=> "./vm.cube.000.dat"
+  {COUNT[vm,Scene.Cube,[-1,0,0]]}=> "./vm.cube.-100.dat"
+  {COUNT[vm,Scene.Cube,[1,0,0]]}=> "./vm.cube.100.dat"
+}
+
+/*VIZ_OUTPUT*/
+/*{*/
+/*  MODE = CELLBLENDER*/
+/*  FILENAME = "./viz_data/Scene"*/
+/*  MOLECULES*/
+/*  {*/
+/*    NAME_LIST {ALL_MOLECULES}*/
+/*    ITERATION_NUMBERS {ALL_DATA @ ALL_ITERATIONS}*/
+/*  }*/
+/*}*/

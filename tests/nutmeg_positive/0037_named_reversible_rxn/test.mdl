@@ -1,0 +1,36 @@
+iter = 25
+dt = 1e-6
+ITERATIONS = iter
+TIME_STEP = dt
+
+DEFINE_MOLECULES
+{
+  vm { DIFFUSION_CONSTANT_3D = 1e-06 }
+}
+
+DEFINE_REACTIONS
+{
+  vm + vm <-> vm [>"rxn1.txt", <"rxn2.txt"]
+}
+
+Boxy BOX
+{
+  CORNERS = [-0.001, -0.001, -0.001],[0.001, 0.001, 0.001]
+}
+
+INSTANTIATE Scene OBJECT
+{
+  Boxy OBJECT Boxy{}
+  rel_vm RELEASE_SITE
+  {
+    SHAPE = Scene.Boxy
+    MOLECULE = vm
+    NUMBER_TO_RELEASE = 100
+  }
+}
+
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-06
+  {COUNT[vm,WORLD]}=> "./vm.dat"
+}

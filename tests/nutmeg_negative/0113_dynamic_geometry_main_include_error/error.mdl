@@ -1,0 +1,11 @@
+ITERATIONS = 10
+TIME_STEP = 1e-6
+
+DYNAMIC_GEOMETRY = "./geom.txt"
+
+INCLUDE_FILE = "./a.mdl"
+
+INSTANTIATE Scene OBJECT
+{
+  A OBJECT A{}
+}

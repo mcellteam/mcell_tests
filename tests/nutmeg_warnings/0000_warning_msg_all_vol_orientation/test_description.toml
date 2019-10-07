@@ -1,0 +1,15 @@
+author = "Jacob Czech"
+date = "2016-01-21"
+description = "Verify that a warning is generated when orientation is specified despite there only being volume molecules."
+keywords = ["warning messages"]
+
+[[checks]]
+  dataFile = "err_%d.0.log"
+  matchPattern = "Warning: Orientation specified for molecule in reaction in volume"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[run]
+  commandlineOpts = ["-quiet"]
+  mdlfiles = ["warning.mdl"]
+
