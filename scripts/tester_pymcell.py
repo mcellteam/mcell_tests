@@ -43,9 +43,6 @@ class TesterPymcell(TesterBase):
         super(TesterMdl, self).__init__(test_dir, args, tool_paths)
     
     def check_prerequisites(self) -> None:
-        if self.mcell4_testing: 
-            fatal_error("TesterPymcell does not support mcell4 testing yet")
-            
         if not os.path.exists(self.tool_paths.pymcell_module):
             fatal_error("Could not find module '" + self.tool_paths.pymcell_module + ".")
         
