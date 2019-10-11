@@ -169,11 +169,6 @@ def main():
     
     
 if __name__ == "__main__":
-    try:
-        main()
-    except:
-        print("internal fail")
-    finally:
-        print("finished")
+    main()
     
                 
