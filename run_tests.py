@@ -156,6 +156,7 @@ def get_dict_value(d: Dict, key: str, fname: str) -> str:
     res = d[key]
     return res
     
+    
 def load_test_config(config_path: str) -> List[TestSetInfo]:
     top_dict = toml.load(config_path)
     
@@ -185,8 +186,10 @@ def collect_and_run_tests(tool_paths: ToolPaths, opts: TestOptions) -> Dict:
     test_set_infos = load_test_config(opts.config)
     
     test_infos = []
+    tester_classes = set()
     for test_set in test_set_infos:
         test_infos += get_test_dirs(test_set)
+        tester_classes.add(test_set.tester_class)
 
     filtered_test_infos = []
     for info in test_infos:
@@ -198,6 +201,10 @@ def collect_and_run_tests(tool_paths: ToolPaths, opts: TestOptions) -> Dict:
     log("Tests to be run:")
     for info in filtered_test_infos:
         log(str(info))
+
+    log("Handling tester class prerequisites")
+    for tester_class in tester_classes:
+        tester_class.check_prerequisites(tool_paths)
 
     results = {}
     work_dir = os.getcwd()
@@ -262,10 +269,6 @@ def run_tests(install_dirs: Dict, argv=[]) -> int:
     # FIXME: use arguments directly to initialize ToolPaths    
     tool_paths = ToolPaths(install_dirs)
     log(str(tool_paths))
-    
-    # maybre move to ToolPaths
-    check_file_exists(tool_paths.mcell_binary)
-    check_file_exists(tool_paths.data_model_to_mdl_script) 
     
     results = collect_and_run_tests(tool_paths, opts)
     ec = report_results(results)

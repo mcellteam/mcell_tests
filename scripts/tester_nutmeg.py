@@ -342,10 +342,10 @@ class TesterNutmeg(TesterBase):
     def __init___(self, test_src_path: str, tool_paths: ToolPaths):
         super(TesterNutmeg, self).__init__(test_src_path, tool_paths)
 
-    def check_prerequisites(self) -> None:
-        if not os.path.exists(self.tool_paths.mcell_binary):
-            fatal_error("Could not find executable '" + self.tool_paths.mcell_binary + ".")
-
+    @staticmethod
+    def check_prerequisites(tool_paths: ToolPaths) -> None:
+        TesterBase.check_prerequisites(tool_paths) 
+        
     def nutmeg_log(self, msg, test_type) -> None:
         full_msg = TEST_TYPE_ID_TO_NAME[test_type] + ": " + msg
         log_fname = os.path.join(self.test_work_path, NUTMEG_LOG_FILE_NAME)
@@ -543,8 +543,6 @@ class TesterNutmeg(TesterBase):
         return PASSED
 
     def test(self) -> int:
-        self.check_prerequisites()
-
         if self.should_be_skipped():
             return SKIPPED
 

@@ -42,13 +42,12 @@ class TesterDataModel(TesterBase):
     def __init___(self, test_src_path: str, tool_paths: ToolPaths):
         super(TesterMdl, self).__init__(test_src_path, tool_paths)
 
-    def check_prerequisites(self) -> None:
-        if not os.path.exists(self.tool_paths.mcell_binary):
-            fatal_error("Could not find executable '" + self.tool_paths.mcell_binary + ".")
-            
-        if not os.path.exists(self.tool_paths.data_model_to_mdl_script):
+    @staticmethod
+    def check_prerequisites(tool_paths) -> None:
+        if not os.path.exists(tool_paths.data_model_to_mdl_script):
             fatal_error("Could not find data model conversion script '" + self.tool_paths.data_model_to_mdl_script + ".")
-
+            
+        TesterBase.check_prerequisites(tool_paths)
 
     def update_reference(self) -> None:
         viz_reference = os.path.join(self.test_src_path, REF_VIZ_DATA_DIR, SEED_DIR)
@@ -138,8 +137,6 @@ class TesterDataModel(TesterBase):
                 shutil.copyfile(os.path.join(mcellr_gdat_res, f), os.path.join(mcellr_gdat_reference, f))
 
     def test(self) -> int:
-        self.check_prerequisites()
-
         if self.should_be_skipped():
             return SKIPPED
 

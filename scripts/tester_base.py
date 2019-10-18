@@ -63,10 +63,13 @@ class TesterBase:
             )
         )
         
-    @abc.abstractmethod        
-    def test(self) -> int:
-        pass  # normally is an integer PASSED, FAILED_MCELL, ... returned
-    
+    @staticmethod
+    def check_prerequisites(tool_paths: ToolPaths) -> None:
+        if not os.path.exists(tool_paths.mcell_binary):
+            fatal_error("Could not find executable '" + self.tool_paths.mcell_binary + ".")
+
+        data_output_diff.check_or_build_fdiff()
+       
     def should_be_skipped(self) -> bool:
         if os.path.exists(os.path.join(self.test_src_path, 'skip')):
             log("SKIP : " + self.test_name)
@@ -169,4 +172,8 @@ class TesterBase:
         fname = os.path.join(self.test_work_path, 'Scene.viz_output.mdl')
         replace_in_file(fname, 'CELLBLENDER', 'ASCII')
         return PASSED
-    
+
+    @abc.abstractmethod        
+    def test(self) -> int:
+        pass  # derived methods return integer value PASSED, FAILED_MCELL, etc.
+        

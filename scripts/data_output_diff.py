@@ -57,26 +57,29 @@ def read_viz_output_line(fin):
     return res
 
 
+def check_or_build_fdiff():
+    fdiff = os.path.join(FDIFF_DIR, FDIFF)
+    if not os.path.exists(fdiff):
+        make_ec = run(
+            ['make'], 
+            cwd=os.path.abspath(FDIFF_DIR),
+            verbose=True, 
+            fout_name='make.log', 
+            print_redirected_output=True
+        )
+        if make_ec != 0:
+            fatal_error('Could not builf fdiff, terminating')
+            
+    return fdiff
+
+
 # return True if two files are identical while counting with floating point tolerance
 def compare_data_output_files(fname_ref, fname_new, exact):
     
     if exact:
         diff_executable = DIFF
     else:
-        
-        fdiff = os.path.join(FDIFF_DIR, FDIFF)
-        if not os.path.exists(fdiff):
-            make_ec = run(
-                ['make'], 
-                cwd=os.path.abspath(FDIFF_DIR),
-                verbose=True, 
-                fout_name='make.log', 
-                print_redirected_output=True
-            )
-            if make_ec != 0:
-                fatal_error('Could not builf fdiff, terminating')
-                
-        diff_executable = os.path.join(FDIFF_DIR, FDIFF)
+        diff_executable = check_or_build_fdiff()
         
     ec = run(
         [diff_executable, fname_ref, fname_new], 
