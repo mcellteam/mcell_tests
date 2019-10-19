@@ -29,7 +29,7 @@ from typing import List, Dict
 import data_output_diff
 
 from test_settings import *
-from test_utils import ToolPaths, report_test_error, report_test_success, replace_in_file
+from test_utils import ToolPaths, log_test_error, log_test_success, replace_in_file
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
@@ -102,7 +102,7 @@ class TesterBase:
             exact_diff)
         
         if res != PASSED:
-            report_test_error(self.test_name, msg)
+            log_test_error(self.test_name, msg)
         return res
 
     def check_reference_data(self, seed_dir: str) -> int:
@@ -131,7 +131,7 @@ class TesterBase:
             return res
      
         if res == PASSED:
-            report_test_success(self.test_name)
+            log_test_success(self.test_name)
         
         return res           
 
@@ -149,7 +149,7 @@ class TesterBase:
         log_name = self.test_name+'.mcell.log'
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         if (exit_code):
-            report_test_error(self.test_name, "MCell failed, see '" + os.path.join(self.test_name, log_name) + "'.")
+            log_test_error(self.test_name, "MCell failed, see '" + os.path.join(self.test_name, log_name) + "'.")
             return FAILED_MCELL
         else:
             return PASSED
@@ -163,7 +163,7 @@ class TesterBase:
         log_name = self.test_name+'.dm_to_mdl.log'
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name)
         if exit_code != 0:
-            report_test_error(self.test_name, "JSON to mdl conversion failed, see '" + os.path.join(self.test_name, log_name) + "'.")
+            log_test_error(self.test_name, "JSON to mdl conversion failed, see '" + os.path.join(self.test_name, log_name) + "'.")
             return FAILED_DM_TO_MDL_CONVERSION
         else:
             return PASSED

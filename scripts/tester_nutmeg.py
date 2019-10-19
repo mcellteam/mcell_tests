@@ -31,7 +31,7 @@ from typing import List, Dict
 import data_output_diff
 from test_settings import *
 from tester_base import TesterBase
-from test_utils import ToolPaths, report_test_error, report_test_success, replace_in_file
+from test_utils import ToolPaths, replace_in_file
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))

@@ -58,13 +58,11 @@ def fatal_error(msg) -> None:
     sys.exit(1)
 
 
-def report_test_error(test_name, msg) -> None:
+def log_test_error(test_name, msg) -> None:
     log("ERROR: " + test_name + " - " + msg)
-    # terminate for now
-    # fatal_error('Ending after first error')
 
 
-def report_test_success(test_name) -> None:
+def log_test_success(test_name) -> None:
     log("PASS : " + test_name)
     
     
