@@ -75,7 +75,7 @@ def main():
     box_obj = m.create_polygon_object(world, tetrah_vert_list, tetrah_face_list, scene, box_name)
 
     # Define volume molecules species
-    species_a = m.create_species(world, "a", 1e-6, False)
+    species_a = m.create_species(world, "vm", 1e-5, False)
     
     
     
