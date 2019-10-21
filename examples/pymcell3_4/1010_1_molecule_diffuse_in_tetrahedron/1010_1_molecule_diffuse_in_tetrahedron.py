@@ -20,14 +20,14 @@ else:
 import pymcell as m
 
     
-tetrah_vert_list = [
+tetrahedron_vert_list = [
     [  0.00,  0.00,  0.02 ],
     [  0.02,  0.00, -0.01 ],
     [ -0.01,  0.02, -0.01 ],
     [ -0.01, -0.02, -0.01 ]
 ]
 
-tetrah_face_list = [
+tetrahedron_face_list = [
     [ 0, 1, 2 ],
     [ 0, 2, 3 ],
     [ 0, 3, 1 ],
@@ -38,12 +38,12 @@ def display_terahedron():
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     
-    tetrah_vert_array = np.array(tetrah_vert_list)
+    tetrahedron_vert_array = np.array(tetrahedron_vert_list)
     
-    print(str(tetrah_vert_array[:,0]))
+    print(str(tetrahedron_vert_array[:,0]))
     
     # points
-    ax.scatter(tetrah_vert_array[:,0], tetrah_vert_array[:,1], tetrah_vert_array[:,2], c='r', marker='o')
+    ax.scatter(tetrahedron_vert_array[:,0], tetrahedron_vert_array[:,1], tetrahedron_vert_array[:,2], c='r', marker='o')
     
     # lines?
     
@@ -72,12 +72,10 @@ def main():
     
     # add geometry object with defined regions
     box_name = 'Tetrahedron'
-    box_obj = m.create_polygon_object(world, tetrah_vert_list, tetrah_face_list, scene, box_name)
+    box_obj = m.create_polygon_object(world, tetrahedron_vert_list, tetrahedron_face_list, scene, box_name)
 
     # Define volume molecules species
     species_a = m.create_species(world, "vm", 1e-5, False)
-    
-    
     
     
     # Their releases 
@@ -110,9 +108,21 @@ def main():
         
     world4 = converter.world
     
+    # print vertices
+    p = world4.get_partition(0)
+    cnt = p.get_geometry_vertex_count()
+    for i in range(cnt):
+        vert = p.get_geometry_vertex(i)
+        print("V" + str(i) + ": " + str(vert.x) + ", " + str(vert.y)+ ", " + str(vert.z))
+    
     output_freq = 100
     for i in range(iterations + 1):
         world4.run_n_iterations(1, output_freq)
+        if i == 10:
+            # change geometry of vertex 0
+            # update molecules after geonetry has changed
+            pass
+            
         
    
     world4.end_simulation()
