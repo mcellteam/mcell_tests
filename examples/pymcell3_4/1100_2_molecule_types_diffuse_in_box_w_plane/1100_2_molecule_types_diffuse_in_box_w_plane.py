@@ -60,6 +60,12 @@ plane_face_list = [
 
 plane_reg_face_list = [ 0, 1 ]
 
+
+def wall_hit():
+    print("Python callback called")
+    return 0.0
+    
+
 def main():
     world = m.mcell_create()
     m.mcell_init_state(world)
@@ -122,11 +128,15 @@ def main():
         print("Conversion failed")
         sys.exit(1)
         
-    world4 = converter.world 
+    world4 = converter.world
+    
+    world4.register_wall_hit_callback(wall_hit)
     
     output_freq = 100
     for i in range(iterations + 1):
         world4.run_n_iterations(1, output_freq)
+        
+        #world4.get_hits(...)
     
     world4.end_simulation()
         
