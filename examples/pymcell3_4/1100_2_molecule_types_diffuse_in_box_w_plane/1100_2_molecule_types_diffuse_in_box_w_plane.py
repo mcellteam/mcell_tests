@@ -70,7 +70,7 @@ def main():
     world = m.mcell_create()
     m.mcell_init_state(world)
     dt = 1e-6
-    iterations = 10
+    iterations = 1000
     m.mcell_set_time_step(world, dt)
     m.mcell_set_iterations(world, iterations)
     m.mcell_set_seed(world, 1)
