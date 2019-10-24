@@ -24,6 +24,7 @@ import abc
 import os
 import sys
 import shutil
+import toml
 from typing import List, Dict
 
 import data_output_diff
@@ -36,6 +37,25 @@ sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
 from utils import run, log, fatal_error
 
 VERBOSE_DIFF = False
+
+ARGS_FILE = 'args.toml'
+
+MCELL_ARGS_KEY = 'mcell'
+
+class ExtraArgs:
+    def __init__(self, test_src_path: str):
+        self.mcell_args = []
+
+        # parse args.toml if present        
+        args_file_name = os.path.join(test_src_path, ARGS_FILE)
+        print("S" + args_file_name)
+        if os.path.exists(args_file_name):
+            top_dict = toml.load(args_file_name)
+            if MCELL_ARGS_KEY in top_dict:
+                args_str =  top_dict[MCELL_ARGS_KEY]
+                self.mcell_args = args_str.split(' ')
+                print("F" + str(self.mcell_args))
+
 
 # TODO: maybe move check_preconditions and other things such as initialization 
 # out, 
@@ -72,6 +92,8 @@ class TesterBase:
                          self.test_name
             )
         )
+        
+        self.extra_args = ExtraArgs(self.test_src_path)
         
     @abc.abstractmethod        
     def test(self) -> int:
@@ -159,6 +181,7 @@ class TesterBase:
         cmd = [ self.tool_paths.mcell_binary ]
         cmd += mcell_args
         cmd += [ main_mdl_file ]
+        cmd += self.extra_args.mcell_args
         
         # should we enable mcellr mode?
         mdlr_rules_file = os.path.join(self.test_work_path, MAIN_MDLR_RULES_FILE)
