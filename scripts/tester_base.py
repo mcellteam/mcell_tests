@@ -48,13 +48,11 @@ class ExtraArgs:
 
         # parse args.toml if present        
         args_file_name = os.path.join(test_src_path, ARGS_FILE)
-        print("S" + args_file_name)
         if os.path.exists(args_file_name):
             top_dict = toml.load(args_file_name)
             if MCELL_ARGS_KEY in top_dict:
                 args_str =  top_dict[MCELL_ARGS_KEY]
                 self.mcell_args = args_str.split(' ')
-                print("F" + str(self.mcell_args))
 
 
 # TODO: maybe move check_preconditions and other things such as initialization 
