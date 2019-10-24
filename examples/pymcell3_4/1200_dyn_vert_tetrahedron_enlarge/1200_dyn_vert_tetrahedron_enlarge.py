@@ -117,22 +117,27 @@ def main():
     
     output_freq = 100
     for i in range(iterations + 1):
-        world4.run_n_iterations(1, output_freq)
+        
+        # mcell3 does geometry change as the first thing in an iteration 
         if i == 10:
             # change geometry of vertex 0
             # the recomputation of units should be done preferably by the API
             #  but for now we do it here
             displacement = m.vec3_t(0, 0, 0.01/world4.get_world_constants().length_unit) 
             p.add_vertex_move(0, displacement)
+
+            # update molecules after geonetry has changed
             p.apply_vertex_moves()
             
             world4.dump()
-            # update molecules after geonetry has changed
-            pass
             
             
-        
-   
+        print("Iteration " + str(i) + " started")
+        sys.stdout.flush()
+
+        world4.run_n_iterations(1, output_freq)
+            
+            
     world4.end_simulation()
         
     
