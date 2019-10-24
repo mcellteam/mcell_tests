@@ -101,6 +101,7 @@ def compare_data_output_directory(dir_ref, dir_new, exact=False):
     files_ref = os.listdir(ref_dir)
     
     for fname in files_ref:
+        # FIXME: these error messages do not appear in the difff log
         fname_ref = os.path.join(dir_ref, fname)
         if not os.path.exists(fname_ref):
             log('File ' + fname_ref + ' does not exist')
