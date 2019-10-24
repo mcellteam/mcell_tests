@@ -54,13 +54,17 @@ def report_results_to_output(results: Dict) -> int:
 
 
 def report_results_as_html_and_collect_fails(results: Dict):
-    
+    # TODO: later
+    pass
     # generate html with tests that failed
     # html file name: release, time, branch, ...?
     
     # collect fails 
     
     # pack it all together and return the name of the file
+    
+    # ideally we would like just the specific (first) output file that was
+    # different from the reference otherwise the size of the results will be huge   
     
     
     # on the server side, there will be a generator that 
