@@ -62,14 +62,18 @@ class TesterBase:
                          self.test_name
             )
         )
-        
+
     @staticmethod
     def check_prerequisites(tool_paths: ToolPaths) -> None:
         if not os.path.exists(tool_paths.mcell_binary):
             fatal_error("Could not find executable '" + self.tool_paths.mcell_binary + ".")
 
         data_output_diff.check_or_build_fdiff()
-       
+        
+        # work dir, e.g. /nadata/cnl/home/ahusar/src/mcell_tests/work         
+        if not os.path.exists(tool_paths.work_path):
+            os.mkdir(tool_paths.work_path)
+
     def should_be_skipped(self) -> bool:
         if os.path.exists(os.path.join(self.test_src_path, 'skip')):
             log("SKIP : " + self.test_name)
@@ -78,17 +82,12 @@ class TesterBase:
             return False
     
     def clean_and_create_work_dir(self) -> None:
-        # work dir, e.g. /nadata/cnl/home/ahusar/src/mcell_tests/work         
-        if not os.path.exists(self.tool_paths.work_path):
-            os.mkdir(self.tool_paths.work_path)
-
         if os.path.exists(self.test_work_path):
             # log("Erasing '" + self.test_name + "' in " + os.getcwd())
             shutil.rmtree(self.test_work_path)
-            
+
         os.makedirs(self.test_work_path)
         os.chdir(self.test_work_path)
-        
         assert self.test_work_path == os.getcwd()
 
     def check_reference(self, seed_dir: str, ref_dir_name: str, test_dir_name: str, exact_diff: bool, msg: str) -> int:

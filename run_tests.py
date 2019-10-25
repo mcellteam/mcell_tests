@@ -82,8 +82,6 @@ def create_argparse() -> argparse.ArgumentParser:
     parser.add_argument('-p', '--pattern', type=str, help='regex pattern to filter tests to be run, the pattern is matched against the test path')
     parser.add_argument('-m', '--mcell-build-path', type=str, help='override of the default mcell build path')
     parser.add_argument('-b', '--cellblender-build-path', type=str, help='override of the default cellblender build path')
-    
-    parser.add_argument('-r', '--report', type=str, help='generate html report')
     return parser
 
 # FIXME: insert into TestOptions class       
@@ -231,6 +229,29 @@ def collect_and_run_tests(tool_paths: ToolPaths, opts: TestOptions) -> Dict:
     return results
 
 
+def report_results(results: Dict) -> int:
+    print("\n**** RESULTS ****")
+    passed = 0
+    failed = 0
+    skipped = 0
+    for key, value in results.items():
+        print(RESULT_NAMES[value] + ": " + str(key))
+        if value == PASSED:
+            passed += 1
+        elif value in [FAILED_MCELL, FAILED_DIFF, FAILED_DM_TO_MDL_CONVERSION, FAILED_NUTMEG_SPEC]:
+            failed += 1
+        elif value == SKIPPED:
+            skipped += 1
+        else:
+            fatal_error("Invalid test result value " + str(value))
+           
+    if failed != 0:
+        log("\n!! THERE WERE ERRORS !!")
+        return 1
+    else:
+        log("\n-- SUCCESS --")
+        return 0
+
 
 def check_file_exists(name):
     if not os.path.exists(name):
@@ -250,11 +271,7 @@ def run_tests(install_dirs: Dict, argv=[]) -> int:
     log(str(tool_paths))
     
     results = collect_and_run_tests(tool_paths, opts)
-    ec = report.report_results_to_output(results)
-    
-    zipfile = report_results_as_html_and_collect_fails(opts, results)
-    # if reporting, copy zipfile to server
-    
+    ec = report_results(results)
     return ec
 
 
