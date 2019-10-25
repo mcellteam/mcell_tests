@@ -1,0 +1,12 @@
+MODIFY_SURFACE_REGIONS
+{
+  Icosphere[Raft1]
+  {
+    SURFACE_CLASS = reflect_chol
+  }
+  Icosphere[Raft2]
+  {
+    SURFACE_CLASS = reflect_chol
+  }
+}
+

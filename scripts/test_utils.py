@@ -33,6 +33,7 @@ class ToolPaths:
         else:
             self.mcell_dir_path = os.path.join(MCELL_TOOLS_DIR, WORK_DIR_NAME, BUILD_DIR_MCELL)
         self.mcell_binary = os.path.join(self.mcell_dir_path, MCELL_BINARY)
+        self.pymcell_module = os.path.join(self.mcell_dir_path, PYMCELL_DIR, PYMCELL_MODULE)
             
         if REPO_NAME_CELLBLENDER in install_dirs:
             self.cellblender_dir_path = install_dirs[REPO_NAME_CELLBLENDER]

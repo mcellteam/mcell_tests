@@ -1,0 +1,6 @@
+[[set]]
+  category = 'examples'
+  testSet = 'pymcell3'
+  testerClass = 'TesterPymcell'
+  
+  

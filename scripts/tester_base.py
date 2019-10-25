@@ -24,6 +24,7 @@ import abc
 import os
 import sys
 import shutil
+import toml
 from typing import List, Dict
 
 import data_output_diff
@@ -35,10 +36,37 @@ THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
 from utils import run, log, fatal_error
 
+VERBOSE_DIFF = False
+
+ARGS_FILE = 'args.toml'
+
+MCELL_ARGS_KEY = 'mcell'
+
+class ExtraArgs:
+    def __init__(self, test_src_path: str):
+        self.mcell_args = []
+
+        # parse args.toml if present        
+        args_file_name = os.path.join(test_src_path, ARGS_FILE)
+        if os.path.exists(args_file_name):
+            top_dict = toml.load(args_file_name)
+            if MCELL_ARGS_KEY in top_dict:
+                args_str =  top_dict[MCELL_ARGS_KEY]
+                self.mcell_args = args_str.split(' ')
+
+
 # TODO: maybe move check_preconditions and other things such as initialization 
 # out, 
 class TesterBase:
-    def __init__(self, test_src_path: str, tool_paths: ToolPaths):
+    def __init__(self, test_src_path: str, args: List[str], tool_paths: ToolPaths):
+        
+        self.mcell4_testing = False
+        if args:
+            if args == ['mcell4']:
+                self.mcell4_testing = True
+            else:
+                fatal_error("The only supported testing argument is 'mcell4' for now.")
+        
         # paths to the binaries
         self.tool_paths = tool_paths
 
@@ -63,6 +91,8 @@ class TesterBase:
             )
         )
         
+        self.extra_args = ExtraArgs(self.test_src_path)
+        
     @staticmethod
     def check_prerequisites(tool_paths: ToolPaths) -> None:
         if not os.path.exists(tool_paths.mcell_binary):
@@ -73,6 +103,13 @@ class TesterBase:
     def should_be_skipped(self) -> bool:
         if os.path.exists(os.path.join(self.test_src_path, 'skip')):
             log("SKIP : " + self.test_name)
+            return True
+        else:
+            return False
+
+    def expected_wrong_ec(self) -> bool:
+        if os.path.exists(os.path.join(self.test_src_path, 'expected_wrong_ec')):
+            log("EXPECTING WRONG EXIT CODE : " + self.test_name)
             return True
         else:
             return False
@@ -93,6 +130,11 @@ class TesterBase:
 
     def check_reference(self, seed_dir: str, ref_dir_name: str, test_dir_name: str, exact_diff: bool, msg: str) -> int:
         ref_path = os.path.join('..', self.test_src_path, ref_dir_name, seed_dir)
+        if VERBOSE_DIFF:
+            if os.path.exists(ref_path):
+                log("DIFF DIR EXISTS: checking reference directory " + ref_path)
+            else:
+                log("DIFF NO REF DIR: checking reference directory " + ref_path)
         if not os.path.exists(ref_path):
             return PASSED
         
@@ -111,12 +153,12 @@ class TesterBase:
         # has_ref_data = False
         
         res = self.check_reference(
-            seed_dir, REF_VIZ_DATA_DIR, VIZ_DATA_DIR, False, "Viz data diff failed.")
+            seed_dir, get_ref_viz_data_dir(self.mcell4_testing), get_viz_data_dir(self.mcell4_testing), False, "Viz data diff failed.")
         if res != PASSED:
             return res
 
         res = self.check_reference(
-            seed_dir, REF_REACT_DATA_DIR, REACT_DATA_DIR, False, "React data diff failed.")
+            seed_dir, get_ref_react_data_dir(self.mcell4_testing), get_react_data_dir(self.mcell4_testing), False, "React data diff failed.")
         if res != PASSED:
             return res
 
@@ -140,6 +182,7 @@ class TesterBase:
         cmd = [ self.tool_paths.mcell_binary ]
         cmd += mcell_args
         cmd += [ main_mdl_file ]
+        cmd += self.extra_args.mcell_args
         
         # should we enable mcellr mode?
         mdlr_rules_file = os.path.join(self.test_work_path, MAIN_MDLR_RULES_FILE)
@@ -154,7 +197,7 @@ class TesterBase:
         else:
             return PASSED
          
-    def run_dm_to_mdl_conversion(self, json_file_name) -> None:
+    def run_dm_to_mdl_conversion(self, json_file_name: str) -> None:
         # the conversion python script is considered a separate utility, 
         # we run it through bash 
         cmd = [ 
@@ -163,7 +206,7 @@ class TesterBase:
         log_name = self.test_name+'.dm_to_mdl.log'
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name)
         if exit_code != 0:
-            log_test_error(self.test_name, "JSON to mdl conversion failed, see '" + os.path.join(self.test_name, log_name) + "'.")
+            report_test_error(self.test_name, "JSON to mdl conversion failed, see '" + os.path.join(self.test_name, log_name) + "'.")
             return FAILED_DM_TO_MDL_CONVERSION
         else:
             return PASSED

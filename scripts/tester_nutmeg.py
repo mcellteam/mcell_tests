@@ -339,8 +339,8 @@ class TestDescriptionParser:
   
 
 class TesterNutmeg(TesterBase):
-    def __init___(self, test_src_path: str, tool_paths: ToolPaths):
-        super(TesterNutmeg, self).__init__(test_src_path, tool_paths)
+    def __init___(self, test_src_path: str, args: List[str], tool_paths: ToolPaths):
+        super(TesterNutmeg, self).__init__(test_src_path, args, tool_paths)
 
     @staticmethod
     def check_prerequisites(tool_paths: ToolPaths) -> None:

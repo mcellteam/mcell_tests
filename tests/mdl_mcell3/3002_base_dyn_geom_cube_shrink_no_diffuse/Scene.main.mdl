@@ -1,0 +1,40 @@
+ITERATIONS = 20
+TIME_STEP = 1e-6
+
+WARNINGS
+{
+  LARGE_MOLECULAR_DISPLACEMENT = IGNORED
+}
+
+DYNAMIC_GEOMETRY = "./geom.txt"
+
+DEFINE_MOLECULES
+{
+  vm { DIFFUSION_CONSTANT_3D = 0 }
+}
+
+// instantiate mols inside of the object
+INSTANTIATE Scene OBJECT
+{
+  rel_vm RELEASE_SITE
+  {
+    SHAPE = SPHERICAL
+    MOLECULE = vm
+    NUMBER_TO_RELEASE = 100
+    SITE_DIAMETER = 0.01
+    LOCATION = [0.0, 0.0, 0.0]
+  }
+}
+
+sprintf(seed,"%05g",SEED)
+
+VIZ_OUTPUT
+{
+  MODE = ASCII
+  FILENAME = "./viz_data/seed_" & seed & "/Scene"
+  MOLECULES
+  {
+    NAME_LIST {ALL_MOLECULES}
+    ITERATION_NUMBERS {ALL_DATA @ ALL_ITERATIONS}
+  }
+}

@@ -32,6 +32,9 @@ MAIN_MDL_FILE = 'Scene.main.mdl'
 MAIN_MDLR_RULES_FILE = 'Scene.mdlr_rules.xml'
 
 MCELL_BINARY = 'mcell'
+PYMCELL_MODULE = 'pymcell.py'
+PYMCELL_DIR = 'python' 
+MCELL_DIR_VARIABLE = 'MCELL_DIR'
 
 PYTHON_BINARY = 'python'
 DATA_MODEL_TO_MDL_DIR = 'mdl'
@@ -60,34 +63,47 @@ RESULT_NAMES = {
  FAILED_NUTMEG_SPEC:'FAILED_NUTMEG_SPEC'
 }
 
-MCELL_ARGS = []
+VIZ_DATA_DIR_3 = 'viz_data'
+REF_VIZ_DATA_DIR_3 = 'ref_viz_data_3'
+REACT_DATA_DIR_3 = 'react_data'
+REF_REACT_DATA_DIR_3 = 'ref_react_data_3'
 
-if TEST_MCELL4:
-    MCELL_ARGS.append('-mcell4')
-    
-    VIZ_DATA_DIR = os.path.join('4.', 'viz_data')
-    REF_VIZ_DATA_DIR = 'ref_viz_data_4'
+VIZ_DATA_DIR_4 = os.path.join('4.', 'viz_data')
+REF_VIZ_DATA_DIR_4 = 'ref_viz_data_4'
+REACT_DATA_DIR_4 = os.path.join('4.', 'react_data')
+REF_REACT_DATA_DIR_4 = 'ref_react_data_4'
 
-    REACT_DATA_DIR = os.path.join('4.', 'react_data')
-    REF_REACT_DATA_DIR = 'ref_react_data_4'
-
-    REF_NUTMEG_DATA_DIR = 'ref_data_4'
-else:
-    VIZ_DATA_DIR = 'viz_data'
-    REF_VIZ_DATA_DIR = 'ref_viz_data_3'
-    
-    REACT_DATA_DIR = 'react_data'
-    REF_REACT_DATA_DIR = 'ref_react_data_3'
-    
-    DYN_GEOM_DATA_DIR = 'dynamic_geometry'
-    REF_DYN_GEOM_DATA_DIR = 'ref_dynamic_geometry_3'
-    
-    MCELLR_GDAT_DATA_DIR = '.'
-    REF_MCELLR_GDAT_DATA_DIR = 'ref_mcellr_gdat_3'
-
-    REF_NUTMEG_DATA_DIR = 'ref_data_3'
+# not used by mcell4 testing yet
+DYN_GEOM_DATA_DIR = 'dynamic_geometry'
+REF_DYN_GEOM_DATA_DIR = 'ref_dynamic_geometry_3'
+MCELLR_GDAT_DATA_DIR = '.'
+REF_MCELLR_GDAT_DATA_DIR = 'ref_mcellr_gdat_3'
+REF_NUTMEG_DATA_DIR = 'ref_data_3'
     
 
+def get_viz_data_dir(for_mcell4 = False):
+    if for_mcell4:
+        return VIZ_DATA_DIR_4
+    else:
+        return VIZ_DATA_DIR_3
+
+def get_ref_viz_data_dir(for_mcell4 = False):
+    if for_mcell4:
+        return REF_VIZ_DATA_DIR_4
+    else:
+        return REF_VIZ_DATA_DIR_3
+    
+def get_react_data_dir(for_mcell4 = False):
+    if for_mcell4:
+        return REACT_DATA_DIR_4
+    else:
+        return REACT_DATA_DIR_3
+
+def get_ref_react_data_dir(for_mcell4 = False):
+    if for_mcell4:
+        return REF_REACT_DATA_DIR_4
+    else:
+        return REF_REACT_DATA_DIR_3
 
 TEST_SETTINGS_BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 MCELL_TOOLS_DIR = os.path.realpath(os.path.join(TEST_SETTINGS_BASE_DIR, '..', '..', 'mcell_tools'))

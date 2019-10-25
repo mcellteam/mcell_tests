@@ -1,10 +1,10 @@
-/work/*
-/tests/*/4.
-/tests/*/viz_data
-/tests/*/react_data
-/tests/*/dump3.txt
-/tests/*/dump4.txt
+**/4.
+**/viz_data
+**/react_data
+**/dump*
+**/dump*
 /benchmarks/*/oprofile_data
 /work/
 /**/*_files/
 /**/*.blend1
+/**/*.pyc

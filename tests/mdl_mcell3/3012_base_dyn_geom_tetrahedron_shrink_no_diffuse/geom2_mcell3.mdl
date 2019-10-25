@@ -1,0 +1,25 @@
+
+// Inner cube
+A POLYGON_LIST
+{
+  VERTEX_LIST
+  {
+  	// original position: [  0.00,  0.00,  0.02 ]
+    [  0.00,  0.00,  0.01 ]
+    [  0.02,  0.00, -0.01 ]
+    [ -0.01,  0.02, -0.01 ]
+    [ -0.01, -0.02, -0.01 ]
+  }
+  ELEMENT_CONNECTIONS
+  {
+    [ 0, 1, 2 ]
+    [ 0, 2, 3 ]
+    [ 0, 3, 1 ]
+    [ 1, 3, 2 ]
+  }
+}
+
+INSTANTIATE DGScene OBJECT
+{
+  A OBJECT A{}
+}
