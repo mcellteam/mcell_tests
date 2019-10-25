@@ -41,10 +41,12 @@ VERBOSE_DIFF = False
 ARGS_FILE = 'args.toml'
 
 MCELL_ARGS_KEY = 'mcell'
+FDIFF_ARGS_KEY = 'fdiff'
 
 class ExtraArgs:
     def __init__(self, test_src_path: str):
         self.mcell_args = []
+        self.fdiff_args = []
 
         # parse args.toml if present        
         args_file_name = os.path.join(test_src_path, ARGS_FILE)
@@ -53,6 +55,9 @@ class ExtraArgs:
             if MCELL_ARGS_KEY in top_dict:
                 args_str =  top_dict[MCELL_ARGS_KEY]
                 self.mcell_args = args_str.split(' ')
+            if FDIFF_ARGS_KEY in top_dict:
+                args_str =  top_dict[FDIFF_ARGS_KEY]
+                self.fdiff_args = args_str.split(' ')
 
 
 # TODO: maybe move check_preconditions and other things such as initialization 
@@ -140,7 +145,8 @@ class TesterBase:
         res = data_output_diff.compare_data_output_directory(
             ref_path, 
             os.path.join(test_dir_name, seed_dir),
-            exact_diff)
+            exact_diff,
+            self.extra_args.fdiff_args)
         
         if res != PASSED:
             log_test_error(self.test_name, msg)

@@ -480,7 +480,8 @@ class TesterNutmeg(TesterBase):
             res = data_output_diff.compare_data_output_files(
                 os.path.join('..', self.test_src_path, REF_NUTMEG_DATA_DIR, check.data_file),
                 os.path.join(self.test_work_path, check.data_file),
-                exact=(check.test_type == TEST_TYPE_DIFF_FILE_CONTENT) )
+                exact=(check.test_type == TEST_TYPE_DIFF_FILE_CONTENT),
+                fdiff_args=self.extra_args.fdiff_args )
             self.nutmeg_log("Comparison result of '" + check.data_file + "': " + RESULT_NAMES[res], check.test_type)
 
         elif check.test_type in [TEST_TYPE_ZERO_COUNTS, TEST_TYPE_POSITIVE_OR_ZERO_COUNTS, 
