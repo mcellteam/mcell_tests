@@ -84,8 +84,6 @@ def create_argparse() -> argparse.ArgumentParser:
     parser.add_argument('-p', '--pattern', type=str, help='regex pattern to filter tests to be run, the pattern is matched against the test path')
     parser.add_argument('-m', '--mcell-build-path', type=str, help='override of the default mcell build path')
     parser.add_argument('-b', '--cellblender-build-path', type=str, help='override of the default cellblender build path')
-    
-    parser.add_argument('-r', '--report', type=str, help='generate html report')
     return parser
 
 # FIXME: insert into TestOptions class       
@@ -239,6 +237,38 @@ def collect_and_run_tests(tool_paths: ToolPaths, opts: TestOptions) -> Dict:
     return results
 
 
+def report_results(results: Dict) -> int:
+    print("\n**** RESULTS ****")
+    passed_count = 0
+    skipped_count = 0
+    failed_tests = []
+    for key, value in results.items():
+        print(RESULT_NAMES[value] + ": " + str(key))
+        if value == PASSED:
+            passed_count += 1
+        elif value in [FAILED_MCELL, FAILED_DIFF, FAILED_DM_TO_MDL_CONVERSION, FAILED_NUTMEG_SPEC]:
+            failed_tests.append((value, key))
+        elif value == SKIPPED:
+            skipped_count += 1
+        else:
+            fatal_error("Invalid test result value " + str(value))
+
+    res = 0       
+    if failed_tests:
+        log("\n\nFAILED TESTS:")
+        for test in failed_tests:
+            print(RESULT_NAMES[test[0]] + ": " + str(test[1]))
+        
+        log("\n!! THERE WERE ERRORS !!")
+        res = 1
+    else:
+        log("\n-- SUCCESS --")
+        res = 0
+
+    log("PASSED: " + str(passed_count) + ", FAILED: " + str(len(failed_tests)) + ", SKIPPED: " + str(skipped_count))
+        
+    return res
+
 
 def check_file_exists(name):
     if not os.path.exists(name):
@@ -258,11 +288,7 @@ def run_tests(install_dirs: Dict, argv=[]) -> int:
     log(str(tool_paths))
     
     results = collect_and_run_tests(tool_paths, opts)
-    ec = report.report_results_to_output(results)
-    
-    zipfile = report_results_as_html_and_collect_fails(opts, results)
-    # if reporting, copy zipfile to server
-    
+    ec = report_results(results)
     return ec
 
 
