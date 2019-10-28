@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+# corresponds to 3012_base_dyn_geom_tetrahedron_shrink
 
 # TODO: this is probably not the way how the inmport form a different directory should be done
 import os
@@ -61,7 +62,7 @@ def main():
     world = m.mcell_create()
     m.mcell_init_state(world)
     dt = 1e-6
-    iterations = 2
+    iterations = 20
     m.mcell_set_time_step(world, dt)
     m.mcell_set_iterations(world, iterations)
     m.mcell_set_seed(world, 1)
@@ -75,17 +76,17 @@ def main():
     box_obj = m.create_polygon_object(world, tetrahedron_vert_list, tetrahedron_face_list, scene, box_name)
 
     # Define volume molecules species
-    species_a = m.create_species(world, "vm", 0, False)
+    species_a = m.create_species(world, "vm", 1e-5, False)
     
     
     # Their releases 
     # Note: we are releasing molecules form a single point, this means that for several initial iterations, 
     # there will be less hits, it would be better to do release the molecules uniformly in the top and bottom half-cubes
     rel_location_a = m.Vector3(0.0, 0.0, 0.0)
-    rel_diameter = m.Vector3(0.02, 0.02, 0.02)
+    rel_diameter = m.Vector3(0.00, 0.00, 0.00)
     
     position_a, diameter_a, sphere_release_object_a = m.create_release_site(
-        world, scene, rel_location_a, rel_diameter, m.SHAPE_SPHERICAL, 4, 0, species_a,
+        world, scene, rel_location_a, rel_diameter, m.SHAPE_SPHERICAL, 10, 0, species_a,
         "rel_a")
 
     # Create viz data
@@ -119,11 +120,11 @@ def main():
     for i in range(iterations + 1):
         
         # mcell3 does geometry change as the first thing in an iteration 
-        if i == 2:
+        if i == 10:
             # change geometry of vertex 0
             # the recomputation of units should be done preferably by the API
             #  but for now we do it here
-            displacement = m.vec3_t(0, 0, +0.01/world4.get_world_constants().length_unit) 
+            displacement = m.vec3_t(0, 0, -0.01/world4.get_world_constants().length_unit) 
             p.add_vertex_move(0, displacement)
 
             # update molecules after geonetry has changed
