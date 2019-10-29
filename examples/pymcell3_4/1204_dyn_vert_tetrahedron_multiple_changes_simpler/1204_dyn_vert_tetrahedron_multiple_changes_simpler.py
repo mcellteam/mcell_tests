@@ -121,19 +121,6 @@ def main():
     
     for i in range(iterations + 1):
         
-        # mcell3 does geometry change as the first thing in an iteration 
-        if i == 10:
-            # even with this small change, some molecules are placed to a different wall than 
-            # what moved it in mcell3
-            displacement = m.vec3_t(0, 0, -0.01/lu) 
-            p.add_vertex_move(0, displacement)
-            p.apply_vertex_moves()
-            
-        if i == 20:
-            displacement = m.vec3_t(0.01/lu, 0.01/lu, 0.01/lu) 
-            p.add_vertex_move(0, displacement)
-            p.apply_vertex_moves()
-
         if i == 30:
             displacement0 = m.vec3_t(0, 0, -0.01/lu) 
             p.add_vertex_move(0, displacement0)
@@ -142,17 +129,6 @@ def main():
             displacement2 = m.vec3_t(0, -0.01/lu, 0) 
             p.add_vertex_move(2, displacement2)
             displacement3 = m.vec3_t(0, +0.01/lu, 0) 
-            p.add_vertex_move(3, displacement3)
-            p.apply_vertex_moves()
-
-        if i == 40:
-            displacement0 = m.vec3_t(0, 0, +0.01/lu) 
-            p.add_vertex_move(0, displacement0)
-            displacement1 = m.vec3_t(-0.005/lu, 0, 0) 
-            p.add_vertex_move(1, displacement1)
-            displacement2 = m.vec3_t(0, -0.01/lu, 0) 
-            p.add_vertex_move(2, displacement2)
-            displacement3 = m.vec3_t(0, 0, -0.01/lu) 
             p.add_vertex_move(3, displacement3)
             p.apply_vertex_moves()
             
