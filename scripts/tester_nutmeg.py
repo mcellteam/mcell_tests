@@ -513,9 +513,9 @@ class TesterNutmeg(TesterBase):
             ref_file = os.path.join(self.test_work_path, check.data_file)
             sz = os.path.getsize(ref_file)
             if check.test_type == TEST_TYPE_CHECK_EMPTY_FILES:
-                res = sz == 0
+                res = PASSED if sz == 0 else FAILED_NUTMEG_SPEC
             else:
-                res = sz != 0
+                res = PASSED if sz != 0 else FAILED_NUTMEG_SPEC
             
         else:
             fatal_error("Unexpected check type " + TEST_TYPE_ID_TO_NAME[check.test_type])
