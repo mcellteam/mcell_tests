@@ -42,8 +42,9 @@ class TesterPymcell(TesterBase):
     def __init___(self, test_dir: str, args: List[str], tool_paths: ToolPaths):
         super(TesterMdl, self).__init__(test_dir, args, tool_paths)
     
-    def check_prerequisites(self) -> None:
-        if not os.path.exists(self.tool_paths.pymcell_module):
+    @staticmethod
+    def check_prerequisites(tool_paths: ToolPaths) -> None:
+        if not os.path.exists(tool_paths.pymcell_module):
             fatal_error("Could not find module '" + self.tool_paths.pymcell_module + ".")
         
     def update_reference(self) -> None:
@@ -75,8 +76,6 @@ class TesterPymcell(TesterBase):
             return PASSED
 
     def test(self) -> int:
-        self.check_prerequisites()
-
         if self.should_be_skipped():
             return SKIPPED
 
