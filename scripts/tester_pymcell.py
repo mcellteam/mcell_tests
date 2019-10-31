@@ -27,7 +27,7 @@ from typing import List, Dict
 
 from test_settings import *
 from tester_base import TesterBase
-from test_utils import ToolPaths, report_test_error, report_test_success
+from test_utils import ToolPaths, log_test_error, log_test_success
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
@@ -69,7 +69,7 @@ class TesterPymcell(TesterBase):
         log_name = self.test_name+'.pymcell.log'
         exit_code = run(cmd, shell=True, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         if (exit_code):
-            report_test_error(self.test_name, "Pymcell failed, see '" + os.path.join(self.test_name, log_name) + "'.")
+            log_test_error(self.test_name, "Pymcell failed, see '" + os.path.join(self.test_name, log_name) + "'.")
             return FAILED_MCELL
         else:
             return PASSED

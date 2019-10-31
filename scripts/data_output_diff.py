@@ -57,29 +57,34 @@ def read_viz_output_line(fin):
     return res
 
 
+def check_or_build_fdiff():
+    fdiff = os.path.join(FDIFF_DIR, FDIFF)
+    if not os.path.exists(fdiff):
+        make_ec = run(
+            ['make'], 
+            cwd=os.path.abspath(FDIFF_DIR),
+            verbose=True, 
+            fout_name='make.log', 
+            print_redirected_output=True
+        )
+        if make_ec != 0:
+            fatal_error('Could not builf fdiff, terminating')
+            
+    return fdiff
+
+
 # return True if two files are identical while counting with floating point tolerance
-def compare_data_output_files(fname_ref, fname_new, exact):
+def compare_data_output_files(fname_ref, fname_new, exact, fdiff_args):
     
     if exact:
-        diff_executable = DIFF
+        cmd = [DIFF, fname_ref, fname_new] 
     else:
-        
-        fdiff = os.path.join(FDIFF_DIR, FDIFF)
-        if not os.path.exists(fdiff):
-            make_ec = run(
-                ['make'], 
-                cwd=os.path.abspath(FDIFF_DIR),
-                verbose=True, 
-                fout_name='make.log', 
-                print_redirected_output=True
-            )
-            if make_ec != 0:
-                fatal_error('Could not builf fdiff, terminating')
-                
-        diff_executable = os.path.join(FDIFF_DIR, FDIFF)
+        diff_executable = check_or_build_fdiff()
+        cmd = [diff_executable, fname_ref, fname_new]
+        cmd += fdiff_args  # might be an empty list 
         
     ec = run(
-        [diff_executable, fname_ref, fname_new], 
+        cmd, 
         cwd=os.getcwd(),
         verbose=False, 
         fout_name='diff.log', 
@@ -92,7 +97,7 @@ def compare_data_output_files(fname_ref, fname_new, exact):
         return PASSED
                 
                 
-def compare_data_output_directory(dir_ref, dir_new, exact=False):
+def compare_data_output_directory(dir_ref, dir_new, exact=False, fdiff_args=[]):
     ref_dir = os.path.abspath(dir_ref)
     if not os.path.exists(ref_dir):
         log('Directory ' + ref_dir + ' does not exist')
@@ -111,7 +116,7 @@ def compare_data_output_directory(dir_ref, dir_new, exact=False):
             log('File ' + fname_new + ' does not exist')
             return FAILED_DIFF
         
-        res = compare_data_output_files(fname_ref, fname_new, exact)
+        res = compare_data_output_files(fname_ref, fname_new, exact, fdiff_args)
         if res != PASSED:
             log('Comparison failed.')
             return res

@@ -120,7 +120,7 @@ bool parse_line(const string& line, line_info& info) {
 }
 
 
-string fdiff_streams(ifstream& ref, ifstream& test) {
+string fdiff_streams(ifstream& ref, ifstream& test, float_t tolerance) {
   string ref_line, test_line;
   line_info ref_info, test_info;
 
@@ -149,7 +149,7 @@ string fdiff_streams(ifstream& ref, ifstream& test) {
     }
 
     for (int i = 0; i < ref_info.num_parsed_values; i++) {
-      if (fabs(ref_info.values[i] - test_info.values[i]) > EPS) {
+      if (fabs(ref_info.values[i] - test_info.values[i]) > tolerance) {
         stringstream ss;
         ss << "Values " << setprecision(10) << ref_info.values[i] <<
             " and " << setprecision(10) << test_info.values[i] << " differ";
@@ -166,12 +166,23 @@ string fdiff_streams(ifstream& ref, ifstream& test) {
 
 
 int main(const int argc, const char* argv[]) {
-  if (argc != 3) {
-    cerr << "Expecting reference and testing output file names.\n";
+  if (argc != 3 && argc != 4) {
+    cerr << "Expecting reference and testing output file names, optionally a specific tolerance.\n";
     exit(1);
   }
   const char* fname_ref = argv[1];
   const char* fname_test = argv[2];
+
+  float_t tolerance = EPS;
+  if (argc == 4) {
+    const char* tolerance_str = argv[3];
+    char* end;
+    tolerance = strtof(tolerance_str, &end);
+    if (*end != '\0') {
+      cerr << "Could not parse tolerance value " << fname_ref << ".\n";
+      return 1;
+    }
+  }
 
   ifstream ref(fname_ref);
   if (!ref.is_open()) {
@@ -186,7 +197,7 @@ int main(const int argc, const char* argv[]) {
     exit(1);
   }
 
-  string res = fdiff_streams(ref, test);
+  string res = fdiff_streams(ref, test, tolerance);
 
   ref.close();
   test.close();

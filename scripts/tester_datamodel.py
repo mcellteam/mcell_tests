@@ -28,7 +28,7 @@ from typing import List, Dict
 
 from test_settings import *
 from tester_base import TesterBase
-from test_utils import ToolPaths, report_test_error, report_test_success
+from test_utils import ToolPaths
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
@@ -44,16 +44,12 @@ class TesterDataModel(TesterBase):
     def __init___(self, test_src_path: str, args: List[str], tool_paths: ToolPaths):
         super(TesterMdl, self).__init__(test_src_path, args, tool_paths)
 
-    def check_prerequisites(self) -> None:        
-        if self.mcell4_testing: 
-            fatal_error("TesterDataModel does not support mcell4 testing yet")
-        
-        if not os.path.exists(self.tool_paths.mcell_binary):
-            fatal_error("Could not find executable '" + self.tool_paths.mcell_binary + ".")
-            
-        if not os.path.exists(self.tool_paths.data_model_to_mdl_script):
+    @staticmethod
+    def check_prerequisites(tool_paths) -> None:
+        if not os.path.exists(tool_paths.data_model_to_mdl_script):
             fatal_error("Could not find data model conversion script '" + self.tool_paths.data_model_to_mdl_script + ".")
-
+            
+        TesterBase.check_prerequisites(tool_paths)
 
     def update_reference(self) -> None:
         viz_reference = os.path.join(self.test_src_path, get_ref_viz_data_dir(self.mcell4_testing), SEED_DIR)
@@ -143,8 +139,6 @@ class TesterDataModel(TesterBase):
                 shutil.copyfile(os.path.join(mcellr_gdat_res, f), os.path.join(mcellr_gdat_reference, f))
 
     def test(self) -> int:
-        self.check_prerequisites()
-
         if self.should_be_skipped():
             return SKIPPED
 

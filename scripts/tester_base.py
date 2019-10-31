@@ -30,7 +30,7 @@ from typing import List, Dict
 import data_output_diff
 
 from test_settings import *
-from test_utils import ToolPaths, report_test_error, report_test_success, replace_in_file
+from test_utils import ToolPaths, log_test_error, log_test_success, replace_in_file
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
@@ -41,10 +41,12 @@ VERBOSE_DIFF = False
 ARGS_FILE = 'args.toml'
 
 MCELL_ARGS_KEY = 'mcell'
+FDIFF_ARGS_KEY = 'fdiff'
 
 class ExtraArgs:
     def __init__(self, test_src_path: str):
         self.mcell_args = []
+        self.fdiff_args = []
 
         # parse args.toml if present        
         args_file_name = os.path.join(test_src_path, ARGS_FILE)
@@ -53,6 +55,9 @@ class ExtraArgs:
             if MCELL_ARGS_KEY in top_dict:
                 args_str =  top_dict[MCELL_ARGS_KEY]
                 self.mcell_args = args_str.split(' ')
+            if FDIFF_ARGS_KEY in top_dict:
+                args_str =  top_dict[FDIFF_ARGS_KEY]
+                self.fdiff_args = args_str.split(' ')
 
 
 # TODO: maybe move check_preconditions and other things such as initialization 
@@ -90,13 +95,20 @@ class TesterBase:
                          self.test_name
             )
         )
-        
+
         self.extra_args = ExtraArgs(self.test_src_path)
         
-    @abc.abstractmethod        
-    def test(self) -> int:
-        pass  # normally is an integer PASSED, FAILED_MCELL, ... returned
-    
+    @staticmethod
+    def check_prerequisites(tool_paths: ToolPaths) -> None:
+        if not os.path.exists(tool_paths.mcell_binary):
+            fatal_error("Could not find executable '" + self.tool_paths.mcell_binary + ".")
+
+        data_output_diff.check_or_build_fdiff()
+        
+        # work dir, e.g. /nadata/cnl/home/ahusar/src/mcell_tests/work         
+        if not os.path.exists(tool_paths.work_path):
+            os.mkdir(tool_paths.work_path)
+
     def should_be_skipped(self) -> bool:
         if os.path.exists(os.path.join(self.test_src_path, 'skip')):
             log("SKIP : " + self.test_name)
@@ -112,17 +124,12 @@ class TesterBase:
             return False
     
     def clean_and_create_work_dir(self) -> None:
-        # work dir, e.g. /nadata/cnl/home/ahusar/src/mcell_tests/work         
-        if not os.path.exists(self.tool_paths.work_path):
-            os.mkdir(self.tool_paths.work_path)
-
         if os.path.exists(self.test_work_path):
             # log("Erasing '" + self.test_name + "' in " + os.getcwd())
             shutil.rmtree(self.test_work_path)
-            
+
         os.makedirs(self.test_work_path)
         os.chdir(self.test_work_path)
-        
         assert self.test_work_path == os.getcwd()
 
     def check_reference(self, seed_dir: str, ref_dir_name: str, test_dir_name: str, exact_diff: bool, msg: str) -> int:
@@ -138,10 +145,11 @@ class TesterBase:
         res = data_output_diff.compare_data_output_directory(
             ref_path, 
             os.path.join(test_dir_name, seed_dir),
-            exact_diff)
+            exact_diff,
+            self.extra_args.fdiff_args)
         
         if res != PASSED:
-            report_test_error(self.test_name, msg)
+            log_test_error(self.test_name, msg)
         return res
 
     def check_reference_data(self, seed_dir: str) -> int:
@@ -170,7 +178,7 @@ class TesterBase:
             return res
      
         if res == PASSED:
-            report_test_success(self.test_name)
+            log_test_success(self.test_name)
         
         return res           
 
@@ -189,7 +197,7 @@ class TesterBase:
         log_name = self.test_name+'.mcell.log'
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         if (exit_code):
-            report_test_error(self.test_name, "MCell failed, see '" + os.path.join(self.test_name, log_name) + "'.")
+            log_test_error(self.test_name, "MCell failed, see '" + os.path.join(self.test_name, log_name) + "'.")
             return FAILED_MCELL
         else:
             return PASSED
@@ -203,7 +211,7 @@ class TesterBase:
         log_name = self.test_name+'.dm_to_mdl.log'
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name)
         if exit_code != 0:
-            report_test_error(self.test_name, "JSON to mdl conversion failed, see '" + os.path.join(self.test_name, log_name) + "'.")
+            log_test_error(self.test_name, "JSON to mdl conversion failed, see '" + os.path.join(self.test_name, log_name) + "'.")
             return FAILED_DM_TO_MDL_CONVERSION
         else:
             return PASSED
@@ -212,4 +220,8 @@ class TesterBase:
         fname = os.path.join(self.test_work_path, 'Scene.viz_output.mdl')
         replace_in_file(fname, 'CELLBLENDER', 'ASCII')
         return PASSED
-    
+
+    @abc.abstractmethod        
+    def test(self) -> int:
+        pass  # derived methods return integer value PASSED, FAILED_MCELL, etc.
+        

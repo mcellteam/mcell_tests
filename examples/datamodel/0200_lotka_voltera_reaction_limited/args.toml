@@ -1,0 +1,2 @@
+# windows run produces quite different result, just for this specific test
+fdiff = "1e-7"

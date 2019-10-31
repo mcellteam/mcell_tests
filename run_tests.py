@@ -44,7 +44,7 @@ THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, 'scripts'))
 
 from test_settings import *
-from test_utils import ToolPaths, report_test_error, report_test_success
+from test_utils import ToolPaths
 
 # import tester classes
 from tester_mdl import TesterMdl
@@ -159,6 +159,7 @@ def get_dict_value(d: Dict, key: str, fname: str) -> str:
     res = d[key]
     return res
     
+    
 def load_test_config(config_path: str) -> List[TestSetInfo]:
     top_dict = toml.load(config_path)
     
@@ -193,8 +194,10 @@ def collect_and_run_tests(tool_paths: ToolPaths, opts: TestOptions) -> Dict:
     test_set_infos = load_test_config(opts.config)
     
     test_infos = []
+    tester_classes = set()
     for test_set in test_set_infos:
         test_infos += get_test_dirs(test_set)
+        tester_classes.add(test_set.tester_class)
 
     filtered_test_infos = []
     for info in test_infos:
@@ -206,6 +209,10 @@ def collect_and_run_tests(tool_paths: ToolPaths, opts: TestOptions) -> Dict:
     log("Tests to be run:")
     for info in filtered_test_infos:
         log(str(info))
+
+    log("Handling tester class prerequisites")
+    for tester_class in tester_classes:
+        tester_class.check_prerequisites(tool_paths)
 
     results = {}
     work_dir = os.getcwd()
@@ -232,26 +239,35 @@ def collect_and_run_tests(tool_paths: ToolPaths, opts: TestOptions) -> Dict:
 
 def report_results(results: Dict) -> int:
     print("\n**** RESULTS ****")
-    passed = 0
-    failed = 0
-    skipped = 0
+    passed_count = 0
+    skipped_count = 0
+    failed_tests = []
     for key, value in results.items():
         print(RESULT_NAMES[value] + ": " + str(key))
         if value == PASSED:
-            passed += 1
+            passed_count += 1
         elif value in [FAILED_MCELL, FAILED_DIFF, FAILED_DM_TO_MDL_CONVERSION, FAILED_NUTMEG_SPEC]:
-            failed += 1
+            failed_tests.append((value, key))
         elif value == SKIPPED:
-            skipped += 1
+            skipped_count += 1
         else:
             fatal_error("Invalid test result value " + str(value))
-           
-    if failed != 0:
+
+    res = 0       
+    if failed_tests:
+        log("\n\nFAILED TESTS:")
+        for test in failed_tests:
+            print(RESULT_NAMES[test[0]] + ": " + str(test[1]))
+        
         log("\n!! THERE WERE ERRORS !!")
-        return 1
+        res = 1
     else:
         log("\n-- SUCCESS --")
-        return 0
+        res = 0
+
+    log("PASSED: " + str(passed_count) + ", FAILED: " + str(len(failed_tests)) + ", SKIPPED: " + str(skipped_count))
+        
+    return res
 
 
 def check_file_exists(name):
@@ -270,10 +286,6 @@ def run_tests(install_dirs: Dict, argv=[]) -> int:
     # FIXME: use arguments directly to initialize ToolPaths    
     tool_paths = ToolPaths(install_dirs)
     log(str(tool_paths))
-    
-    # maybre move to ToolPaths
-    check_file_exists(tool_paths.mcell_binary)
-    check_file_exists(tool_paths.data_model_to_mdl_script) 
     
     results = collect_and_run_tests(tool_paths, opts)
     ec = report_results(results)

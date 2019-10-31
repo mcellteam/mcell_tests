@@ -27,7 +27,7 @@ from typing import List, Dict
 
 from test_settings import *
 from tester_base import TesterBase
-from test_utils import ToolPaths, report_test_error, report_test_success
+from test_utils import ToolPaths
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
@@ -43,9 +43,9 @@ class TesterMdl(TesterBase):
     def __init___(self, test_dir: str, args: List[str], tool_paths: ToolPaths):
         super(TesterMdl, self).__init__(test_dir, args, tool_paths)
     
-    def check_prerequisites(self) -> None:
-        if not os.path.exists(self.tool_paths.mcell_binary):
-            fatal_error("Could not find executable '" + self.tool_paths.mcell_binary + ".")
+    @staticmethod
+    def check_prerequisites(tool_paths: ToolPaths) -> None:
+        TesterBase.check_prerequisites(tool_paths)        
         
     def update_reference(self) -> None:
         reference = os.path.join('..', self.test_src_path, REF_VIZ_OUTPUT_DIR, SEED_DIR)
@@ -61,8 +61,6 @@ class TesterMdl(TesterBase):
         shutil.copytree(new_res, reference)
 
     def test(self) -> int:
-        self.check_prerequisites()
-
         if self.should_be_skipped():
             return SKIPPED
 

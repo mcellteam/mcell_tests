@@ -31,7 +31,7 @@ from typing import List, Dict
 import data_output_diff
 from test_settings import *
 from tester_base import TesterBase
-from test_utils import ToolPaths, report_test_error, report_test_success, replace_in_file
+from test_utils import ToolPaths, replace_in_file
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
@@ -342,13 +342,10 @@ class TesterNutmeg(TesterBase):
     def __init___(self, test_src_path: str, args: List[str], tool_paths: ToolPaths):
         super(TesterNutmeg, self).__init__(test_src_path, args, tool_paths)
 
-    def check_prerequisites(self) -> None:
-        if self.mcell4_testing: 
-            fatal_error("TesterNutmeg does not support mcell4 testing yet")
+    @staticmethod
+    def check_prerequisites(tool_paths: ToolPaths) -> None:
+        TesterBase.check_prerequisites(tool_paths) 
         
-        if not os.path.exists(self.tool_paths.mcell_binary):
-            fatal_error("Could not find executable '" + self.tool_paths.mcell_binary + ".")
-
     def nutmeg_log(self, msg, test_type) -> None:
         full_msg = TEST_TYPE_ID_TO_NAME[test_type] + ": " + msg
         log_fname = os.path.join(self.test_work_path, NUTMEG_LOG_FILE_NAME)
@@ -483,7 +480,8 @@ class TesterNutmeg(TesterBase):
             res = data_output_diff.compare_data_output_files(
                 os.path.join('..', self.test_src_path, REF_NUTMEG_DATA_DIR, check.data_file),
                 os.path.join(self.test_work_path, check.data_file),
-                exact=(check.test_type == TEST_TYPE_DIFF_FILE_CONTENT) )
+                exact=(check.test_type == TEST_TYPE_DIFF_FILE_CONTENT),
+                fdiff_args=self.extra_args.fdiff_args )
             self.nutmeg_log("Comparison result of '" + check.data_file + "': " + RESULT_NAMES[res], check.test_type)
 
         elif check.test_type in [TEST_TYPE_ZERO_COUNTS, TEST_TYPE_POSITIVE_OR_ZERO_COUNTS, 
@@ -515,9 +513,9 @@ class TesterNutmeg(TesterBase):
             ref_file = os.path.join(self.test_work_path, check.data_file)
             sz = os.path.getsize(ref_file)
             if check.test_type == TEST_TYPE_CHECK_EMPTY_FILES:
-                res = sz == 0
+                res = PASSED if sz == 0 else FAILED_NUTMEG_SPEC
             else:
-                res = sz != 0
+                res = PASSED if sz != 0 else FAILED_NUTMEG_SPEC
             
         else:
             fatal_error("Unexpected check type " + TEST_TYPE_ID_TO_NAME[check.test_type])
@@ -546,8 +544,6 @@ class TesterNutmeg(TesterBase):
         return PASSED
 
     def test(self) -> int:
-        self.check_prerequisites()
-
         if self.should_be_skipped():
             return SKIPPED
 
