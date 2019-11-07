@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# corresponds to 3012_base_dyn_geom_tetrahedron_shrink
+# corresponds to 3013_base_dyn_geom_tetrahedron_multiple_changes
 
 # TODO: this is probably not the way how the inmport form a different directory should be done
 import os
