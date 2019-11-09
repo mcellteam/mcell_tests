@@ -101,7 +101,7 @@ class TesterBase:
     @staticmethod
     def check_prerequisites(tool_paths: ToolPaths) -> None:
         if not os.path.exists(tool_paths.mcell_binary):
-            fatal_error("Could not find executable '" + self.tool_paths.mcell_binary + ".")
+            fatal_error("Could not find executable '" + tool_paths.mcell_binary + ".")
 
         data_output_diff.check_or_build_fdiff()
         

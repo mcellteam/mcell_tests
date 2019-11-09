@@ -47,7 +47,7 @@ class TesterDataModel(TesterBase):
     @staticmethod
     def check_prerequisites(tool_paths) -> None:
         if not os.path.exists(tool_paths.data_model_to_mdl_script):
-            fatal_error("Could not find data model conversion script '" + self.tool_paths.data_model_to_mdl_script + ".")
+            fatal_error("Could not find data model conversion script '" + tool_paths.data_model_to_mdl_script + ".")
             
         TesterBase.check_prerequisites(tool_paths)
 
