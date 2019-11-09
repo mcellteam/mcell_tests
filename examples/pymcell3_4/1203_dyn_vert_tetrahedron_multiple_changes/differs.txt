@@ -1,2 +1,1 @@
-Starts to differs from mcell3 in iteration 31 and molecule 41 because it was planced slightly elsewhere,
-but still correctly. 
+Starts to differs from mcell3 in iteration 31 and molecule 99 because a wall was hit a bit earlier.

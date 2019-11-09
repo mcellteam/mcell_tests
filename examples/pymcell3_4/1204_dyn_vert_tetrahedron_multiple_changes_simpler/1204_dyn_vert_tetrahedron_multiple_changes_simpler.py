@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # corresponds to 3012_base_dyn_geom_tetrahedron_shrink
 

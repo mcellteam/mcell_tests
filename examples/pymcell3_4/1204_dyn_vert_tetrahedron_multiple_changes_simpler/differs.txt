@@ -1,2 +1,1 @@
-Result is different from MCell3 reference tests/mdl_mcell3/3014_base_dyn_geom_tetrahedron_multiple_changes_simpler,
-but seems correct. 
+Starts to differs from mcell3 in iteration 31 and molecule 6 because a wall was hit a bit earlier.
