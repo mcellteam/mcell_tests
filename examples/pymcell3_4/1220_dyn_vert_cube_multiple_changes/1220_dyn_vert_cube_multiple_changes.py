@@ -1,8 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
-# corresponds to 3012_base_dyn_geom_tetrahedron_shrink
+# corresponds to 3020_base_dyn_geom_cube_multiple_changes
 
-# TODO: this is probably not the way how the inmport form a different directory should be done
+# TODO: this is probably not the way how the import form a different directory should be done
 import os
 import sys
 
