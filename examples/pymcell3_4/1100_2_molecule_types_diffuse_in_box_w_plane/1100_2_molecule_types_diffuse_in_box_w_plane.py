@@ -1,9 +1,11 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 
 # TODO: this is probably not the way how the inmport form a different directory should be done
 import os
 import sys
+from pprint import pprint
+
 #import pandas as pd
 #import numpy as np
 #import matplotlib.mlab as mlab
@@ -61,10 +63,33 @@ plane_face_list = [
 plane_reg_face_list = [ 0, 1 ]
 
 
-def wall_hit():
-    print("Python callback called")
-    return 0.0
+# For now we have just this callback thet is called every time
+# a wall is hit. A more efficient variant will be provided in the 
+# close future 
+
+class HitInfo():
+    def __init__(self, molecule_id, geometry_object_id, wall_id, time, pos_x, pos_y, pos_z):
+        self.molecule_id = molecule_id 
+        self.geometry_object_id = geometry_object_id
+        self.wall_id = wall_id
+        self.time = time
+        self.pos_x = pos_x
+        self.pos_y = pos_y
+        self.pos_z = pos_z
+        
+    def __repr__(self):
+        return str(vars(self))
+
+
+def wall_hit(molecule_id, geometry_object_id, wall_id, time, pos_x, pos_y, pos_z):
+    global hit_occured
+    hit_occured = True
     
+    info = HitInfo(molecule_id, geometry_object_id, wall_id, time, pos_x, pos_y, pos_z)
+    print(info)
+    
+    return 0.0
+
 
 def main():
     world = m.mcell_create()
