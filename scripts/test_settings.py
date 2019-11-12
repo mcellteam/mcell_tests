@@ -36,7 +36,7 @@ PYMCELL_MODULE = 'pymcell.py'
 PYMCELL_DIR = 'python' 
 MCELL_DIR_VARIABLE = 'MCELL_DIR'
 
-PYTHON_BINARY = 'python'
+PYTHON_BINARY = 'python3'
 DATA_MODEL_TO_MDL_DIR = 'mdl'
 DATA_MODEL_TO_MDL_SCRIPT = 'data_model_to_mdl.py'
 
