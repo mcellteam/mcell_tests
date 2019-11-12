@@ -241,6 +241,7 @@ def report_results(results: Dict) -> int:
     print("\n**** RESULTS ****")
     passed_count = 0
     skipped_count = 0
+    known_fails_count = 0
     failed_tests = []
     for key, value in results.items():
         print(RESULT_NAMES[value] + ": " + str(key))
@@ -250,6 +251,8 @@ def report_results(results: Dict) -> int:
             failed_tests.append((value, key))
         elif value == SKIPPED:
             skipped_count += 1
+        elif value == KNOWN_FAIL:
+            known_fails_count += 1            
         else:
             fatal_error("Invalid test result value " + str(value))
 
@@ -265,7 +268,7 @@ def report_results(results: Dict) -> int:
         log("\n-- SUCCESS --")
         res = 0
 
-    log("PASSED: " + str(passed_count) + ", FAILED: " + str(len(failed_tests)) + ", SKIPPED: " + str(skipped_count))
+    log("PASSED: " + str(passed_count) + ", FAILED: " + str(len(failed_tests)) + ", SKIPPED: " + str(skipped_count) + ", KNOWN FAILS: " + str(skipped_count))
         
     return res
 

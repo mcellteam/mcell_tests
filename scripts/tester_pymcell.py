@@ -80,6 +80,9 @@ class TesterPymcell(TesterBase):
         if self.should_be_skipped():
             return SKIPPED
 
+        if self.is_known_fail():
+            return SKIPPED
+        
         self.clean_and_create_work_dir()
         
         res = self.run_pymcell()

@@ -63,7 +63,10 @@ class TesterMdl(TesterBase):
     def test(self) -> int:
         if self.should_be_skipped():
             return SKIPPED
-
+            
+        if self.is_known_fail():
+            return SKIPPED
+        
         self.clean_and_create_work_dir()
         
         mcell_args = MCELL_BASE_ARGS

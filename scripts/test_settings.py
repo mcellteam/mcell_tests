@@ -45,8 +45,9 @@ MCELL_TIMEOUT=600
 
 PASSED = 1
 SKIPPED = 2
+KNOWN_FAIL = 3
 
-NUTMEG_UPDATED_REFERENCE = 3 # only for purpose of preparing tests
+NUTMEG_UPDATED_REFERENCE = 5 # only for purpose of preparing tests
 
 FAILED_DM_TO_MDL_CONVERSION = 10
 FAILED_MCELL = 11
