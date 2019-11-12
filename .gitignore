@@ -8,3 +8,5 @@
 /**/*_files/
 /**/*.blend1
 /**/*.pyc
+/make.log
+scripts/fdiff/fdiff.dSYM
