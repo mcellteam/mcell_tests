@@ -143,7 +143,7 @@ class TesterDataModel(TesterBase):
             return SKIPPED
             
         if self.is_known_fail():
-            return SKIPPED
+            return KNOWN_FAIL
         
         self.clean_and_create_work_dir()
         
