@@ -268,7 +268,7 @@ def report_results(results: Dict) -> int:
         log("\n-- SUCCESS --")
         res = 0
 
-    log("PASSED: " + str(passed_count) + ", FAILED: " + str(len(failed_tests)) + ", SKIPPED: " + str(skipped_count) + ", KNOWN FAILS: " + str(skipped_count))
+    log("PASSED: " + str(passed_count) + ", FAILED: " + str(len(failed_tests)) + ", SKIPPED: " + str(skipped_count) + ", KNOWN FAILS: " + str(known_fails_count))
         
     return res
 
