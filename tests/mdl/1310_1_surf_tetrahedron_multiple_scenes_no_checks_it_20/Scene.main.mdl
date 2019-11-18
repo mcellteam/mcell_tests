@@ -1,0 +1,39 @@
+ITERATIONS = 20
+TIME_STEP = 1e-6
+
+WARNINGS
+{
+  LARGE_MOLECULAR_DISPLACEMENT = IGNORED
+}
+
+INCLUDE_FILE = "Scene.geometry.mdl"
+
+DEFINE_MOLECULES
+{
+  sm { DIFFUSION_CONSTANT_2D = 1e-7 }
+}
+
+// instantiate mols inside of the object
+INSTANTIATE Scene OBJECT
+{
+  rel_vm RELEASE_SITE
+  {
+    SHAPE = DGScene.A
+    MOLECULE = sm'
+    NUMBER_TO_RELEASE = 10
+    RELEASE_PROBABILITY = 1
+  }
+}
+
+sprintf(seed,"%05g",SEED)
+
+VIZ_OUTPUT
+{
+  MODE = ASCII
+  FILENAME = "./viz_data/seed_" & seed & "/Scene"
+  MOLECULES
+  {
+    NAME_LIST {ALL_MOLECULES}
+    ITERATION_NUMBERS {ALL_DATA @ ALL_ITERATIONS}
+  }
+}
