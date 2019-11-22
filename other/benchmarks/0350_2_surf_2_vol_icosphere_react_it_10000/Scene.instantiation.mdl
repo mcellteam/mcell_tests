@@ -1,0 +1,21 @@
+INSTANTIATE Scene OBJECT
+{
+  Icosphere OBJECT Icosphere {}
+  rel_va RELEASE_SITE
+  {
+   SHAPE = SPHERICAL
+   LOCATION = [0, 0, 0]
+   SITE_DIAMETER = 0
+   MOLECULE = va
+   NUMBER_TO_RELEASE = 400
+   RELEASE_PROBABILITY = 1
+  }
+  rel_sb RELEASE_SITE
+  {
+   SHAPE = Scene.Icosphere
+   MOLECULE = sb'
+   NUMBER_TO_RELEASE = 400
+   RELEASE_PROBABILITY = 1
+  }
+}
+
