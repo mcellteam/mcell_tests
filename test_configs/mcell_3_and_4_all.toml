@@ -1,0 +1,56 @@
+TODO: make
+
+[[set]]
+  category = 'tests'
+  testSet = 'mdl'
+  testerClass = 'TesterMdl'
+  
+[[set]]
+  category = 'examples'
+  testSet = 'datamodel'
+  testerClass = 'TesterDataModel'
+
+[[set]]
+  category = 'tests'
+  testSet = 'datamodel_mcellr'
+  testerClass = 'TesterDataModel'
+
+[[set]]
+  category = 'tests'
+  testSet = 'nutmeg_positive'
+  testerClass = 'TesterNutmeg'
+
+[[set]]
+  category = 'tests'
+  testSet = 'nutmeg_negative'
+  testerClass = 'TesterNutmeg'
+
+[[set]]
+  category = 'tests'
+  testSet = 'nutmeg_mcellr'
+  testerClass = 'TesterNutmeg'
+  
+[[set]]
+  category = 'tests'
+  testSet = 'mdl_mcell3'
+  testerClass = 'TesterMdl'
+  args = []
+  
+[[set]]
+  category = 'tests'
+  testSet = 'mdl'
+  testerClass = 'TesterMdl'
+  args = ['mcell4']
+    
+[[set]]
+  category = 'examples'
+  testSet = 'pymcell3_4'
+  testerClass = 'TesterPymcell'
+  args = ['mcell4'] # needed to know which reference data to use
+  
+[[set]]
+  category = 'examples'
+  testSet = 'pymcell3'
+  testerClass = 'TesterPymcell'
+  
+        
