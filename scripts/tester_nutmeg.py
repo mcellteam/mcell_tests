@@ -37,6 +37,8 @@ THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
 from utils import run, execute, log, fatal_error
 
+# set to True for additoinal info being printed onto terminal 
+NUTMEG_VERBOSE = False
 
 TEST_DESCRIPTION_FILE = 'test_description.toml'
 
@@ -351,7 +353,9 @@ class TesterNutmeg(TesterBase):
         log_fname = os.path.join(self.test_work_path, NUTMEG_LOG_FILE_NAME)
         with open(log_fname, "a+") as fout:
             fout.write(full_msg + "\n")
-        log(self.test_name + ": " + full_msg)
+            
+        if NUTMEG_VERBOSE:
+            log(self.test_name + ": " + full_msg)
 
     # returns exit code returned by mcell
     def run_mcell_for_nutmeg(self, run_info: RunInfo) -> int:
@@ -547,6 +551,9 @@ class TesterNutmeg(TesterBase):
         if self.should_be_skipped():
             return SKIPPED
 
+        if self.is_known_fail():
+            return SKIPPED
+        
         self.clean_and_create_work_dir()
         
         # transform the result ito something more readable or keep as dictionary?

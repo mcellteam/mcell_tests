@@ -115,6 +115,14 @@ class TesterBase:
             return True
         else:
             return False
+            
+    def is_known_fail(self) -> bool:
+        # TODO: report this in a better way, should be reported as error when it starts to wok
+        if os.path.exists(os.path.join(self.test_src_path, 'known_fail')):
+            log("KNOWN FAIL : " + self.test_name)
+            return True
+        else:
+            return False            
 
     def expected_wrong_ec(self) -> bool:
         if os.path.exists(os.path.join(self.test_src_path, 'expected_wrong_ec')):
