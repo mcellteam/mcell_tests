@@ -1,0 +1,25 @@
+// higher diffusion constants compared to test 2030
+DEFINE_MOLECULES
+{
+  va
+  {
+    DIFFUSION_CONSTANT_3D = 5e-6
+  }
+  vb
+  {
+    DIFFUSION_CONSTANT_3D = 3e-6
+  }  
+  sb
+  {
+    DIFFUSION_CONSTANT_2D = 1e-7
+  }
+  sc
+  {
+    DIFFUSION_CONSTANT_2D = 5e-6
+  }
+  sd
+  {
+    DIFFUSION_CONSTANT_2D = 5e-6
+  }
+}
+
