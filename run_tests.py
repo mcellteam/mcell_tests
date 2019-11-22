@@ -24,6 +24,8 @@ Python scripts.
 
 TODO: some sanity checks would be useful - e.g. testing that it can detect 
 that reference and new data are indeed different.
+
+TODO: build fdiff automatically
 """
 
 import os
