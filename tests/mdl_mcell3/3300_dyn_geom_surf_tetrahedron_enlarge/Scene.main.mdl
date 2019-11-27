@@ -1,5 +1,6 @@
 ITERATIONS = 20
 TIME_STEP = 1e-6
+CENTER_MOLECULES_ON_GRID = TRUE // used because mcell3 uses rng while moving surf mols in dynamic geometry that cannot be replicated
 
 WARNINGS
 {
