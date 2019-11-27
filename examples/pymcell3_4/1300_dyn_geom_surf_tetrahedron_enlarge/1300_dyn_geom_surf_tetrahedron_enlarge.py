@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-# TODO: this is probably not the way how the inmport form a different directory should be done
+# TODO: this is probably not the way how the import form a different directory should be done
 import os
 import sys
 
@@ -45,6 +45,7 @@ def main():
     m.mcell_set_iterations(world, iterations)
     m.mcell_set_seed(world, 1)
     m.mcell_set_with_checks_flag(world, 0)
+    m.mcell_set_randomize_smol_pos(world, 0)
 
     # Create Scene for simulation
     scene_name = 'Scene'
@@ -76,6 +77,7 @@ def main():
     m.mcell_init_output(world)
     
     #m.mcell_dump_state(world)
+    #sys.exit(0)
     
     # until now we used just mcell3 interface
     # what follows is mcell4 C++ interface (without any wrappers)
@@ -103,7 +105,7 @@ def main():
             # update molecules after geonetry has changed
             p.apply_vertex_moves()
             
-            world4.dump()
+            #world4.dump()
             
         print("Iteration " + str(i) + " started")
         sys.stdout.flush()
