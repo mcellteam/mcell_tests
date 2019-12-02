@@ -1,0 +1,6 @@
+0      ./geom1.mdl
+10e-06 ./geom2.mdl
+20e-06 ./geom3.mdl
+30e-06 ./geom4.mdl
+40e-06 ./geom5.mdl
+
