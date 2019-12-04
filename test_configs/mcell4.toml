@@ -4,3 +4,9 @@
   testerClass = 'TesterMdl'
   args = ['mcell4']
   
+[[set]]
+  category = 'examples'
+  testSet = 'pymcell3_4'
+  testerClass = 'TesterPymcell'
+  args = ['mcell4'] # needed to know which reference data to use
+  
