@@ -7,7 +7,7 @@ keywords = ["regression"]
   testType = "CHECK_SUCCESS"
 
 [[checks]]
-  CountMaximum = [10]
+  countMaximum = [10]
   dataFile = "B_World.dat"
   haveHeader = true
   testType = "COUNT_MINMAX"

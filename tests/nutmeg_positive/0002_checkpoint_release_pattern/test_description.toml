@@ -8,7 +8,7 @@ keywords = ["checkpoint", "regression"]
 
 [[checks]]
   countMaximum = [25]
-  dataFile = "react_data/seed_%05d/A.World.dat"
+  dataFile = "react_data/seed_00001/A.World.dat"
   description = "Make sure pattern has decayed properly after checkpoint. Heuristiacally, a maximum value of 25 seems like an sufficiently large upper limit"
   haveHeader = false
   maxTime = 0.000035
@@ -17,7 +17,7 @@ keywords = ["checkpoint", "regression"]
 
 [[checks]]
   countMinimum = [200]
-  dataFile = "react_data/seed_%05d/A.World.dat"
+  dataFile = "react_data/seed_00001/A.World.dat"
   description = "Make sure that second pulse of release patter occurs at the proper time"
   haveHeader = false
   maxTime = 0.00004

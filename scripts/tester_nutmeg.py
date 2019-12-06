@@ -77,13 +77,15 @@ KEY_COUNT_MINIMUM = 'countMinimum'
 KEY_COUNT_MAXIMUM = 'countMaximum'
 KEY_MIN_TIME = 'minTime'
 KEY_MAX_TIME = 'maxTime'
+KEY_DESCRIPTION = 'description'
 
 SUBKEYS_CHECKS = [
     KEY_FILE_NAMES, KEY_DATA_FILE, KEY_HAVE_HEADER, 
     KEY_REFERENCE_FILE, KEY_TEST_TYPE, 
     KEY_COUNT_MINIMUM, KEY_COUNT_MAXIMUM,
     KEY_MIN_TIME, KEY_MAX_TIME,
-    KEY_NUM_MATCHES, KEY_MATCH_PATTERN
+    KEY_NUM_MATCHES, KEY_MATCH_PATTERN,
+    KEY_DESCRIPTION
 ]
 
 KEY_INCLUDES = 'includes'
@@ -153,7 +155,7 @@ class CheckInfo:
 
 class RunInfo:
     def __init__(self):
-        self.mdl_file = None
+        self.mdl_files = []
         self.json_file = None
         self.command_line_options = []
         self.max_memory = None
@@ -170,10 +172,10 @@ class TestDescriptionParser:
         self.test_src_path = test_src_path
 
     def parse_error(self, msg: str):
-        log(msg + " While parsing " + os.path.join(self.test_src_path, TEST_DESCRIPTION_FILE) + ".")
+        log(msg + " while parsing " + os.path.join(self.test_src_path, TEST_DESCRIPTION_FILE) + ".")
 
     def parse_warning(self, msg: str):
-        log(msg + " While parsing " + os.path.join(self.test_src_path, TEST_DESCRIPTION_FILE) + ".")
+        log(msg + " while parsing " + os.path.join(self.test_src_path, TEST_DESCRIPTION_FILE) + ".")
 
     def get_dict_value(self, d: Dict, key: str) -> str:
         if key not in d:
@@ -181,22 +183,26 @@ class TestDescriptionParser:
         res = d[key]
         return res
     
-    def check_supported_keys(self, d: Dict, keys: List[str]) -> None:
+    def check_supported_keys(self, d: Dict, keys: List[str]) -> bool:
         for key in d.keys():
             if key not in keys:
                 self.parse_error("Unknown field '" + key + "' in " + str(d) + ".")
+                return False
+        return True
     
     def parse_run_info(self, top_dict: Dict) -> RunInfo:
         run_dict = self.get_dict_value(top_dict, KEY_RUN)
-        self.check_supported_keys(run_dict, SUBKEYS_RUN)
+        ok = self.check_supported_keys(run_dict, SUBKEYS_RUN)
+        if not ok:
+            return None
         
         res = RunInfo()
         
         if KEY_MDL_FILES in run_dict:
             mdlfiles = run_dict[KEY_MDL_FILES]
-            if len(mdlfiles) != 1:
-                self.parse_error("There can be just one mdl file (key '" + KEY_MDL_FILES + "').")
-            res.mdl_file = mdlfiles[0]  
+            if len(mdlfiles) < 1:
+                self.parse_error("There has to be at least one mdl file (key '" + KEY_MDL_FILES + "').")
+            res.mdl_files = mdlfiles  
 
         if KEY_JSON_FILE in run_dict:
             res.json_file = run_dict[KEY_JSON_FILE]
@@ -205,9 +211,9 @@ class TestDescriptionParser:
             res.max_memory = run_dict[KEY_MAX_MEMORY]
             
             
-        if res.mdl_file and res.json_file:
+        if res.mdl_files and res.json_file:
             self.parse_error("Only one of '" + KEY_MDL_FILES + "' and '" + KEY_JSON_FILE + "' can be specified.")
-        if not res.mdl_file and not res.json_file:
+        if not res.mdl_files and not res.json_file:
             self.parse_error("One of '" + KEY_MDL_FILES + "' and '" + KEY_JSON_FILE + "' must be specified.")
         
         if KEY_COMMAND_LINE_OPTIONS in run_dict:
@@ -243,7 +249,9 @@ class TestDescriptionParser:
         
     def parse_check_info(self, check_dict: Dict) -> CheckInfo:
         res = CheckInfo()
-        self.check_supported_keys(check_dict, SUBKEYS_CHECKS)
+        ok = self.check_supported_keys(check_dict, SUBKEYS_CHECKS)
+        if not ok:
+            return None
         
         test_type_str = self.get_dict_value(check_dict, KEY_TEST_TYPE)
         res.test_type = self.get_test_type(test_type_str)
@@ -252,10 +260,10 @@ class TestDescriptionParser:
 
             res.data_file = self.get_dict_value(check_dict, KEY_DATA_FILE)
             
-            if KEY_HAVE_HEADER in check_dict:
-                self.parse_warning("Key " + KEY_HAVE_HEADER + " is ignored")
-            if KEY_REFERENCE_FILE in check_dict:
-                self.parse_warning("Key " + KEY_REFERENCE_FILE + " is ignored")
+            #if KEY_HAVE_HEADER in check_dict:
+            #    self.parse_warning("Key " + KEY_HAVE_HEADER + " is ignored")
+            #if KEY_REFERENCE_FILE in check_dict:
+            #    self.parse_warning("Key " + KEY_REFERENCE_FILE + " is ignored")
                 
         elif res.test_type in [TEST_TYPE_ZERO_COUNTS, TEST_TYPE_POSITIVE_OR_ZERO_COUNTS, 
                                TEST_TYPE_POSITIVE_COUNTS, TEST_TYPE_COUNT_MINMAX]:
@@ -280,8 +288,8 @@ class TestDescriptionParser:
             if KEY_MAX_TIME in check_dict:
                 res.max_time = check_dict[KEY_MAX_TIME]
                 
-            if KEY_HAVE_HEADER in check_dict:
-                self.parse_warning("Key " + KEY_HAVE_HEADER + " is ignored")
+            #if KEY_HAVE_HEADER in check_dict:
+            #    self.parse_warning("Key " + KEY_HAVE_HEADER + " is ignored")
                 
         elif res.test_type == TEST_TYPE_FILE_MATCH_PATTERN:
             res.data_file = self.get_data_file_name(check_dict)
@@ -318,6 +326,8 @@ class TestDescriptionParser:
         # general run info        
         res = TestDescription()
         res.run_info = self.parse_run_info(top_dict)
+        if res.run_info is None:
+            return None
         
         # checks
         if KEY_CHECKS in top_dict:
@@ -363,38 +373,43 @@ class TesterNutmeg(TesterBase):
         ferr = open(os.path.join(self.test_work_path, STDERR_FILE_NAME), "w")
         flog = open(os.path.join(self.test_work_path, LOG_FILE_NAME), "w")
 
-        mcell_cmd = [self.tool_paths.mcell_binary]
-        mcell_cmd += run_info.command_line_options
         
-        if not run_info.json_file:
-            # run_info.mdl_file is in the test directory
-            mcell_cmd.append(os.path.join(self.test_src_path, run_info.mdl_file))
-        else:
-            # run_info.mdl_file is in the work directory
-            mcell_cmd.append(os.path.join(self.test_work_path, run_info.mdl_file))
-        
-        flog.write(str.join(" ", mcell_cmd) + " (" + str(mcell_cmd) + ")\ncwd: " + self.test_work_path + "\n")
+        for mdl_file in run_info.mdl_files:
+            mcell_cmd = [self.tool_paths.mcell_binary]
+            mcell_cmd += run_info.command_line_options
 
-        # should we enable mcellr mode?
-        mdlr_rules_file = os.path.join(self.test_work_path, MAIN_MDLR_RULES_FILE)
-        if os.path.exists(mdlr_rules_file):
-            mcell_cmd += [ '-r', mdlr_rules_file ]
-
-        try:
-            shell = False
-            if run_info.max_memory:    
-                shell = True
-                # insert call to ulimit in front, may be not supported on Windows...
-                mcell_cmd = 'ulimit -sv ' + str(run_info.max_memory * 1000) + ';' + str.join(" ", mcell_cmd)  
+            if not run_info.json_file:
+                # mdl_file is in the test directory
+                mcell_cmd.append(os.path.join(self.test_src_path, mdl_file))
+            else:
+                # mdl_file is in the work directory
+                mcell_cmd.append(os.path.join(self.test_work_path, mdl_file))
             
-            run_res = subprocess.run(
-                mcell_cmd, shell=shell, 
-                stdout=fout, stderr=ferr, cwd=self.test_work_path, timeout=MCELL_TIMEOUT)
-            mcell_ec = run_res.returncode
-
-        except subprocess.TimeoutExpired:
-            flog.write("Command timeouted after " + str(MCELL_TIMEOUT) + " seconds.")
-            mcell_ec = TIMEOUT_EXIT_CODE
+            flog.write(str.join(" ", mcell_cmd) + " (" + str(mcell_cmd) + ")\ncwd: " + self.test_work_path + "\n")
+    
+            # should we enable mcellr mode?
+            mdlr_rules_file = os.path.join(self.test_work_path, MAIN_MDLR_RULES_FILE)
+            if os.path.exists(mdlr_rules_file):
+                mcell_cmd += [ '-r', mdlr_rules_file ]
+    
+            try:
+                shell = False
+                if run_info.max_memory:    
+                    shell = True
+                    # insert call to ulimit in front, may be not supported on Windows...
+                    mcell_cmd = 'ulimit -sv ' + str(run_info.max_memory * 1000) + ';' + str.join(" ", mcell_cmd)  
+                
+                run_res = subprocess.run(
+                    mcell_cmd, shell=shell, 
+                    stdout=fout, stderr=ferr, cwd=self.test_work_path, timeout=MCELL_TIMEOUT)
+                mcell_ec = run_res.returncode
+                if mcell_ec != 0:
+                    break
+    
+            except subprocess.TimeoutExpired:
+                flog.write("Command timeouted after " + str(MCELL_TIMEOUT) + " seconds.")
+                mcell_ec = TIMEOUT_EXIT_CODE
+                break
 
         fout.close()
         ferr.close()
@@ -533,7 +548,7 @@ class TesterNutmeg(TesterBase):
             res = self.run_dm_to_mdl_conversion(test_description.run_info.json_file)
             if res != PASSED:
                 return res
-            test_description.run_info.mdl_file = MAIN_MDL_FILE
+            test_description.run_info.mdl_files = [ MAIN_MDL_FILE ]
         
         # 2) run mcell while capturing std and err output to different files
         #    non-zero exit code might be an expected result
