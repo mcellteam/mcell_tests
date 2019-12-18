@@ -106,7 +106,7 @@ def main():
     #p.dump();
     
     output_freq = 10
-    lu = world4.get_world_constants().length_unit;
+    lu = world4.config.length_unit;
     
     for i in range(iterations + 1):
         
