@@ -1,0 +1,8 @@
+MODIFY_SURFACE_REGIONS
+{
+  Cube[top0]
+  {
+    SURFACE_CLASS = surf_reflect
+  }
+}
+
