@@ -5,21 +5,21 @@ INSTANTIATE Scene OBJECT
   {
    SHAPE = Scene.Icosphere[Raft1]
    MOLECULE = chol'
-   NUMBER_TO_RELEASE = 250
+   NUMBER_TO_RELEASE = 50
    RELEASE_PROBABILITY = 1
   }
   Raft2 RELEASE_SITE
   {
    SHAPE = Scene.Icosphere[Raft2]
    MOLECULE = chol'
-   NUMBER_TO_RELEASE = 100
+   NUMBER_TO_RELEASE = 20
    RELEASE_PROBABILITY = 1
   }
   Membrane RELEASE_SITE
   {
    SHAPE = Scene.Icosphere
    MOLECULE = Rf'
-   NUMBER_TO_RELEASE = 1000
+   NUMBER_TO_RELEASE = 100
    RELEASE_PROBABILITY = 1
   }
 }
