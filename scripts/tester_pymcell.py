@@ -43,8 +43,8 @@ class TesterPymcell(TesterBase):
         super(TesterMdl, self).__init__(test_dir, args, tool_paths)
     
     def check_prerequisites(self) -> None:
-        if not os.path.exists(self.tool_paths.pymcell_module):
-            fatal_error("Could not find module '" + self.tool_paths.pymcell_module + ".")
+        if not os.path.exists(tool_paths.pymcell_module):
+            fatal_error("Could not find module '" + tool_paths.pymcell_module + ".")
         
     def update_reference(self) -> None:
         reference = os.path.join('..', self.test_src_path, REF_VIZ_OUTPUT_DIR, SEED_DIR)

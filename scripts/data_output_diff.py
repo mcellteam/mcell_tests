@@ -10,8 +10,8 @@ from utils import *
 EPS = 1e-15
 EXPECTED_NR_OF_VALUES = 7
 
-FDIFF = 'fdiff' 
-DIFF = 'diff'
+FDIFF = 'fdiff' + EXE_EXT
+DIFF = 'diff' + EXE_EXT
 
 # FIXME: build it in 'work'
 FDIFF_DIR = os.path.join(THIS_DIR, 'fdiff')
