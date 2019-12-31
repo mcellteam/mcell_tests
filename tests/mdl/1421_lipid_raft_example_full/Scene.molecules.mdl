@@ -1,0 +1,16 @@
+DEFINE_MOLECULES
+{
+  Rf
+  {
+    DIFFUSION_CONSTANT_2D = 1e-6
+  }
+  Rs
+  {
+    DIFFUSION_CONSTANT_2D = 1e-9
+  }
+  chol
+  {
+    DIFFUSION_CONSTANT_2D = 1e-6
+  }
+}
+
