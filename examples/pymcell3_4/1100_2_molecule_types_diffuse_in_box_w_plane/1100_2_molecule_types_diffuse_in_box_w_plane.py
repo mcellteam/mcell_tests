@@ -69,9 +69,9 @@ g_iteration = 0
 # close future 
 
 class HitInfo():
-    def __init__(self, molecule_id, geometry_object_id, wall_id, time, 
-                 pos_x, pos_y, pos_z, 
-                 pos_before_hit_x, pos_before_hit_y, pos_before_hit_z):
+    def __init__(self, molecule_id, geometry_object_id, wall_id, 
+                 time, pos_x, pos_y, pos_z, 
+                 time_before_hit, pos_before_hit_x, pos_before_hit_y, pos_before_hit_z):
         self.molecule_id = molecule_id 
         self.geometry_object_id = geometry_object_id
         self.wall_id = wall_id
@@ -79,6 +79,7 @@ class HitInfo():
         self.pos_x = pos_x
         self.pos_y = pos_y
         self.pos_z = pos_z
+        self.time_before_hit = time_before_hit
         self.pos_before_hit_x = pos_before_hit_x
         self.pos_before_hit_y = pos_before_hit_y
         self.pos_before_hit_z = pos_before_hit_z
@@ -87,13 +88,13 @@ class HitInfo():
         return str(vars(self))
 
 
-def wall_hit(molecule_id, geometry_object_id, wall_id, time, 
-             pos_x, pos_y, pos_z, 
-             pos_before_hit_x, pos_before_hit_y, pos_before_hit_z):
+def wall_hit(molecule_id, geometry_object_id, wall_id, 
+             time, pos_x, pos_y, pos_z, 
+             time_before_hit, pos_before_hit_x, pos_before_hit_y, pos_before_hit_z):
     global hit_occured
     hit_occured = True
     
-    info = HitInfo(molecule_id, geometry_object_id, wall_id, time, pos_x, pos_y, pos_z, pos_before_hit_x, pos_before_hit_y, pos_before_hit_z)
+    info = HitInfo(molecule_id, geometry_object_id, wall_id, time, pos_x, pos_y, pos_z, time_before_hit, pos_before_hit_x, pos_before_hit_y, pos_before_hit_z)
     print("it: " + str(g_iteration) + ", " + str(info))
 
     return 0.0
