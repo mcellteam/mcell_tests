@@ -62,13 +62,16 @@ plane_face_list = [
 
 plane_reg_face_list = [ 0, 1 ]
 
+g_iteration = 0
 
 # For now we have just this callback thet is called every time
 # a wall is hit. A more efficient variant will be provided in the 
 # close future 
 
 class HitInfo():
-    def __init__(self, molecule_id, geometry_object_id, wall_id, time, pos_x, pos_y, pos_z):
+    def __init__(self, molecule_id, geometry_object_id, wall_id, time, 
+                 pos_x, pos_y, pos_z, 
+                 pos_before_hit_x, pos_before_hit_y, pos_before_hit_z):
         self.molecule_id = molecule_id 
         self.geometry_object_id = geometry_object_id
         self.wall_id = wall_id
@@ -76,18 +79,23 @@ class HitInfo():
         self.pos_x = pos_x
         self.pos_y = pos_y
         self.pos_z = pos_z
+        self.pos_before_hit_x = pos_before_hit_x
+        self.pos_before_hit_y = pos_before_hit_y
+        self.pos_before_hit_z = pos_before_hit_z
         
     def __repr__(self):
         return str(vars(self))
 
 
-def wall_hit(molecule_id, geometry_object_id, wall_id, time, pos_x, pos_y, pos_z):
+def wall_hit(molecule_id, geometry_object_id, wall_id, time, 
+             pos_x, pos_y, pos_z, 
+             pos_before_hit_x, pos_before_hit_y, pos_before_hit_z):
     global hit_occured
     hit_occured = True
     
-    info = HitInfo(molecule_id, geometry_object_id, wall_id, time, pos_x, pos_y, pos_z)
-    print(info)
-    
+    info = HitInfo(molecule_id, geometry_object_id, wall_id, time, pos_x, pos_y, pos_z, pos_before_hit_x, pos_before_hit_y, pos_before_hit_z)
+    print("it: " + str(g_iteration) + ", " + str(info))
+
     return 0.0
 
 
@@ -158,7 +166,8 @@ def main():
     world4.register_wall_hit_callback(wall_hit)
     
     output_freq = 100
-    for i in range(iterations + 1):
+    global g_iteration 
+    for g_iteration in range(iterations + 1):
         world4.run_n_iterations(1, output_freq)
         
         #world4.get_hits(...)
