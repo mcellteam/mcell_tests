@@ -1,0 +1,21 @@
+failed like this:
+
+python /nadata/cnl/home/ahusar/src4/mcell_tools/work/build_mcell/mdlr2mdl.py -ni Scene.mdlr -o Scene
+Loading libs from /nadata/cnl/home/ahusar/src4/mcell_tools/work/build_mcell/lib/libNFsim.so and /nadata/cnl/home/ahusar/src4/mcell_tools/work/build_mcell/lib/libnfsim_c.so.
+Running Scene.mdlr
+There is an issue with the observables section in the mdlr file
+Traceback (most recent call last):
+  File "/nadata/cnl/home/ahusar/src4/mcell_tools/work/build_mcell/mdlr2mdl.py", line 199, in <module>
+    namespace.input, namespace.nfsim)
+  File "/nadata/cnl/home/ahusar/src4/mcell_tools/work/build_mcell/read_mdl.py", line 318, in construct_bng_from_mdlr
+    final_bngl_str.write(observables)
+UnboundLocalError: local variable 'observables' referenced before assignment
+
+
+then it failed like this:
+
+Initializing NFSim using: Scene.mdlr_rules.xml
+reading xml file (Scene.mdlr_rules.xml)  
+Segmentation fault
+
+gave up, no intention in fixing NFSim, rather will add an observable
