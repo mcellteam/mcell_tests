@@ -1,0 +1,13 @@
+Generation passed (althoough segfaulted silently in a preprocessing step), but mcell reports:
+
+cmd: /nadata/cnl/home/ahusar/tools/Blender-2.79-CellBlender/2.79/python/bin/python3.5m   
+args: /nadata/cnl/home/ahusar/tools/Blender-20190612/Blender-2.79-CellBlender/2.79/scripts/addons/cellblender/extensions/mcell/mcell3r.py -s 1 -r Scene.mdlr_rules.xml -m Scene.main.mdl   
+wd: /home/ahusar/src4/other/nfsim/nfsim_files/mcell/output_data
+
+
+Error: A valid model requires a time step to be specified using the TIME_STEP declaration
+
+
+fails now with:
+
+Error: Release site for c:a~NO_STATE!1,m:A@NOCOMPARTMENT!0, does not have a compartment

@@ -19,3 +19,8 @@ reading xml file (Scene.mdlr_rules.xml)
 Segmentation fault
 
 gave up, no intention in fixing NFSim, rather will add an observable
+
+
+fails now with:
+
+Error: Release site for c:a~NO_STATE!1,m:A@NOCOMPARTMENT!0, does not have a compartment

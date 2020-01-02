@@ -1,0 +1,51 @@
+ITERATIONS = 1000
+TIME_STEP = 1e-6
+VACANCY_SEARCH_DISTANCE = 10
+INCLUDE_FILE = "Scene.geometry.mdl"
+#DEFINE_MOLECULES
+{
+  A(a)
+  {
+    DIFFUSION_CONSTANT_3D = 1e-6
+  }
+  B(b)
+  {
+    DIFFUSION_CONSTANT_3D = 2e-6
+  }
+}
+
+#DEFINE_REACTIONS
+{
+  A(a)+B(b) -> A(a!1).B(b!1) [1e5]
+}
+
+#INSTANTIATE Scene OBJECT
+{
+  rel_A RELEASE_SITE
+  {
+   SHAPE = SPHERICAL
+   LOCATION = [0, 0, 0]
+   SITE_DIAMETER = 0
+   MOLECULE = A(a)
+   NUMBER_TO_RELEASE = 1
+   RELEASE_PROBABILITY = 1
+  }
+  rel_B RELEASE_SITE
+  {
+   SHAPE = SPHERICAL
+   LOCATION = [0, 0, 0]
+   SITE_DIAMETER = 0
+   MOLECULE = B(b)
+   NUMBER_TO_RELEASE = 1
+   RELEASE_PROBABILITY = 1
+  }
+}
+
+#REACTION_DATA_OUTPUT
+{
+  STEP = 1e-6
+}
+
+
+INCLUDE_FILE = "Scene.viz_output.mdl"
+
