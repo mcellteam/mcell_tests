@@ -1,4 +1,4 @@
-ITERATIONS = 1000
+ITERATIONS = 5
 TIME_STEP = 1e-6
 VACANCY_SEARCH_DISTANCE = 10
 INCLUDE_FILE = "Scene.geometry.mdl"
@@ -16,7 +16,7 @@ INCLUDE_FILE = "Scene.geometry.mdl"
 
 #DEFINE_REACTIONS
 {
-  A(a)+B(b) -> A(a!1).B(b!1) [1e5]
+  A(a)+B(b) -> A(a!1).B(b!1) [1e8]
 }
 
 #INSTANTIATE Scene OBJECT
@@ -29,7 +29,7 @@ INCLUDE_FILE = "Scene.geometry.mdl"
    LOCATION = [0, 0, 0]
    SITE_DIAMETER = 0
    MOLECULE = A(a)@Cube
-   NUMBER_TO_RELEASE = 1
+   NUMBER_TO_RELEASE = 25
    RELEASE_PROBABILITY = 1
   }
   rel_B RELEASE_SITE
@@ -38,7 +38,7 @@ INCLUDE_FILE = "Scene.geometry.mdl"
    LOCATION = [0, 0, 0]
    SITE_DIAMETER = 0
    MOLECULE = B(b)@Cube
-   NUMBER_TO_RELEASE = 1
+   NUMBER_TO_RELEASE = 25
    RELEASE_PROBABILITY = 1
   }
 }

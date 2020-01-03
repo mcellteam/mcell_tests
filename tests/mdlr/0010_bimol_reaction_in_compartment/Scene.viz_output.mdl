@@ -2,7 +2,7 @@ sprintf(seed,"%05g",SEED)
 
 VIZ_OUTPUT
 {
-  MODE = CELLBLENDER
+  MODE = ASCII
   FILENAME = "./viz_data/seed_" & seed & "/Scene"
   MOLECULES
   {
