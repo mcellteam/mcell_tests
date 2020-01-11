@@ -26,6 +26,7 @@ import shutil
 import toml
 import re
 import subprocess
+import platform
 from typing import List, Dict
 
 import data_output_diff
@@ -396,8 +397,11 @@ class TesterNutmeg(TesterBase):
                 shell = False
                 if run_info.max_memory:    
                     shell = True
-                    # insert call to ulimit in front, may be not supported on Windows...
-                    mcell_cmd = 'ulimit -sv ' + str(run_info.max_memory * 1000) + ';' + str.join(" ", mcell_cmd)  
+                    if 'Windows' in platform.system():
+                        log("Warning: Max memory testing is not supported on Windows for test definition '" + run_info.json_file + "', test is run without this check.")
+                    else:
+                        # insert call to ulimit in front
+                        mcell_cmd = 'ulimit -sv ' + str(run_info.max_memory * 1000) + ';' + str.join(" ", mcell_cmd)  
                 
                 run_res = subprocess.run(
                     mcell_cmd, shell=shell, 
