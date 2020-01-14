@@ -47,6 +47,9 @@ class ToolPaths:
         
         if opts.python_binary_override:
             self.python_binary = opts.python_binary_override
+            if not os.path.exists(self.python_binary):
+                fatal_error("Python binary from installed bundle ws not found: '" + self.python_binary + "'.")
+                
         else:
             self.python_binary = DEFAULT_PYTHON_BINARY            
             
