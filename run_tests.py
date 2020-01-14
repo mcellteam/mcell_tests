@@ -70,7 +70,8 @@ class TestOptions:
         self.config = DEFAULT_CONFIG_PATH
         self.pattern = None
         self.mcell_build_path_override = None
-        self.cellblender_build_path_override = None  
+        self.cellblender_build_path_override = None
+        self.python_binary_override = None    
 
     def __repr__(self):
         attrs = vars(self)
@@ -84,6 +85,7 @@ def create_argparse() -> argparse.ArgumentParser:
     parser.add_argument('-p', '--pattern', type=str, help='regex pattern to filter tests to be run, the pattern is matched against the test path')
     parser.add_argument('-m', '--mcell-build-path', type=str, help='override of the default mcell build path')
     parser.add_argument('-b', '--cellblender-build-path', type=str, help='override of the default cellblender build path')
+    parser.add_argument('-t', '--testing-python-executable', type=str, help='override of the default python used for testing (e.g. to run conversion scripts)')
     return parser
 
 # FIXME: insert into TestOptions class       
@@ -106,6 +108,9 @@ def process_opts() -> TestOptions:
 
     if args.cellblender_build_path:
         opts.cellblender_build_path_override = args.cellblender_build_path 
+
+    if args.testing_python_executable:
+        opts.python_binary_override = args.testing_python_executable 
 
     return opts
 
@@ -277,17 +282,11 @@ def check_file_exists(name):
     if not os.path.exists(name):
         fatal_error("Required file '" + name + "' does not exist")
 
-def run_tests(install_dirs: Dict, argv=[]) -> int:
+def run_tests() -> int:
     opts = process_opts()
 
-    if opts.mcell_build_path_override:
-        install_dirs[REPO_NAME_MCELL] = opts.mcell_build_path_override 
-
-    if opts.mcell_build_path_override:
-        install_dirs[REPO_NAME_CELLBLENDER] = opts.cellblender_build_path_override 
-
     # FIXME: use arguments directly to initialize ToolPaths    
-    tool_paths = ToolPaths(install_dirs)
+    tool_paths = ToolPaths(opts)
     log(str(tool_paths))
     
     results = collect_and_run_tests(tool_paths, opts)
@@ -296,7 +295,7 @@ def run_tests(install_dirs: Dict, argv=[]) -> int:
 
 
 if __name__ == '__main__':
-    ec = run_tests({}, sys.argv)
+    ec = run_tests()
     sys.exit(ec)
     
 

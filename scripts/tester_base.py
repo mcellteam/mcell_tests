@@ -214,7 +214,7 @@ class TesterBase:
         # the conversion python script is considered a separate utility, 
         # we run it through bash 
         cmd = [ 
-            PYTHON_BINARY, self.tool_paths.data_model_to_mdl_script, 
+            self.tool_paths.python_binary, self.tool_paths.data_model_to_mdl_script, 
             os.path.join(self.test_src_path, json_file_name), MAIN_MDL_FILE, '-fail-on-error' ]
         log_name = self.test_name+'.dm_to_mdl.log'
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name)
