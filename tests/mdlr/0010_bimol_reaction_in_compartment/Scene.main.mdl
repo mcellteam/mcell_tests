@@ -1,0 +1,12 @@
+ITERATIONS =  5
+TIME_STEP =  1e-6
+VACANCY_SEARCH_DISTANCE =  10
+INCLUDE_FILE = "Scene.geometry.mdl"
+INCLUDE_FILE = "Scene.viz_output.mdl"
+
+INCLUDE_FILE = "Scene.molecules.mdl"
+INCLUDE_FILE = "Scene.reactions.mdl"
+INCLUDE_FILE = "Scene.seed.mdl"
+INCLUDE_FILE = "Scene.surface_classes.mdl"
+INCLUDE_FILE = "Scene.mod_surf_reg.mdl"
+INCLUDE_FILE = "Scene.output.mdl"

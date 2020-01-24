@@ -1,0 +1,24 @@
+INSTANTIATE Scene OBJECT
+{
+	Cube OBJECT Cube {}
+	rel_A RELEASE_SITE //@Cube:A(a)
+	{
+		SHAPE = SPHERICAL
+		MOLECULE = volume_proxy
+		LOCATION = [0, 0, 0]
+		SITE_DIAMETER = 0
+		NUMBER_TO_RELEASE = 25
+		RELEASE_PROBABILITY = 1
+		GRAPH_PATTERN = "c:a~NO_STATE!1,m:A@Cube!0,"
+	}
+	rel_B RELEASE_SITE //@Cube:B(b)
+	{
+		SHAPE = SPHERICAL
+		MOLECULE = volume_proxy
+		LOCATION = [0, 0, 0]
+		SITE_DIAMETER = 0
+		NUMBER_TO_RELEASE = 25
+		RELEASE_PROBABILITY = 1
+		GRAPH_PATTERN = "c:b~NO_STATE!1,m:B@Cube!0,"
+	}
+}

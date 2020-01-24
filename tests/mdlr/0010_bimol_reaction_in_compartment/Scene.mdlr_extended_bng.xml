@@ -1,0 +1,17 @@
+<bngexperimental name="Scene.mdlr" version="1.1">
+  <ListOfCompartments/>
+  <ListOfMoleculeTypes>
+    <MoleculeType id="A">
+      <ListOfProperties>
+        <Property id="diffusion_function" type="num" value="1E-6"/>
+        <Property id="dimensionality" type="num" value="3"/>
+      </ListOfProperties>
+    </MoleculeType>
+    <MoleculeType id="B">
+      <ListOfProperties>
+        <Property id="diffusion_function" type="num" value="2E-6"/>
+        <Property id="dimensionality" type="num" value="3"/>
+      </ListOfProperties>
+    </MoleculeType>
+  </ListOfMoleculeTypes>
+</bngexperimental>

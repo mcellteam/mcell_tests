@@ -1,0 +1,25 @@
+begin model
+begin parameters
+	ITERATIONS  5
+	TIME_STEP  1e-6
+	TEN 10
+	VACANCY_SEARCH_DISTANCE  2*TEN
+end parameters
+begin molecule types
+	A(a)
+	B(b)
+end molecule types
+begin compartments
+	Cube 3 1
+end compartments
+begin seed species
+	 A(a)@Cube  25
+	 B(b)@Cube  25
+end seed species
+begin observables
+	Molecules a_world_MDLString A(a)
+end observables
+begin reaction rules
+	A(a) + B(b) -> B(b!1).A(a!1) 1E8
+end reaction rules
+end model
