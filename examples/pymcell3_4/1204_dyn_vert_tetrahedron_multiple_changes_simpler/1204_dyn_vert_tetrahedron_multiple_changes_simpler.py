@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-# corresponds to 3012_base_dyn_geom_tetrahedron_shrink
+# corresponds to 3014_base_dyn_geom_tetrahedron_multiple_changes_simpler
 
-# TODO: this is probably not the way how the inmport form a different directory should be done
+# TODO: this is probably not the way how the import form a different directory should be done
 import os
 import sys
 #import pandas as pd
