@@ -1,6 +1,6 @@
 DEFINE_REACTIONS
 {
-  a -> b [5e5] : react_a_to_b
-  a -> c [4e5] : react_a_to_c
+  a -> b [1e4] : react_a_to_b
+  a -> c [1e4] : react_a_to_c
 }
 
