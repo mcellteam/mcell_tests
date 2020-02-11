@@ -10,8 +10,8 @@ from utils import *
 EPS = 1e-15
 EXPECTED_NR_OF_VALUES = 7
 
-FDIFF = 'fdiff' 
-DIFF = 'diff'
+FDIFF = 'fdiff' + EXE_EXT
+DIFF = 'diff' + EXE_EXT
 
 # FIXME: build it in 'work'
 FDIFF_DIR = os.path.join(THIS_DIR, 'fdiff')
@@ -77,7 +77,7 @@ def check_or_build_fdiff():
 def compare_data_output_files(fname_ref, fname_new, exact, fdiff_args):
     
     if exact:
-        cmd = [DIFF, fname_ref, fname_new] 
+        cmd = [DIFF, '-b', fname_ref, fname_new] # ignoring whitespace changes 
     else:
         diff_executable = check_or_build_fdiff()
         cmd = [diff_executable, fname_ref, fname_new]

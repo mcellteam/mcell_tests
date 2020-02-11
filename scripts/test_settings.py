@@ -21,6 +21,7 @@ This module contains diverse constants used while testing.
 """
 import os
 import sys
+import platform
 
 WORK_DIR_NAME = 'work'
 
@@ -31,12 +32,17 @@ BUILD_OPTS_USE_LTO = False  # higher performnce but slower build
 MAIN_MDL_FILE = 'Scene.main.mdl'
 MAIN_MDLR_RULES_FILE = 'Scene.mdlr_rules.xml'
 
-MCELL_BINARY = 'mcell'
+if 'Windows' in platform.system():
+    EXE_EXT = '.exe'
+else:
+    EXE_EXT = ''
+    
+MCELL_BINARY = 'mcell' + EXE_EXT
 PYMCELL_MODULE = 'pymcell.py'
 PYMCELL_DIR = 'python' 
 MCELL_DIR_VARIABLE = 'MCELL_DIR'
 
-PYTHON_BINARY = 'python3'
+DEFAULT_PYTHON_BINARY = 'python3' + EXE_EXT
 DATA_MODEL_TO_MDL_DIR = 'mdl'
 DATA_MODEL_TO_MDL_SCRIPT = 'data_model_to_mdl.py'
 

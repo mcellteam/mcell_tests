@@ -45,7 +45,7 @@ class TesterPymcell(TesterBase):
     @staticmethod
     def check_prerequisites(tool_paths: ToolPaths) -> None:
         if not os.path.exists(tool_paths.pymcell_module):
-            fatal_error("Could not find module '" + self.tool_paths.pymcell_module + ".")
+            fatal_error("Could not find module '" + tool_paths.pymcell_module + ".")
         
     def update_reference(self) -> None:
         reference = os.path.join('..', self.test_src_path, REF_VIZ_OUTPUT_DIR, SEED_DIR)
@@ -64,7 +64,7 @@ class TesterPymcell(TesterBase):
         # we need to set the path to the build using MCELL_DIR system variable
         # and the command will be executed as shell
         cmdstr = 'export ' + MCELL_DIR_VARIABLE + '=' + self.tool_paths.mcell_dir_path + ';'
-        cmdstr +=  PYTHON_BINARY + ' ' + os.path.join(self.test_src_path, self.test_name + '.py')
+        cmdstr +=  self.tool_paths.python_binary + ' ' + os.path.join(self.test_src_path, self.test_name + '.py')
         cmd = [ cmdstr ]
         
         log_name = self.test_name+'.pymcell.log'
