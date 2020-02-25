@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 
 # TODO: this is probably not the way how the inport form a different directory should be done
