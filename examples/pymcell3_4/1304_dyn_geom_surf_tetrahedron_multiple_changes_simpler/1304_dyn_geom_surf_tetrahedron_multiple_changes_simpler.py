@@ -78,7 +78,7 @@ def main():
     p = world4.get_partition(0)
     
     output_freq = 100
-    lu = world4.get_world_constants().length_unit;
+    lu = world4.config.length_unit;
     
     for i in range(iterations + 1):
         

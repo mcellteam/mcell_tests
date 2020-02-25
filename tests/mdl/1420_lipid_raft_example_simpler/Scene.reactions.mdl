@@ -1,0 +1,5 @@
+DEFINE_REACTIONS
+{
+  Rf'+chol' -> Rs'+chol' [1e8]
+}
+
