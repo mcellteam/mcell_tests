@@ -1,0 +1,12 @@
+INSTANTIATE Scene OBJECT
+{
+  Icosphere OBJECT Icosphere {}
+  rel_a RELEASE_SITE
+  {
+   SHAPE = Scene.Icosphere
+   MOLECULE = a
+   NUMBER_TO_RELEASE = 100
+   RELEASE_PROBABILITY = 1
+  }
+}
+
