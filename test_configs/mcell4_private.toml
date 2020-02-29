@@ -1,0 +1,5 @@
+[[set]]
+  category = '../mcell_tests_private/tests'
+  testSet = 'mdl'
+  testerClass = 'TesterMdl'
+  args = ['mcell4']
