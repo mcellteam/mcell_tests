@@ -1,0 +1,21 @@
+DEFINE_MOLECULES
+{
+	Ca //proxy molecule type. the instance contains the actual information
+	{ 
+		DIFFUSION_CONSTANT_3D = 1e-6
+	}
+	CaM
+  { 
+    DIFFUSION_CONSTANT_3D = 1e-6
+  }
+  CaMKII
+  { 
+    DIFFUSION_CONSTANT_3D = 1e-6
+  }
+  CaMKII_CaM
+  { 
+    DIFFUSION_CONSTANT_3D = 1e-6
+  }
+
+}
+

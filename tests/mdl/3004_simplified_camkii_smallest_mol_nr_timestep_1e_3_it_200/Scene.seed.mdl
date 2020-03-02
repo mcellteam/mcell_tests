@@ -1,0 +1,37 @@
+INSTANTIATE Scene OBJECT
+{
+	Cube OBJECT Cube {}
+	Rel_Site_1 RELEASE_SITE //@Cube:Ca
+	{
+		//SHAPE = Scene.Cube
+   		SHAPE = SPHERICAL
+   		LOCATION = [0, 0, 0]
+   		SITE_DIAMETER = 0.2		
+		MOLECULE = Ca
+		NUMBER_TO_RELEASE = 10
+		RELEASE_PROBABILITY = 1
+		//GRAPH_PATTERN = "m:Ca@Cube,"
+	}
+	Rel_Site_2 RELEASE_SITE //@Cube:CaM(C~0,N~0,camkii,ng)
+	{
+		//SHAPE = Scene.Cube
+   		SHAPE = SPHERICAL
+   		LOCATION = [0, 0, 0]
+   		SITE_DIAMETER = 0.2		
+		MOLECULE = CaM
+		NUMBER_TO_RELEASE = 10
+		RELEASE_PROBABILITY = 1
+		//GRAPH_PATTERN = "c:C~0!4,c:N~0!4,c:camkii~NO_STATE!4,c:ng~NO_STATE!4,m:CaM@Cube!0!1!2!3,"
+	}
+	Rel_Site_4 RELEASE_SITE //@Cube:CaMKII(S306~0,Y286~0,cam,d,l,r)
+	{
+		//SHAPE = Scene.Cube
+   		SHAPE = SPHERICAL
+   		LOCATION = [0, 0, 0]
+   		SITE_DIAMETER = 0.2		
+		MOLECULE = CaMKII
+		NUMBER_TO_RELEASE = 10
+		RELEASE_PROBABILITY = 1
+		//GRAPH_PATTERN = "c:S306~0!6,c:Y286~0!6,c:cam~NO_STATE!6,c:d~NO_STATE!6,c:l~NO_STATE!6,c:r~NO_STATE!6,m:CaMKII@Cube!0!1!2!3!4!5,"
+	}
+}

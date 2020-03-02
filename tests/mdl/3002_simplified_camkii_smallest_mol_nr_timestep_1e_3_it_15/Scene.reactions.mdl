@@ -1,0 +1,8 @@
+DEFINE_REACTIONS
+{
+	CaM + Ca -> CaM  [k_on1C]
+	CaM -> CaM + Ca [k_off1C]
+	
+	CaMKII + CaM -> CaMKII_CaM [k_onCaM0]
+	CaMKII_CaM -> CaMKII + CaM [k_offCaM0]
+}

@@ -1,0 +1,4 @@
+REACTION_DATA_OUTPUT
+{
+	STEP =  1e-3
+}

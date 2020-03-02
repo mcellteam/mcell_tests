@@ -1,0 +1,1 @@
+MCELL3_IDENTICAL, especially MCELL3_SORTED_MOLS_ON_RUN_TIMESTEP must be enabled for MCell3 and MCell4 output to be the same

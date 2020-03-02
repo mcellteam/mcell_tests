@@ -1,0 +1,7 @@
+/*
+DEFINE_SURFACE_CLASSES {
+  reflect {
+    REFLECTIVE =  ALL_MOLECULES;
+  }
+}
+*/
