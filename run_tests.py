@@ -138,6 +138,13 @@ class TestInfo(TestSetInfo):
         # not using os.path.join because the name must be identical on every system
         return self.category + '/' + self.test_set_name + '/' + os.path.basename(self.test_path)
 
+    def get_full_name_for_sorting(self):
+        # for sorting, we would like the long tests to be run as the first ones (due to parallel execution)
+        base_name = self.category + '/' + self.test_set_name + '/' + os.path.basename(self.test_path)
+        if 'long' in self.test_set_name:
+            base_name = '0000_' + base_name 
+        return base_name
+
 
 # returns a list of TestInfo objects
 def get_test_dirs(test_set_info: TestSetInfo) -> List[TestInfo]:
@@ -211,7 +218,7 @@ def collect_and_run_tests(tool_paths: ToolPaths, opts: TestOptions) -> Dict:
         if not opts.pattern or re.search(opts.pattern, info.test_path):
             filtered_test_infos.append(info)
 
-    filtered_test_infos.sort(key=lambda x: x.get_full_name())
+    filtered_test_infos.sort(key=lambda x: x.get_full_name_for_sorting())
 
     log("Tests to be run:")
     for info in filtered_test_infos:
