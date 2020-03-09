@@ -122,13 +122,13 @@ def main():
     for i in range(iterations + 1):
         
         if i == 30:
-            displacement0 = m.vec3_t(0, 0, -0.01/lu) 
+            displacement0 = m.Vec3(0, 0, -0.01/lu) 
             p.add_vertex_move(0, displacement0)
-            displacement1 = m.vec3_t(-0.01/lu, 0, 0) 
+            displacement1 = m.Vec3(-0.01/lu, 0, 0) 
             p.add_vertex_move(1, displacement1)
-            displacement2 = m.vec3_t(0, -0.01/lu, 0) 
+            displacement2 = m.Vec3(0, -0.01/lu, 0) 
             p.add_vertex_move(2, displacement2)
-            displacement3 = m.vec3_t(0, +0.01/lu, 0) 
+            displacement3 = m.Vec3(0, +0.01/lu, 0) 
             p.add_vertex_move(3, displacement3)
             p.apply_vertex_moves()
             

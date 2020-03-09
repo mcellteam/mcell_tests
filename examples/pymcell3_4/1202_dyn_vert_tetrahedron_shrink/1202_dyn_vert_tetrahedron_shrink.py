@@ -124,7 +124,7 @@ def main():
             # change geometry of vertex 0
             # the recomputation of units should be done preferably by the API
             #  but for now we do it here
-            displacement = m.vec3_t(0, 0, -0.01/world4.config.length_unit) 
+            displacement = m.Vec3(0, 0, -0.01/world4.config.length_unit) 
             p.add_vertex_move(0, displacement)
 
             # update molecules after geonetry has changed

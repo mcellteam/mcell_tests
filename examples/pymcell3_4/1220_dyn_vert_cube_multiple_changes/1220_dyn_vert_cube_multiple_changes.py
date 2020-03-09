@@ -111,18 +111,18 @@ def main():
     for i in range(iterations + 1):
         
         if i == 20:
-            displacement0 = m.vec3_t(0.01/lu, 0.01/lu, -0.01/lu) 
+            displacement0 = m.Vec3(0.01/lu, 0.01/lu, -0.01/lu) 
             p.add_vertex_move(0, displacement0)
-            displacement4 = m.vec3_t(0.01/lu, 0.01/lu, 0.01/lu) 
+            displacement4 = m.Vec3(0.01/lu, 0.01/lu, 0.01/lu) 
             p.add_vertex_move(4, displacement4)
             p.apply_vertex_moves()
             
             #p.dump();
 
         if i == 40:
-            displacement0 = m.vec3_t(-0.01/lu, -0.01/lu, +0.01/lu) 
+            displacement0 = m.Vec3(-0.01/lu, -0.01/lu, +0.01/lu) 
             p.add_vertex_move(0, displacement0)
-            displacement4 = m.vec3_t(-0.01/lu, -0.01/lu, -0.01/lu) 
+            displacement4 = m.Vec3(-0.01/lu, -0.01/lu, -0.01/lu) 
             p.add_vertex_move(4, displacement4)
             p.apply_vertex_moves()
             
