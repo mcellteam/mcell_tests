@@ -17,6 +17,7 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 For the complete terms of the GNU General Public License, please see this URL:
 http://www.gnu.org/licenses/gpl-2.0.html
 """
+from time import sleep
 
 """
 This module contains diverse utility functions shared among all mcell-related 
@@ -141,8 +142,8 @@ class TestInfo(TestSetInfo):
     def get_full_name_for_sorting(self):
         # for sorting, we would like the long tests to be run as the first ones (due to parallel execution)
         base_name = self.category + '/' + self.test_set_name + '/' + os.path.basename(self.test_path)
-        if 'long' in self.test_set_name:
-            base_name = '0000_' + base_name 
+        if 'long' in self.test_path:
+            base_name = ' 0000_' + base_name
         return base_name
 
 
@@ -238,7 +239,7 @@ def collect_and_run_tests(tool_paths: ToolPaths, opts: TestOptions) -> Dict:
     else:
         # Set up the parallel task pool to use all available processors
         count = multiprocessing.cpu_count()
-        pool = multiprocessing.Pool(processes=count)
+        pool = multiprocessing.Pool(processes=count, maxtasksperchild=1)
  
         # Run the jobs
         result_values = pool.starmap(run_single_test, zip(filtered_test_infos, itertools.repeat(tool_paths)))
