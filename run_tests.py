@@ -72,6 +72,7 @@ class TestOptions:
         self.sequential = False
         self.config = DEFAULT_CONFIG_PATH
         self.pattern = None
+        self.max_cores = None
         self.mcell_build_path_override = None
         self.cellblender_build_path_override = None
         self.python_binary_override = None    
@@ -86,6 +87,7 @@ def create_argparse() -> argparse.ArgumentParser:
     parser.add_argument('-s', '--sequential', action='store_true', help='run testing sequentially (default is parallel)')
     parser.add_argument('-c', '--config', type=str, help='load testing config from a specified file (default is test_configs/default.toml')
     parser.add_argument('-p', '--pattern', type=str, help='regex pattern to filter tests to be run, the pattern is matched against the test path')
+    parser.add_argument('-j', '--max-cores', type=str, help='sets maximum number of cores for testing, default all if -s is not used')
     parser.add_argument('-m', '--mcell-build-path', type=str, help='override of the default mcell build path')
     parser.add_argument('-b', '--cellblender-build-path', type=str, help='override of the default cellblender build path')
     parser.add_argument('-t', '--testing-python-executable', type=str, help='override of the default python used for testing (e.g. to run conversion scripts)')
@@ -105,6 +107,9 @@ def process_opts() -> TestOptions:
         opts.config = args.config
     if args.pattern:
         opts.pattern = args.pattern
+
+    if args.max_cores:
+        opts.max_cores = int(args.max_cores)
         
     if args.mcell_build_path:
         opts.mcell_build_path_override = args.mcell_build_path 
@@ -238,7 +243,10 @@ def collect_and_run_tests(tool_paths: ToolPaths, opts: TestOptions) -> Dict:
             results[info.get_full_name()] = res
     else:
         # Set up the parallel task pool to use all available processors
-        count = multiprocessing.cpu_count()
+        if opts.max_cores:
+            count = opts.max_cores
+        else:
+            count = multiprocessing.cpu_count()
         pool = multiprocessing.Pool(processes=count, maxtasksperchild=1)
  
         # Run the jobs
