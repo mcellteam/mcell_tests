@@ -9,7 +9,7 @@ keywords = ["parser"]
   testType = "CHECK_NONEMPTY_FILES"
 
 [[checks]]
-  fileNames = ["run_%d.0.log", "invalid-025.tmp"]
+  fileNames = ["run_%d.0.log"]
   testType = "CHECK_EMPTY_FILES"
 
 [[checks]]
