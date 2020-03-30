@@ -78,7 +78,7 @@ class TesterMdl(TesterBase):
             return res
         
         if not UPDATE_REFERENCE:
-            res = self.check_reference_data(SEED_DIR)
+            res = self.check_reference_data(SEED_DIR, viz_ref_required=True)
         else:
             self.update_reference()
         

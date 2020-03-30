@@ -140,15 +140,20 @@ class TesterBase:
         os.chdir(self.test_work_path)
         assert self.test_work_path == os.getcwd()
 
-    def check_reference(self, seed_dir: str, ref_dir_name: str, test_dir_name: str, exact_diff: bool, msg: str) -> int:
+    def check_reference(self, seed_dir: str, ref_dir_name: str, test_dir_name: str, exact_diff: bool, msg: str, required=False) -> int:
         ref_path = os.path.join('..', self.test_src_path, ref_dir_name, seed_dir)
         if VERBOSE_DIFF:
             if os.path.exists(ref_path):
                 log("DIFF DIR EXISTS: checking reference directory " + ref_path)
             else:
                 log("DIFF NO REF DIR: checking reference directory " + ref_path)
+                
         if not os.path.exists(ref_path):
-            return PASSED
+            if required:
+                log("Required reference data path " + ref_path + " was not found.")
+                return FAILED_DIFF
+            else:
+                return PASSED
         
         res = data_output_diff.compare_data_output_directory(
             ref_path, 
@@ -160,13 +165,13 @@ class TesterBase:
             log_test_error(self.test_name, msg)
         return res
 
-    def check_reference_data(self, seed_dir: str) -> int:
+    def check_reference_data(self, seed_dir: str, viz_ref_required=False) -> int:
         
         # TODO: report error when there are no ref data
         # has_ref_data = False
         
         res = self.check_reference(
-            seed_dir, get_ref_viz_data_dir(self.mcell4_testing), get_viz_data_dir(self.mcell4_testing), False, "Viz data diff failed.")
+            seed_dir, get_ref_viz_data_dir(self.mcell4_testing), get_viz_data_dir(self.mcell4_testing), False, "Viz data diff failed.", viz_ref_required)
         if res != PASSED:
             return res
 
