@@ -141,7 +141,7 @@ class TestInfo(TestSetInfo):
     def get_full_name_for_sorting(self):
         # for sorting, we would like the long tests to be run as the first ones (due to parallel execution)
         base_name = self.category + '/' + self.test_set_name + '/' + os.path.basename(self.test_path)
-        if 'long' in self.test_set_name:
+        if base_name.endswith('long'):
             base_name = '0000_' + base_name 
         return base_name
 
