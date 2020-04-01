@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by BioNetGen 2.4.0  -->
+<sbml xmlns="http://www.sbml.org/sbml/level3" level="3" version="1">
+  <model id="Scene.mdlr">
+    <ListOfParameters>
+      <Parameter id="ITERATIONS" type="Constant" value="1000"/>
+      <Parameter id="TIME_STEP" type="Constant" value="1e-6"/>
+      <Parameter id="VACANCY_SEARCH_DISTANCE" type="Constant" value="10"/>
+      <Parameter id="_rateLaw1" type="Constant" value="10000"/>
+    </ListOfParameters>
+    <ListOfMoleculeTypes>
+      <MoleculeType id="A"/>
+      <MoleculeType id="B"/>
+      <MoleculeType id="C"/>
+    </ListOfMoleculeTypes>
+    <ListOfCompartments>
+      <compartment id="Cube" spatialDimensions="3" size="1"/>
+    </ListOfCompartments>
+    <ListOfSpecies>
+    </ListOfSpecies>
+    <ListOfReactionRules>
+      <ReactionRule id="RR1" name="_R1" symmetry_factor="1">
+        <ListOfReactantPatterns>
+          <ReactantPattern id="RR1_RP1">
+            <ListOfMolecules>
+              <Molecule id="RR1_RP1_M1" name="A"/>
+            </ListOfMolecules>
+          </ReactantPattern>
+          <ReactantPattern id="RR1_RP2">
+            <ListOfMolecules>
+              <Molecule id="RR1_RP2_M1" name="B"/>
+            </ListOfMolecules>
+          </ReactantPattern>
+        </ListOfReactantPatterns>
+        <ListOfProductPatterns>
+          <ProductPattern id="RR1_PP1">
+            <ListOfMolecules>
+              <Molecule id="RR1_PP1_M1" name="C"/>
+            </ListOfMolecules>
+          </ProductPattern>
+        </ListOfProductPatterns>
+        <RateLaw id="RR1_RateLaw" type="Ele" totalrate="0">
+          <ListOfRateConstants>
+            <RateConstant value="_rateLaw1"/>
+          </ListOfRateConstants>
+        </RateLaw>
+        <Map>
+          <MapItem sourceID="RR1_RP1_M1"/>
+          <MapItem sourceID="RR1_RP2_M1"/>
+        </Map>
+        <ListOfOperations>
+          <Add id="RR1_PP1_M1"/>
+          <Delete id="RR1_RP1" DeleteMolecules="0"/>
+          <Delete id="RR1_RP2" DeleteMolecules="0"/>
+        </ListOfOperations>
+      </ReactionRule>
+    </ListOfReactionRules>
+    <ListOfObservables>
+    </ListOfObservables>
+    <ListOfFunctions>
+    </ListOfFunctions>
+  </model>
+</sbml>

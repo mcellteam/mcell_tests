@@ -1,0 +1,4 @@
+INSTANTIATE Scene OBJECT
+{
+	Cube OBJECT Cube {}
+}

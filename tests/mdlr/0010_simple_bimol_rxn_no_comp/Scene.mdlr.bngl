@@ -1,0 +1,22 @@
+begin model
+begin parameters
+	ITERATIONS  1000
+	TIME_STEP  1e-6
+	VACANCY_SEARCH_DISTANCE  10
+end parameters
+begin molecule types
+	A()
+	B()
+	C()
+end molecule types
+begin compartments
+	Cube 3 1
+end compartments
+begin seed species
+end seed species
+begin observables
+end observables
+begin reaction rules
+	A + B -> C 1E4
+end reaction rules
+end model

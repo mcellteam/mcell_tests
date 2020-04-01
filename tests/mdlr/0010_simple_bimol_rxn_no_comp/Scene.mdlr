@@ -1,0 +1,39 @@
+ITERATIONS = 1000
+TIME_STEP = 1e-6
+VACANCY_SEARCH_DISTANCE = 10
+INCLUDE_FILE = "Scene.geometry.mdl"
+#DEFINE_MOLECULES
+{
+  A()
+  {
+    DIFFUSION_CONSTANT_3D = 1e-6
+  }
+  B()
+  {
+    DIFFUSION_CONSTANT_3D = 1e-6
+  }
+  C()
+  {
+    DIFFUSION_CONSTANT_3D = 1e-6
+  }
+}
+
+#DEFINE_REACTIONS
+{
+  A+B -> C [1e4]
+}
+
+#INSTANTIATE Scene OBJECT
+{
+  Cube OBJECT Cube {
+  }
+}
+
+#REACTION_DATA_OUTPUT
+{
+  STEP = 1e-6
+}
+
+
+INCLUDE_FILE = "Scene.viz_output.mdl"
+
