@@ -1,0 +1,48 @@
+INSTANTIATE Scene OBJECT
+{
+  Cube1 OBJECT Cube1 {}
+  Cube2 OBJECT Cube2 {}
+  Cube3 OBJECT Cube3 {}
+  
+  rel_a RELEASE_SITE
+  {
+   SHAPE = SPHERICAL
+   LOCATION = [0, 0, 0] // only in cube 3
+   SITE_DIAMETER = 0
+   MOLECULE = a
+   NUMBER_TO_RELEASE = 2
+   RELEASE_PROBABILITY = 1
+  }
+  
+  
+  rel_b RELEASE_SITE
+  {
+   SHAPE = SPHERICAL
+   LOCATION = [0.05, 0.05, 0.05] // in cube 1 and 3
+   SITE_DIAMETER = 0
+   MOLECULE = a
+   NUMBER_TO_RELEASE = 2
+   RELEASE_PROBABILITY = 1
+  }
+
+  rel_c RELEASE_SITE
+  {
+   SHAPE = SPHERICAL
+   LOCATION = [-0.05, -0.05, -0.05] // in cube 2 and 3
+   SITE_DIAMETER = 0
+   MOLECULE = a
+   NUMBER_TO_RELEASE = 2
+   RELEASE_PROBABILITY = 1
+  }
+  
+  rel_d RELEASE_SITE
+  {
+   SHAPE = SPHERICAL
+   LOCATION = [0.35, 0, 0] // only in cube 3
+   SITE_DIAMETER = 0
+   MOLECULE = a
+   NUMBER_TO_RELEASE = 2
+   RELEASE_PROBABILITY = 1
+  }
+}
+
