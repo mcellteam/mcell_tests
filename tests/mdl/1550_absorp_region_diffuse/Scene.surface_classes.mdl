@@ -1,0 +1,8 @@
+DEFINE_SURFACE_CLASSES
+{
+  absorb
+  {
+    ABSORPTIVE = ALL_MOLECULES;
+  }
+}
+
