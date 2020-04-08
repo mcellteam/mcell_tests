@@ -36,7 +36,7 @@ import itertools
 import re
 import argparse
 import shutil
-from datetime import datetime
+import time
 from threading import Timer
 from typing import List, Dict
 import toml
@@ -160,10 +160,13 @@ def get_test_dirs(test_set_info: TestSetInfo) -> List[TestInfo]:
    
     
 def run_single_test(test_info: TestInfo, tool_paths: ToolPaths) -> int:
-    log("STARTED: " + test_info.get_full_name() + " at " + datetime.now().strftime('%H:%M:%S'))
+    start = time.time()
+
     test_obj = test_info.tester_class(test_info.test_path, test_info.args, tool_paths)
     res = test_obj.test()
-    log("FINISHED: " + test_info.get_full_name() + " at " + datetime.now().strftime('%H:%M:%S'))
+    
+    end = time.time()
+    log("FINISHED: " + test_info.get_full_name() + " in " + str(round(end - start, 2)) + " s")
     return res
     
     
