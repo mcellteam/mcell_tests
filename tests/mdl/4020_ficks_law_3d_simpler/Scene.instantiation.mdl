@@ -1,0 +1,18 @@
+INSTANTIATE Scene OBJECT
+{
+  ico_1 OBJECT ico_1 {}
+  ico_2 OBJECT ico_2 {}
+  ico_3 OBJECT ico_3 {}
+  ico_4 OBJECT ico_4 {}
+  ico_5 OBJECT ico_5 {}
+  release RELEASE_SITE
+  {
+   SHAPE = SPHERICAL
+   LOCATION = [0, 0, 0]
+   SITE_DIAMETER = 0
+   MOLECULE = vm
+   NUMBER_TO_RELEASE = nrel
+   RELEASE_PROBABILITY = 1
+  }
+}
+
