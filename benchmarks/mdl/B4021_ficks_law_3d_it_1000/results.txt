@@ -1,0 +1,5 @@
+04/09/2020
+  mcell repo, commit b6b72e6887d0728ef446da951400feb79bd15e6a
+  AMD Ryzen 5 3600 6-Core Processor
+  MCell3: Simulation CPU time = 25.620000 (user)
+  MCell4: Simulation CPU time = 21.084(user)

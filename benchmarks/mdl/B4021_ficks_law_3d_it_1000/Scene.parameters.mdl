@@ -1,0 +1,10 @@
+/* DEFINE PARAMETERS */
+ss = 2    /* Surface Smoothness of each shell    units=# */
+seeds = 1    /* Number of seeds to run  */
+nrel = 10000    /* Number of molecules to release    units=Count */
+dc = 1e-6    /* Diffusion Constant of Molecules    units=cm^2/sec */
+dt = 1e-6    /* Time step for each iteration of the simulation    units=sec */
+iters = 1000    /* Number of iterations to run  */
+dr = 0.2    /* Delta Radius of each successive shell    units=um */
+n = 5    /* Number of shells to sample    units=# */
+
