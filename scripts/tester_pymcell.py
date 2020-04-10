@@ -85,6 +85,10 @@ class TesterPymcell(TesterBase):
         self.clean_and_create_work_dir()
         
         res = self.run_pymcell()
+        
+        if self.is_todo_test():
+            return TODO_TEST
+        
         if res != PASSED and not self.expected_wrong_ec():
             return res
     

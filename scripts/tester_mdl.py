@@ -74,6 +74,10 @@ class TesterMdl(TesterBase):
             mcell_args.append('-mcell4')
         
         res = self.run_mcell(mcell_args, os.path.join('..', self.test_src_path, MAIN_MDL_FILE))
+        
+        if self.is_todo_test():
+            return TODO_TEST
+        
         if res != PASSED and not self.expected_wrong_ec():
             return res
         

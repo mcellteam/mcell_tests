@@ -130,6 +130,13 @@ class TesterBase:
             return True
         else:
             return False
+
+    def is_todo_test(self) -> bool:
+        if os.path.exists(os.path.join(self.test_src_path, 'todo')):
+            log("TODO TEST : " + self.test_name)
+            return True
+        else:
+            return False
     
     def clean_and_create_work_dir(self) -> None:
         if os.path.exists(self.test_work_path):

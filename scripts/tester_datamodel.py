@@ -156,7 +156,11 @@ class TesterDataModel(TesterBase):
             return res
          
         res = self.run_mcell(MCELL_BASE_ARGS, os.path.join(self.test_work_path, MAIN_MDL_FILE))
-        if res != PASSED and not self.expected_wrong_ec():
+        
+        if self.is_todo_test():
+            return TODO_TEST
+        
+        if res != PASSED and not self.expected_wrong_ec() and not self.is_todo_test():
             return res
         
         if not UPDATE_REFERENCE:
