@@ -1,0 +1,24 @@
+MODIFY_SURFACE_REGIONS
+{
+  ico_1[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  ico_2[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  ico_3[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  ico_4[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  ico_5[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+}
+

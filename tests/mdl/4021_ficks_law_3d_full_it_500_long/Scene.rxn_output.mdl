@@ -1,0 +1,10 @@
+REACTION_DATA_OUTPUT
+{
+  STEP=dt
+  {COUNT[vm,Scene.ico_1]} =>  "./react_data/seed_" & seed & "/ico_1_MDLString.dat"
+  {COUNT[vm,Scene.ico_2] - COUNT[vm,Scene.ico_1]} =>  "./react_data/seed_" & seed & "/ico_2_MDLString.dat"
+  {COUNT[vm,Scene.ico_3] - COUNT[vm,Scene.ico_2]} =>  "./react_data/seed_" & seed & "/ico_3_MDLString.dat"
+  {COUNT[vm,Scene.ico_4] - COUNT[vm,Scene.ico_3]} =>  "./react_data/seed_" & seed & "/ico_4_MDLString.dat"
+  {COUNT[vm,Scene.ico_5] - COUNT[vm,Scene.ico_4]} =>  "./react_data/seed_" & seed & "/ico_5_MDLString.dat"
+}
+
