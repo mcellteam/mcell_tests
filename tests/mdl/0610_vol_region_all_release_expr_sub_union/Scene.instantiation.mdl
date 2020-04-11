@@ -1,0 +1,15 @@
+INSTANTIATE Scene OBJECT
+{
+  Cell OBJECT Cell {}
+  Organelle_1 OBJECT Organelle_1 {}
+  Organelle_2 OBJECT Organelle_2 {}
+  rel_a RELEASE_SITE
+  {
+   SHAPE = Scene.Cell[ALL] - (Scene.Organelle_1[ALL] + Scene.Organelle_2[ALL])
+   //SHAPE = Scene.Cell[ALL] && Scene.Organelle_1[ALL]
+   MOLECULE = a
+   NUMBER_TO_RELEASE = 10
+   RELEASE_PROBABILITY = 1
+  }
+}
+

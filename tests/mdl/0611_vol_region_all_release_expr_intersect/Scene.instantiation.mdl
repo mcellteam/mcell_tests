@@ -1,0 +1,14 @@
+INSTANTIATE Scene OBJECT
+{
+  Cell OBJECT Cell {}
+  Organelle_1 OBJECT Organelle_1 {}
+  Organelle_2 OBJECT Organelle_2 {}
+  rel_a RELEASE_SITE
+  {
+   SHAPE = Scene.Cell[ALL] * Scene.Organelle_1[ALL] // Cell contains Organelle_1 wholly, maybe a better test would be useful 
+   MOLECULE = a
+   NUMBER_TO_RELEASE = 100
+   RELEASE_PROBABILITY = 1
+  }
+}
+
