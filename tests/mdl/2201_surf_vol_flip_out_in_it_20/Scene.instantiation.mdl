@@ -1,0 +1,22 @@
+INSTANTIATE Scene OBJECT
+{
+  Cube_Inner OBJECT Cube_Inner {}
+  Cube_Outer OBJECT Cube_Outer {}
+  rel_vm RELEASE_SITE
+  {
+   SHAPE = SPHERICAL
+   LOCATION = [0.15, 0, 0]
+   SITE_DIAMETER = 0
+   MOLECULE = vm
+   NUMBER_TO_RELEASE = 100
+   RELEASE_PROBABILITY = 1
+  }
+  rel_sm RELEASE_SITE
+  {
+   SHAPE = Scene.Cube_Inner
+   MOLECULE = sm'
+   NUMBER_TO_RELEASE = 100
+   RELEASE_PROBABILITY = 1
+  }
+}
+

@@ -1,0 +1,12 @@
+DEFINE_MOLECULES
+{
+  vm
+  {
+    DIFFUSION_CONSTANT_3D = 1e-6
+  }
+  sm
+  {
+    DIFFUSION_CONSTANT_2D = 1e-7
+  }
+}
+

@@ -1,0 +1,5 @@
+DEFINE_REACTIONS
+{
+  vm'+sm' -> vm,+sm' [1e10]
+}
+
