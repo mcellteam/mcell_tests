@@ -1,0 +1,13 @@
+INSTANTIATE Scene OBJECT
+{
+  vol_025 OBJECT vol_025 {}
+
+  center_rel RELEASE_SITE
+  {
+   SHAPE = Scene.vol_025
+   MOLECULE = vm
+   NUMBER_TO_RELEASE = 10
+   RELEASE_PROBABILITY = 1
+  }
+}
+
