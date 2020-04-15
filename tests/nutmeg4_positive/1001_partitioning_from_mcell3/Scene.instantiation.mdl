@@ -1,0 +1,53 @@
+INSTANTIATE Scene OBJECT
+{
+  box OBJECT box {}
+  rel OBJECT rel {}
+  vol_000 OBJECT vol_000 {}
+  vol_001 OBJECT vol_001 {}
+  vol_002 OBJECT vol_002 {}
+  vol_003 OBJECT vol_003 {}
+  vol_004 OBJECT vol_004 {}
+  vol_005 OBJECT vol_005 {}
+  vol_006 OBJECT vol_006 {}
+  vol_007 OBJECT vol_007 {}
+  vol_008 OBJECT vol_008 {}
+  vol_009 OBJECT vol_009 {}
+  vol_010 OBJECT vol_010 {}
+  vol_011 OBJECT vol_011 {}
+  vol_012 OBJECT vol_012 {}
+  vol_013 OBJECT vol_013 {}
+  vol_014 OBJECT vol_014 {}
+  vol_015 OBJECT vol_015 {}
+  vol_016 OBJECT vol_016 {}
+  vol_017 OBJECT vol_017 {}
+  vol_018 OBJECT vol_018 {}
+  vol_019 OBJECT vol_019 {}
+  vol_020 OBJECT vol_020 {}
+  vol_021 OBJECT vol_021 {}
+  vol_022 OBJECT vol_022 {}
+  vol_023 OBJECT vol_023 {}
+  vol_024 OBJECT vol_024 {}
+  vol_025 OBJECT vol_025 {}
+  vol_026 OBJECT vol_026 {}
+  vol_027 OBJECT vol_027 {}
+  vol_028 OBJECT vol_028 {}
+  vol_029 OBJECT vol_029 {}
+  vol_030 OBJECT vol_030 {}
+  vol_031 OBJECT vol_031 {}
+  vol_032 OBJECT vol_032 {}
+  vol_033 OBJECT vol_033 {}
+  vol_034 OBJECT vol_034 {}
+  vol_035 OBJECT vol_035 {}
+  vol_036 OBJECT vol_036 {}
+  vol_037 OBJECT vol_037 {}
+  vol_038 OBJECT vol_038 {}
+  vol_039 OBJECT vol_039 {}
+  center_rel RELEASE_SITE
+  {
+   SHAPE = Scene.rel
+   MOLECULE = vm
+   NUMBER_TO_RELEASE = 10
+   RELEASE_PROBABILITY = 1
+  }
+}
+

@@ -1,0 +1,8 @@
+[[checks]]
+  matchPattern = "Using manually specified partition size.*: 4"
+  dataFile = "run_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+  
+[run]
+  mdlfiles = ["Scene.main.mdl"]
