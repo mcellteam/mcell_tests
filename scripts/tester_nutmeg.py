@@ -378,6 +378,9 @@ class TesterNutmeg(TesterBase):
         for mdl_file in run_info.mdl_files:
             mcell_cmd = [self.tool_paths.mcell_binary]
             mcell_cmd += run_info.command_line_options
+            mcell_cmd += self.extra_args.mcell_args
+            if self.mcell4_testing:
+                mcell_cmd.append('-mcell4')
 
             if not run_info.json_file:
                 # mdl_file is in the test directory

@@ -16,3 +16,9 @@
   testerClass = 'TesterPymcell'
   args = ['mcell4'] # needed to know which reference data to use
   
+[[set]]
+  category = 'tests'
+  testSet = 'nutmeg4_positive'
+  testerClass = 'TesterNutmeg'
+  args = ['mcell4']
+  

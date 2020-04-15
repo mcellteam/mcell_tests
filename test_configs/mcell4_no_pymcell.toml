@@ -10,3 +10,9 @@
   testerClass = 'TesterMdl'
   args = ['mcell4']
   
+[[set]]
+  category = 'tests'
+  testSet = 'nutmeg4_positive'
+  testerClass = 'TesterNutmeg'
+  args = ['mcell4']
+  
