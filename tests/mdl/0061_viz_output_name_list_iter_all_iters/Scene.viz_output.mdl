@@ -1,0 +1,12 @@
+VIZ_OUTPUT
+{
+  MODE = ASCII
+  FILENAME = "./viz_data/seed_" & seed & "/Scene"
+  MOLECULES
+  {
+    NAME_LIST {a c}
+    //ITERATION_NUMBERS {ALL_DATA @ [[0 TO 5000 STEP 10]]}
+    ITERATION_NUMBERS {ALL_DATA @ ALL_ITERATIONS}
+  }
+}
+
