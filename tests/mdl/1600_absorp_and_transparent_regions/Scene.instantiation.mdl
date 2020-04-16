@@ -1,0 +1,6 @@
+INSTANTIATE Scene OBJECT
+{
+  cleft_edges OBJECT cleft_edges {}
+  lamina_layer OBJECT lamina_layer {}
+}
+
