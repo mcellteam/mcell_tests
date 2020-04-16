@@ -1,0 +1,3 @@
+Skipped for now, 
+weird test that releases 25 a's at 0.7 and 10 b's at 0.5,
+but in mcell3's viz output, there are not a's at time 1 anymore. 
