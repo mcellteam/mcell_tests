@@ -1,0 +1,8 @@
+DEFINE_MOLECULES
+{
+  ACh
+  {
+    DIFFUSION_CONSTANT_3D = 2.1e-6
+  }
+}
+

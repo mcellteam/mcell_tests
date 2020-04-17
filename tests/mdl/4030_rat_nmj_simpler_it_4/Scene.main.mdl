@@ -1,0 +1,148 @@
+INCLUDE_FILE = "Scene.initialization.mdl"
+
+INCLUDE_FILE = "Scene.molecules.mdl"
+
+INCLUDE_FILE = "Scene.surface_classes.mdl"
+
+INCLUDE_FILE = "Scene.geometry.mdl"
+
+INCLUDE_FILE = "Scene.mod_surf_regions.mdl"
+
+INCLUDE_FILE = "Scene.instantiation.mdl"
+
+
+/*** Beginning of internal script "rat_nmj.parameters.mdl" included after instantiate ***/
+
+
+release_site_diameter=0.0
+
+location_1 = [-1.31,-0.6,0.03]
+location_2 = [-0.75,-0.6,0.105]
+location_3 = [-0.4,-0.6,0.095]
+location_4 = [-0.04,-0.6,0.06]
+location_5 = [0.515,-0.6,0.025]
+location_6 = [0.945,-0.6,0.01]
+
+location_7 = [-1.29,-0.3,0]
+location_8 = [-0.782,-0.3,0.07]
+location_9 = [-0.4,-0.3,0.05]
+location_10 = [-0.005,-0.3,0.02]
+location_11 = [0.495,-0.3,-0.015]
+location_12 = [0.96,-0.3,-0.035]
+
+location_13 = [-1.27,0,-0.02]
+location_14 = [-0.8,0,0.04]
+location_15 = [-0.39,0,0.03]
+location_16 = [0,0,0]
+location_17 = [0.52,0,-0.03]
+location_18 = [0.97,0,-0.06]
+
+location_19 = [-1.25,0.3,-0.025]
+location_20 = [-0.825,0.3,0.035]
+location_21 = [-0.365,0.3,0.035]
+location_22 = [0.005,0.3,-0.005]
+location_23 = [0.575,0.3,-0.025]
+location_24 = [0.985,0.3,-0.035]
+
+location_25 = [-1.18,0.6,-0.01]
+location_26 = [-0.84,0.6,0.05]
+location_27 = [-0.33,0.6,0.02]
+location_28 = [0.01,0.6,0.005]
+location_29 = [0.63,0.6,0.025]
+location_30 = [1.03,0.6,0.075]
+
+location = location_16
+
+/*** End of internal script "rat_nmj.parameters.mdl" included after instantiate ***/
+
+
+/*** Beginning of internal script "rat_nmj.release_sites.mdl" included after instantiate ***/
+
+release_interval = 2.0e-6
+train_interval = 4.0e-6
+train_duration = 1.0e-6
+number_of_trains = 1
+release_location = location
+
+DEFINE_RELEASE_PATTERN release_pattern_1 {
+  DELAY = 0.000000500000
+  RELEASE_INTERVAL = release_interval
+  TRAIN_INTERVAL = train_interval
+  TRAIN_DURATION = train_duration
+  NUMBER_OF_TRAINS = number_of_trains
+}
+
+release_site_1 SPHERICAL_RELEASE_SITE {
+  LOCATION = release_location
+  MOLECULE = ACh
+  NUMBER_TO_RELEASE = 18
+  SITE_DIAMETER = release_site_diameter
+  RELEASE_PATTERN = release_pattern_1
+  RELEASE_PROBABILITY = 1
+}
+
+DEFINE_RELEASE_PATTERN release_pattern_2 {
+  DELAY = 0.000001000000
+  RELEASE_INTERVAL = release_interval
+  TRAIN_INTERVAL = train_interval
+  TRAIN_DURATION = train_duration
+  NUMBER_OF_TRAINS = number_of_trains
+}
+
+release_site_2 SPHERICAL_RELEASE_SITE {
+  LOCATION = release_location
+  MOLECULE = ACh
+  NUMBER_TO_RELEASE = 18
+  SITE_DIAMETER = release_site_diameter
+  RELEASE_PATTERN = release_pattern_2
+  RELEASE_PROBABILITY = 1
+}
+
+DEFINE_RELEASE_PATTERN release_pattern_3 {
+  DELAY = 0.000001500000
+  RELEASE_INTERVAL = release_interval
+  TRAIN_INTERVAL = train_interval
+  TRAIN_DURATION = train_duration
+  NUMBER_OF_TRAINS = number_of_trains
+}
+
+release_site_3 SPHERICAL_RELEASE_SITE {
+  LOCATION = release_location
+  MOLECULE = ACh
+  NUMBER_TO_RELEASE = 19
+  SITE_DIAMETER = release_site_diameter
+  RELEASE_PATTERN = release_pattern_3
+  RELEASE_PROBABILITY = 1
+}
+
+DEFINE_RELEASE_PATTERN release_pattern_4 {
+  DELAY = 0.000002000000
+  RELEASE_INTERVAL = release_interval
+  TRAIN_INTERVAL = train_interval
+  TRAIN_DURATION = train_duration
+  NUMBER_OF_TRAINS = number_of_trains
+}
+
+release_site_4 SPHERICAL_RELEASE_SITE {
+  LOCATION = release_location
+  MOLECULE = ACh
+  NUMBER_TO_RELEASE = 19
+  SITE_DIAMETER = release_site_diameter
+  RELEASE_PATTERN = release_pattern_4
+  RELEASE_PROBABILITY = 1
+}
+
+INSTANTIATE ACh_rel OBJECT {
+  release_site_1 OBJECT release_site_1 { }
+  release_site_2 OBJECT release_site_2 { }
+  release_site_3 OBJECT release_site_3 { }
+  release_site_4 OBJECT release_site_4 { }  
+}
+/*** End of internal script "rat_nmj.release_sites.mdl" included after instantiate ***/
+
+sprintf(seed,"%05g",SEED)
+
+INCLUDE_FILE = "Scene.viz_output.mdl"
+
+
+
