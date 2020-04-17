@@ -1,0 +1,19 @@
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-6
+  {COUNT[ACh,WORLD]}=> "./react_data/seed_" & seed & "/ACh.World.dat"
+  {COUNT[Ch,WORLD]}=> "./react_data/seed_" & seed & "/Ch.World.dat"
+  {COUNT[AChR0,WORLD]}=> "./react_data/seed_" & seed & "/AChR0.World.dat"
+  {COUNT[AChR1,WORLD]}=> "./react_data/seed_" & seed & "/AChR1.World.dat"
+  {COUNT[AChR2,WORLD]}=> "./react_data/seed_" & seed & "/AChR2.World.dat"
+  {COUNT[AChR3,WORLD]}=> "./react_data/seed_" & seed & "/AChR3.World.dat"
+  {COUNT[AChR4,WORLD]}=> "./react_data/seed_" & seed & "/AChR4.World.dat"
+  {COUNT[E,WORLD]}=> "./react_data/seed_" & seed & "/E.World.dat"
+  {COUNT[AE,WORLD]}=> "./react_data/seed_" & seed & "/AE.World.dat"
+  {COUNT[AcE,WORLD]}=> "./react_data/seed_" & seed & "/AcE.World.dat"
+  {COUNT[AAcE,WORLD]}=> "./react_data/seed_" & seed & "/AAcE.World.dat"
+  {COUNT[ChR0,WORLD]}=> "./react_data/seed_" & seed & "/ChR0.World.dat"
+  {COUNT[ChR1,WORLD]}=> "./react_data/seed_" & seed & "/ChR1.World.dat"
+  {COUNT[ChR2,WORLD]}=> "./react_data/seed_" & seed & "/ChR2.World.dat"
+}
+
