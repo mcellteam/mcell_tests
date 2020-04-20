@@ -1,0 +1,8 @@
+DEFINE_REACTIONS
+{
+  a+b -> c [5e8] : react_a_and_b
+  a -> c [5e7] : react_a_to_c
+  b -> c [5e7] : react_b_to_c
+  c -> a [5e7] : react_c_and_a
+}
+
