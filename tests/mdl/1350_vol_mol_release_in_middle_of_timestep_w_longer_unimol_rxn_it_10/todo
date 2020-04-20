@@ -1,0 +1,4 @@
+mcell3 does release of molecules 'a' earlier even though
+they are scheduled for time 0.5 and molecules 'b' are released later
+with time scheduled for 0. 
+In other cases mcell behaves differently that it creates instructions according to the time.

@@ -1,0 +1,7 @@
+DEFINE_REACTIONS
+{
+  a'+b' -> c' [5e7] : react_a_and_b
+  b' -> c' [5e5] : react_b_to_c
+  c' -> b' [5e5] : react_c_and_a
+}
+
