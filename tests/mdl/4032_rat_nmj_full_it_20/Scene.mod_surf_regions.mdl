@@ -1,0 +1,12 @@
+MODIFY_SURFACE_REGIONS
+{
+  lamina_layer[lamina_layer]
+  {
+    SURFACE_CLASS = transp
+  }
+  cleft_edges[cleft_edges]
+  {
+    SURFACE_CLASS = absorb
+  }
+}
+
