@@ -1,0 +1,31 @@
+
+release_interval = 1.0e-6 // each timestep
+train_interval = 1.0e-6
+train_duration = 1.0e-6
+number_of_trains = 1
+
+
+DEFINE_RELEASE_PATTERN release_pattern_2 {
+  DELAY = 0.000000500000
+  RELEASE_INTERVAL = release_interval
+  TRAIN_INTERVAL = 1
+  TRAIN_DURATION = 1e-5
+  NUMBER_OF_TRAINS = 10
+}
+
+INSTANTIATE Scene OBJECT
+{
+
+  rel_b RELEASE_SITE
+  {
+   SHAPE = SPHERICAL
+   LOCATION = [0.01, 0, 0]
+   SITE_DIAMETER = 0.1
+   MOLECULE = b
+   NUMBER_TO_RELEASE = 1
+   RELEASE_PATTERN = release_pattern_2
+   RELEASE_PROBABILITY = 1
+  }
+
+}
+
