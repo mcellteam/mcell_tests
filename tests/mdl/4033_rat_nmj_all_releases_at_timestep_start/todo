@@ -1,0 +1,6 @@
+Unimolecular reaction of molecule 53327 is scheduled for 5.76949 + 1.91916 however,
+mcell3 executes this reaction right at the beginning of the iteration...
+
+Also shows a bug when MCELL3_SORTED_MOLS_ON_RUN_TIMESTEP is enabled, 
+this molecule gets lost completely -> points to some unexpected scheduling queue implementation.
+  
