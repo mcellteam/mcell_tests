@@ -1,0 +1,8 @@
+reference data equivalence with mcell3 requires mainly MCELL3_4_ALWAYS_SORT_MOLS_BY_TIME_AND_ID to be enabled
+
+#define MCELL3_ONLY_ONE_MEMPART
+#define MCELL3_SORTED_VIZ_OUTPUT
+#define MCELL3_SORTED_WALLS_FOR_COLLISION
+#define MCELL3_4_ALWAYS_SORT_MOLS_BY_TIME_AND_ID
+#define MCELL3_NEXT_BARRIER_IS_THE_NEXT_TIMESTEP // do not diffuse more than until the end of the timestep
+#define MCELL3_RELEASE_ACCORDING_TO_EVENT_TIME 
