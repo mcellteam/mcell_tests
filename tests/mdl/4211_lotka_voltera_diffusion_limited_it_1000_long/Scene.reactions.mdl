@@ -1,0 +1,7 @@
+DEFINE_REACTIONS
+{
+  prey -> prey+prey [8.6e6]
+  predator+prey -> predator+predator [1e12]
+  predator -> NULL [5e6]
+}
+
