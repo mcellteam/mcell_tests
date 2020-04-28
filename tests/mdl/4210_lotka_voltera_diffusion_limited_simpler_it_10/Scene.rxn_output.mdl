@@ -1,0 +1,7 @@
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-8
+  {COUNT[prey,WORLD]}=> "./react_data/seed_" & seed & "/prey.World.dat"
+  {COUNT[predator,WORLD]}=> "./react_data/seed_" & seed & "/predator.World.dat"
+}
+
