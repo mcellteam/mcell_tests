@@ -1,0 +1,176 @@
+MODIFY_SURFACE_REGIONS
+{
+  box[left_end]
+  {
+    SURFACE_CLASS = absorb
+  }
+  box[right_end]
+  {
+    SURFACE_CLASS = absorb
+  }
+  rel[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_000[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_001[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_002[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_003[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_004[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_005[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_006[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_007[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_008[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_009[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_010[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_011[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_012[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_013[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_014[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_015[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_016[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_017[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_018[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_019[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_020[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_021[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_022[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_023[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_024[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_025[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_026[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_027[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_028[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_029[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_030[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_031[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_032[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_033[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_034[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_035[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_036[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_037[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_038[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+  vol_039[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+}
+
