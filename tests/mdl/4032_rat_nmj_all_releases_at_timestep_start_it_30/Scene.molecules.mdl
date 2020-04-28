@@ -1,0 +1,60 @@
+DEFINE_MOLECULES
+{
+  ACh
+  {
+    DIFFUSION_CONSTANT_3D = 2.1e-6
+  }
+  Ch
+  {
+    DIFFUSION_CONSTANT_3D = 2.1e-6
+  }
+  AChR0
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  AChR1
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  AChR2
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  AChR3
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  AChR4
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  E
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  AE
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  AcE
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  AAcE
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  ChR0
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  ChR1
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+  ChR2
+  {
+    DIFFUSION_CONSTANT_2D = 0
+  }
+}
+

@@ -1,0 +1,14 @@
+DEFINE_SURFACE_CLASSES
+{
+  absorb
+  {
+    ABSORPTIVE = ACh;
+    ABSORPTIVE = Ch;
+  }
+  transp
+  {
+    TRANSPARENT = ACh;
+    TRANSPARENT = Ch;
+  }
+}
+
