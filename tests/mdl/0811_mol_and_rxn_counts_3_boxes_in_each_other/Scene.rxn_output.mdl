@@ -1,0 +1,19 @@
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-6
+  {COUNT[a,WORLD]}=> "./react_data/seed_" & seed & "/a.World.dat"
+  {COUNT[a,Scene.Cube1]}=> "./react_data/seed_" & seed & "/a.Cube1.dat"
+  {COUNT[a,Scene.Cube2]}=> "./react_data/seed_" & seed & "/a.Cube2.dat"
+  {COUNT[a,Scene.Cube3]}=> "./react_data/seed_" & seed & "/a.Cube3.dat"
+  
+  {COUNT[react_a_plus_b,WORLD]}=> "./react_data/seed_" & seed & "/react_a_plus_b.World.dat"
+  {COUNT[react_a_plus_b,Scene.Cube1]}=> "./react_data/seed_" & seed & "/react_a_plus_b.Cube1.dat"
+  {COUNT[react_a_plus_b,Scene.Cube2]}=> "./react_data/seed_" & seed & "/react_a_plus_b.Cube2.dat"
+  {COUNT[react_a_plus_b,Scene.Cube3]}=> "./react_data/seed_" & seed & "/react_a_plus_b.Cube3.dat"
+
+  {COUNT[react_b_plus_c,WORLD]}=> "./react_data/seed_" & seed & "/react_b_plus_c.World.dat"
+  {COUNT[react_b_plus_c,Scene.Cube1]}=> "./react_data/seed_" & seed & "/react_b_plus_c.Cube1.dat"
+  {COUNT[react_b_plus_c,Scene.Cube2]}=> "./react_data/seed_" & seed & "/react_b_plus_c.Cube2.dat"
+  {COUNT[react_b_plus_c,Scene.Cube3]}=> "./react_data/seed_" & seed & "/react_b_plus_c.Cube3.dat"
+}
+

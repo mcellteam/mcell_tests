@@ -1,0 +1,6 @@
+DEFINE_REACTIONS
+{
+  a + b -> a + c [1e9] : react_a_plus_b
+  b + c -> a + c [1e9] : react_b_plus_c
+}
+
