@@ -1,0 +1,5 @@
+DEFINE_REACTIONS
+{
+  sm1'+sm2' -> sm3' [1e10] : sm1_plus_sm2
+}
+
