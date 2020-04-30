@@ -1,0 +1,13 @@
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-6
+  {COUNT[sm1,WORLD]}=> "./react_data/seed_" & seed & "/sm1.World.dat"
+  {COUNT[sm2,WORLD]}=> "./react_data/seed_" & seed & "/sm2.World.dat"
+
+  {COUNT[sm1,Scene.Cube]}=> "./react_data/seed_" & seed & "/sm1.Scene.Cube.World.dat"
+  {COUNT[sm2,Scene.Cube]}=> "./react_data/seed_" & seed & "/sm2.Scene.Cube.World.dat"
+  
+  {COUNT[sm1,Scene.Cube[top0]]}=> "./react_data/seed_" & seed & "/sm1.Scene.Cube.top0.World.dat"
+  {COUNT[sm2,Scene.Cube[top0]]}=> "./react_data/seed_" & seed & "/sm2.Scene.Cube.top0.World.dat"
+}
+

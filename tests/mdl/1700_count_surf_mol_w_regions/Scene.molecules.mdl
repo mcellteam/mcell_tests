@@ -1,0 +1,12 @@
+DEFINE_MOLECULES
+{
+  sm1
+  {
+    DIFFUSION_CONSTANT_2D = 1e-4
+  }
+  sm2
+  {
+    DIFFUSION_CONSTANT_2D = 1e-4
+  }
+}
+
