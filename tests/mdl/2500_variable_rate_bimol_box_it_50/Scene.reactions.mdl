@@ -1,0 +1,5 @@
+DEFINE_REACTIONS
+{
+  a+b -> c ["rates.txt"] : react_a_plus_b
+}
+
