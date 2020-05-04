@@ -1,0 +1,9 @@
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-6
+
+  {COUNT[react_a_plus_b,WORLD]}=> "./react_data/seed_" & seed & "/react_a_plus_b.World.dat"
+  {COUNT[react_a_to_b,WORLD]}=> "./react_data/seed_" & seed & "/react_a_to_b.World.dat"
+  {COUNT[react_c_to_a,WORLD]}=> "./react_data/seed_" & seed & "/react_c_to_a.World.dat"
+}
+

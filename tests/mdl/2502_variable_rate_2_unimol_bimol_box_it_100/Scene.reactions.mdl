@@ -1,0 +1,7 @@
+DEFINE_REACTIONS
+{
+  a + b -> c ["rates_b.txt"] : react_a_plus_b
+  a -> b ["rates_u1.txt"] : react_a_to_b
+  c -> a ["rates_u2.txt"] : react_c_to_a
+}
+
