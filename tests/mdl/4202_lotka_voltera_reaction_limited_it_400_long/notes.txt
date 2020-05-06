@@ -1,0 +1,4 @@
+Somewhere around it 305 the result start to be different in mcell3 against mcell, 
+but so far it looks like a precision issue. 
+Checked that no new code in mcell3 is executed using gcov in iterations 301-320, 
+therefore it does not look as handling of some special case in mcell4. 
