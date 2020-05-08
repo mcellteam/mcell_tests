@@ -68,7 +68,19 @@ class TesterDataModelConverter(TesterBase):
             return PASSED
 
 
+    def should_be_skipped_for_datamodel_test(self) -> bool:
+        if os.path.exists(os.path.join(self.test_src_path, 'skip_datamodel')):
+            log("SKIP : " + self.test_name)
+            return True
+        else:
+            return False
+
+        
     def test(self) -> int:
+        
+        if self.should_be_skipped_for_datamodel_test():
+            return SKIPPED
+    
         if self.should_be_skipped():
             return SKIPPED
             
@@ -86,7 +98,10 @@ class TesterDataModelConverter(TesterBase):
             res = self.change_viz_output_to_ascii()
             
         if res == PASSED:
-            res = self.run_mcell(MCELL_BASE_ARGS, os.path.join(self.test_work_path, MAIN_MDL_FILE))
+            mcell_args = MCELL_BASE_ARGS.copy()
+            if self.mcell4_testing:
+                mcell_args.append('-mcell4')
+            res = self.run_mcell(mcell_args, os.path.join(self.test_work_path, MAIN_MDL_FILE))
         
         if self.is_todo_test():
             return TODO_TEST
@@ -94,4 +109,5 @@ class TesterDataModelConverter(TesterBase):
         if res != PASSED and not self.expected_wrong_ec() and not self.is_todo_test():
             return res
         
+        res = self.check_reference_data(SEED_DIR, viz_ref_required=True)
         return res

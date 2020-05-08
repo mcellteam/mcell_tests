@@ -69,7 +69,7 @@ class TesterMdl(TesterBase):
         
         self.clean_and_create_work_dir()
         
-        mcell_args = MCELL_BASE_ARGS
+        mcell_args = MCELL_BASE_ARGS.copy()
         if self.mcell4_testing:
             mcell_args.append('-mcell4')
         

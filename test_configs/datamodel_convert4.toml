@@ -2,4 +2,5 @@
   category = 'tests'
   testSet = 'mdl'
   testerClass = 'TesterDataModelConverter'
- 
+  args = ['mcell4']
+  
