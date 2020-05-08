@@ -81,8 +81,12 @@ class TesterDataModelConverter(TesterBase):
 
         if res == PASSED:
             res = self.run_dm_to_mdl_conversion(os.path.join(self.test_work_path, 'datamodel.json'))
-        if res != PASSED:
-            return res
+            
+        if res == PASSED:
+            res = self.change_viz_output_to_ascii()
+            
+        if res == PASSED:
+            res = self.run_mcell(MCELL_BASE_ARGS, os.path.join(self.test_work_path, MAIN_MDL_FILE))
         
         if self.is_todo_test():
             return TODO_TEST
