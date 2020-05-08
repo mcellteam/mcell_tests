@@ -51,6 +51,7 @@ from test_utils import ToolPaths
 # import tester classes
 from tester_mdl import TesterMdl
 from tester_datamodel import TesterDataModel
+from tester_datamodel_converter import TesterDataModelConverter
 from tester_nutmeg import TesterNutmeg
 from tester_pymcell import TesterPymcell
 
@@ -191,6 +192,8 @@ def load_test_config(config_path: str) -> List[TestSetInfo]:
                 tester_class = TesterMdl  
             elif class_name == 'TesterDataModel':
                 tester_class = TesterDataModel  
+            elif class_name == 'TesterDataModelConverter':
+                tester_class = TesterDataModelConverter  
             elif class_name == 'TesterNutmeg':
                 tester_class = TesterNutmeg
             elif class_name == 'TesterPymcell':

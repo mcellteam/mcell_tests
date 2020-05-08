@@ -147,7 +147,7 @@ class TesterDataModel(TesterBase):
         
         self.clean_and_create_work_dir()
         
-        res = self.run_dm_to_mdl_conversion(self.test_name + '.json')
+        res = self.run_dm_to_mdl_conversion(os.path.join(self.test_src_path, self.test_name + '.json'))
         if res != PASSED:
             return res
         
