@@ -42,11 +42,17 @@ ARGS_FILE = 'args.toml'
 
 MCELL_ARGS_KEY = 'mcell'
 FDIFF_ARGS_KEY = 'fdiff'
+FDIFF_DATAMODEL_CONVERTER_ARGS_KEY = 'fdiff_datamodel_converter'
+
 
 class ExtraArgs:
     def __init__(self, test_src_path: str):
         self.mcell_args = []
         self.fdiff_args = []
+        # only for cases when the tester is TesterDatamodelConverter
+        # rework needed if there will be more such cases, 
+        # i.e. to make the argument system more general 
+        self.fdiff_datamodel_converter_args = []  
 
         # parse args.toml if present        
         args_file_name = os.path.join(test_src_path, ARGS_FILE)
@@ -58,6 +64,9 @@ class ExtraArgs:
             if FDIFF_ARGS_KEY in top_dict:
                 args_str =  top_dict[FDIFF_ARGS_KEY]
                 self.fdiff_args = args_str.split(' ')
+            if FDIFF_DATAMODEL_CONVERTER_ARGS_KEY in top_dict:
+                fdiff_datamodel_converter_args =  top_dict[FDIFF_DATAMODEL_CONVERTER_ARGS_KEY]
+                self.fdiff_datamodel_converter_args = fdiff_datamodel_converter_args.split(' ')
 
 
 # TODO: maybe move check_preconditions and other things such as initialization 
@@ -147,7 +156,10 @@ class TesterBase:
         os.chdir(self.test_work_path)
         assert self.test_work_path == os.getcwd()
 
-    def check_reference(self, seed_dir: str, ref_dir_name: str, test_dir_name: str, exact_diff: bool, msg: str, required=False) -> int:
+    def check_reference(self, 
+                        seed_dir: str, ref_dir_name: str, test_dir_name: str, exact_diff: bool, msg: str,
+                        fdiff_args, required=False,
+                        ) -> int:
         ref_path = os.path.join('..', self.test_src_path, ref_dir_name, seed_dir)
         if VERBOSE_DIFF:
             if os.path.exists(ref_path):
@@ -166,34 +178,36 @@ class TesterBase:
             ref_path, 
             os.path.join(test_dir_name, seed_dir),
             exact_diff,
-            self.extra_args.fdiff_args)
+            fdiff_args)
         
         if res != PASSED:
             log_test_error(self.test_name, msg)
         return res
 
-    def check_reference_data(self, seed_dir: str, viz_ref_required=False) -> int:
+    def check_reference_data(self, seed_dir: str, viz_ref_required=False, fdiff_args_override=None) -> int:
         
-        # TODO: report error when there are no ref data
-        # has_ref_data = False
-        
+        if fdiff_args_override:
+            fdiff_args = fdiff_args_override
+        else:
+            fdiff_args = self.extra_args.fdiff_args
+
         res = self.check_reference(
-            seed_dir, get_ref_viz_data_dir(self.mcell4_testing), get_viz_data_dir(self.mcell4_testing), False, "Viz data diff failed.", viz_ref_required)
+            seed_dir, get_ref_viz_data_dir(self.mcell4_testing), get_viz_data_dir(self.mcell4_testing), False, "Viz data diff failed.", fdiff_args, viz_ref_required)
         if res != PASSED:
             return res
 
         res = self.check_reference(
-            seed_dir, get_ref_react_data_dir(self.mcell4_testing), get_react_data_dir(self.mcell4_testing), False, "React data diff failed.")
+            seed_dir, get_ref_react_data_dir(self.mcell4_testing), get_react_data_dir(self.mcell4_testing), False, "React data diff failed.", fdiff_args)
         if res != PASSED:
             return res
 
         res = self.check_reference(
-            '', REF_DYN_GEOM_DATA_DIR, DYN_GEOM_DATA_DIR, True, "Dynamic geometry data diff failed.")
+            '', REF_DYN_GEOM_DATA_DIR, DYN_GEOM_DATA_DIR, True, "Dynamic geometry data diff failed.", fdiff_args)
         if res != PASSED:
             return res
 
         res = self.check_reference(
-            '', REF_MCELLR_GDAT_DATA_DIR, MCELLR_GDAT_DATA_DIR, True, "MCellR gdat data diff failed.")
+            '', REF_MCELLR_GDAT_DATA_DIR, MCELLR_GDAT_DATA_DIR, True, "MCellR gdat data diff failed.", fdiff_args)
         if res != PASSED:
             return res
      
