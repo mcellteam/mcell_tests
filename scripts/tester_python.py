@@ -76,7 +76,7 @@ class TesterPython(TesterBase):
         
         res = self.run_python_test()
         
-        if res != PASSED and not self.expected_wrong_ec() and not self.is_todo_test():
+        if res != PASSED and not self.expected_wrong_ec():
             return res
 
         return res
