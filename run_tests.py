@@ -53,6 +53,7 @@ from tester_mdl import TesterMdl
 from tester_datamodel import TesterDataModel
 from tester_nutmeg import TesterNutmeg
 from tester_pymcell import TesterPymcell
+from tester_python import TesterPython
 
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
 
@@ -192,6 +193,8 @@ def load_test_config(config_path: str) -> List[TestSetInfo]:
                 tester_class = TesterNutmeg
             elif class_name == 'TesterPymcell':
                 tester_class = TesterPymcell
+            elif class_name == 'TesterPython':                
+                tester_class = TesterPython
             else:
                 fatal_error("Unknown tester class '" + class_name + "' in '" + config_path + "'.")
                 

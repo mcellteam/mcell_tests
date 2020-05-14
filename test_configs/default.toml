@@ -32,3 +32,9 @@
   category = '../mcell_tests_private/tests'
   testSet = 'mdl'
   testerClass = 'TesterMdl'
+  
+[[set]]
+  category = 'tests'
+  testSet = 'blender_python'
+  testerClass = 'TesterPython'
+    
