@@ -236,12 +236,14 @@ class TesterBase:
         else:
             return PASSED
          
-    def run_dm_to_mdl_conversion(self, json_file_name: str) -> None:
+    def run_dm_to_mdl_conversion(self, json_file_name: str, extra_arg: str = None) -> None:
         # the conversion python script is considered a separate utility, 
         # we run it through bash 
         cmd = [ 
             self.tool_paths.python_binary, self.tool_paths.data_model_to_mdl_script, 
             json_file_name, MAIN_MDL_FILE, '-fail-on-error' ]
+        if extra_arg:
+            cmd.append(extra_arg)    
         log_name = self.test_name+'.dm_to_mdl.log'
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name)
         if exit_code != 0:

@@ -92,7 +92,7 @@ class TesterDataModelConverter(TesterBase):
         res = self.run_mdl_to_dm_conversion(MCELL_BASE_ARGS, os.path.join(self.test_src_path, MAIN_MDL_FILE))
 
         if res == PASSED:
-            res = self.run_dm_to_mdl_conversion(os.path.join(self.test_work_path, 'datamodel.json'))
+            res = self.run_dm_to_mdl_conversion(os.path.join(self.test_work_path, 'datamodel.json'), '-data-model-from-mdl')
             
         if res == PASSED:
             res = self.change_viz_output_to_ascii()
