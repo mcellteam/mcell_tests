@@ -25,6 +25,7 @@ import os
 import sys
 import shutil
 import toml
+import re
 from typing import List, Dict
 
 import data_output_diff
@@ -68,6 +69,8 @@ class ExtraArgs:
                 fdiff_datamodel_converter_args =  top_dict[FDIFF_DATAMODEL_CONVERTER_ARGS_KEY]
                 self.fdiff_datamodel_converter_args = fdiff_datamodel_converter_args.split(' ')
 
+def get_underscored(class_name):
+    return re.sub(r'(?<!^)(?=[A-Z])', '_', class_name).lower()
 
 # TODO: maybe move check_preconditions and other things such as initialization 
 # out, 
@@ -80,6 +83,8 @@ class TesterBase:
                 self.mcell4_testing = True
             else:
                 fatal_error("The only supported testing argument is 'mcell4' for now.")
+
+        self.tester_name = get_underscored(type(self).__name__[len('Tester'):]) 
         
         # paths to the binaries
         self.tool_paths = tool_paths
@@ -99,6 +104,7 @@ class TesterBase:
         # working directory for this specific test
         self.test_work_path = os.path.abspath(
             os.path.join(self.tool_paths.work_path,
+                         self.tester_name, # set in parent
                          os.path.basename(self.test_category_path),
                          os.path.basename(self.test_set_path),
                          self.test_name

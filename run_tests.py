@@ -50,8 +50,8 @@ from test_utils import ToolPaths
 
 # import tester classes
 from tester_mdl import TesterMdl
-from tester_datamodel import TesterDataModel
-from tester_datamodel_converter import TesterDataModelConverter
+from tester_data_model import TesterDataModel
+from tester_data_model_converter import TesterDataModelConverter
 from tester_nutmeg import TesterNutmeg
 from tester_pymcell import TesterPymcell
 
