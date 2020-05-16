@@ -1,3 +1,1 @@
-There is a slight difference in geometry compared to test 0720 
-The reference data are the same. 
-Maybe the object is not "watertight".
+Practically the same as test 0720, only partitioning is set.

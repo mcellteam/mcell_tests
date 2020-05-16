@@ -70,12 +70,20 @@ class TesterDataModelConverter(TesterBase):
 
     def should_be_skipped_for_datamodel_test(self) -> bool:
         if os.path.exists(os.path.join(self.test_src_path, 'skip_datamodel')):
-            log("SKIP : " + self.test_name)
+            log("SKIP DATAMODEL: " + self.test_name)
             return True
         else:
             return False
 
-        
+
+    def is_todo_for_datamodel_test(self) -> bool:
+        if os.path.exists(os.path.join(self.test_src_path, 'todo_datamodel')):
+            log("TODO DATAMODEL : " + self.test_name)
+            return True
+        else:
+            return False
+    
+            
     def test(self) -> int:
         
         if self.should_be_skipped_for_datamodel_test():
@@ -103,7 +111,7 @@ class TesterDataModelConverter(TesterBase):
                 mcell_args.append('-mcell4')
             res = self.run_mcell(mcell_args, os.path.join(self.test_work_path, MAIN_MDL_FILE))
         
-        if self.is_todo_test():
+        if self.is_todo_test() or self.is_todo_for_datamodel_test():
             return TODO_TEST
         
         if res != PASSED and not self.expected_wrong_ec() and not self.is_todo_test():
