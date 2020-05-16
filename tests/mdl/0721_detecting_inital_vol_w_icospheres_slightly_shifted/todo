@@ -1,0 +1,2 @@
+asserts like this:
+mcell: ../../src4/collision_utils.inc:1267: void MCell::CollisionUtil::update_counted_volume_id_when_crossing_wall(const MCell::Partition&, const MCell::Wall&, const MCell::Collision&, MCell::Molecule&): Assertion `vm.v.counted_volume_id == obj.id' failed.
