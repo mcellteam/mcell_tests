@@ -246,8 +246,8 @@ def collect_and_run_tests(tool_paths: ToolPaths, opts: TestOptions) -> Dict:
         count = multiprocessing.cpu_count()
         pool = multiprocessing.Pool(processes=count)
  
-        # Run the jobs
-        result_values = pool.starmap(run_single_test, zip(filtered_test_infos, itertools.repeat(tool_paths)))
+        # Run the jobs, the last argument represents chunk size - using 1 for best load balancing  
+        result_values = pool.starmap(run_single_test, zip(filtered_test_infos, itertools.repeat(tool_paths)), 1)
         
         test_names = [info.get_full_name() for info in filtered_test_infos]
         results = dict(zip(test_names, result_values))
