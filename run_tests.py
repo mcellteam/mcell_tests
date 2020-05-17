@@ -167,7 +167,7 @@ def run_single_test(test_info: TestInfo, tool_paths: ToolPaths) -> int:
     res = test_obj.test()
     
     end = time.time()
-    log("FINISHED: " + test_info.get_full_name() + " in " + str(round(end - start, 2)) + " s")
+    #log("FINISHED: " + test_info.get_full_name() + " in " + str(round(end - start, 2)) + " s")
     return res
     
     
