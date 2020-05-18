@@ -1,3 +1,0 @@
-asserts like this:
-Iterations: 500 of 1000 (35549.2 iter/sec)
-mcell: ../../src4/partition.h:123: MCell::Molecule& MCell::Partition::get_m(MCell::molecule_id_t): Assertion `vm_vec_index != MOLECULE_INDEX_INVALID' failed.
