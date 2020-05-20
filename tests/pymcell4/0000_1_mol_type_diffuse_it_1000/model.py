@@ -1,19 +1,18 @@
 #!/usr/bin/env python3
 
-# based on mcell_tests/tests/mdl/0010_2_mol_types_diffuse_it_3
+# based on mcell_tests/tests/mdl/0000_1_mol_type_diffuse_it_1000
 
 import sys
 import os
 
 # TODO: can we somehow get rid of this? 
 # install using pip
-# install using pip
 MCELL_DIR = os.environ.get('MCELL_DIR', '')
 
 if MCELL_DIR:
     sys.path.append(os.path.join(MCELL_DIR, 'lib'))
 else:
-    print("Error: variable MCELL_DIR that allows to find mcell build directory was not set.")
+    print("Error: variable MCELL_DIR that is used to find the mcell library was not set.")
     sys.exit(1)
 
 # only temporary check
