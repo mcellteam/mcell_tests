@@ -34,6 +34,7 @@ class ToolPaths:
             self.mcell_dir_path = os.path.join(MCELL_TOOLS_DIR, WORK_DIR_NAME, BUILD_DIR_MCELL)
         self.mcell_binary = os.path.join(self.mcell_dir_path, MCELL_BINARY)
         self.pymcell_module = os.path.join(self.mcell_dir_path, PYMCELL_DIR, PYMCELL_MODULE)
+        self.pymcell4_lib = os.path.join(self.mcell_dir_path, PYMCELL4_DIR, PYMCELL4_LIB)
             
         if opts.cellblender_build_path_override:
             self.cellblender_dir_path = opts.cellblender_build_path_override

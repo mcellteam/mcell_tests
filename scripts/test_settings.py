@@ -38,9 +38,13 @@ else:
     EXE_EXT = ''
     
 MCELL_BINARY = 'mcell' + EXE_EXT
+
+MCELL_DIR_VARIABLE = 'MCELL_DIR'
 PYMCELL_MODULE = 'pymcell.py'
 PYMCELL_DIR = 'python' 
-MCELL_DIR_VARIABLE = 'MCELL_DIR'
+PYMCELL4_LIB = 'mcell.so'
+PYMCELL4_DIR = 'lib'
+
 
 DEFAULT_PYTHON_BINARY = 'python3' + EXE_EXT
 DATA_MODEL_TO_MDL_DIR = 'mdl'
