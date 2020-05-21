@@ -1,0 +1,6 @@
+[[set]]
+  category = 'tests'
+  testSet = 'mdl'
+  testerClass = 'TesterDataModelPymcell4'
+  args = ['mcell4']
+  

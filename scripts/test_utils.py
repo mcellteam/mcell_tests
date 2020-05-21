@@ -44,6 +44,9 @@ class ToolPaths:
         self.data_model_to_mdl_script = \
             os.path.join(self.cellblender_dir_path, DATA_MODEL_TO_MDL_DIR, DATA_MODEL_TO_MDL_SCRIPT)
             
+        self.data_model_to_pymcell_binary = \
+            os.path.join(self.mcell_dir_path, DATA_MODEL_TO_PYMCELL_DIR, DATA_MODEL_TO_PYMCELL_BINARY)
+            
         self.work_path = os.path.join(THIS_DIR, '..', WORK_DIR_NAME)
         
         if opts.python_binary_override:

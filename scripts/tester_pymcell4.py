@@ -62,14 +62,15 @@ class TesterPymcell4(TesterBase):
             
         shutil.copytree(new_res, reference)
 
-    def run_pymcell(self) -> int:
+    def run_pymcell(self, test_dir:str) -> int:
         # we need to set the path to the build using MCELL_DIR system variable
         # and the command will be executed as shell
         cmdstr = 'export ' + MCELL_DIR_VARIABLE + '=' + self.tool_paths.mcell_dir_path + ';'
-        cmdstr +=  self.tool_paths.python_binary + ' ' + os.path.join(self.test_src_path, 'model.py')
+        cmdstr +=  self.tool_paths.python_binary + ' ' + os.path.join(test_dir, 'model.py')
         cmd = [ cmdstr ]
         
         log_name = self.test_name+'.pymcell4.log'
+        # run in wrk d
         exit_code = run(cmd, shell=True, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         if (exit_code):
             log_test_error(self.test_name, "Pymcell4 failed, see '" + os.path.join(self.test_name, log_name) + "'.")
@@ -87,7 +88,7 @@ class TesterPymcell4(TesterBase):
         
         self.clean_and_create_work_dir()
         
-        res = self.run_pymcell()
+        res = self.run_pymcell(test_dir=self.test_src_path)
         
         if self.is_todo_test():
             return TODO_TEST
