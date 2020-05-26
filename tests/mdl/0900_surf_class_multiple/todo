@@ -1,0 +1,58 @@
+This test uses multiple properties in a surface class, 
+asserts with mcell4 and datamodel is incorrectly generated:
+
+all this should be a single surface class
+
+"surface_class_list" : 
+   [
+    {
+     "data_model_version" : "DM_2018_01_11_1330",
+     "description" : "",
+     "name" : "sc_special",
+     "surface_class_prop_list" : 
+     [
+      {
+       "affected_mols" : "SINGLE",
+       "clamp_value" : "0",
+       "data_model_version" : "DM_2015_11_08_1756",
+       "molecule" : "b",
+       "name" : "",
+       "surf_class_orient" : ";",
+       "surf_class_type" : "REFLECTIVE"
+      }
+     ]
+    },
+    {
+     "data_model_version" : "DM_2018_01_11_1330",
+     "description" : "",
+     "name" : "sc_special",
+     "surface_class_prop_list" : 
+     [
+      {
+       "affected_mols" : "SINGLE",
+       "clamp_value" : "0",
+       "data_model_version" : "DM_2015_11_08_1756",
+       "molecule" : "a",
+       "name" : "",
+       "surf_class_orient" : ";",
+       "surf_class_type" : "TRANSPARENT"
+      }
+     ]
+    },
+    {
+     "data_model_version" : "DM_2018_01_11_1330",
+     "description" : "",
+     "name" : "sc_special",
+     "surface_class_prop_list" : 
+     [
+      {
+       "affected_mols" : "SINGLE",
+       "clamp_value" : "0",
+       "data_model_version" : "DM_2015_11_08_1756",
+       "molecule" : "c",
+       "name" : "",
+       "surf_class_orient" : ";",
+       "surf_class_type" : "ABSORPTIVE"
+      }
+     ]
+    }

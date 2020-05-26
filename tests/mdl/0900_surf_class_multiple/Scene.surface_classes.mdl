@@ -1,0 +1,10 @@
+DEFINE_SURFACE_CLASSES
+{
+  sc_special
+  {
+    TRANSPARENT = a
+    REFLECTIVE = b
+    ABSORPTIVE = c
+  }
+}
+

@@ -1,0 +1,8 @@
+MODIFY_SURFACE_REGIONS
+{
+  Cube[ALL]
+  {
+    SURFACE_CLASS = sc_special
+  }
+}
+
