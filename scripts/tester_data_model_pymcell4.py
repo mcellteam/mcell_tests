@@ -87,6 +87,14 @@ class TesterDataModelPymcell4(TesterPymcell4):
             return False
 
 
+    def should_be_skipped_for_pymcell4_test(self) -> bool:
+        if os.path.exists(os.path.join(self.test_src_path, 'skip_pymcell4')):
+            log("SKIP PYMCELL4: " + self.test_name)
+            return True
+        else:
+            return False
+
+
     def is_todo_for_datamodel_test(self) -> bool:
         if os.path.exists(os.path.join(self.test_src_path, 'todo_datamodel')):
             log("TODO DATAMODEL : " + self.test_name)
@@ -100,6 +108,9 @@ class TesterDataModelPymcell4(TesterPymcell4):
         if self.should_be_skipped_for_datamodel_test():
             return SKIPPED
     
+        if self.should_be_skipped_for_pymcell4_test():
+            return SKIPPED
+        
         if self.should_be_skipped():
             return SKIPPED
             
