@@ -1,5 +1,6 @@
 ITERATIONS = 20
 TIME_STEP = 1e-6
+VACANCY_SEARCH_DISTANCE = 0.1 // set explicitly to the mcell3's default (value that is used when not set, not the usual value 10) 
 
 WARNINGS
 {
