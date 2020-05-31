@@ -4,3 +4,9 @@
   testerClass = 'TesterDataModelConverter'
   args = ['mcell4']
   
+[[set]]
+  category = '../mcell_tests_private/tests'
+  testSet = 'mdl'
+  testerClass = 'TesterDataModelConverter'
+  args = ['mcell4']
+  
