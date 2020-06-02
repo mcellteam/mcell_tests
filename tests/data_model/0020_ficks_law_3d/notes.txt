@@ -1,0 +1,6 @@
+Difference from original example:
+
+Changed number of iterations from:
+   "iterations": "0.8 * 200/dt",
+to:   
+   "iterations": "0.0008 * 200/dt", 
