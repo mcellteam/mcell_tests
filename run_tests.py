@@ -55,6 +55,7 @@ from tester_data_model_converter import TesterDataModelConverter
 from tester_nutmeg import TesterNutmeg
 from tester_pymcell import TesterPymcell
 from tester_pymcell4 import TesterPymcell4
+from tester_data_model_pymcell4 import TesterDataModelPymcell4
 from tester_mdl_data_model_pymcell4 import TesterMdlDataModelPymcell4
 
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
@@ -202,6 +203,8 @@ def load_test_config(config_path: str) -> List[TestSetInfo]:
                 tester_class = TesterPymcell
             elif class_name == 'TesterPymcell4':
                 tester_class = TesterPymcell4
+            elif class_name == 'TesterDataModelPymcell4':
+                tester_class = TesterDataModelPymcell4
             elif class_name == 'TesterMdlDataModelPymcell4':
                 tester_class = TesterMdlDataModelPymcell4
             else:
