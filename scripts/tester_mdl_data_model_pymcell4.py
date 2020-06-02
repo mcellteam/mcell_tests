@@ -41,7 +41,7 @@ MCELL_BASE_ARGS = ['-seed', '1']
 SEED_DIR = 'seed_00001'
 
 
-class TesterDataModelPymcell4(TesterPymcell4):
+class TesterMdlDataModelPymcell4(TesterPymcell4):
     def __init___(self, test_src_path: str, args: List[str], tool_paths: ToolPaths):
         super(TesterMdl, self).__init__(test_src_path, args, tool_paths)
         
