@@ -1,0 +1,5 @@
+[[set]]
+  category = 'tests'
+  testSet = 'data_model'
+  testerClass = 'TesterDataModel'
+ 

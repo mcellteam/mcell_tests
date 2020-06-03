@@ -7,6 +7,6 @@
 [[set]]
   category = '../mcell_tests_private/tests'
   testSet = 'data_model'
-  testerClass = 'TesterMdlDataModelPymcell4'
+  testerClass = 'TesterDataModelPymcell4'
   args = ['mcell4']
   
