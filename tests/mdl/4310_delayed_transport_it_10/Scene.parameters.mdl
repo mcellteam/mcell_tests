@@ -1,0 +1,4 @@
+/* DEFINE PARAMETERS */
+binding_rate = 1e9
+unbinding_rate = 2e4
+
