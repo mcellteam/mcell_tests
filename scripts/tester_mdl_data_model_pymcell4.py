@@ -62,7 +62,7 @@ class TesterMdlDataModelPymcell4(TesterDataModelPymcell4):
         log_name = self.test_name+'.mcell_mdl_to_dm.log'
         exit_code = run(cmd, cwd=self.test_work_path, verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         if (exit_code):
-            log_test_error(self.test_name, "MCell state to data model conversion failed, see '" + os.path.join(self.test_name, log_name) + "'.")
+            log_test_error(self.test_name, "MCell state to data model conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
             return FAILED_MCELL
         else:
             return PASSED

@@ -237,7 +237,7 @@ class TesterBase:
         log_name = self.test_name+'.mcell.log'
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         if (exit_code):
-            log_test_error(self.test_name, "MCell failed, see '" + os.path.join(self.test_name, log_name) + "'.")
+            log_test_error(self.test_name, "MCell failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
             return FAILED_MCELL
         else:
             return PASSED
@@ -253,7 +253,7 @@ class TesterBase:
         log_name = self.test_name+'.dm_to_mdl.log'
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name)
         if exit_code != 0:
-            log_test_error(self.test_name, "JSON to mdl conversion failed, see '" + os.path.join(self.test_name, log_name) + "'.")
+            log_test_error(self.test_name, "JSON to mdl conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
             return FAILED_DM_TO_MDL_CONVERSION
         else:
             return PASSED
