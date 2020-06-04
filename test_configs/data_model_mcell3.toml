@@ -3,3 +3,8 @@
   testSet = 'data_model'
   testerClass = 'TesterDataModel'
  
+ [[set]]
+  category = '../mcell_tests_private/tests'
+  testSet = 'data_model'
+  testerClass = 'TesterDataModel'
+  
