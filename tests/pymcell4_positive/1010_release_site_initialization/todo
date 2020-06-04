@@ -1,0 +1,6 @@
+Message must be improved, this is what is printed now:
+
+Traceback (most recent call last):
+  File "model.py", line 23, in <module>
+    model.initialize()
+RuntimeError: The only supported shape now is Spherical.

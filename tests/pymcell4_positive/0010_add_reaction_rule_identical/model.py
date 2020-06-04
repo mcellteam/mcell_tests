@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 
-# based on mcell_tests/tests/mdl/0320_2_mols_react_in_box_it_10
-# rewritten to look like a generated file 
-
 import sys
 import os
 

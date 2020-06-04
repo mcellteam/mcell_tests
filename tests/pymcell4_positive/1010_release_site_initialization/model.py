@@ -16,16 +16,9 @@ model = m.Model()
 
 a = m.Species('a', diffusion_constant_3d = 1e-6)
 
-r = m.ReactionRule('r', [a.inst()], [], 0)
-model.add_reaction_rule(r)
+model.add_species(a)
 
-b = m.Species('b', diffusion_constant_3d = 1e-6)
+rs = m.ReleaseSite('rel_a', a, location = m.Vec3(0, 0, 0), number_to_release = 1)
+model.add_release_site(rs)
 
-r2 = m.ReactionRule('r', [b.inst()], [], 0)
-
-try:
-    model.add_reaction_rule(r2) # muth throw exc
-    assert False
-except ValueError: 
-    pass # ok
- 
+model.initialize() 
