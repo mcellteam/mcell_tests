@@ -1,0 +1,48 @@
+# TODO: add includes
+
+# mcell4.toml
+[[set]]
+  category = 'tests'
+  testSet = 'mdl'
+  testerClass = 'TesterMdl'
+  args = ['mcell4']
+
+[[set]]
+  category = '../mcell_tests_private/tests'
+  testSet = 'mdl'
+  testerClass = 'TesterMdl'
+  args = ['mcell4']
+  
+[[set]]
+  category = 'tests'
+  testSet = 'nutmeg4_positive'
+  testerClass = 'TesterNutmeg'
+  args = ['mcell4']
+  
+  
+# data_model_convert4.toml
+[[set]]
+  category = 'tests'
+  testSet = 'mdl'
+  testerClass = 'TesterDataModelConverter'
+  args = ['mcell4']
+  
+[[set]]
+  category = '../mcell_tests_private/tests'
+  testSet = 'mdl'
+  testerClass = 'TesterDataModelConverter'
+  args = ['mcell4']
+  
+# data_model_pymcell4.toml
+[[set]]
+  category = 'tests'
+  testSet = 'data_model'
+  testerClass = 'TesterDataModelPymcell4'
+  args = ['mcell4']
+  
+[[set]]
+  category = '../mcell_tests_private/tests'
+  testSet = 'data_model'
+  testerClass = 'TesterDataModelPymcell4'
+  args = ['mcell4']
+  
