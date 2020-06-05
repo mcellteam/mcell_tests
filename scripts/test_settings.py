@@ -85,9 +85,9 @@ REF_VIZ_DATA_DIR_3 = 'ref_viz_data_3'
 REACT_DATA_DIR_3 = 'react_data'
 REF_REACT_DATA_DIR_3 = 'ref_react_data_3'
 
-VIZ_DATA_DIR_4 = os.path.join('4.', 'viz_data')
+VIZ_DATA_DIR_4 = 'viz_data'
 REF_VIZ_DATA_DIR_4 = 'ref_viz_data_4'
-REACT_DATA_DIR_4 = os.path.join('4.', 'react_data')
+REACT_DATA_DIR_4 = 'react_data'
 REF_REACT_DATA_DIR_4 = 'ref_react_data_4'
 
 # not used by mcell4 testing yet
