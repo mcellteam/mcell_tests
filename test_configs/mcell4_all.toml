@@ -1,6 +1,7 @@
 # TODO: add includes
 
 # mcell4.toml
+# MDL and nutmeg
 [[set]]
   category = 'tests'
   testSet = 'mdl'
@@ -19,8 +20,8 @@
   testerClass = 'TesterNutmeg'
   args = ['mcell4']
   
-  
 # data_model_convert4.toml
+# MDL to data model and back to MDL 
 [[set]]
   category = 'tests'
   testSet = 'mdl'
@@ -33,7 +34,22 @@
   testerClass = 'TesterDataModelConverter'
   args = ['mcell4']
   
+# mdl_data_model_pymcell4.toml
+# MDL to data model and then to pymcell4
+[[set]]
+  category = 'tests'
+  testSet = 'mdl'
+  testerClass = 'TesterMdlDataModelPymcell4'
+  args = ['mcell4']
+  
+[[set]]
+  category = '../mcell_tests_private/tests'
+  testSet = 'mdl'
+  testerClass = 'TesterMdlDataModelPymcell4'
+  args = ['mcell4']
+  
 # data_model_pymcell4.toml
+# data model to pymcell4
 [[set]]
   category = 'tests'
   testSet = 'data_model'
