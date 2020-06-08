@@ -72,6 +72,11 @@ class ExtraArgs:
 def get_underscored(class_name):
     return re.sub(r'(?<!^)(?=[A-Z])', '_', class_name).lower()
 
+
+def get_tester_name(class_def):
+    return get_underscored(class_def.__name__[len('Tester'):]) 
+
+
 # TODO: maybe move check_preconditions and other things such as initialization 
 # out, 
 class TesterBase:
@@ -84,7 +89,7 @@ class TesterBase:
             else:
                 fatal_error("The only supported testing argument is 'mcell4' for now.")
 
-        self.tester_name = get_underscored(type(self).__name__[len('Tester'):]) 
+        self.tester_name = get_tester_name(type(self)) 
         
         # paths to the binaries
         self.tool_paths = tool_paths
@@ -187,7 +192,7 @@ class TesterBase:
             fdiff_args)
         
         if res != PASSED:
-            log_test_error(self.test_name, msg)
+            log_test_error(self.test_name, self.tester_name, msg)
         return res
 
     def check_reference_data(self, seed_dir: str, viz_ref_required=False, fdiff_args_override=None) -> int:
@@ -218,7 +223,7 @@ class TesterBase:
             return res
      
         if res == PASSED:
-            log_test_success(self.test_name)
+            log_test_success(self.test_name, self.tester_name)
         
         return res           
 
@@ -237,7 +242,7 @@ class TesterBase:
         log_name = self.test_name+'.mcell.log'
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         if (exit_code):
-            log_test_error(self.test_name, "MCell failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
+            log_test_error(self.test_name, self.tester_name, "MCell failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
             return FAILED_MCELL
         else:
             return PASSED
@@ -253,7 +258,7 @@ class TesterBase:
         log_name = self.test_name+'.dm_to_mdl.log'
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name)
         if exit_code != 0:
-            log_test_error(self.test_name, "JSON to mdl conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
+            log_test_error(self.test_name, self.tester_name, "JSON to mdl conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
             return FAILED_DM_TO_MDL_CONVERSION
         else:
             return PASSED

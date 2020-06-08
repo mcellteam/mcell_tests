@@ -50,6 +50,7 @@ from test_utils import ToolPaths
 
 # import tester classes
 from tester_mdl import TesterMdl
+from tester_base import get_tester_name
 from tester_data_model import TesterDataModel
 from tester_data_model_converter import TesterDataModelConverter
 from tester_nutmeg import TesterNutmeg
@@ -136,11 +137,15 @@ class TestInfo(TestSetInfo):
         super(TestInfo, self).__init__(test_set_info.category, test_set_info.test_set_name, test_set_info.tester_class, test_set_info.args)
 
     def __repr__(self):
-        return '[' + str(self.tester_class) + ']:' + os.path.join(self.test_path)
+        return os.path.join(self.test_path) + ' [' + get_tester_name(self.tester_class) + ']'
+        #return '[' + str(self.tester_class) + ']:' + os.path.join(self.test_path)
 
     def get_full_name(self):
         # not using os.path.join because the name must be identical on every system
         return self.category + '/' + self.test_set_name + '/' + os.path.basename(self.test_path)
+    
+    def get_name_w_tester_class(self):
+        return get_tester_name(self.tester_class) + '/' + self.get_full_name()
 
     def get_full_name_for_sorting(self):
         # for sorting, we would like the long tests to be run as the first ones (due to parallel execution)
@@ -249,7 +254,7 @@ def collect_and_run_tests(tool_paths: ToolPaths, opts: TestOptions) -> Dict:
         for info in filtered_test_infos:
             log("Testing " + info.test_path)
             res = run_single_test(info, tool_paths)
-            results[info.get_full_name()] = res
+            results[info.get_name_w_tester_class()] = res
     else:
         # Set up the parallel task pool to use all available processors
         count = multiprocessing.cpu_count()
@@ -258,7 +263,7 @@ def collect_and_run_tests(tool_paths: ToolPaths, opts: TestOptions) -> Dict:
         # Run the jobs, the last argument represents chunk size - using 1 for best load balancing  
         result_values = pool.starmap(run_single_test, zip(filtered_test_infos, itertools.repeat(tool_paths)), 1)
         
-        test_names = [info.get_full_name() for info in filtered_test_infos]
+        test_names = [info.get_name_w_tester_class() for info in filtered_test_infos]
         results = dict(zip(test_names, result_values))
 
     os.chdir(work_dir)  # just to be sure, let's fix cwd

@@ -72,12 +72,12 @@ def fatal_error(msg) -> None:
     sys.exit(1)
 
 
-def log_test_error(test_name, msg) -> None:
-    log("ERROR: " + test_name + " - " + msg)
+def log_test_error(test_name, tester_class, msg) -> None:
+    log("ERROR: " + test_name + " [" + tester_class + "]" + " - " + msg)
 
 
-def log_test_success(test_name) -> None:
-    log("PASS : " + test_name)
+def log_test_success(test_name, tester_class) -> None:
+    log("PASS : " + test_name + " [" + tester_class + "]")
     
     
 def replace_in_file(fname, search_for, replace_with) -> None:

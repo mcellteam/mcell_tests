@@ -28,7 +28,7 @@ from typing import List, Dict
 
 from test_settings import *
 from tester_base import TesterBase
-from test_utils import ToolPaths, log_test_error, log_test_success, replace_in_file
+from test_utils import ToolPaths, log_test_error, replace_in_file
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
@@ -59,10 +59,10 @@ class TesterDataModelConverter(TesterBase):
         cmd += self.extra_args.mcell_args
         cmd += [ '-mdl2datamodel4' ]
         
-        log_name = self.test_name+'.mcell.log'
+        log_name = self.test_name+'.mdl_to_dm.log'
         exit_code = run(cmd, cwd=self.test_work_path, verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         if (exit_code):
-            log_test_error(self.test_name, "MCell datamodel conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
+            log_test_error(self.test_name, self.tester_name, "MCell datamodel conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
             return FAILED_MCELL
         else:
             return PASSED
