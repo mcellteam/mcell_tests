@@ -48,7 +48,7 @@ class TesterNutmegPymcell4(TesterNutmeg):
     @staticmethod
     def check_prerequisites(tool_paths: ToolPaths) -> None:
         if not os.path.exists(tool_paths.pymcell4_lib):
-            fatal_error("Could not find library '" + tool_paths.pymcell_module + ".")
+            fatal_error("Could not find library '" + tool_paths.pymcell4_lib + ".")
 
     def run_pymcell4_for_nutmeg(self, run_info: RunInfo) -> int:
         # we need to set the path to the build using MCELL_DIR system variable
