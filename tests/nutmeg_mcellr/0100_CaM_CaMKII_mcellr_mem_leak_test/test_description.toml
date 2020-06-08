@@ -1,4 +1,4 @@
-author = "Adam Husar <borisk@psc.edu"
+author = "Adam Husar ahusar@salk.edu"
 date = "2019-09-09"
 description = "Regression test for case when generating .gdta file by nfSIM too too much of memory since it was not freed up."
 

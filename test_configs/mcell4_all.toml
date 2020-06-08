@@ -1,5 +1,12 @@
 # TODO: add includes
 
+# tester_nutmeg_pymcell4.py
+[[set]]
+  category = 'tests'
+  testSet = 'pymcell4_nutmeg'
+  testerClass = 'TesterNutmegPymcell4'
+  
+  
 # mcell4.toml
 # MDL and nutmeg
 [[set]]
@@ -61,4 +68,17 @@
   testSet = 'data_model'
   testerClass = 'TesterDataModelPymcell4'
   args = ['mcell4']
+  
+# part of pymcell4.toml  
+[[set]]
+  category = 'tests'
+  testSet = 'pymcell4'
+  testerClass = 'TesterPymcell4'
+  args = ['mcell4']
+  
+[[set]]
+  category = 'tests'
+  testSet = 'pymcell4_positive'
+  testerClass = 'TesterPymcell4'
+  args = ['mcell4']  
   

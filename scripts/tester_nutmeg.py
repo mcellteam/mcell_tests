@@ -32,7 +32,7 @@ from typing import List, Dict
 import data_output_diff
 from test_settings import *
 from tester_base import TesterBase
-from test_utils import ToolPaths, replace_in_file
+from test_utils import ToolPaths, replace_in_file, log_test_error, log_test_success
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
@@ -59,17 +59,19 @@ KEY_RUN = 'run'
 
 KEY_COMMAND_LINE_OPTIONS = 'commandlineOpts'
 KEY_MDL_FILES = 'mdlfiles'
+KEY_PY_FILE = 'pyfile'
 KEY_JSON_FILE = 'jsonFile'
 KEY_MAX_MEMORY = 'maxMemory'
 
-SUBKEYS_RUN = [KEY_COMMAND_LINE_OPTIONS, KEY_MDL_FILES, KEY_JSON_FILE, KEY_MAX_MEMORY]
+SUBKEYS_RUN = [KEY_COMMAND_LINE_OPTIONS, KEY_MDL_FILES, KEY_PY_FILE, KEY_JSON_FILE, KEY_MAX_MEMORY]
 
 
 KEY_CHECKS = 'checks'
 
 KEY_TEST_TYPE = 'testType'
 KEY_FILE_NAMES = 'fileNames' 
-KEY_DATA_FILE = 'dataFile' 
+KEY_DATA_FILE = 'dataFile'
+KEY_EXIT_CODE = 'exitCode'  
 KEY_NUM_MATCHES = 'numMatches' # only 1 supported
 KEY_MATCH_PATTERN = 'matchPattern'
 KEY_HAVE_HEADER = 'haveHeader' # ignored
@@ -81,7 +83,7 @@ KEY_MAX_TIME = 'maxTime'
 KEY_DESCRIPTION = 'description'
 
 SUBKEYS_CHECKS = [
-    KEY_FILE_NAMES, KEY_DATA_FILE, KEY_HAVE_HEADER, 
+    KEY_FILE_NAMES, KEY_DATA_FILE, KEY_EXIT_CODE, KEY_HAVE_HEADER, 
     KEY_REFERENCE_FILE, KEY_TEST_TYPE, 
     KEY_COUNT_MINIMUM, KEY_COUNT_MAXIMUM,
     KEY_MIN_TIME, KEY_MAX_TIME,
@@ -205,6 +207,9 @@ class TestDescriptionParser:
                 self.parse_error("There has to be at least one mdl file (key '" + KEY_MDL_FILES + "').")
             res.mdl_files = mdlfiles  
 
+        if KEY_PY_FILE in run_dict:
+            res.py_file = run_dict[KEY_PY_FILE]
+
         if KEY_JSON_FILE in run_dict:
             res.json_file = run_dict[KEY_JSON_FILE]
 
@@ -212,10 +217,10 @@ class TestDescriptionParser:
             res.max_memory = run_dict[KEY_MAX_MEMORY]
             
             
-        if res.mdl_files and res.json_file:
-            self.parse_error("Only one of '" + KEY_MDL_FILES + "' and '" + KEY_JSON_FILE + "' can be specified.")
-        if not res.mdl_files and not res.json_file:
-            self.parse_error("One of '" + KEY_MDL_FILES + "' and '" + KEY_JSON_FILE + "' must be specified.")
+        if res.mdl_files and res.json_file and res.py_file:
+            self.parse_error("Only one of '" + KEY_MDL_FILES + "', '" + KEY_JSON_FILE + "' or '" + KEY_PY_FILE + "' can be specified.")
+        if not res.mdl_files and not res.json_file and not res.py_file:
+            self.parse_error("One of '" + KEY_MDL_FILES + "', '" + KEY_JSON_FILE + "' or '" + KEY_PY_FILE + "' must be specified.")
         
         if KEY_COMMAND_LINE_OPTIONS in run_dict:
             res.command_line_options = run_dict[KEY_COMMAND_LINE_OPTIONS]
@@ -309,6 +314,10 @@ class TestDescriptionParser:
             # no other attributes are relevant
             pass
         
+        elif res.test_type == TEST_TYPE_CHECK_EXIT_CODE:
+            res.exit_code = int(self.get_dict_value(check_dict, KEY_EXIT_CODE))
+            pass
+                
         else:
             self.parse_error("Check type '" + test_type_str + "' is not supported yet.")
             res.test_type = TEST_TYPE_UPDATE_REFERENCE
@@ -383,10 +392,10 @@ class TesterNutmeg(TesterBase):
                 mcell_cmd.append('-mcell4')
 
             if not run_info.json_file:
-                # mdl_file is in the test directory
+                # test_file is in the test directory
                 mcell_cmd.append(os.path.join(self.test_src_path, mdl_file))
             else:
-                # mdl_file is in the work directory
+                # test_file is in the work directory
                 mcell_cmd.append(os.path.join(self.test_work_path, mdl_file))
             
             flog.write(str.join(" ", mcell_cmd) + " (" + str(mcell_cmd) + ")\ncwd: " + self.test_work_path + "\n")
@@ -522,6 +531,13 @@ class TesterNutmeg(TesterBase):
             else:
                 self.nutmeg_log("Expected exit code 0 but mcell returned " + str(mcell_ec), check.test_type)
 
+        elif check.test_type == TEST_TYPE_CHECK_EXIT_CODE:
+            if mcell_ec == check.exit_code:
+                self.nutmeg_log("Mcell exit code is " + str(check.exit_code) + " as expected.", check.test_type)
+                res = PASSED
+            else:
+                self.nutmeg_log("Expected exit code " + str(check.exit_code) + " but mcell returned " + str(mcell_ec), check.test_type)
+
         elif check.test_type == TEST_TYPE_FILE_MATCH_PATTERN:
             res = self.check_match_pattern(check)
             self.nutmeg_log("Finding pattern " + check.match_pattern + " in " + check.data_file + "': " + RESULT_NAMES[res], check.test_type)
@@ -542,7 +558,7 @@ class TesterNutmeg(TesterBase):
                 res = PASSED if sz == 0 else FAILED_NUTMEG_SPEC
             else:
                 res = PASSED if sz != 0 else FAILED_NUTMEG_SPEC
-            
+                
         else:
             fatal_error("Unexpected check type " + TEST_TYPE_ID_TO_NAME[check.test_type])
 
@@ -552,7 +568,7 @@ class TesterNutmeg(TesterBase):
                 
         # 1) convert json file if needed
         if test_description.run_info.json_file: 
-            res = self.run_dm_to_mdl_conversion(test_description.run_info.json_file)
+            res = self.run_dm_to_mdl_conversion(os.path.join(self.test_src_path, test_description.run_info.json_file))
             if res != PASSED:
                 return res
             test_description.run_info.mdl_files = [ MAIN_MDL_FILE ]
@@ -585,5 +601,10 @@ class TesterNutmeg(TesterBase):
             return FAILED_NUTMEG_SPEC        
 
         res = self.run_and_validate_test(test_description)
+         
+        if res == PASSED:
+            log_test_success(self.test_name, self.tester_name)
+        else:
+            log_test_error(self.test_name, self.tester_name, "Nutmeg testing failed")
          
         return res

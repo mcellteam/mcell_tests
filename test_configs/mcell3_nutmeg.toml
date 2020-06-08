@@ -1,0 +1,14 @@
+[[set]]
+  category = 'tests'
+  testSet = 'nutmeg_positive'
+  testerClass = 'TesterNutmeg'
+
+[[set]]
+  category = 'tests'
+  testSet = 'nutmeg_negative'
+  testerClass = 'TesterNutmeg'
+
+[[set]]
+  category = 'tests'
+  testSet = 'nutmeg_mcellr'
+  testerClass = 'TesterNutmeg'
