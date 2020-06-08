@@ -76,7 +76,7 @@ def check_or_build_fdiff():
 # return True if two files are identical while counting with floating point tolerance
 def compare_data_output_files(fname_ref, fname_new, exact, fdiff_args):
     
-    if exact:
+    if exact or os.path.splitext(fname_ref)[1] == '.json':
         cmd = [DIFF, '-b', fname_ref, fname_new] # ignoring whitespace changes 
     else:
         diff_executable = check_or_build_fdiff()

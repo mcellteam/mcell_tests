@@ -59,7 +59,7 @@ def main():
     #reg = m.create_surface_region(world, box_obj, tetrahedron_surface_face_list, reg_name) 
 
 
-    # Define volume molecules species
+    # Define surface molecules species
     species_a = m.create_species(world, "sm", 1e-7, True)
     
    

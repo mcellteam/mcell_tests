@@ -48,7 +48,7 @@ def main():
     box_name = 'Tetrahedron'
     box_obj = m.create_polygon_object(world, tetrahedron_vert_list, tetrahedron_face_list, scene, box_name)
 
-    # Define volume molecules species
+    # Define surface molecules species
     species_a = m.create_species(world, "sm", 1e-7, True)
     
    

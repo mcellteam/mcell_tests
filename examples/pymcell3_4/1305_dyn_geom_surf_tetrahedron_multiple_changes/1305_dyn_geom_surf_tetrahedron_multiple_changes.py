@@ -48,7 +48,7 @@ def main():
     box_name = 'Tetrahedron'
     box_obj = m.create_polygon_object(world, tetrahedron_vert_list, tetrahedron_face_list, scene, box_name)
 
-    # Define volume molecules species
+    # Define surface molecules species
     species_a = m.create_species(world, "sm", 1e-7, True)
     
    
@@ -59,8 +59,9 @@ def main():
     # Create viz data
     viz_list = m.mcell_add_to_species_list(species_a, False, 0, None)
     
+    viz_dir_prefix = "./viz_data/seed_0001/Scene"
     m.mcell_create_viz_output(
-        world, "./viz_data/seed_0001/Scene", viz_list, 0, iterations, 1, True)
+        world, viz_dir_prefix, viz_list, 0, iterations, 1, True)
         
     m.mcell_init_simulation(world)
     m.mcell_init_output(world)
@@ -82,6 +83,10 @@ def main():
     
     for i in range(iterations + 1):
         
+        # dump datamodel every N iterations
+        if i % 2 == 0:
+            world4.export_visualization_datamodel_to_dir(viz_dir_prefix)
+
         # mcell3 does geometry change as the first thing in an iteration 
         if i == 10:
             # even with this small change, some molecules are placed to a different wall than 
