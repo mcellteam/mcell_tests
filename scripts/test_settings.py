@@ -37,6 +37,13 @@ if 'Windows' in platform.system():
 else:
     EXE_EXT = ''
     
+if 'Windows' in platform.system():
+    DLL_EXT = '.dll'
+elif 'Darwin' == platform.system():
+    DLL_EXT = '.dylib'
+else:
+    DLL_EXT = '.so'
+
 MCELL_BINARY = 'mcell' + EXE_EXT
 
 DATA_MODEL_TO_PYMCELL_DIR = os.path.join('utils', 'data_model_to_pymcell')
@@ -45,7 +52,7 @@ DATA_MODEL_TO_PYMCELL_BINARY = 'data_model_to_pymcell' + EXE_EXT
 MCELL_DIR_VARIABLE = 'MCELL_DIR'
 PYMCELL_MODULE = 'pymcell.py'
 PYMCELL_DIR = 'python' 
-PYMCELL4_LIB = 'mcell.so'
+PYMCELL4_LIB = 'mcell' + DLL_EXT
 PYMCELL4_DIR = 'lib'
 
 
