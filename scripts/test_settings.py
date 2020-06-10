@@ -40,7 +40,7 @@ else:
 if 'Windows' in platform.system():
     DLL_EXT = '.dll'
 elif 'Darwin' == platform.system():
-    DLL_EXT = '.dylib'
+    DLL_EXT = '.so' # mcell.so is used on MacOS as well, python does not find it otherwise
 else:
     DLL_EXT = '.so'
 
