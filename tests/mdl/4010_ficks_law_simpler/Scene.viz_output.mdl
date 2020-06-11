@@ -1,6 +1,6 @@
 VIZ_OUTPUT
 {
-  MODE = CELLBLENDER
+  MODE = ASCII
   FILENAME = "./viz_data/seed_" & seed & "/Scene"
   MOLECULES
   {
