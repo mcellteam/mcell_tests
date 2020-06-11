@@ -2,7 +2,7 @@ DEFINE_MOLECULES
 {
   vm
   {
-    DIFFUSION_CONSTANT_3D = 1e-6
+    DIFFUSION_CONSTANT_3D = 5e-5
   }
 }
 

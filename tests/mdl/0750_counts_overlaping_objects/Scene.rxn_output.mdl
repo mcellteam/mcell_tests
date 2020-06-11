@@ -1,8 +1,7 @@
 REACTION_DATA_OUTPUT
 {
   STEP=1e-6
-  {COUNT[vm,Scene.box]}=> "./react_data/seed_" & seed & "/vm.box.dat"
-  {COUNT[vm,Scene.vol_019]}=> "./react_data/seed_" & seed & "/vm.vol_019.dat"
-
+  {COUNT[vm,Scene.box1]}=> "./react_data/seed_" & seed & "/vm.box1.dat"
+  {COUNT[vm,Scene.box2]}=> "./react_data/seed_" & seed & "/vm.box2.dat"
 }
 

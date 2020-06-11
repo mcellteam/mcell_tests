@@ -1,9 +1,12 @@
-
 INCLUDE_FILE = "Scene.initialization.mdl"
 
 INCLUDE_FILE = "Scene.molecules.mdl"
 
 INCLUDE_FILE = "Scene.geometry.mdl"
+
+INCLUDE_FILE = "Scene.surface_classes.mdl"
+
+INCLUDE_FILE = "Scene.mod_surf_regions.mdl"
 
 INCLUDE_FILE = "Scene.instantiation.mdl"
 
