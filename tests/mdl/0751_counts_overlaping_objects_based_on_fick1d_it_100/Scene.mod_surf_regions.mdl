@@ -1,0 +1,8 @@
+MODIFY_SURFACE_REGIONS
+{
+  vol_019[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+}
+

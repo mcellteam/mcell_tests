@@ -1,0 +1,16 @@
+INSTANTIATE Scene OBJECT
+{
+  box OBJECT box {}
+  vol_019 OBJECT vol_019 {}
+
+  center_rel RELEASE_SITE
+  {
+   SHAPE = SPHERICAL
+   LOCATION = [0, 0, 0] // only in cube 3
+   SITE_DIAMETER = 0
+   MOLECULE = vm
+   NUMBER_TO_RELEASE = 10
+   RELEASE_PROBABILITY = 1
+  }
+}
+
