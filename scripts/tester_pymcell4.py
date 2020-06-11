@@ -47,7 +47,7 @@ class TesterPymcell4(TesterBase):
     @staticmethod
     def check_prerequisites(tool_paths: ToolPaths) -> None:
         if not os.path.exists(tool_paths.pymcell4_lib):
-            fatal_error("Could not find library '" + tool_paths.pymcell_module + ".")
+            fatal_error("Could not find library '" + tool_paths.pymcell4_lib + ".")
         
     def update_reference(self) -> None:
         reference = os.path.join('..', self.test_src_path, REF_VIZ_OUTPUT_DIR, SEED_DIR)
