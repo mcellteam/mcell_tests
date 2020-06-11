@@ -1,0 +1,12 @@
+DEFINE_SURFACE_CLASSES
+{
+  transp
+  {
+    TRANSPARENT = vm;
+  }
+  absorb
+  {
+    ABSORPTIVE = vm;
+  }
+}
+

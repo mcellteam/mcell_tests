@@ -1,0 +1,16 @@
+/* DEFINE PARAMETERS */
+rtol = 0.001    /* Release plane tolerance - smaller is closer to ideal (0.001 works well)    units=um */
+lz = 0.2    /* Length z = Total length of sample box in z dimension    units=um */
+iters = 50    /* Number of iterations to run  */
+dc = 5e-6    /* Diffusion Constant of Molecules    units=cm^2/sec */
+plot_segment_counts = 1    /* Plot count of vm molecules in each segment when non-zero  */
+nrel = 100    /* Number of molecules to release    units=Count */
+seeds = 10    /* Number of seeds to run  */
+plot_front_crossings = 0    /* Plot front crossings of vm molecules when non-zero  */
+ext = 0.02    /* Extended length for counting boxes and counting planes    units=um */
+dt = 1e-6    /* Time step for each iteration of the simulation    units=sec */
+tol = 0.995    /* Scale factor of sampling boxes to avoid coincident faces (0.995 works well)    units=um */
+n = 40    /* Number of segments to sample along the x dimension  */
+lx = 2.0    /* Length x = Total length of sample box in x dimension    units=um */
+ly = 0.2    /* Length y = Total length of sample box in y dimension    units=um */
+
