@@ -1,0 +1,16 @@
+INSTANTIATE Scene OBJECT
+{
+  rel_a RELEASE_SITE
+  {
+   SHAPE = LIST
+   MOLECULE_POSITIONS 
+   {
+    a [0, 0, 0]
+    b [0.5, 0.5, 0.5]
+    a [0.1, 0.2, 0.3]
+    b [1, -1, 0]
+   } 
+   RELEASE_PROBABILITY = 1
+  }
+}
+
