@@ -1,2 +1,0 @@
-geometry is a bit off and there is an extra wall collision in the converted variant, 
-checked against mcell3 that the result is correct otherwise, but we are ignoring this model 
