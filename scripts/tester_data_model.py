@@ -155,7 +155,11 @@ class TesterDataModel(TesterBase):
         if res != PASSED:
             return res
          
-        res = self.run_mcell(MCELL_BASE_ARGS, os.path.join(self.test_work_path, MAIN_MDL_FILE))
+        mcell_args = MCELL_BASE_ARGS.copy()
+        if self.mcell4_testing:
+            mcell_args.append('-mcell4')
+            
+        res = self.run_mcell(mcell_args, os.path.join(self.test_work_path, MAIN_MDL_FILE))
         
         if self.is_todo_test():
             return TODO_TEST

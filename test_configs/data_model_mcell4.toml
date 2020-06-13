@@ -1,0 +1,11 @@
+[[set]]
+  category = 'tests'
+  testSet = 'data_model'
+  testerClass = 'TesterDataModel'
+  args = ['mcell4']
+   
+[[set]]
+  category = '../mcell_tests_private/tests'
+  testSet = 'data_model'
+  testerClass = 'TesterDataModel'
+  args = ['mcell4']
