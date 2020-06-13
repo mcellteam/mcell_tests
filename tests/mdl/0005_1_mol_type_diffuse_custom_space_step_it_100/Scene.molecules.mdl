@@ -1,0 +1,9 @@
+DEFINE_MOLECULES
+{
+  a
+  {
+    DIFFUSION_CONSTANT_3D = 1e-6
+    CUSTOM_SPACE_STEP = 0.1
+  }
+}
+
