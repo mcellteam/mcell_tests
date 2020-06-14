@@ -1,0 +1,20 @@
+INSTANTIATE Scene OBJECT
+{
+  Icosphere OBJECT Icosphere {}
+  rel_sa_sb RELEASE_SITE
+  {
+   SHAPE = LIST
+   MOLECULE_POSITIONS 
+   {
+    sa' [0, 0, -0.25]
+    sb' [0.17, -0.1, -0.1]
+    sa, [0.01, 0.01, 0.25]
+    sb, [-.1, -0.1, 0.2]
+    sa; [0.14, -0.2, 0]
+    sb; [0.17, -0.12, 0.13]
+   } 
+   SITE_DIAMETER = 0.1
+   RELEASE_PROBABILITY = 1
+  }
+}
+
