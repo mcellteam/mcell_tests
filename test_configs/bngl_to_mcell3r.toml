@@ -1,0 +1,6 @@
+[[set]]
+  category = 'tests'
+  testSet = 'bngl'
+  testerClass = 'TesterBnglMcell3R'
+
+  

@@ -60,6 +60,9 @@ DEFAULT_PYTHON_BINARY = 'python3' + EXE_EXT
 DATA_MODEL_TO_MDL_DIR = 'mdl'
 DATA_MODEL_TO_MDL_SCRIPT = 'data_model_to_mdl.py'
 
+BNG_DIR = 'bng'
+BNGL_TO_DATA_MODEL_SCRIPT = 'bngl_to_data_model.py'
+
 
 MCELL_TIMEOUT=1500 # 20 min
 
