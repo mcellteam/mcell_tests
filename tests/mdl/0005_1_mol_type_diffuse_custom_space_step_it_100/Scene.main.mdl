@@ -6,5 +6,5 @@ INCLUDE_FILE = "Scene.instantiation.mdl"
 
 sprintf(seed,"%05g",SEED)
 
-INCLUDE_FILE = "Scene.viz_output.mdl"
+//INCLUDE_FILE = "Scene.viz_output.mdl"
 
