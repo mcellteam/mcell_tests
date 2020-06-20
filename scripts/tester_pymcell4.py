@@ -25,6 +25,7 @@ in the future.
 import os
 import sys
 import shutil
+import glob
 from typing import List, Dict
 
 from test_settings import *
@@ -78,6 +79,15 @@ class TesterPymcell4(TesterBase):
         else:
             return PASSED
 
+
+    def copy_all_bngl_files_to_work_dir(self):
+        for file in glob.glob(os.path.join(self.test_src_path, '*.bngl')):
+            shutil.copy(
+                file,
+                self.test_work_path 
+            )
+        
+        
     def test(self) -> int:
             
         if self.should_be_skipped():
@@ -87,6 +97,8 @@ class TesterPymcell4(TesterBase):
             return SKIPPED
         
         self.clean_and_create_work_dir()
+        
+        self.copy_all_bngl_files_to_work_dir()
         
         res = self.run_pymcell(test_dir=self.test_src_path)
         
