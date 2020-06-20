@@ -5,7 +5,6 @@
 **/dump*
 /benchmarks/*/oprofile_data
 /work/
-/**/*_files/
 /**/*.blend1
 /**/*.pyc
 /make.log
