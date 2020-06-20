@@ -41,7 +41,7 @@ SEED_DIR = 'seed_00001'
 
 class TesterBnglMcell3R(TesterBase):
     def __init___(self, test_dir: str, args: List[str], tool_paths: ToolPaths):
-        super(TesterMdl, self).__init__(test_dir, args, tool_paths)
+        super(TesterBnglMcell3R, self).__init__(test_dir, args, tool_paths)
     
     @staticmethod
     def check_prerequisites(tool_paths: ToolPaths) -> None:

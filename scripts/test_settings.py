@@ -63,6 +63,7 @@ DATA_MODEL_TO_MDL_SCRIPT = 'data_model_to_mdl.py'
 BNG_DIR = 'bng'
 BNGL_TO_DATA_MODEL_SCRIPT = 'bngl_to_data_model.py'
 
+TEST_FILES_DIR = 'test_files'
 
 MCELL_TIMEOUT=1500 # 20 min
 
