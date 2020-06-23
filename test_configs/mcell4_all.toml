@@ -81,4 +81,11 @@
   testSet = 'pymcell4_positive'
   testerClass = 'TesterPymcell4'
   args = ['mcell4']  
-  
+
+# bngl_to_pymcell4.toml
+[[set]]
+  category = 'tests'
+  testSet = 'bngl'
+  testerClass = 'TesterBnglPymcell4'
+  args = ['mcell4']
+    
