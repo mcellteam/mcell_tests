@@ -1,5 +1,0 @@
-[[set]]
-  category = 'tests'
-  testSet = 'pymcell4_nutmeg'
-  testerClass = 'TesterNutmegPymcell4'
-  
