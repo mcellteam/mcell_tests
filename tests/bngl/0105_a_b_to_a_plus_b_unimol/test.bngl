@@ -1,6 +1,8 @@
 begin model
 begin parameters
 	ITERATIONS  10
+	#TIME_STEP  1e-6
+	VACANCY_SEARCH_DISTANCE  10
 	
     MCELL_DIFFUSION_CONSTANT_3D_A 1e-6
     MCELL_DIFFUSION_CONSTANT_3D_B 5e-5
@@ -9,13 +11,12 @@ begin parameters
 end parameters
 
 begin molecule types
-	A(a~S~R)
-	B(b~T~U)
+	A(a)
+	B(b)
 end molecule types
 
 begin seed species
-	 A(a~S)  10
-	 B(b~T)  10
+	 A(a!1).B(b!1)  10
 end seed species
 
 begin observables
@@ -23,6 +24,6 @@ begin observables
 end observables
 
 begin reaction rules
-	A(a~S) + B(b~T) -> A(a~R!1).B(b~T!1) 1E9
+	A(a!1).B(b!1) -> A(a) + B(b) 3e5
 end reaction rules
 end model
