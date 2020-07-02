@@ -1,0 +1,5 @@
+DEFINE_REACTIONS
+{
+  a+a -> b [1e8] : react_a_to_b
+}
+
