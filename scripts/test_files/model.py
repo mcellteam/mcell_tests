@@ -20,7 +20,7 @@ ITERATIONS = int(params['ITERATIONS'])
 #VACANCY_SEARCH_DISTANCE = params['VACANCY_SEARCH_DISTANCE'] # not supported by mcell4 yet
 SEED = 1
 TIME_STEP = 1e-6 # mcell3r converter does not handle this yet  
-DUMP = False
+DUMP = True
 EXPORT_DATA_MODEL = True
 
 subsystem = m.Subsystem()

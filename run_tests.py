@@ -62,6 +62,7 @@ from tester_mdl_data_model_pymcell4 import TesterMdlDataModelPymcell4
 from tester_nutmeg_pymcell4 import TesterNutmegPymcell4
 from tester_bngl_mcell3r import TesterBnglMcell3R
 from tester_bngl_pymcell4 import TesterBnglPymcell4
+from tester_external import TesterExternal
 
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
 
@@ -229,6 +230,8 @@ def load_test_config(config_path: str) -> List[TestSetInfo]:
                 tester_class = TesterBnglMcell3R
             elif class_name == 'TesterBnglPymcell4':
                 tester_class = TesterBnglPymcell4
+            elif class_name == 'TesterExternal':
+                tester_class = TesterExternal
             else:
                 fatal_error("Unknown tester class '" + class_name + "' in '" + config_path + "'.")
                 
@@ -247,9 +250,12 @@ def collect_and_run_tests(tool_paths: ToolPaths, opts: TestOptions) -> Dict:
     test_infos = []
     tester_classes = set()
     for test_set in test_set_infos:
-        test_infos += get_test_dirs(test_set)
-        tester_classes.add(test_set.tester_class)
-
+        if test_set.tester_class != TesterExternal: 
+            test_infos += get_test_dirs(test_set)
+            tester_classes.add(test_set.tester_class)
+        else:
+            test_infos.append(TestInfo(test_set, test_set.test_set_name))
+            
     filtered_test_infos = []
     for info in test_infos:
         if not opts.pattern or re.search(opts.pattern, info.test_path):
@@ -302,7 +308,7 @@ def report_results(results: Dict) -> int:
         print(RESULT_NAMES[value] + ": " + str(key))
         if value == PASSED:
             passed_count += 1
-        elif value in [FAILED_MCELL, FAILED_DIFF, FAILED_DM_TO_MDL_CONVERSION, FAILED_NUTMEG_SPEC]:
+        elif value in [FAILED_MCELL, FAILED_DIFF, FAILED_DM_TO_MDL_CONVERSION, FAILED_NUTMEG_SPEC, FAILED_EXTERNAL]:
             failed_tests.append((value, key))
         elif value == SKIPPED:
             skipped_count += 1

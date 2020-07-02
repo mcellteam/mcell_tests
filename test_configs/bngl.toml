@@ -1,0 +1,17 @@
+[[set]]
+  category = 'tests'
+  testSet = 'bngl'
+  testerClass = 'TesterBnglPymcell4'
+  args = ['mcell4']
+  
+[[set]]
+  category = 'tests'
+  testSet = 'bngl'
+  testerClass = 'TesterBnglMcell3R'
+
+[[set]]
+  category = 'external'
+  testSet = 'bng_test'
+  testerClass = 'TesterExternal'
+  args = ['python3', '$MCELL_TESTS_DIR/../mcell/libs/bng/test/test.py', '$MCELL_BUILD_DIR']
+  

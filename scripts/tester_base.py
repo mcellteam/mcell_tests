@@ -83,11 +83,10 @@ class TesterBase:
     def __init__(self, test_src_path: str, args: List[str], tool_paths: ToolPaths):
         
         self.mcell4_testing = False
+        self.args = args
         if args:
             if args == ['mcell4']:
                 self.mcell4_testing = True
-            else:
-                fatal_error("The only supported testing argument is 'mcell4' for now.")
 
         self.tester_name = get_tester_name(type(self)) 
         
