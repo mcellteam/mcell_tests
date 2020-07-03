@@ -1,3 +1,6 @@
 In this test seems that MCellR computes wrong reaction rate.
 The reactants are identical and the rate is 4x higher than
 it should probably be.   
+
+However, in this case the result is identical because 
+no reaction occurs.   
