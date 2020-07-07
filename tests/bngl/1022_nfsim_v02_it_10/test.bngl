@@ -1,15 +1,20 @@
 # simple_system.bngl
 begin model
 begin parameters
-	kon     10 *1e5
-	koff    5 *1e5
-	kcat    0.6 *1e5
-	dephos  0.5 *1e5
+	kon     10 *1e7
+	koff    5 *1e7
+	kcat    0.6 *1e7
+	dephos  0.5 *1e6
+	
+	ITERATIONS  10
+    MCELL_DIFFUSION_CONSTANT_3D_X 9e-5
+    MCELL_DIFFUSION_CONSTANT_3D_Y 8e-5
+    MCELL_NO_COMPARTMENT_SIZE 1/16	
 end parameters
 begin species
-	X(y,p~0,p~0)  5000
-	X(y,p~1,p~1)  0
-	Y(x)          500
+	X(y,p~0,p~0)  500
+	X(y,p~1,p~1)  0  # this species cannot be created
+	Y(x)          50
 end species
 begin reaction rules
 	X(p~1)             ->  X(p~0)               dephos
