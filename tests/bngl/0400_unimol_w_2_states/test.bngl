@@ -12,6 +12,10 @@ begin parameters
     MCELL_NO_COMPARTMENT_SIZE 1/16	
 end parameters
 
+begin molecule types 
+    X(p~0~1,p~0~1)
+end molecule types
+
 begin species
 	X(p~0,p~0)  500
 end species
@@ -21,10 +25,8 @@ begin reaction rules
 end reaction rules
 
 begin observables
-    Molecules X_free  X(p~0,y)
-    Molecules Xp_free X(p~1,y)
-    Molecules Xpp     X(p~1,p~1)
-    #Molecules XY  b   X(y!1).Y(x!1)
+    Molecules X_free  X(p~0)
+    Molecules Xp_free X(p~1)
 end observables
 end model
 

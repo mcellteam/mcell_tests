@@ -25,7 +25,7 @@ end observables
 
 begin reaction rules
 	
-	A(a!?,b~0) -> A(a!?,b~1) 1e6
+	A(a!?,b~0) -> A(a!?,b~1) 3e5
 	   
 end reaction rules
 end model
