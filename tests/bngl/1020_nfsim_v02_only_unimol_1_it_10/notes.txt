@@ -1,0 +1,2 @@
+pymcell 4's rate fot his rxn is probably wrong:
+X(y!1,p~0).Y(x!1)  ->  X(y,p~0) + Y(x)

@@ -20,7 +20,10 @@ begin seed species
 end seed species
 
 begin reaction rules
-  A(a) + A(a) <-> A(a!1).A(a!1) kp, km
+  #original: A(a) + A(a) <-> A(a!1).A(a!1) kp, km  # mcellr+nfsim considers this to be 4 reactions
+  
+  A(a) + A(a) -> A(a!1).A(a!1) kp  # mcellr+nfsim considers this to be reaction with 4x rate
+  
 end reaction rules
 
 begin observables
