@@ -1,0 +1,2 @@
+MCell3 reference data were generated with enabled macro 
+MCELL3_REVERSE_INITIAL_SURF_MOL_PLACEMENT_BY_NUM

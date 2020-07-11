@@ -1,0 +1,5 @@
+INSTANTIATE Scene OBJECT
+{
+  Plane OBJECT Plane {}
+}
+

@@ -6,10 +6,6 @@ MODIFY_SURFACE_REGIONS
     {
       sa' = 1
     }
-    /*MOLECULE_DENSITY
-    {
-      sa' = 1/15
-    }*/
   }
 }
 

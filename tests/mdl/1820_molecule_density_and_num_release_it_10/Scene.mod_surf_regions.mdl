@@ -1,0 +1,24 @@
+MODIFY_SURFACE_REGIONS
+{
+  Plane[ALL]
+  {
+    MOLECULE_DENSITY
+    {
+      sa' = 0.3
+    }
+    MOLECULE_NUMBER
+    {
+      sb' = 5
+    }
+    MOLECULE_NUMBER
+    {
+      sc' = 10
+    }
+    MOLECULE_DENSITY
+    {
+      sd' = 0.4
+    }
+  }
+ 
+}
+
