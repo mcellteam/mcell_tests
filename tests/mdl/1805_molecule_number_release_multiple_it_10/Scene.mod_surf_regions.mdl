@@ -1,0 +1,15 @@
+MODIFY_SURFACE_REGIONS
+{
+  Plane[ALL]
+  {
+    MOLECULE_NUMBER
+    {
+      sa' = 10
+    }
+    MOLECULE_NUMBER
+    {
+      sb' = 10
+    }
+  }
+}
+
