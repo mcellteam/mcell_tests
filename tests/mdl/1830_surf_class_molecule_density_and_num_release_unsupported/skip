@@ -1,0 +1,13 @@
+Test that uses DEFINE_SURFACE_CLASSES with 
+MOLECULE_DENSITY and MOLECULE_NUMBER.
+
+Should be identical to 1820 but MCell3 does not
+seem to produce correct result. 
+Also it does not really fit BNG Species definition
+in MCell4 so the plan is not to support this feature 
+unless absolutely needed.
+(initial concentration should be done through releases, 
+not in Species definition) 
+ 
+ 
+
