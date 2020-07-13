@@ -1,0 +1,1 @@
+Validated against MCell3 with MCELL3_SORTED_VIZ_OUTPUT

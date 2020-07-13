@@ -1,0 +1,11 @@
+INSTANTIATE Scene OBJECT
+{
+  Icosphere OBJECT Icosphere {}
+  rel_a RELEASE_SITE
+  {
+   SHAPE = Scene.Icosphere
+   MOLECULE = a
+   CONCENTRATION = 1e-5
+  }
+}
+
