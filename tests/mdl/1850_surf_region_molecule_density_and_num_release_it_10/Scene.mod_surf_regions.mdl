@@ -1,0 +1,23 @@
+MODIFY_SURFACE_REGIONS
+{
+  Cube[top0]
+  {
+    MOLECULE_DENSITY
+    {
+      sa' = 200
+    }
+    MOLECULE_NUMBER
+    {
+      sb' = 5
+    }
+    MOLECULE_NUMBER
+    {
+      sc' = 10
+    }
+    MOLECULE_DENSITY
+    {
+      sd' = 100
+    }
+  }
+}
+
