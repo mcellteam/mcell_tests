@@ -63,11 +63,12 @@ class TesterPymcell4(TesterBase):
             
         shutil.copytree(new_res, reference)
 
-    def run_pymcell(self, test_dir:str) -> int:
+
+    def run_pymcell(self, test_dir:str, test_file='model.py', extra_args=[]) -> int:
         # we need to set the path to the build using MCELL_DIR system variable
         # and the command will be executed as shell
         cmdstr = 'export ' + MCELL_DIR_VARIABLE + '=' + self.tool_paths.mcell_dir_path + ';'
-        cmdstr +=  self.tool_paths.python_binary + ' ' + os.path.join(test_dir, 'model.py')
+        cmdstr +=  self.tool_paths.python_binary + ' ' + os.path.join(test_dir, test_file)
         cmd = [ cmdstr ]
         
         log_name = self.test_name+'.pymcell4.log'
