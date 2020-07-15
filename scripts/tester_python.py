@@ -46,8 +46,8 @@ class TesterPython(TesterBase):
         
     @staticmethod
     def check_prerequisites(tool_paths) -> None:
-        if not os.path.exists(tool_paths.python_binary):
-            fatal_error("Could not find Python binary executable '" + tool_paths.python_binary + ".")
+        if not os.path.exists(tool_paths.python_binary) and not os.path.exists(shutil.which(tool_paths.python_binary)):
+            fatal_error("Could not find Python binary executable '" + tool_paths.python_binary + "'.")
             
         TesterBase.check_prerequisites(tool_paths)
         
