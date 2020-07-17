@@ -53,7 +53,7 @@ class TesterDataModelPymcell4(TesterPymcell4):
         TesterBase.check_prerequisites(tool_paths)
 
     def run_dm_to_pymcell_conversion(self, data_model_file: str):
-        cmd = [ self.tool_paths.data_model_to_pymcell_binary, '-g', data_model_file ]
+        cmd = [ self.tool_paths.data_model_to_pymcell_binary, data_model_file ]
         
         log_name = self.test_name+'.mcell_dm_to_pymcell.log'
         exit_code = run(cmd, cwd=self.test_work_path, verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
