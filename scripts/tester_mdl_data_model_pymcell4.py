@@ -87,7 +87,7 @@ class TesterMdlDataModelPymcell4(TesterDataModelPymcell4):
 
         if res == PASSED: 
             # fixme use name data_model.json 
-            res = self.run_dm_to_pymcell_conversion(os.path.join(self.test_work_path, 'datamodel.json'))
+            res = self.run_dm_to_pymcell_conversion(os.path.join(self.test_work_path, 'data_model.json'))
             
         if res == PASSED:
             res = self.run_pymcell(test_dir=self.test_work_path)
