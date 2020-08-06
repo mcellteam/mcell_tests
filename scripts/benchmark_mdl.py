@@ -28,7 +28,7 @@ from typing import List, Dict
 
 from test_settings import *
 from tester_base import TesterBase
-from test_utils import ToolPaths
+from test_utils import ToolPaths, log_test_error
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
