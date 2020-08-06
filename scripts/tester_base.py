@@ -74,7 +74,11 @@ def get_underscored(class_name):
 
 
 def get_tester_name(class_def):
-    return get_underscored(class_def.__name__[len('Tester'):]) 
+    if class_def.__name__.startswith('Tester'):
+        name = class_def.__name__[len('Tester'):]
+    else:
+        name = class_def.__name__
+    return get_underscored(name) 
 
 
 # TODO: maybe move check_preconditions and other things such as initialization 
