@@ -16,3 +16,8 @@
   testerClass = 'TesterNutmeg'
   args = ['mcell4']
   
+[[set]]
+  category = 'tests'
+  testSet = 'data_model'
+  testerClass = 'TesterDataModel'
+  args = ['mcell4']
