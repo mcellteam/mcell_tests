@@ -58,7 +58,9 @@ class ToolPaths:
                 fatal_error("Python binary from installed bundle was not found: '" + self.python_binary + "'.")
                 
         else:
-            self.python_binary = DEFAULT_PYTHON_BINARY            
+            self.python_binary = DEFAULT_PYTHON_BINARY         
+            
+        self.opts = opts    
             
     def __repr__(self) -> str:
         return \

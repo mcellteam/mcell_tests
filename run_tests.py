@@ -86,6 +86,7 @@ class TestOptions:
         self.mcell_build_path_override = None
         self.cellblender_build_path_override = None
         self.python_binary_override = None    
+        self.update_reference = False
 
     def __repr__(self):
         attrs = vars(self)
@@ -101,6 +102,7 @@ def create_argparse() -> argparse.ArgumentParser:
     parser.add_argument('-m', '--mcell-build-path', type=str, help='override of the default mcell build path')
     parser.add_argument('-b', '--cellblender-build-path', type=str, help='override of the default cellblender build path')
     parser.add_argument('-t', '--testing-python-executable', type=str, help='override of the default python used for testing (e.g. to run conversion scripts)')
+    parser.add_argument('-u', '--update-reference', action='store_true', help='update reference (works currently only for benchmarks)')
     return parser
 
 # FIXME: insert into TestOptions class       
@@ -130,6 +132,9 @@ def process_opts() -> TestOptions:
     if args.testing_python_executable:
         opts.python_binary_override = args.testing_python_executable 
 
+    if args.update_reference:
+        opts.update_reference = True
+        
     return opts
 
 

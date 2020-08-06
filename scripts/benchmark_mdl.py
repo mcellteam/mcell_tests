@@ -85,6 +85,12 @@ class BenchmarkMdl(TesterBase):
             self.test_name + ": " + str(insns) + " vs ref. " + str(ref_insns) + 
             " (" + "{:.3f}".format(100*float(insns)/ref_insns) + "%)"
         )
+        
+        if self.tool_paths.opts.update_reference:
+            print(self.test_name + ": updating reference in " + instructions_file)
+            with open(instructions_file, 'w') as f:
+                f.write(str(insns))
+            
         return PASSED
         
     def test(self) -> int:
