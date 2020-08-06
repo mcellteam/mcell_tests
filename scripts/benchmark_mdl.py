@@ -83,7 +83,7 @@ class BenchmarkMdl(TesterBase):
             
         print(
             self.test_name + ": " + str(insns) + " vs ref. " + str(ref_insns) + 
-            " (" + str(100*float(ref_insns)/insns) + "%)"
+            " (" + "{:.3f}".format(100*float(insns)/ref_insns) + "%)"
         )
         return PASSED
         
