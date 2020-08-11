@@ -109,12 +109,21 @@ def compare_data_output_directory(dir_ref, dir_new, exact=False, fdiff_args=[]):
         # FIXME: these error messages do not appear in the difff log
         fname_ref = os.path.join(dir_ref, fname)
         if not os.path.exists(fname_ref):
+            # thisd should not happen because we just listed the directory
             log('File ' + fname_ref + ' does not exist')
             return FAILED_DIFF
         fname_new = os.path.join(dir_new, fname)
         if not os.path.exists(fname_new):
-            log('File ' + fname_new + ' does not exist')
-            return FAILED_DIFF
+            # if this is a .dat file, there might be a '_MDLString' suffix
+            ext = os.path.splitext(fname_new)[1]
+            fname_new_mdlstring = os.path.splitext(fname_new)[0] + '_MDLString' + ext
+            if ext == '.dat' and os.path.exists(fname_new_mdlstring):
+                fname_new = fname_new_mdlstring
+            else:
+                if ext == '.dat': 
+                    log('File ' + fname_new_mdlstring + ' does not exist (added _MDLString)')
+                log('File ' + fname_new + ' does not exist')
+                return FAILED_DIFF
         
         res = compare_data_output_files(fname_ref, fname_new, exact, fdiff_args)
         if res != PASSED:
