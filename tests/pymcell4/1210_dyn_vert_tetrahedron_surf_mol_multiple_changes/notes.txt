@@ -1,0 +1,8 @@
+This model is equivalent to
+mcell_tests/examples/pymcell3_4/1305_dyn_geom_surf_tetrahedron_multiple_changes
+when line 
+    m.mcell_set_with_checks_flag(world, 0)
+is commented out (it causes several rng calls).
+
+Stored data model file used to generate most of it for potential API updates,
+it was manually fixed to contain correct floating point values (e.g. changed 0.00999... to 0.01)
