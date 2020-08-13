@@ -1,0 +1,5 @@
+This model is equivalent to
+mcell_tests/examples/pymcell3_4/1203_dyn_vert_tetrahedron_multiple_changes
+
+Stored data model file used to generate most of it for potential API updates,
+it was manually fixed to contain correct floating point values (e.g. changed 0.00999... to 0.01)
