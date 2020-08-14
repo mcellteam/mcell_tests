@@ -1,0 +1,6 @@
+This model is based on
+mcell_tests/tests/pymcell4/1200_dyn_vert_tetrahedron_vol_mol_multiple_changes,
+removed dynamic geometry changes and added callback registration and checks
+
+Stored data model file used to generate most of it for potential API updates,
+it was manually fixed to contain correct floating point values (e.g. changed 0.00999... to 0.01)
