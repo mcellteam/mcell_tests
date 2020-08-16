@@ -1,0 +1,11 @@
+
+DEFINE_MOLECULES
+{
+  a
+  {
+    DIFFUSION_CONSTANT_3D = 1e-6
+    CUSTOM_TIME_STEP = 1e-7
+    TARGET_ONLY
+  }
+}
+
