@@ -1,0 +1,14 @@
+Results are completely off, 
+not sure why (except for BNG counting some species multiple times).
+
+MCell3R:{'X(p~1,p~0)': 160.54166666666666, 'X(p~0,p~0)': 2663.4583333333335, 'X(p~0,p~1)': 165.25, 'X(p~1,p~1)': 10.75}
+MCell4:{'X(p~1,p~0)': 166.79166666666666, 'X(p~0,p~0)': 2828.6666666666665, 'X(p~1,p~1)': 4.541666666666667}
+BNG:{'Xp0p0': 1807.165288929, 'Xp1p0': 1485.704528205, 'Xp1p1': 1221.4256549}
+Validation results:
+X(p~1,p~0): 88.774% (MCell: 166.79166666666666, BNG: 1485.704528205)
+  - ERROR: difference is higher than tolerance of 0.5%
+X(p~0,p~0): 56.525% (MCell: 2828.6666666666665, BNG: 1807.165288929)
+  - ERROR: difference is higher than tolerance of 0.5%
+X(p~1,p~1): 99.628% (MCell: 4.541666666666667, BNG: 1221.4256549)
+  - ERROR: difference is higher than tolerance of 0.5%
+FAILED: differences are too large

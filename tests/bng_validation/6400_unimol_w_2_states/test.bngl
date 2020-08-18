@@ -1,7 +1,7 @@
 # simple_system.bngl
 begin model
 begin parameters
-	kcat    6
+	kcat    60
 	
 	ITERATIONS  1000
     MCELL_DIFFUSION_CONSTANT_3D_X 9e-5 # unimol rxns - D is not important
@@ -14,7 +14,7 @@ begin molecule types
 end molecule types
 
 begin species
-	X(p~0,p~0)  10000
+	X(p~0,p~0)  3000
 end species
 
 begin reaction rules
@@ -28,5 +28,6 @@ begin observables
 end observables
 end model
 
-simulate({method=>"ode",t_end=>1e-3,n_steps=>1000})
+generate_network({overwrite=>1})
+simulate({method=>"ode",t_end=>1e-2,n_steps=>10000})
 
