@@ -1,0 +1,38 @@
+begin model
+begin parameters
+	ITERATIONS  1000
+    MCELL_DIFFUSION_CONSTANT_3D_X 1e-2
+    MCELL_DIFFUSION_CONSTANT_3D_Y 1e-2
+    MCELL_NO_COMPARTMENT_SIZE 1
+    NA_um3 6.022e8
+    VOL_RXN 1
+    MCELL_REDEFINE_VOL_RXN NA_um3
+   
+	kon     15 * VOL_RXN
+	koff    10 * 10
+	kcat    0.6 * 1000
+	dephos  0.5 * 1000
+end parameters
+begin species
+	X(y,p~0)  3000
+	X(y,p~1)  0
+	Y(x)      3000
+end species
+begin reaction rules
+	X(p~1)             ->  X(p~0)               dephos
+	X(y,p~0) + Y(x)    ->  X(y!1,p~0).Y(x!1)    kon
+	X(y!1,p~0).Y(x!1)  ->  X(y,p~0) + Y(x)      koff
+	X(y!1,p~0).Y(x!1)  ->  X(y,p~1) + Y(x)      kcat
+end reaction rules
+begin observables
+    Molecules Xp0y  X(y,p~0)
+    Molecules Xp1y  X(y,p~1)
+    Molecules Yx    Y(x)
+	Molecules Xp0y1Yx1 X(y!1,p~0).Y(x!1)
+	Molecules Xp1y1Yx1 X(y!1,p~1).Y(x!1)
+end observables
+end model
+
+generate_network({overwrite=>1})
+simulate({method=>"ode",t_end=>1e-3,n_steps=>1000})
+
