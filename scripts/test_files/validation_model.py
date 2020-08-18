@@ -17,8 +17,13 @@ params = m.bngl_utils.load_bngl_parameters('test.bngl')
 
 MCELL_NO_COMPARTMENT_SIZE = params['MCELL_NO_COMPARTMENT_SIZE']
 ITERATIONS = int(params['ITERATIONS'])
-#VACANCY_SEARCH_DISTANCE = params['VACANCY_SEARCH_DISTANCE'] # not supported by mcell4 yet
-SEED = 1
+
+if len(sys.argv) == 3 and sys.argv[1] == '-seed':
+    # overwrite value SEED defined in module parameters
+    SEED = int(sys.argv[2])
+else:
+    SEED = 1
+    
 TIME_STEP = 1e-6 # mcell3r converter does not handle this yet  
 DUMP = True
 EXPORT_DATA_MODEL = True

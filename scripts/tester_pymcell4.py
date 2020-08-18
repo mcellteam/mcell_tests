@@ -70,6 +70,7 @@ class TesterPymcell4(TesterBase):
         cmdstr = 'export ' + MCELL_DIR_VARIABLE + '=' + self.tool_paths.mcell_dir_path + ';'
         cmdstr +=  self.tool_paths.python_binary + ' ' + os.path.join(test_dir, test_file)
         cmd = [ cmdstr ]
+        cmd += extra_args
         
         log_name = self.test_name+'.pymcell4.log'
         # run in wrk d
