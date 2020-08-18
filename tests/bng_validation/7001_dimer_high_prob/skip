@@ -1,0 +1,22 @@
+Results are completely off,
+BNG assigns 2x rxn rate to  
+A(a) + A(a) -> A(a!1).A(a!1) kp
+which does not seem to be correct
+
+MCell3R:
+A(a!1,p~0).A(a!1,p~0)          0.6641
+A(a,p~0)                       18.6719
+
+MCell4:
+A(a!1,p~0).A(a!1,p~0)          0.3203
+A(a,p~0)                       19.3594
+
+BNG:
+Aa1p0Aa1p0                     0.7325
+Aap0                           19.2675
+
+
+--- Validation results ---
+A(a!1,p~0).A(a!1,p~0)         : 56.271% (MCell4: 0.3203, BNG: 0.7325, MCell3: 0.6641)
+  - ERROR: difference against BNG is higher than tolerance of 0.5%
+A(a,p~0)                      : 0.477% (MCell4: 19.3594, BNG: 19.2675, MCell3: 18.6719)

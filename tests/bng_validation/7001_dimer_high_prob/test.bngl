@@ -1,0 +1,33 @@
+# test from nfsim/test/dimer
+
+begin parameters
+	ITERATIONS  1000
+    MCELL_DIFFUSION_CONSTANT_3D_A 1e-3
+    MCELL_NO_COMPARTMENT_SIZE 1
+    NA_um3 6.022e8
+    VOL_RXN 1
+    MCELL_REDEFINE_VOL_RXN NA_um3
+    
+   kp 1 * VOL_RXN
+   #km 100
+end parameters
+
+begin molecule types
+   A(a,p~0~1)
+end molecule types
+
+begin seed species
+  A(a,p~0) 20
+end seed species
+
+begin reaction rules
+  A(a) + A(a) -> A(a!1).A(a!1) kp #, km
+end reaction rules
+
+begin observables
+  Molecules Aap0  A(a,p~0)
+  Molecules Aa1p0Aa1p0  A(a!1,p~0).A(a!1,p~0)
+end observables
+
+generate_network({overwrite=>1})
+simulate({method=>"ode",t_end=>1e-3,n_steps=>1000})
