@@ -174,12 +174,16 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
     
     
     def validate_mcell_output(self, mcell_counts, bng_counts):
+        print("MCell4:" + str(mcell_counts))
+        print("BNG:" + str(bng_counts))
+        
         print('Validation results:')
         
         res = PASSED
         for key,cnt in mcell_counts.items():
+            bng_name = key.replace('(', '').replace(')', '').replace('~', '').replace('~', '').replace(',', '')
             mcell_counts = cnt
-            bng_count = bng_counts[key]
+            bng_count = bng_counts[bng_name]
             diff_perc = abs(((mcell_counts / bng_count) - 1.0) * 100)
             print(key + ': ' + format(diff_perc, '.3f') + '% (MCell: ' + str(mcell_counts) + ', BNG: ' + str(bng_count) + ')')
             if diff_perc > TOLERANCE_PERC:

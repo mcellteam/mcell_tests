@@ -1,0 +1,32 @@
+# simple_system.bngl
+begin model
+begin parameters
+	kcat    6
+	
+	ITERATIONS  1000
+    MCELL_DIFFUSION_CONSTANT_3D_X 9e-5 # unimol rxns - D is not important
+    MCELL_DIFFUSION_CONSTANT_3D_Y 8e-5
+    MCELL_NO_COMPARTMENT_SIZE 1
+end parameters
+
+begin molecule types 
+    X(p~0~1,p~0~1)
+end molecule types
+
+begin species
+	X(p~0,p~0)  10000
+end species
+
+begin reaction rules
+	X(p~0) ->  X(p~1) kcat  # 1 rxn with twice the rate
+end reaction rules
+
+begin observables
+    Molecules Xp0p0  X(p~0,p~0)
+    Molecules Xp1p0  X(p~1,p~0)
+    Molecules Xp1p1  X(p~1,p~1)
+end observables
+end model
+
+simulate({method=>"ode",t_end=>1e-3,n_steps=>1000})
+
