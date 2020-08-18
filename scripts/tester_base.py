@@ -236,7 +236,7 @@ class TesterBase:
         cmd += mcell_args
         cmd += [ main_mdl_file ]
         cmd += self.extra_args.mcell_args
-        
+
         # should we enable mcellr mode?
         mdlr_rules_file = os.path.join(self.test_work_path, MAIN_MDLR_RULES_FILE)
         if os.path.exists(mdlr_rules_file):
@@ -266,6 +266,33 @@ class TesterBase:
         else:
             return PASSED
 
+    def run_bngl_to_dm_conversion(self, bngl_file_name: str, extra_arg: str = None) -> None:
+        # the conversion python script is considered a separate utility, 
+        # we run it through bash 
+        cmd = [ 
+            self.tool_paths.python_binary, self.tool_paths.bngl_to_data_model_script, 
+            bngl_file_name, 'data_model.json']
+        if extra_arg:
+            cmd.append(extra_arg)    
+        log_name = self.test_name+'.bngl_to_dm.log'
+        exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name)
+        if exit_code != 0:
+            log_test_error(self.test_name, self.tester_name, "BGNL to mdl conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
+            return FAILED_DM_TO_MDL_CONVERSION
+        else:
+            return PASSED
+        
+    def convert_bngl_to_mdl(self):
+        res = self.run_bngl_to_dm_conversion(os.path.join(self.test_src_path, 'test.bngl'))
+        if res != PASSED:
+            return res
+        
+        res = self.run_dm_to_mdl_conversion(os.path.join(self.test_work_path, 'data_model.json'))
+        if res != PASSED:
+            return res
+        res = self.change_viz_output_to_ascii()
+        return res       
+        
     def change_viz_output_to_ascii(self) -> int:
         fname = os.path.join(self.test_work_path, 'Scene.viz_output.mdl')
         replace_in_file(fname, 'CELLBLENDER', 'ASCII')

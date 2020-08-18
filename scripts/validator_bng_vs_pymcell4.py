@@ -35,6 +35,8 @@ sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
 from utils import run, log, fatal_error
 
 
+RUN_MCELL3R = True
+
 NUM_MCELL_VALIDATION_RUNS = 24
 
 TOLERANCE_PERC = 0.5 
@@ -82,10 +84,13 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         return counts
     
            
-    def run_validation_pymcell(self, seed):
+    def run_validation_pymcell4(self, seed):
         res = self.run_pymcell(test_dir=self.test_work_path, test_file='validation_model.py', extra_args=['-seed', str(seed)])
         return res
     
+    def run_validation_mcell3r(self, seed):
+        res = self.run_mcell(['-seed', str(seed)], os.path.join('..', self.test_work_path, MAIN_MDL_FILE))
+        return res    
     
     def find_last_viz_file(self, dir):
         files = os.listdir(dir)
@@ -101,7 +106,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         return os.path.join(dir, max_it_file)
     
     
-    def get_molecule_counts_for_multiple_runs(self, seeds):
+    def get_molecule_counts_for_multiple_runs(self, pymcell4, seeds):
         counts = {}
         current_run = 1
         
@@ -110,19 +115,27 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         pool = multiprocessing.Pool(processes=count)
         
         # Run the jobs
-        res_codes = pool.map(self.run_validation_pymcell, seeds)
+        if pymcell4:
+            res_codes = pool.map(self.run_validation_pymcell4, seeds)
+        else:
+            res_codes = pool.map(self.run_validation_mcell3r, seeds)
     
         #for s in seeds:
         for i in range(len(seeds)):
             s = seeds[i]
             if res_codes[i] != PASSED:
                 log_test_error(self.test_name, self.tester_name, 
-                    "Run of pymcell4 with seed " + str(s) + " in work dir " + self.test_src_path + 
+                    "Run with seed " + str(s) + " in work dir " + self.test_src_path + 
                     " failed (only first fail is reported). "
                     "See '" + os.path.join(self.test_work_path, self.test_name+'.pymcell.log') + "'.")
                 return None
                 
             last_file = self.find_last_viz_file('viz_data/seed_' + str(s).zfill(5))
+            if not last_file:
+                log_test_error(self.test_name, self.tester_name, 
+                    "Run with seed " + str(s) + " in work dir " + self.test_src_path + 
+                    " - did not find output viz data file")
+                return None
             curr_counts = self.get_molecule_counts_from_ascii_file(last_file)
             
             # add values with common key
@@ -181,7 +194,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         
         res = PASSED
         for key,cnt in mcell_counts.items():
-            bng_name = key.replace('(', '').replace(')', '').replace('~', '').replace('~', '').replace(',', '')
+            bng_name = key.replace('(', '').replace(')', '').replace('~', '').replace('!', '').replace('.', '')
             mcell_counts = cnt
             bng_count = bng_counts[bng_name]
             diff_perc = abs(((mcell_counts / bng_count) - 1.0) * 100)
@@ -210,20 +223,32 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
             os.path.join(THIS_DIR, TEST_FILES_DIR, 'validation_model.py'),
             self.test_work_path 
         )
-                
+
+        seeds = self.generate_seeds(NUM_MCELL_VALIDATION_RUNS)
+        
+        # run mcell3r
+        res = self.convert_bngl_to_mdl()
+        if res != PASSED:
+            return res
+        
+        mcell3r_counts = self.get_molecule_counts_for_multiple_runs(False, seeds)
+        if mcell3r_counts is None:
+            return FAILED_MCELL
+        mcell3r_counts_per_run = { key:cnt/NUM_MCELL_VALIDATION_RUNS for key,cnt in mcell3r_counts.items() }
+        print("MCell3R:" + str(mcell3r_counts_per_run))
+                                
         # run pymcell4 with different seeds
         # we simply count the resulting molecules with the viz output afterwards    
-        seeds = self.generate_seeds(NUM_MCELL_VALIDATION_RUNS)
-        mcell_counts = self.get_molecule_counts_for_multiple_runs(seeds)
-        if mcell_counts is None:
+        pymcell4_counts = self.get_molecule_counts_for_multiple_runs(True, seeds)
+        if pymcell4_counts is None:
             return FAILED_MCELL
-        mcell_counts_per_run = { key:cnt/NUM_MCELL_VALIDATION_RUNS for key,cnt in mcell_counts.items() }
+        pymcell4_counts_per_run = { key:cnt/NUM_MCELL_VALIDATION_RUNS for key,cnt in pymcell4_counts.items() }
         
         # run bng - we are usign ODE (at least for now), so a single run is sufficient
         bng_counts = self.run_bng_and_get_counts()
         
         # process output
-        res = self.validate_mcell_output(mcell_counts_per_run, bng_counts)
+        res = self.validate_mcell_output(pymcell4_counts_per_run, bng_counts)
 
         if self.is_todo_test():
             return TODO_TEST
