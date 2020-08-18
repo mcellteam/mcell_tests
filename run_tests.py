@@ -89,6 +89,7 @@ class TestOptions:
         self.bionetgen_path = None
         self.python_binary_override = None    
         self.update_reference = False
+        self.validation_runs = DEFAULT_VALIDATION_RUNS
 
     def __repr__(self):
         attrs = vars(self)
@@ -106,6 +107,7 @@ def create_argparse() -> argparse.ArgumentParser:
     parser.add_argument('-n', '--bionetgen-path', type=str, help='path leading to BNG2.pl')
     parser.add_argument('-t', '--testing-python-executable', type=str, help='override of the default python used for testing (e.g. to run conversion scripts)')
     parser.add_argument('-u', '--update-reference', action='store_true', help='update reference (works currently only for benchmarks)')
+    parser.add_argument('-v', '--validation-runs', type=str, help='number of validation runs, default is ' + str(DEFAULT_VALIDATION_RUNS))
     return parser
 
 # FIXME: insert into TestOptions class       
@@ -140,6 +142,9 @@ def process_opts() -> TestOptions:
 
     if args.update_reference:
         opts.update_reference = True
+        
+    if args.validation_runs:
+        opts.validation_runs = int(args.validation_runs)
         
     return opts
 
@@ -324,7 +329,7 @@ def report_results(results: Dict) -> int:
         print(RESULT_NAMES[value] + ": " + str(key))
         if value == PASSED:
             passed_count += 1
-        elif value in [FAILED_MCELL, FAILED_DIFF, FAILED_DM_TO_MDL_CONVERSION, FAILED_NUTMEG_SPEC, FAILED_EXTERNAL]:
+        elif value in FAIL_CODES:
             failed_tests.append((value, key))
         elif value == SKIPPED:
             skipped_count += 1

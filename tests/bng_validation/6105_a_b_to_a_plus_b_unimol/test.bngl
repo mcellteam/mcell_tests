@@ -2,14 +2,14 @@ begin model
 begin parameters
 	ITERATIONS  1000
 	VACANCY_SEARCH_DISTANCE  10
-    MCELL_DIFFUSION_CONSTANT_3D_A 1e-3
-    MCELL_DIFFUSION_CONSTANT_3D_B 1e-3
+    MCELL_DIFFUSION_CONSTANT_3D_A 1e-8 # unimol rxn only
+    MCELL_DIFFUSION_CONSTANT_3D_B 1e-8
     MCELL_NO_COMPARTMENT_SIZE 1
     NA_um3 6.022e8
     VOL_RXN 1
     MCELL_REDEFINE_VOL_RXN NA_um3
-    
-    kp1 VOL_RXN * 1
+
+	kOff 100
 end parameters
 
 begin molecule types
@@ -18,8 +18,7 @@ begin molecule types
 end molecule types
 
 begin seed species
-	 A(a)  1000
-	 B(b)  1000
+	 A(a!1).B(b!1)  1000
 end seed species
 
 begin observables
@@ -29,7 +28,7 @@ begin observables
 end observables
 
 begin reaction rules
-	A(a) + B(b) -> A(a!1).B(b!1) kp1
+	A(a!1).B(b!1) -> A(a) + B(b) kOff
 end reaction rules
 end model
 

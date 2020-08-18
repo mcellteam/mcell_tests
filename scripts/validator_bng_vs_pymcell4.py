@@ -37,9 +37,7 @@ from utils import run, log, fatal_error
 
 ONLY_BNG = False
 
-NUM_MCELL_VALIDATION_RUNS = 24
-
-TOLERANCE_PERC = 0.5 
+DEFALT_TOLERANCE_PERCENTS = 0.5 
 
 
 class ValidatorBngVsPymcell4(TesterBnglPymcell4):
@@ -192,7 +190,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
             print(k.ljust(30) + ' ' + format(v, '.4f'))
         print('')
     
-    def validate_mcell_output(self, mcell3_counts, mcell4_counts, bng_counts):
+    def validate_mcell_output(self, mcell3_counts, mcell4_counts, bng_counts, tolerance):
         self.print_counts("MCell3R", mcell3_counts)
         self.print_counts("MCell4", mcell4_counts)
         self.print_counts("BNG", bng_counts)
@@ -220,10 +218,12 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
 
             
             print(key.ljust(30) + ': ' + diff_perc + \
-                  '% (MCell4: ' + str(mcell4_counts) + ', BNG: ' + str(bng_count) + ', MCell3: ' + str(mcell3_num) + ')')
+                  '% (MCell4: ' + format(mcell4_counts, '.4f') + \
+                  ', BNG: ' + format(bng_count, '.4f') + 
+                  ', MCell3: ' + format(mcell3_num, '.4f') + ')')
             
-            if bng_count != -1 and float(diff_perc) > TOLERANCE_PERC:
-                print('  - ERROR: difference against BNG is higher than tolerance of ' + str(TOLERANCE_PERC) + '%')
+            if bng_count != -1 and float(diff_perc) > tolerance:
+                print('  - ERROR: difference against BNG is higher than tolerance of ' + str(tolerance) + '%')
                 res = FAILED_VALIDATION
         
         print('--------------------------\n')
@@ -238,6 +238,15 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
             print('FAILED: differences are too large')
         
         return res
+        
+    def get_tolerance(self):
+        tolerance = DEFALT_TOLERANCE_PERCENTS
+        fname = os.path.join(self.test_src_path, 'tolerance')
+        if os.path.exists(fname):
+            with open(fname, 'r') as f:
+                tolerance = float(f.readline().strip())
+                print('Overriding default tolerance to ' + str(tolerance) + '%')
+        return tolerance
         
     def test(self) -> int:
         # not skipping validation tests
@@ -254,7 +263,9 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         )
 
         if not ONLY_BNG:
-            seeds = self.generate_seeds(NUM_MCELL_VALIDATION_RUNS)
+            num_runs = self.tool_paths.opts.validation_runs
+            
+            seeds = self.generate_seeds(num_runs)
             
             # run mcell3r
             res = self.convert_bngl_to_mdl()
@@ -264,23 +275,25 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
             mcell3r_counts = self.get_molecule_counts_for_multiple_runs(False, seeds)
             if mcell3r_counts is None:
                 return FAILED_MCELL
-            mcell3r_counts_per_run = { key:cnt/NUM_MCELL_VALIDATION_RUNS for key,cnt in mcell3r_counts.items() }
+            mcell3r_counts_per_run = { key:cnt/num_runs for key,cnt in mcell3r_counts.items() }
                                     
             # run pymcell4 with different seeds
             # we simply count the resulting molecules with the viz output afterwards    
             pymcell4_counts = self.get_molecule_counts_for_multiple_runs(True, seeds)
             if pymcell4_counts is None:
                 return FAILED_MCELL
-            pymcell4_counts_per_run = { key:cnt/NUM_MCELL_VALIDATION_RUNS for key,cnt in pymcell4_counts.items() }
+            pymcell4_counts_per_run = { key:cnt/num_runs for key,cnt in pymcell4_counts.items() }
         
         # run bng - we are usign ODE (at least for now), so a single run is sufficient
         bng_counts = self.run_bng_and_get_counts()
         if ONLY_BNG:
             self.print_counts("BNG", bng_counts)
         
+        tolerance = self.get_tolerance()
+        
         # process output
         if not ONLY_BNG:
-            res = self.validate_mcell_output(mcell3r_counts_per_run, pymcell4_counts_per_run, bng_counts)
+            res = self.validate_mcell_output(mcell3r_counts_per_run, pymcell4_counts_per_run, bng_counts, tolerance)
         else:
             res = PASSED
 
