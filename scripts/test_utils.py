@@ -46,6 +46,11 @@ class ToolPaths:
             
         self.bngl_to_data_model_script = \
             os.path.join(self.cellblender_dir_path, BNG_DIR, BNGL_TO_DATA_MODEL_SCRIPT)
+
+        if opts.bionetgen_path:
+            self.bng2pl_script = os.path.join(opts.bionetgen_path, BNG2PL_SCRIPT)
+        else:
+            self.bng2pl_script = ''
             
         self.data_model_to_pymcell_binary = \
             os.path.join(self.mcell_dir_path, DATA_MODEL_TO_PYMCELL_DIR, DATA_MODEL_TO_PYMCELL_BINARY)

@@ -86,6 +86,7 @@ class TestOptions:
         self.max_cores = None
         self.mcell_build_path_override = None
         self.cellblender_build_path_override = None
+        self.bionetgen_path = None
         self.python_binary_override = None    
         self.update_reference = False
 
@@ -102,6 +103,7 @@ def create_argparse() -> argparse.ArgumentParser:
     parser.add_argument('-j', '--max-cores', type=str, help='sets maximum number of cores for testing, default all if -s is not used')
     parser.add_argument('-m', '--mcell-build-path', type=str, help='override of the default mcell build path')
     parser.add_argument('-b', '--cellblender-build-path', type=str, help='override of the default cellblender build path')
+    parser.add_argument('-n', '--bionetgen-path', type=str, help='path leading to BNG2.pl')
     parser.add_argument('-t', '--testing-python-executable', type=str, help='override of the default python used for testing (e.g. to run conversion scripts)')
     parser.add_argument('-u', '--update-reference', action='store_true', help='update reference (works currently only for benchmarks)')
     return parser
@@ -129,6 +131,9 @@ def process_opts() -> TestOptions:
 
     if args.cellblender_build_path:
         opts.cellblender_build_path_override = args.cellblender_build_path 
+
+    if args.bionetgen_path:
+        opts.bionetgen_path = args.bionetgen_path 
 
     if args.testing_python_executable:
         opts.python_binary_override = args.testing_python_executable 

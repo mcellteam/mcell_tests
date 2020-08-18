@@ -16,12 +16,6 @@ For the complete terms of the GNU General Public License, please see this URL:
 http://www.gnu.org/licenses/gpl-2.0.html
 """
 
-"""
-Practically the same as tester_pymcell, however the prerequisites are different 
-and the check cannot be easily parametrized. Quite probably it will evolve more 
-in the future. 
-"""
-
 import os
 import sys
 import shutil
@@ -41,7 +35,9 @@ sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
 from utils import run, log, fatal_error
 
 
-NUM_MCELL_VALIDATION_RUNS = 16
+NUM_MCELL_VALIDATION_RUNS = 24
+
+TOLERANCE_PERC = 0.5 
 
 
 class ValidatorBngVsPymcell4(TesterBnglPymcell4):
@@ -52,8 +48,11 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
     def check_prerequisites(tool_paths: ToolPaths) -> None:
         if not os.path.exists(tool_paths.pymcell4_lib):
             fatal_error("Could not find library '" + tool_paths.pymcell4_lib + ".")
-        # bionetgen path
-
+        if not tool_paths.bng2pl_script:
+            fatal_error("Path to bionetgen must be set using -n.")
+        if not os.path.exists(tool_paths.bng2pl_script):
+            fatal_error("Could not find script '" + tool_paths.bng2pl_script + ".")
+            
     def copy_pymcell4_runner_and_test(self):
         shutil.copy(
             os.path.join(THIS_DIR, TEST_FILES_DIR, 'validation_model.py'),
@@ -107,7 +106,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         current_run = 1
         
         # Set up the parallel task pool to use all available processors
-        count = 12 # multiprocessing.cpu_count()
+        count = multiprocessing.cpu_count()
         pool = multiprocessing.Pool(processes=count)
         
         # Run the jobs
@@ -129,7 +128,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
             # add values with common key
             counts = Counter(counts) + Counter(curr_counts) 
     
-        return counts
+        return dict(counts)
     
     
     def generate_seeds(self, count):
@@ -141,6 +140,58 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
             
         return res    
 
+
+    def gen_last_it_bng_observables_counts(self):
+        first_line = ''
+        last_line = ''
+        with open('test.gdat', 'r') as f:
+            first_line = f.readline()
+            for line in f:
+                if line:
+                    last_line = line
+                
+        observables = first_line.split()[2:]
+        counts = last_line.split()[1:] # no leading '#'
+                
+        assert len(observables) == len(counts)
+        res = {observables[i]: float(counts[i]) for i in range(len(observables))} 
+        return res
+        
+
+    def run_bng_and_get_counts(self):
+        # we need to set the path to the build using MCELL_DIR system variable
+        # and the command will be executed as shell
+        cmd = [ self.tool_paths.bng2pl_script, 'test.bngl' ]
+        
+        log_name = self.test_name+'.bng2pl.log'
+        # run in work dir
+        exit_code = run(cmd, shell=True, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
+        if (exit_code):
+            log_test_error(self.test_name, self.tester_name, "BNG2.pl failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
+            return None
+        
+        return self.gen_last_it_bng_observables_counts()
+    
+    
+    def validate_mcell_output(self, mcell_counts, bng_counts):
+        print('Validation results:')
+        
+        res = PASSED
+        for key,cnt in mcell_counts.items():
+            mcell_counts = cnt
+            bng_count = bng_counts[key]
+            diff_perc = abs(((mcell_counts / bng_count) - 1.0) * 100)
+            print(key + ': ' + format(diff_perc, '.3f') + '% (MCell: ' + str(mcell_counts) + ', BNG: ' + str(bng_count) + ')')
+            if diff_perc > TOLERANCE_PERC:
+                print('  - ERROR: difference is higher than tolerance of ' + str(TOLERANCE_PERC) + '%')
+                res = FAILED_VALIDATION
+        
+        if res == PASSED:
+            print('PASSED')
+        else:
+            print('FAILED: differences are too large')
+        
+        return res
         
     def test(self) -> int:
         # not skipping validation tests
@@ -159,19 +210,18 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         # run pymcell4 with different seeds
         # we simply count the resulting molecules with the viz output afterwards    
         seeds = self.generate_seeds(NUM_MCELL_VALIDATION_RUNS)
-        counts = self.get_molecule_counts_for_multiple_runs(seeds)
-        if counts is None:
+        mcell_counts = self.get_molecule_counts_for_multiple_runs(seeds)
+        if mcell_counts is None:
             return FAILED_MCELL
-            
-        print("MCell4:" + str(counts))
+        mcell_counts_per_run = { key:cnt/NUM_MCELL_VALIDATION_RUNS for key,cnt in mcell_counts.items() }
         
-
-        # run bng
+        # run bng - we are usign ODE (at least for now), so a single run is sufficient
+        bng_counts = self.run_bng_and_get_counts()
         
         # process output
-            
+        res = self.validate_mcell_output(mcell_counts_per_run, bng_counts)
+
         if self.is_todo_test():
             return TODO_TEST
-        
        
-        return PASSED
+        return res
