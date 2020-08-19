@@ -1,0 +1,5 @@
+Got identical result as MCell3R with:
+
+//#define MCELL3_IDENTICAL
+#define MCELL4_DO_NOT_REUSE_REACTANT
+#define MCELL4_SORT_RXN_PRODUCTS_BY_NAME

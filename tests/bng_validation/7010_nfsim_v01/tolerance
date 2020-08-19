@@ -1,3 +1,31 @@
 1.53
-# Tolerance (in percents) is increased for testing, to get under 0.5%, one needs to 
-# run at least 512 runs, MCell3 result is identical
+
+Tolerance (in percents) is increased for testing,  
+MCell3 result is practically identical:
+
+MCell3R:
+X(p~0,y!1).Y(x!1)              1921.6667
+X(p~0,y)                       45.1667
+X(p~1,y)                       1033.1667
+Y(x)                           1078.3333
+
+MCell4:
+X(p~0,y!1).Y(x!1)              1920.2917
+X(p~0,y)                       45.2083
+X(p~1,y)                       1034.5000
+Y(x)                           1079.7083
+
+BNG:
+Xp0y                           44.5281
+Xp0y1Yx1                       1918.8301
+Xp1y                           1036.6418
+Xp1y1Yx1                       0.0000
+Yx                             1081.1699
+
+
+--- Validation results ---
+X(p~0,y!1).Y(x!1)             : 0.076% (MCell4: 1920.2917, BNG: 1918.8301, MCell3: 1921.6667)
+X(p~0,y)                      : 1.528% (MCell4: 45.2083, BNG: 44.5281, MCell3: 45.1667)
+X(p~1,y)                      : 0.207% (MCell4: 1034.5000, BNG: 1036.6418, MCell3: 1033.1667)
+Y(x)                          : 0.135% (MCell4: 1079.7083, BNG: 1081.1699, MCell3: 1078.3333)
+--------------------------

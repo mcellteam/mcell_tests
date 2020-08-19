@@ -1,0 +1,56 @@
+begin model
+begin parameters
+	ITERATIONS  100
+	VACANCY_SEARCH_DISTANCE  10
+    MCELL_DIFFUSION_CONSTANT_3D_DNA 1e-6
+    MCELL_DIFFUSION_CONSTANT_3D_RNA 1e-6
+    MCELL_DIFFUSION_CONSTANT_3D_Protein1 1e-5
+    MCELL_DIFFUSION_CONSTANT_3D_Protein2 1e-5
+    MCELL_DIFFUSION_CONSTANT_3D_Trash 1e-5
+
+    MCELL_NO_COMPARTMENT_SIZE 1
+    NA_um3 6.022e8
+    VOL_RXN 1
+    MCELL_REDEFINE_VOL_RXN NA_um3
+    
+    k1 10 * 1000
+    k2 5  * 100
+    k3 2.5 * 100
+    k4 5  * 100
+    k5 7  * 100
+    k6 5  * 100
+    k7on 0.2 * VOL_RXN
+    k7off 3  * 100
+    
+end parameters
+begin species
+    DNA()        500
+    RNA()        0
+    Protein1(y)  0
+    Protein2(y)  0 
+end species
+begin reaction rules
+	DNA()  ->  DNA() + RNA()        k1
+	RNA()  ->  RNA() + Protein1(y)  k2
+	RNA()  ->  RNA() + Protein2(y)  k3
+	
+	RNA()      -> Trash()    k4
+	Protein1() -> Trash()    k5
+	Protein2() -> Trash()    k6
+	
+	Protein1(y) + Protein2(y)  <->  Protein1(y!1).Protein2(y!1)    k7on, k7off
+end reaction rules
+begin observables
+    Molecules RNA         RNA()
+    Molecules DNA         DNA()
+    Molecules Protein1y    Protein1(y)
+    Molecules Protein2y    Protein2(y)
+    Molecules Protein1y1Protein2y1  Protein1(y!1).Protein2(y!1)
+end observables
+end model
+
+generate_network({overwrite=>1})
+simulate({method=>"ode",t_end=>1e-3,n_steps=>1000})
+
+
+
