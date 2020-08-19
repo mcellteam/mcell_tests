@@ -1,0 +1,12 @@
+DEFINE_MOLECULES
+{
+  a
+  {
+    DIFFUSION_CONSTANT_3D = 1e-6
+  }
+  b
+  {
+    DIFFUSION_CONSTANT_3D = 7.9370052598410037e-07 // from BNGL test 1001_dimer_high_prob_it_4
+  }
+}
+

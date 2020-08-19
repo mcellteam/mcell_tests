@@ -1,0 +1,28 @@
+# test from nfsim/test/dimer
+
+begin parameters
+
+   ITERATIONS  100
+   MCELL_DIFFUSION_CONSTANT_3D_A 1e-6
+   MCELL_NO_COMPARTMENT_SIZE 1
+
+   kp 5e8
+   km 1e4
+end parameters
+
+begin molecule types
+   A(a)
+end molecule types
+
+
+begin seed species
+  A(a) 1000
+end seed species
+
+begin reaction rules
+  A(a) + A(a) <-> A(a!1).A(a!1) kp, km
+end reaction rules
+
+begin observables
+end observables
+
