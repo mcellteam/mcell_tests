@@ -3,4 +3,7 @@
   testSet = 'bngl'
   testerClass = 'TesterBnglMcell3R'
 
-  
+[[set]]
+  category = '../mcell_tests_private/tests'
+  testSet = 'bngl'
+  testerClass = 'TesterBnglMcell3R'
