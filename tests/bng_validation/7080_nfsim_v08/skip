@@ -1,0 +1,42 @@
+With the rates that are set, this gives wildly different results,
+it would make sense to check whats going on
+(
+with rates like this the result is quite ok:
+    k1 10 * 100
+    k2 5  * 100
+    k3 2.5 * 100
+)
+
+MCell3R:
+DNA                            500.0000
+Protein1(y!1).Protein2(y!1)    58.7917
+Protein1(y)                    2502.3750
+Protein2(y)                    1264.5000
+RNA                            2202.0000
+
+MCell4:
+DNA                            500.0000
+Protein1(y!1).Protein2(y!1)    62.8333
+Protein1(y)                    2521.1250
+Protein2(y)                    1264.3750
+RNA                            2203.0000
+
+BNG:
+DNA                            500.0000
+Protein1y                      7378.8650
+Protein1y1Protein2y1           1000.1692
+Protein2y                      3375.9939
+RNA                            3934.6934
+
+
+--- Validation results ---
+DNA                           : 0.000% (MCell4: 500.0000, BNG: 500.0000, MCell3: 500.0000)
+Protein1(y!1).Protein2(y!1)   : 93.718% (MCell4: 62.8333, BNG: 1000.1692, MCell3: 58.7917)
+  - ERROR: difference against BNG is higher than tolerance of 0.5%
+Protein1(y)                   : 65.833% (MCell4: 2521.1250, BNG: 7378.8650, MCell3: 2502.3750)
+  - ERROR: difference against BNG is higher than tolerance of 0.5%
+Protein2(y)                   : 62.548% (MCell4: 1264.3750, BNG: 3375.9939, MCell3: 1264.5000)
+  - ERROR: difference against BNG is higher than tolerance of 0.5%
+RNA                           : 44.011% (MCell4: 2203.0000, BNG: 3934.6934, MCell3: 2202.0000)
+  - ERROR: difference against BNG is higher than tolerance of 0.5%
+--------------------------
