@@ -1,22 +1,23 @@
-Results are completely off,
-BNG assigns 2x rxn rate to  
+This test was validated against 
+
+MCell-r assigns 2x higher rxn rate to  
 A(a) + A(a) -> A(a!1).A(a!1) kp
-which does not seem to be correct
+which does not seem to be correct.
+
+BNG counts A(a!1).A(a!1) two times, but otherwise produces similar result.
+
+A similar model was validated against 
+MDL model mdl/0370_a_plus_a_to_b_react_box_it_100
+
 
 MCell3R:
-A(a!1,p~0).A(a!1,p~0)          0.6641
-A(a,p~0)                       18.6719
+A(a!1).A(a!1)                  64.2917 << this is wrong
+A(a)                           871.4167
 
 MCell4:
-A(a!1,p~0).A(a!1,p~0)          0.3203
-A(a,p~0)                       19.3594
+A(a!1).A(a!1)                  34.5000
+A(a)                           931.0000
 
 BNG:
-Aa1p0Aa1p0                     0.7325
-Aap0                           19.2675
-
-
---- Validation results ---
-A(a!1,p~0).A(a!1,p~0)         : 56.271% (MCell4: 0.3203, BNG: 0.7325, MCell3: 0.6641)
-  - ERROR: difference against BNG is higher than tolerance of 0.5%
-A(a,p~0)                      : 0.477% (MCell4: 19.3594, BNG: 19.2675, MCell3: 18.6719)
+Aa                             928.4312
+Aa1Aa1                         71.5688 << counted twice, count should be 35.7844
