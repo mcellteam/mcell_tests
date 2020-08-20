@@ -1,2 +1,6 @@
 There are two options how to match the reactant with unimol rxn, 
-the rate is computed but not validated against MCellR yet 
+the rate is computed but not validated against MCellR yet,
+the solution in mcell4 does not seem correct. 
+
+Vaditaion test is there: 
+mcell_tests/tests/bng_validation/6400_unimol_w_2_states

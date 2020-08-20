@@ -29,8 +29,8 @@ begin reaction rules
 end reaction rules
 
 begin observables
-  Molecules Aa A(a)
-  Molecules Aa1Aa1 A(a!1).A(a!1)
+  Species Aa A(a)
+  Species Aa1Aa1 A(a!1).A(a!1)
 end observables
 
 generate_network({overwrite=>1})

@@ -22,9 +22,9 @@ begin reaction rules
 end reaction rules
 
 begin observables
-    Molecules Xp0p0  X(p~0,p~0)
-    Molecules Xp1p0  X(p~1,p~0)
-    Molecules Xp1p1  X(p~1,p~1)
+    Species Xp0p0  X(p~0,p~0)
+    Species Xp1p0  X(p~1,p~0)
+    Species Xp1p1  X(p~1,p~1)
 end observables
 end model
 

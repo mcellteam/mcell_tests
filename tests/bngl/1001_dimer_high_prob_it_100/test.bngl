@@ -24,5 +24,6 @@ begin reaction rules
 end reaction rules
 
 begin observables
+  Species Aa A(a)
 end observables
 
