@@ -1,0 +1,39 @@
+
+begin parameters
+
+	ITERATIONS  50
+	VACANCY_SEARCH_DISTANCE  10
+    MCELL_DIFFUSION_CONSTANT_3D_A 1e-6
+    MCELL_DIFFUSION_CONSTANT_3D_B 1e-6
+
+    MCELL_NO_COMPARTMENT_SIZE 1/8
+    NA_um3 6.022e8
+    VOL_RXN 1
+    MCELL_REDEFINE_VOL_RXN NA_um3
+    
+    kon 1 * VOL_RXN
+end parameters
+
+begin molecule types
+   A(a,b~0~1)
+   B()
+end molecule types
+
+
+begin seed species
+  A(a!1,b~0).A(a!1,b~0) 100
+  B() 100
+end seed species
+
+begin reaction rules
+  A(b~0) + B() -> A(b~1) kon
+end reaction rules
+
+begin observables
+  Species Aa1b0Aa1b0 A(a!1,b~0).A(a!1,b~0)
+  Species Aa1b0Aa1b1 A(a!1,b~0).A(a!1,b~1)
+  Species Aa1b1Aa1b1 A(a!1,b~1).A(a!1,b~1)
+end observables
+
+generate_network({overwrite=>1})
+simulate({method=>"ode",t_end=>1e-3,n_steps=>1000})
