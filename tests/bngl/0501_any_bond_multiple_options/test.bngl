@@ -1,6 +1,6 @@
 begin model
 begin parameters
-	ITERATIONS  10
+	ITERATIONS  100
 	#TIME_STEP  1e-6
 	VACANCY_SEARCH_DISTANCE  10
 	
@@ -15,8 +15,8 @@ begin molecule types
 end molecule types
 
 begin seed species
-	A(a!1,b~0).A(a!1,b~0)  10
-	A(a,b~0)  10
+	A(a!1,b~0).A(a!1,b~0)  20
+	A(a,b~0)  20
 end seed species
 
 begin observables
@@ -25,7 +25,7 @@ end observables
 
 begin reaction rules
 	
-	A(a!?,b~0) -> A(a!?,b~1) 3e5
+	A(a!?,b~0) -> A(a!?,b~1) 5000
 	   
 end reaction rules
 end model
