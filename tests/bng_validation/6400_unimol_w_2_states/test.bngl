@@ -4,8 +4,8 @@ begin parameters
 	kcat    60
 	
 	ITERATIONS  1000
-    MCELL_DIFFUSION_CONSTANT_3D_X 9e-5 # unimol rxns - D is not important
-    MCELL_DIFFUSION_CONSTANT_3D_Y 8e-5
+    MCELL_DIFFUSION_CONSTANT_3D_X 1e-7 # unimol rxns - D is not important
+    MCELL_DIFFUSION_CONSTANT_3D_Y 1e-7
     MCELL_NO_COMPARTMENT_SIZE 1
 end parameters
 
@@ -14,7 +14,7 @@ begin molecule types
 end molecule types
 
 begin species
-	X(p~0,p~0)  3000
+	X(p~0,p~0)  500
 end species
 
 begin reaction rules

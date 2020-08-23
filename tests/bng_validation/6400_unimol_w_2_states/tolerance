@@ -1,0 +1,29 @@
+5.3
+
+This test is ok, however with 5000 iterations the difference from BNG is much bigger.
+
+MCell3R:
+X(p~0,p~0)                     440.5417
+X(p~0,p~1)                     28.5833
+X(p~1,p~0)                     29.0417
+X(p~1,p~1)                     1.8333
+
+MCell4:
+X(p~0,p~0)                     440.5417
+X(p~1,p~0)                     57.7083
+X(p~1,p~1)                     1.7500
+
+BNG:
+Xp0p0                          443.4602
+Xp1p0                          54.8441
+Xp1p1                          1.6957
+
+
+--- Validation results ---
+X(p~0,p~0)                    : 0.658% (MCell4: 440.5417, BNG: 443.4602, MCell3: 440.5417)
+  - ERROR: difference against BNG is higher than tolerance of 0.5%
+X(p~1,p~0)                    : 5.223% (MCell4: 57.7083, BNG: 54.8441, MCell3: 29.0417)
+  - ERROR: difference against BNG is higher than tolerance of 0.5%
+X(p~1,p~1)                    : 3.203% (MCell4: 1.7500, BNG: 1.6957, MCell3: 1.8333)
+  - ERROR: difference against BNG is higher than tolerance of 0.5%
+--------------------------
