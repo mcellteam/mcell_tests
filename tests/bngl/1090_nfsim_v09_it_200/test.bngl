@@ -2,20 +2,20 @@ begin model
 begin parameters
 	ITERATIONS  1000
 	VACANCY_SEARCH_DISTANCE  10
-    MCELL_DIFFUSION_CONSTANT_3D_A 1e-3
+    MCELL_DIFFUSION_CONSTANT_3D_A 1e-5
 
     MCELL_NO_COMPARTMENT_SIZE 1
     NA_um3 6.022e8
     VOL_RXN 1
     MCELL_REDEFINE_VOL_RXN NA_um3
     
-    k1on 1 * VOL_RXN
+    k1on 2 * VOL_RXN
     k1off 0.11  * 1000
 
-    k2on 1 * VOL_RXN
+    k2on 2 * VOL_RXN
     k2off 0.1  * 1000
 
-    k3on 1 * 100
+    k3on 2 * 100
     k3off 0.4  * 1000
     
 end parameters
@@ -31,10 +31,10 @@ begin reaction rules
 end reaction rules
 
 begin observables
-    Molecules Aa1a2 A(a1,a2)
-    Molecules Aa11a2Aa11a2 A(a1!1,a2).A(a1!1,a2)
-    Molecules Aa11a2Aa11a22Aa12a2 A(a1!1,a2).A(a1!1,a2!2).A(a1!2,a2)
-    Molecules Aa11a23Aa11a22Aa12a23 A(a1!1,a2!3).A(a1!1,a2!2).A(a1!2,a2!3)
+    Species Aa1a2 A(a1,a2)
+    Species Aa11a2Aa11a2 A(a1!1,a2).A(a1!1,a2)
+    Species Aa11a2Aa11a22Aa12a2 A(a1!1,a2).A(a1!1,a2!2).A(a1!2,a2)
+    Species Aa11a23Aa11a22Aa12a23 A(a1!1,a2!3).A(a1!1,a2!2).A(a1!2,a2!3)
 end observables
 end model
 
