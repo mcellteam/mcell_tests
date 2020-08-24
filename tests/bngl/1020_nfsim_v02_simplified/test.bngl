@@ -1,15 +1,21 @@
 # simple_system.bngl
 begin model
 begin parameters
-	kon     10 *1e7
-	koff    5 *1e7
-	kcat    0.6 *1e6
-	dephos  0.5 *1e6
-	
+
 	ITERATIONS  10
     MCELL_DIFFUSION_CONSTANT_3D_X 9e-5
     MCELL_DIFFUSION_CONSTANT_3D_Y 8e-5
-    MCELL_NO_COMPARTMENT_SIZE 1/16	
+    MCELL_NO_COMPARTMENT_SIZE 1/8
+    
+    NA_um3 6.022e8
+    VOL_RXN 1
+    MCELL_REDEFINE_VOL_RXN NA_um3
+	
+	kon     10 * VOL_RXN
+	koff    300
+	kcat    200
+	dephos  100
+	
 end parameters
 begin species
 	X(y,p~0,p~0)  500
