@@ -1,0 +1,15 @@
+
+begin species
+    2 Y(x) 1.842228126774e+02
+    3 X(p~0,p~0,y!1).Y(x!1) 6.892389392287e+02
+    4 X(p~0,p~1,y) 1.160624114837e+02
+end species
+
+BNG gives 2x rate to 
+
+X(y!1,p~0).Y(x!1)  ->  X(y,p~1) + Y(x)      kcat
+
+    2 3 2,4 2*kcat #_R3
+    
+This is a bit weird, because the rxn is mostly about  
+dissociating the bond, not sure why the rate should be 2x.

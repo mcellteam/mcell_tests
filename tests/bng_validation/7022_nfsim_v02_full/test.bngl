@@ -1,0 +1,51 @@
+# simple_system.bngl
+begin model
+begin parameters
+	ITERATIONS  1000
+	
+    MCELL_DIFFUSION_CONSTANT_3D_X 1e-3
+    MCELL_DIFFUSION_CONSTANT_3D_Y 1e-3
+    MCELL_NO_COMPARTMENT_SIZE 1	
+    
+    NA_um3 6.022e8
+    VOL_RXN 1
+    MCELL_REDEFINE_VOL_RXN NA_um3
+	
+	kon     10 * VOL_RXN
+	koff    300
+	kcat    200
+	dephos  100
+        
+end parameters
+begin species
+	X(y,p~0,p~0)  1000
+	Y(x)          1000
+end species
+begin reaction rules
+	X(p~1)             ->  X(p~0)               dephos
+	X(y,p~0) + Y(x)    ->  X(y!1,p~0).Y(x!1)    kon
+	X(y!1,p~0).Y(x!1)  ->  X(y,p~0) + Y(x)      koff 
+	X(y!1,p~0).Y(x!1)  ->  X(y,p~1) + Y(x)      kcat 
+end reaction rules
+begin observables
+	Species Yx     Y(x)
+    Species Xp0p0y X(p~0,p~0,y)
+    Species Xp1p0y X(p~1,p~0,y)
+    Species Xp1p1y X(p~1,p~1,y)
+    Species Xp0p0y1Yx1 X(p~0,p~0,y!1).Y(x!1)
+    Species Xp1p0y1Yx1 X(p~1,p~0,y!1).Y(x!1)
+    Species Xp1p1y1Yx1 X(p~1,p~1,y!1).Y(x!1)
+end observables
+end model
+
+generate_network({overwrite=>1})
+simulate({method=>"ode",t_end=>1e-3,n_steps=>1000})
+
+
+generate_network({overwrite=>1})
+simulate_ode({suffix=>"ode",t_end=>100,n_steps=>100})
+resetConcentrations()
+simulate_ssa({suffix=>"ssa",t_end=>100,n_steps=>100})
+resetConcentrations()
+writeXML()
+
