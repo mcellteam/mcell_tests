@@ -1,2 +1,1 @@
-pymcell 4's rate fot his rxn is probably wrong:
-X(y!1,p~0).Y(x!1)  ->  X(y,p~0) + Y(x)
+Validated both against mcell3r and bng using bng_validation/7020_nfsim_v02_simplified
