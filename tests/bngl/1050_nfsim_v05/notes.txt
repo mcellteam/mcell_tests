@@ -1,0 +1,2 @@
+Validated against BNG bng_validation/7050_nfsim_v05,
+MCell3R gives wrong result - A + A type of vol rxn

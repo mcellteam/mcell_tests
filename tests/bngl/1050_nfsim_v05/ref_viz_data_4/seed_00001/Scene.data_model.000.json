@@ -1,0 +1,348 @@
+{
+ "mcell" : 
+ {
+  "blender_version" : 
+  [
+   2,
+   79,
+   0
+  ],
+  "cellblender_version" : "0.1.54",
+  "data_model_version" : "DM_2017_06_23_1300",
+  "define_molecules" : 
+  {
+   "data_model_version" : "DM_2014_10_24_1638",
+   "molecule_list" : 
+   [
+    {
+     "bngl_component_list" : [],
+     "custom_space_step" : "",
+     "custom_time_step" : "",
+     "data_model_version" : "DM_2018_10_16_1632",
+     "description" : "",
+     "diffusion_constant" : "9.99999999999999955e-07",
+     "display" : 
+     {
+      "color" : 
+      [
+       1.0,
+       0.0,
+       0.0
+      ],
+      "emit" : 0.0,
+      "glyph" : "Sphere_1",
+      "scale" : 1.0
+     },
+     "export_viz" : false,
+     "maximum_step_length" : "",
+     "mol_bngl_label" : "",
+     "mol_name" : "A(b)",
+     "mol_type" : "3D",
+     "spatial_structure" : "None",
+     "target_only" : false
+    }
+   ]
+  },
+  "geometrical_objects" : 
+  {
+   "object_list" : 
+   [
+    {
+     "element_connections" : 
+     [
+      [
+       1,
+       2,
+       0
+      ],
+      [
+       3,
+       6,
+       2
+      ],
+      [
+       7,
+       4,
+       6
+      ],
+      [
+       5,
+       0,
+       4
+      ],
+      [
+       6,
+       0,
+       2
+      ],
+      [
+       3,
+       5,
+       7
+      ],
+      [
+       1,
+       3,
+       2
+      ],
+      [
+       3,
+       7,
+       6
+      ],
+      [
+       7,
+       5,
+       4
+      ],
+      [
+       5,
+       1,
+       0
+      ],
+      [
+       6,
+       4,
+       0
+      ],
+      [
+       3,
+       1,
+       5
+      ]
+     ],
+     "material_names" : 
+     [
+      "membrane"
+     ],
+     "name" : "box_no_compartment",
+     "vertex_list" : 
+     [
+      [
+       -0.0625,
+       -0.0625,
+       -0.0625
+      ],
+      [
+       -0.0625,
+       -0.0625,
+       0.0625
+      ],
+      [
+       -0.0625,
+       0.0625,
+       -0.0625
+      ],
+      [
+       -0.0625,
+       0.0625,
+       0.0625
+      ],
+      [
+       0.0625,
+       -0.0625,
+       -0.0625
+      ],
+      [
+       0.0625,
+       -0.0625,
+       0.0625
+      ],
+      [
+       0.0625,
+       0.0625,
+       -0.0625
+      ],
+      [
+       0.0625,
+       0.0625,
+       0.0625
+      ]
+     ]
+    }
+   ]
+  },
+  "initialization" : 
+  {
+   "accurate_3d_reactions" : true,
+   "center_molecules_on_grid" : false,
+   "command_options" : "",
+   "data_model_version" : "DM_2017_11_18_0130",
+   "export_all_ascii" : true,
+   "interaction_radius" : "",
+   "iterations" : "100",
+   "microscopic_reversibility" : "OFF",
+   "notifications" : 
+   {
+    "all_notifications" : "INDIVIDUAL",
+    "box_triangulation_report" : false,
+    "diffusion_constant_report" : "BRIEF",
+    "file_output_report" : false,
+    "final_summary" : true,
+    "iteration_report" : true,
+    "molecule_collision_report" : false,
+    "partition_location_report" : false,
+    "probability_report" : "ON",
+    "probability_report_threshold" : "0",
+    "progress_report" : true,
+    "release_event_report" : true,
+    "varying_probability_report" : true
+   },
+   "partitions" : 
+   {
+    "include" : true,
+    "recursion_flag" : false,
+    "x_end" : "0.125",
+    "x_start" : "-1.25000000000000000e-01",
+    "x_step" : "0.125",
+    "y_end" : "0.125",
+    "y_start" : "-1.25000000000000000e-01",
+    "y_step" : "0.125",
+    "z_end" : "0.125",
+    "z_start" : "-1.25000000000000000e-01",
+    "z_step" : "0.125"
+   },
+   "radial_directions" : "",
+   "radial_subdivisions" : "",
+   "space_step" : "",
+   "surface_grid_density" : "10000",
+   "time_step" : "1.00000000e-06",
+   "time_step_max" : "",
+   "vacancy_search_distance" : "10",
+   "warnings" : 
+   {
+    "all_warnings" : "INDIVIDUAL",
+    "degenerate_polygons" : "WARNING",
+    "high_probability_threshold" : "1",
+    "high_reaction_probability" : "IGNORED",
+    "large_molecular_displacement" : "WARNING",
+    "lifetime_threshold" : "50",
+    "lifetime_too_short" : "WARNING",
+    "missed_reaction_threshold" : "0.001",
+    "missed_reactions" : "WARNING",
+    "missing_surface_orientation" : "ERROR",
+    "negative_diffusion_constant" : "WARNING",
+    "negative_reaction_rate" : "WARNING",
+    "useless_volume_orientation" : "WARNING"
+   }
+  },
+  "materials" : 
+  {
+   "material_dict" : 
+   {
+    "membrane" : 
+    {
+     "diffuse_color" : 
+     {
+      "a" : 0.25,
+      "b" : 0.8,
+      "g" : 0.8,
+      "r" : 0.8
+     }
+    }
+   }
+  },
+  "model_language" : "mcell3",
+  "model_objects" : 
+  {
+   "data_model_version" : "DM_2018_01_11_1330",
+   "model_object_list" : 
+   [
+    {
+     "description" : "",
+     "dynamic" : false,
+     "dynamic_display_source" : "script",
+     "membrane_name" : "",
+     "name" : "box_no_compartment",
+     "object_source" : "blender",
+     "parent_object" : "",
+     "script_name" : ""
+    }
+   ]
+  },
+  "modify_surface_regions" : 
+  {
+   "data_model_version" : "DM_2014_10_24_1638",
+   "modify_surface_regions_list" : []
+  },
+  "mol_viz" : 
+  {
+   "active_seed_index" : 0,
+   "color_index" : 0,
+   "color_list" : 
+   [
+    [
+     0.800000011920929,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.800000011920929,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.800000011920929
+    ],
+    [
+     0.0,
+     0.800000011920929,
+     0.800000011920929
+    ],
+    [
+     0.800000011920929,
+     0.0,
+     0.800000011920929
+    ],
+    [
+     0.800000011920929,
+     0.800000011920929,
+     0.0
+    ],
+    [
+     1.0,
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0
+    ]
+   ],
+   "data_model_version" : "DM_2015_04_13_1700",
+   "file_dir" : "",
+   "file_index" : 959,
+   "file_name" : "",
+   "file_num" : 1001,
+   "file_start_index" : 0,
+   "file_step_index" : 1,
+   "file_stop_index" : 1000,
+   "manual_select_viz_dir" : false,
+   "render_and_save" : false,
+   "seed_list" : [],
+   "viz_enable" : true,
+   "viz_list" : []
+  },
+  "parameter_system" : 
+  {
+   "model_parameters" : {}
+  },
+  "scripting" : 
+  {
+   "data_model_version" : "DM_2017_11_30_1830",
+   "dm_external_file_name" : "",
+   "dm_internal_file_name" : "",
+   "force_property_update" : true,
+   "ignore_cellblender_data" : false,
+   "script_texts" : {},
+   "scripting_list" : []
+  },
+  "simulation_control" : 
+  {
+   "export_format" : "mcell_mdl_modular"
+  }
+ }
+}

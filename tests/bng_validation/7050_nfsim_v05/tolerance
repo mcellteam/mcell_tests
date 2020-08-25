@@ -1,0 +1,21 @@
+0.501
+
+MCell3R gives wrong result - A + A type of vol rxn
+
+MCell3R:
+A(b!1).A(b!1)                  113.9167
+A(b)                           772.1667
+
+MCell4:
+A(b!1).A(b!1)                  72.5833
+A(b)                           854.8333
+
+BNG:
+Ab                             854.1020
+Ab1Ab1                         72.9490
+
+
+--- Validation results ---
+A(b!1).A(b!1)                 : 0.501% (MCell4: 72.5833, BNG: 72.9490, MCell3: 113.9167)
+A(b)                          : 0.086% (MCell4: 854.8333, BNG: 854.1020, MCell3: 772.1667)
+--------------------------
