@@ -8,12 +8,13 @@ B                              219.3333
 
 MCell4:
 A(a!1,b~0).A(a!1,b~0)          258.4583
-A(a!1,b~1).A(a!1,b~0)          202.4167
+A(a!1,b~0).A(a!1,b~1)          202.4167
 A(a!1,b~1).A(a!1,b~1)          39.1250
 B                              219.3333
 
 BNG:
 Aa1b0Aa1b0                     257.4988
+Aa1b0Aa1b1                     202.6357
 Aa1b1Aa1b0                     202.6357
 Aa1b1Aa1b1                     39.8655
 B                              217.6333
@@ -21,9 +22,8 @@ B                              217.6333
 
 --- Validation results ---
 A(a!1,b~0).A(a!1,b~0)         : 0.373% (MCell4: 258.4583, BNG: 257.4988, MCell3: 258.4583)
-A(a!1,b~1).A(a!1,b~0)         : 0.108% (MCell4: 202.4167, BNG: 202.6357, MCell3: 202.4167)
+A(a!1,b~0).A(a!1,b~1)         : 0.108% (MCell4: 202.4167, BNG: 202.6357, MCell3: -1.0000)
 A(a!1,b~1).A(a!1,b~1)         : 1.857% (MCell4: 39.1250, BNG: 39.8655, MCell3: 39.1250)
-  - ERROR: difference against BNG is higher than tolerance of 0.5%
 B                             : 0.781% (MCell4: 219.3333, BNG: 217.6333, MCell3: 219.3333)
-  - ERROR: difference against BNG is higher than tolerance of 0.5%
 --------------------------
+

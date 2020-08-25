@@ -33,6 +33,7 @@ begin observables
   Species Aa1b0Aa1b0 A(a!1,b~0).A(a!1,b~0)
   Species Aa1b1Aa1b0 A(a!1,b~1).A(a!1,b~0)
   Species Aa1b1Aa1b1 A(a!1,b~1).A(a!1,b~1)
+  Species Aa1b0Aa1b1 A(a!1,b~0).A(a!1,b~1)
   Species B B()
 end observables
 
