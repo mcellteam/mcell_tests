@@ -1,4 +1,4 @@
-3.6
+2.24
 
 This test was validated against 
 
@@ -7,12 +7,12 @@ A(a) + A(a) -> A(a!1).A(a!1) kp
 which does not seem to be correct.
 
 MCell3R:
-A(a!1).A(a!1)                  64.2917
-A(a)                           871.4167
+A(a!1).A(a!1)                  64.0000
+A(a)                           872.0000
 
 MCell4:
-A(a!1).A(a!1)                  34.5000
-A(a)                           931.0000
+A(a!1).A(a!1)                  36.5833
+A(a)                           926.8333
 
 BNG:
 Aa                             928.4312
@@ -20,6 +20,6 @@ Aa1Aa1                         35.7844
 
 
 --- Validation results ---
-A(a!1).A(a!1)                 : 3.589% (MCell4: 34.5000, BNG: 35.7844, MCell3: 64.2917)
-  - ERROR: difference against BNG is higher than tolerance of 0.5%
-A(a)                          : 0.277% (MCell4: 931.0000, BNG: 928.4312, MCell3: 871.4167)
+A(a!1).A(a!1)                 : 2.233% (MCell4: 36.5833, BNG: 35.7844, MCell3: 64.0000)
+A(a)                          : 0.172% (MCell4: 926.8333, BNG: 928.4312, MCell3: 872.0000)
+--------------------------
