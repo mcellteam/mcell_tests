@@ -7,14 +7,12 @@ begin parameters
     MCELL_NO_COMPARTMENT_SIZE 1
     NA_um3 6.022e8
     VOL_RXN 1
-    VOL_RXN2 1 
     MCELL_REDEFINE_VOL_RXN NA_um3
-    MCELL_REDEFINE_VOL_RXN2 NA_um3 #prpduces correct result when set to 2*NA_um3
     
     k1on 1 * VOL_RXN
     k1off 0.11  * 1000
 
-    k2on 1 * VOL_RXN2
+    k2on 1 * VOL_RXN
     k2off 0.1  * 1000
 
     k3on 1 * 100
