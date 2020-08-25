@@ -1,0 +1,36 @@
+begin model
+begin parameters
+	ITERATIONS  1000
+    MCELL_DIFFUSION_CONSTANT_3D_A 1e-3
+    MCELL_DIFFUSION_CONSTANT_3D_B 1e-3
+
+    MCELL_NO_COMPARTMENT_SIZE 1
+    NA_um3 6.022e8
+    VOL_RXN 1
+    MCELL_REDEFINE_VOL_RXN NA_um3
+    
+    k1on 1 * VOL_RXN
+    k1off 0.11  * 1000
+    
+end parameters
+
+begin species
+    A(a!3,b!1).B(a!1).A(a!3,b!2).B(a!2)  100
+end species
+
+begin reaction rules
+    A(a!3,b!1).B(a!1).A(a!3,b!2).B(a!2) <-> A(a!3,b!1).B(a!1).A(a!3,b) + B(a) k1off, k1on
+end reaction rules
+
+begin observables
+    Species Ba B(a)
+    Species Aa1bAa1b2Ba2 A(a!3,b!1).B(a!1).A(a!3,b)
+    Species Aa3b1Aa3b2Ba1Ba2 A(a!3,b!1).B(a!1).A(a!3,b!2).B(a!2)
+end observables
+end model
+
+generate_network({overwrite=>1})
+simulate({method=>"ode",t_end=>1e-3,n_steps=>1000})
+
+
+
