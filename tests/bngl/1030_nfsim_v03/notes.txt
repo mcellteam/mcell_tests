@@ -1,0 +1,4 @@
+Gives identical result as MCellR when:
+
+//#define MCELL3_IDENTICAL
+#define MCELL4_DO_NOT_REUSE_REACTANT
