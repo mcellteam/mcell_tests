@@ -1,0 +1,33 @@
+# simple_system.bngl
+begin model
+begin parameters
+	ITERATIONS  100
+    MCELL_DIFFUSION_CONSTANT_3D_A 1e-3
+    MCELL_DIFFUSION_CONSTANT_3D_B 1e-3
+
+    MCELL_NO_COMPARTMENT_SIZE 1/8
+    NA_um3 6.022e8
+    VOL_RXN 1
+    UNIMOL_RXN 10000
+    MCELL_REDEFINE_VOL_RXN NA_um3
+    
+    kon     10 * VOL_RXN
+	koff    5 * UNIMOL_RXN
+	
+end parameters
+begin species
+	A(b,b)    500
+	B(a,a,a)  500
+end species
+begin reaction rules
+	A(b,b) + B(a,a,a)  <->  A(b!1,b).B(a!1,a,a)    kon, koff
+end reaction rules
+begin observables
+    Molecules Afree       A(b,b)
+    Molecules Complex     A(b!+)
+    Molecules SameComplex A(b!1).B(a!1)
+end observables
+end model
+
+generate_network({overwrite=>1})
+simulate({method=>"ode",t_end=>1e-3,n_steps=>1000})
