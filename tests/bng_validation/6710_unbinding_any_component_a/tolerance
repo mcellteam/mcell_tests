@@ -1,0 +1,38 @@
+0.65 
+
+MCell3R:
+A(a!1,a,a).A(a!2,a,a).A(a!2,a!1,a) 80.4167
+A(a!1,a,a).A(a!2,a,a).A(a!2,a,a!1) 0.1667
+A(a!1,a,a).A(a!2,a,a).A(a,a!2,a!1) 0.0833
+A(a!1,a,a).A(a,a!2,a).A(a!2,a!1,a) 0.1250
+A(a!1,a,a).A(a,a!2,a).A(a!2,a,a!1) 0.0833
+A(a,a!1,a).A(a!1,a,a)          0.0833
+A(a,a!1,a).A(a!2,a,a).A(a!1,a!2,a) 0.0833
+A(a,a!1,a).A(a!2,a,a).A(a!2,a!1,a) 0.1667
+A(a,a!1,a).A(a!2,a,a).A(a!2,a,a!1) 0.1667
+A(a,a!1,a).A(a!2,a,a).A(a,a!2,a!1) 0.0833
+A(a,a!1,a).A(a,a!2,a).A(a!2,a,a!1) 0.1250
+A(a,a,a!1).A(a!2,a,a).A(a!2,a!1,a) 0.0833
+A(a,a,a!1).A(a!2,a,a).A(a!2,a,a!1) 0.0417
+A(a,a,a!1).A(a!2,a,a).A(a,a!2,a!1) 0.0417
+A(a,a,a!1).A(a,a!1,a)          8.5417
+A(a,a,a!1).A(a,a!2,a).A(a!2,a!1,a) 0.0833
+A(a,a,a!1).A(a,a,a!1)          9.6250
+A(a,a,a)                       18.2500
+
+MCell4:
+A(a!1,a,a).A(a!1,a,a)          18.2083
+A(a!1,a,a).A(a!2,a,a).A(a!1,a!2,a) 81.7917
+A(a,a,a)                       18.2083
+
+BNG:
+Aa1a2aAa1aaAa2aa               81.6725
+Aa1aaAa1aa                     18.3275
+Aa1aaAa2aaAa1a2a               81.6725
+Aaaa                           18.3275
+
+
+--- Validation results ---
+A(a!1,a,a).A(a!1,a,a)         : 0.650% (MCell4: 18.2083, BNG: 18.3275, MCell3: -1.0000)
+A(a!1,a,a).A(a!2,a,a).A(a!1,a!2,a): 0.146% (MCell4: 81.7917, BNG: 81.6725, MCell3: -1.0000)
+A(a,a,a)                      : 0.650% (MCell4: 18.2083, BNG: 18.3275, MCell3: 18.2500)
