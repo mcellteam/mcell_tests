@@ -1,0 +1,1 @@
+Gives same result as MCell3R anbd also validated against BNG with bng_validation/7022_nfsim_v02_full
