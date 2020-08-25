@@ -1,6 +1,6 @@
 6.55
 
-MCell3 result looks weird
+MCell3 result is incorrect, probably related to bng_validation/7001_dimer_high_prob
 24 runs:
 
 MCell3R:

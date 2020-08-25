@@ -1,0 +1,2 @@
+ Validated against BNG with bng_validation/7022_nfsim_v02_full,
+ Mcell3R produces wrong result

@@ -1,3 +1,0 @@
-Rate of rule
-    A(a1!1,a2).A(a1!1,a2) + A(a1,a2)    <->  A(a1!1,a2).A(a1!1,a2!2).A(a1!2,a2)        k2on, k2off
-is 2x smaller in MCell4 (and that is wrong)
