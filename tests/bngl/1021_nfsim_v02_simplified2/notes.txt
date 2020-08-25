@@ -1,0 +1,3 @@
+Validated against BNG with bng_validation/7021_nfsim_v02_simplified2
+MCell3R gives slightly different result, probably due to different random number usage but 
+validator gives similar results
