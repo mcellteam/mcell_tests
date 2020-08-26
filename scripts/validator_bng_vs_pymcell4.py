@@ -249,8 +249,9 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         return tolerance
         
     def test(self) -> int:
-        # not skipping validation tests
-
+        if self.should_be_skipped():
+            return SKIPPED
+        
         if self.is_known_fail():
             return SKIPPED
         
