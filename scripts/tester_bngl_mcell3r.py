@@ -79,5 +79,9 @@ class TesterBnglMcell3R(TesterBase):
         if res != PASSED and not self.expected_wrong_ec():
             return res
         
+        res = self.postrocess_mcell3r()
+        if res != PASSED:
+            return res
+        
         res = self.check_reference_data(SEED_DIR, viz_ref_required=True)
         return res

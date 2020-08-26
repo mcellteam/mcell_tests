@@ -252,16 +252,18 @@ class TesterBase:
         else:
             return PASSED
     
-    """    
-    def postrocess_mcellr(self):
+    
+    def postrocess_mcell3r(self):
         # for now assuming that the seed is 1
-        cmd = [ self.tool_paths.mcell_binary ]
-        cmd += mcell_args
-        cmd += [ main_mdl_file ]
-        cmd += self.extra_args.mcell_args
-        
-        MAIN_MDLR_RULES_FILE
-    """
+        cmd = [ self.tool_paths.python_binary, self.tool_paths.postprocess_mcell3r_script, '1', MAIN_MDLR_RULES_FILE ]
+        log_name = self.test_name + '.postprocess_mcell3r.log'
+        exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
+        if (exit_code):
+            log_test_error(self.test_name, self.tester_name, "MCell3r postprocess failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
+            return FAILED_MCELL
+        else:
+            return PASSED
+
          
     def run_dm_to_mdl_conversion(self, json_file_name: str, extra_arg: str = None) -> None:
         # the conversion python script is considered a separate utility, 

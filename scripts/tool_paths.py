@@ -33,6 +33,7 @@ class ToolPaths:
         else:
             self.mcell_dir_path = os.path.join(MCELL_TOOLS_DIR, WORK_DIR_NAME, BUILD_DIR_MCELL)
         self.mcell_binary = os.path.join(self.mcell_dir_path, MCELL_BINARY)
+        self.postprocess_mcell3r_script = os.path.join(self.mcell_dir_path, POSTPROCESS_MCELL3R_SCRIPT)
         self.pymcell_module = os.path.join(self.mcell_dir_path, PYMCELL_DIR, PYMCELL_MODULE)
         self.pymcell4_lib = os.path.join(self.mcell_dir_path, PYMCELL4_DIR, PYMCELL4_LIB)
             
