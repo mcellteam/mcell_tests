@@ -8,7 +8,7 @@ from geometry import *
 
 viz_output = m.VizOutput(
     mode = m.VizMode.ASCII,
-    filename_prefix = './viz_data/seed_' + str(SEED).zfill(5) + '/Scene',
+    output_files_prefix = './viz_data/seed_' + str(SEED).zfill(5) + '/Scene',
     all_species = True,
     every_n_timesteps = 1
 )
