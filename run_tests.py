@@ -46,7 +46,7 @@ THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, 'scripts'))
 
 from test_settings import *
-from test_utils import ToolPaths
+from tool_paths import ToolPaths
 
 # import tester classes
 from tester_mdl import TesterMdl

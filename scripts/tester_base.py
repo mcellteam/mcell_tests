@@ -31,7 +31,9 @@ from typing import List, Dict
 import data_output_diff
 
 from test_settings import *
-from test_utils import ToolPaths, log_test_error, log_test_success, replace_in_file
+from test_utils import log_test_error, log_test_success, replace_in_file
+from tool_paths import ToolPaths
+
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
@@ -249,6 +251,17 @@ class TesterBase:
             return FAILED_MCELL
         else:
             return PASSED
+    
+    """    
+    def postrocess_mcellr(self):
+        # for now assuming that the seed is 1
+        cmd = [ self.tool_paths.mcell_binary ]
+        cmd += mcell_args
+        cmd += [ main_mdl_file ]
+        cmd += self.extra_args.mcell_args
+        
+        MAIN_MDLR_RULES_FILE
+    """
          
     def run_dm_to_mdl_conversion(self, json_file_name: str, extra_arg: str = None) -> None:
         # the conversion python script is considered a separate utility, 

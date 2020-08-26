@@ -27,7 +27,7 @@ from typing import List, Dict
 
 from test_settings import *
 from tester_pymcell4 import TesterPymcell4
-from test_utils import ToolPaths
+from tool_paths import ToolPaths
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))

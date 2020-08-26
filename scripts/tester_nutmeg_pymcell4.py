@@ -31,7 +31,8 @@ from typing import List, Dict
 from test_settings import *
 from tester_base import TesterBase
 from tester_nutmeg import TesterNutmeg, TestDescriptionParser, STDOUT_FILE_NAME, STDERR_FILE_NAME, RunInfo
-from test_utils import ToolPaths, log_test_error, log_test_success
+from test_utils import log_test_error, log_test_success
+from tool_paths import ToolPaths
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))

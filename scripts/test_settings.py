@@ -63,6 +63,8 @@ DATA_MODEL_TO_MDL_SCRIPT = 'data_model_to_mdl.py'
 BNG_DIR = 'bng'
 BNGL_TO_DATA_MODEL_SCRIPT = 'bngl_to_data_model.py'
 
+POSTPROCESS_MCELL3R_SCRIPT = 'postprocess_mcell3r.py'
+
 BNG2PL_SCRIPT = 'BNG2.pl'
 
 TEST_FILES_DIR = 'test_files'
