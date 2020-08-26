@@ -1,0 +1,119 @@
+RXN report, 2020-08-25 18:59:34
+
+rxn class for reactants: -rx1
+    Cross(b,b) (3) + B(c,p~U) (4)
+0: products based on rule B(c) + Cross(b) -> B(c!1).Cross(b!1) 6.022e+09 (id: 0)(id=0)
+    B(c!1,p~U).Cross(b!1,b) (5) 
+1: products based on rule B(c) + Cross(b) -> B(c!1).Cross(b!1) 6.022e+09 (id: 0)(id=0)
+    B(c!1,p~U).Cross(b!1,b) (5) 
+cum_probs: 0.0700607, 0.140121, max_fixed_p: 0.140121, min_noreaction_p: 0.140121
+
+
+rxn class for reactants: -rx3
+    B(c,p~U) (4) + B(c!1,p~U).Cross(b!1,b) (5)
+0: products based on rule B(c) + Cross(b) -> B(c!1).Cross(b!1) 6.022e+09 (id: 0)(id=0)
+    B(c!1,p~U).B(c!2,p~U).Cross(b!1,b!2) (6) 
+cum_probs: 0.0741031, max_fixed_p: 0.0741031, min_noreaction_p: 0.0741031
+
+
+rxn class for reactants: -rx2
+    B(c,p~U) (4)
+0: products based on rule B(p~U) -> B(p~P) 1000 (id: 4)(id=4)
+    B(c,p~P) (7) 
+cum_probs: 0.001, max_fixed_p: 0.001, min_noreaction_p: 0.001
+
+
+rxn class for reactants: 
+    B(c!1,p~U).Cross(b!1,b) (5) 
+0: products based on rule B(c!1).Cross(b!1) -> B(c) + Cross(b) 50000 (id: 1)(id=1) -rx6
+    B(c,p~U) (4)  + Cross(b,b) (3) 
+1: products based on rule B(p~U) -> B(p~P) 1000 (id: 4)(id=4) -rx7
+    B(c!1,p~P).Cross(b!1,b) (8) 
+cum_probs: 0.05, 0.051, max_fixed_p: 0.051, min_noreaction_p: 0.051
+
+
+rxn class for reactants: 
+    B(c,p~P) (7) + Cross(b,b) (3)
+0: products based on rule B(c) + Cross(b) -> B(c!1).Cross(b!1) 6.022e+09 (id: 0)(id=0)
+    B(c!1,p~P).Cross(b!1,b) (8) 
+1: products based on rule B(c) + Cross(b) -> B(c!1).Cross(b!1) 6.022e+09 (id: 0)(id=0)
+    B(c!1,p~P).Cross(b!1,b) (8) 
+cum_probs: 0.0700607, 0.140121, max_fixed_p: 0.140121, min_noreaction_p: 0.140121
+
+
+rxn class for reactants: -rx5
+    B(c,p~P) (7) + B(c!1,p~U).Cross(b!1,b) (5)
+0: products based on rule B(c) + Cross(b) -> B(c!1).Cross(b!1) 6.022e+09 (id: 0)(id=0)
+    B(c!1,p~P).B(c!2,p~U).Cross(b!1,b!2) (9) 
+cum_probs: 0.0741031, max_fixed_p: 0.0741031, min_noreaction_p: 0.0741031
+
+
+rxn class for reactants: -rx9
+    B(c,p~P) (7) + B(c!1,p~P).Cross(b!1,b) (8)
+0: products based on rule B(c) + Cross(b) -> B(c!1).Cross(b!1) 6.022e+09 (id: 0)(id=0)
+    B(c!1,p~P).B(c!2,p~P).Cross(b!1,b!2) (10) 
+cum_probs: 0.0741031, max_fixed_p: 0.0741031, min_noreaction_p: 0.0741031
+
+
+rxn class for reactants: 
+    B(c!1,p~U).B(c!2,p~U).Cross(b!1,b!2) (6) (BNG5)
+    
+0: products based on rule B(c!1).Cross(b!1) -> B(c) + Cross(b) 50000 (id: 1)(id=1)  -rx10
+    B(c,p~U) (4)  + B(c!1,p~U).Cross(b!1,b) (5) 
+1: products based on rule B(c!1).Cross(b!1) -> B(c) + Cross(b) 50000 (id: 1)(id=1)
+    B(c,p~U) (4)  + B(c!1,p~U).Cross(b!1,b) (5) 
+    
+2: products based on rule B(c!1,p~U).Cross(b!1,b!2).B(c!2,p~U) -> B(c!1,p~U).Cross(b!1,b!2).B(c!2,p~P) 100000 (id: 2)(id=2)  -rx14
+    B(c!1,p~P).B(c!2,p~U).Cross(b!1,b!2) (9) 
+3: products based on rule B(c!1,p~U).Cross(b!1,b!2).B(c!2,p~U) -> B(c!1,p~U).Cross(b!1,b!2).B(c!2,p~P) 100000 (id: 2)(id=2)
+    B(c!1,p~P).B(c!2,p~U).Cross(b!1,b!2) (9) 
+    
+4: products based on rule B(p~U) -> B(p~P) 1000 (id: 4)(id=4) -rx16
+    B(c!1,p~P).B(c!2,p~U).Cross(b!1,b!2) (9) 
+5: products based on rule B(p~U) -> B(p~P) 1000 (id: 4)(id=4)
+    B(c!1,p~P).B(c!2,p~U).Cross(b!1,b!2) (9) 
+    
+cum_probs: 0.05, 0.1, 0.2, 0.3, 0.301, 0.302, max_fixed_p: 0.302, min_noreaction_p: 0.302
+
+
+rxn class for reactants: -rx8
+    B(c!1,p~P).Cross(b!1,b) (8) + B(c,p~U) (4)
+0: products based on rule B(c) + Cross(b) -> B(c!1).Cross(b!1) 6.022e+09 (id: 0)(id=0)
+    B(c!1,p~P).B(c!2,p~U).Cross(b!1,b!2) (9) 
+cum_probs: 0.0741031, max_fixed_p: 0.0741031, min_noreaction_p: 0.0741031
+
+
+rxn class for reactants:  -rx11
+    B(c!1,p~P).Cross(b!1,b) (8)
+0: products based on rule B(c!1).Cross(b!1) -> B(c) + Cross(b) 50000 (id: 1)(id=1)
+    B(c,p~P) (7)  + Cross(b,b) (3) 
+cum_probs: 0.05, max_fixed_p: 0.05, min_noreaction_p: 0.05
+
+
+rxn class for reactants: 
+    B(c!1,p~P).B(c!2,p~U).Cross(b!1,b!2) (9)
+    
+0: products based on rule B(c!1).Cross(b!1) -> B(c) + Cross(b) 50000 (id: 1)(id=1)  -rx12
+    B(c,p~P) (7)  + B(c!1,p~U).Cross(b!1,b) (5) 
+    
+1: products based on rule B(c!1).Cross(b!1) -> B(c) + Cross(b) 50000 (id: 1)(id=1)  -rx13
+    B(c,p~U) (4)  + B(c!1,p~P).Cross(b!1,b) (8) 
+    
+2: products based on rule B(c!1,p~P).Cross(b!1,b!2).B(c!2,p~U) -> B(c!1,p~P).Cross(b!1,b!2).B(c!2,p~P) 10000 (id: 3)(id=3)  -rx15
+    B(c!1,p~P).B(c!2,p~P).Cross(b!1,b!2) (10) 
+    
+3: products based on rule B(p~U) -> B(p~P) 1000 (id: 4)(id=4)  -rx17
+    B(c!1,p~P).B(c!2,p~P).Cross(b!1,b!2) (10) 
+    
+cum_probs: 0.05, 0.1, 0.11, 0.111, max_fixed_p: 0.111, min_noreaction_p: 0.111
+
+
+rxn class for reactants:  -rx18
+    B(c!1,p~P).B(c!2,p~P).Cross(b!1,b!2) (10)
+0: products based on rule B(c!1).Cross(b!1) -> B(c) + Cross(b) 50000 (id: 1)(id=1)
+    B(c,p~P) (7)  + B(c!1,p~P).Cross(b!1,b) (8) 
+1: products based on rule B(c!1).Cross(b!1) -> B(c) + Cross(b) 50000 (id: 1)(id=1)
+    B(c,p~P) (7)  + B(c!1,p~P).Cross(b!1,b) (8) 
+cum_probs: 0.05, 0.1, max_fixed_p: 0.1, min_noreaction_p: 0.1
+
+

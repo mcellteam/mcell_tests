@@ -1,0 +1,42 @@
+begin model
+begin parameters
+	ITERATIONS  100
+    MCELL_DIFFUSION_CONSTANT_3D_Cross 1e-6
+    MCELL_DIFFUSION_CONSTANT_3D_B 1e-6
+
+    MCELL_NO_COMPARTMENT_SIZE 1/8
+    NA_um3 6.022e8
+    VOL_RXN 1
+    UNIMOL_RXN 10000
+    MCELL_REDEFINE_VOL_RXN NA_um3
+    
+    kon     1 * VOL_RXN
+	koff    5 * UNIMOL_RXN
+	
+	koff2   10 * UNIMOL_RXN
+	koff3    1 * UNIMOL_RXN
+	koff4    1 * UNIMOL_RXN
+end parameters
+begin species
+    Cross(b,b)  500
+	B(c,p~U)    2000
+end species
+begin reaction rules
+	B(c) + Cross(b)  <->  B(c!1).Cross(b!1)    kon, koff
+	
+	B(p~U,c!1).Cross(b!1,b!2).B(p~U,c!2)  ->  B(p~U,c!1).Cross(b!1,b!2).B(p~P,c!2)    koff2
+	B(p~P,c!1).Cross(b!1,b!2).B(p~U,c!2)  ->  B(p~P,c!1).Cross(b!1,b!2).B(p~P,c!2)    koff3
+
+	B(p~U)  ->  B(p~P)    koff4
+end reaction rules
+begin observables
+    Molecules Bphos     B(p~P)
+    Molecules Complex   B(c!1).Cross(b!1,b!2).B(c!2)
+    Molecules ComplexUP B(p~P,c!1).Cross(b!1,b!2).B(p~U,c!2)
+    Molecules Complex2  Cross(b!+,b!+)
+end observables
+end model
+
+generate_network({overwrite=>1})
+simulate({method=>"ode",t_end=>1e-3,n_steps=>1000})
+

@@ -1,0 +1,47 @@
+begin model
+begin parameters
+	ITERATIONS  1000
+    MCELL_DIFFUSION_CONSTANT_3D_Cross 1e-3
+    MCELL_DIFFUSION_CONSTANT_3D_B 1e-3
+
+    MCELL_NO_COMPARTMENT_SIZE 1
+    NA_um3 6.022e8
+    VOL_RXN 1
+    UNIMOL_RXN 10000
+    MCELL_REDEFINE_VOL_RXN NA_um3
+    
+    kon     10 * VOL_RXN
+	koff    5 * UNIMOL_RXN
+	
+	koff2   10 * UNIMOL_RXN
+	koff3    1 * UNIMOL_RXN
+	koff4    1 * UNIMOL_RXN / 10
+end parameters
+begin species
+    Cross(b,b)  2000
+	B(c,p~U)    4000
+end species
+begin reaction rules
+	B(c) + Cross(b)  <->  B(c!1).Cross(b!1)    kon, koff
+	
+	B(p~U,c!1).Cross(b!1,b!2).B(p~U,c!2)  ->  B(p~U,c!1).Cross(b!1,b!2).B(p~P,c!2)    koff2
+	B(p~P,c!1).Cross(b!1,b!2).B(p~U,c!2)  ->  B(p~P,c!1).Cross(b!1,b!2).B(p~P,c!2)    koff3
+
+	B(p~U)  ->  B(p~P)    koff4
+end reaction rules
+begin observables
+    Species BcpP B(c,p~P)
+    Species BcpU B(c,p~U)
+    Species Crossbb Cross(b,b)
+    Species Bc1pUCrossb1b B(c!1,p~U).Cross(b!1,b) 
+    Species Bc1pPCrossb1b B(c!1,p~P).Cross(b!1,b)
+    Species Bc1pPBc2pPCrossb1b2 B(c!1,p~P).B(c!2,p~P).Cross(b!1,b!2)
+    Species Bc1pPBc2pUCrossb1b2 B(c!1,p~P).B(c!2,p~U).Cross(b!1,b!2)
+    Species Bc1pUBc2pUCrossb1b2 B(c!1,p~U).B(c!2,p~U).Cross(b!1,b!2)
+    							
+end observables
+end model
+
+generate_network({overwrite=>1})
+simulate({method=>"ode",t_end=>1e-3,n_steps=>1000})
+
