@@ -21,7 +21,7 @@ begin seed species
 end seed species
 
 begin observables
-	Molecules _MDLString A, B
+    Molecules A A
 end observables
 
 begin reaction rules

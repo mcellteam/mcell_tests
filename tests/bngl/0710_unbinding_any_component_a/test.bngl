@@ -25,7 +25,7 @@ begin reaction rules
 end reaction rules
 
 begin observables
-    Species Ba B(a)
+    Species A A(a)
 end observables
 end model
 
