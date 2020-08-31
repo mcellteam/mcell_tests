@@ -37,6 +37,7 @@ from utils import run, log, fatal_error
 
 
 ONLY_BNG = False
+ONLY_MCELL4_AND_BNG = False 
 
 DEFALT_TOLERANCE_PERCENTS = 0.5 
 
@@ -210,27 +211,32 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
             else:
                 bng_count = -1
                 diff_perc = 'NA'
-                observables_missing_in_bng.append(bng_name)
+                observables_missing_in_bng.append((bng_name, key))
             
             if key in mcell3_counts:
                 mcell3_num = mcell3_counts[key]
             else:
                 mcell3_num = -1
 
+            less_than1_msg = ''
+            if mcell4_counts < 1 and bng_count < 1:
+                less_than1_msg = ' (both are < 1)'
             
-            print(key.ljust(30) + ': ' + diff_perc + \
+            print(key.ljust(30) + ': ' + diff_perc + less_than1_msg + \
                   '% (MCell4: ' + format(mcell4_counts, '.4f') + \
                   ', BNG: ' + format(bng_count, '.4f') + 
                   ', MCell3: ' + format(mcell3_num, '.4f') + ')')
             
-            if bng_count != -1 and float(diff_perc) > tolerance:
+            if less_than1_msg == '' and bng_count != -1 and float(diff_perc) > tolerance:
                 print('  - ERROR: difference against BNG is higher than tolerance of ' + str(tolerance) + '%')
                 res = FAILED_VALIDATION
         
         print('--------------------------\n')
         
         if observables_missing_in_bng:
-            print('ERROR: missing observables in BNG: ' + str(observables_missing_in_bng))
+            print('ERROR: missing observables in BNG, add following lines to the bngl file:')
+            for (obs_name, pat) in observables_missing_in_bng:
+                print('    Species ' + obs_name + ' ' + pat)
             res = FAILED_VALIDATION
         
         if res == PASSED:
@@ -269,15 +275,17 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
             
             seeds = self.generate_seeds(num_runs)
             
-            # run mcell3r
-            res = self.convert_bngl_to_mdl()
-            if res != PASSED:
-                return res
-            
-            mcell3r_counts = self.get_molecule_counts_for_multiple_runs(False, seeds)
-            if mcell3r_counts is None:
-                return FAILED_MCELL
-            mcell3r_counts_per_run = { key:cnt/num_runs for key,cnt in mcell3r_counts.items() }
+            mcell3r_counts_per_run = {}
+            if not ONLY_MCELL4_AND_BNG:
+                # run mcell3r
+                res = self.convert_bngl_to_mdl()
+                if res != PASSED:
+                    return res
+                
+                mcell3r_counts = self.get_molecule_counts_for_multiple_runs(False, seeds)
+                if mcell3r_counts is None:
+                    return FAILED_MCELL
+                mcell3r_counts_per_run = { key:cnt/num_runs for key,cnt in mcell3r_counts.items() }
                                     
             # run pymcell4 with different seeds
             # we simply count the resulting molecules with the viz output afterwards    
