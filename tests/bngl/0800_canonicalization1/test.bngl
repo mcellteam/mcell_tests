@@ -1,0 +1,28 @@
+begin model
+begin parameters
+
+	ITERATIONS  1
+    MCELL_DIFFUSION_CONSTANT_3D_anti 1e-3
+    MCELL_DIFFUSION_CONSTANT_3D_rec 1e-3
+    MCELL_DIFFUSION_CONSTANT_3D_B 1e-3
+    MCELL_DIFFUSION_CONSTANT_3D_Thrash 1e-3
+    
+    MCELL_NO_COMPARTMENT_SIZE 1
+end parameters
+
+begin species	
+    rec(a!1,b!2,b!3).anti(r!1,r).B(c!3,p~U).B(c!2,p~U)   1
+end species
+
+begin reaction rules
+	B + B -> Thrash 0
+end reaction rules
+
+begin observables
+    Species res rec(a!1,b!2,b!3).anti(r!1,r).B(c!3,p~U).B(c!2,p~U)
+
+end observables
+end model
+
+generate_network({overwrite=>1})
+simulate({method=>"ode",t_end=>1e-3,n_steps=>1})
