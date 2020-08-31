@@ -1,0 +1,46 @@
+begin model
+begin parameters
+
+	ITERATIONS  100
+    MCELL_DIFFUSION_CONSTANT_3D_anti 1e-6
+    MCELL_DIFFUSION_CONSTANT_3D_rec 1e-6
+    MCELL_DIFFUSION_CONSTANT_3D_B 1e-6
+
+    MCELL_NO_COMPARTMENT_SIZE 1/8
+    NA_um3 6.022e8
+    VOL_RXN 1
+    UNIMOL_RXN 10000
+    MCELL_REDEFINE_VOL_RXN NA_um3
+    
+    kon1     1 * VOL_RXN
+	koff1    1 * UNIMOL_RXN
+	
+    kon2     1 * VOL_RXN
+	koff2    1 * UNIMOL_RXN
+
+	koff3    5 * UNIMOL_RXN
+	koff4    10 * UNIMOL_RXN
+end parameters
+
+begin species	
+    anti(r,r)   50
+    rec(a,b,b)  100
+	B(c)    200
+end species
+
+begin reaction rules	
+	rec(b)+B(c)     <->  rec(b!1).B(c!1)       kon1, koff1
+	rec(a)+anti(r)  <->  rec(a!1).anti(r!1)    kon2, koff2
+end reaction rules
+
+begin observables
+    Molecules Bphos    B(p~P)
+    Molecules BphosP   B(p~PP)
+    Molecules B_rec    rec(b!1).B(c!1)
+    Molecules anti_rec rec(a!1).anti(r!1)
+    Molecules full     B(c!1).rec(b!1,a!2).anti(r!2,r!3).rec(b!4,a!3).B(c!4)
+end observables
+end model
+
+generate_network({overwrite=>1})
+simulate({method=>"ode",t_end=>1e-3,n_steps=>1000})
