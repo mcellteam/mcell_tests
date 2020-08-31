@@ -106,6 +106,32 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         return os.path.join(dir, max_it_file)
     
     
+    def unify_counts_with_bng_analyzer(self, counts, pymcell4):
+        suffix = '4' if pymcell4 else '3'
+        tmp_counts_file = 'bng_counts' + suffix + '.tmp'
+        res_counts_file = 'bng_counts' + suffix + '.res'
+        # prepare input
+        with open(tmp_counts_file, 'w') as f:
+            for k,c in counts.items():
+                f.write(k + ' ' + str(c) + '\n')
+                
+                
+        cmd = [self.tool_paths.bng_analyzer_binary, tmp_counts_file, '-o', res_counts_file]
+        log_name = self.test_name+'.bng_analyzer.log'
+        exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
+        if exit_code != 0:
+            log_test_error(self.test_name, self.tester_name, "Bng analyzer failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
+            return None
+        
+        res_counts = {}
+        with open(res_counts_file, 'r') as f:
+            for line in f:
+                split_line = line.split()
+                res_counts[split_line[0]] = float(split_line[1]) 
+                
+        return res_counts
+        
+    
     def get_molecule_counts_for_multiple_runs(self, pymcell4, seeds):
         counts = {}
         current_run = 1
@@ -116,8 +142,10 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         
         # Run the jobs
         if pymcell4:
+            suffix = '4'
             res_codes = pool.map(self.run_validation_pymcell4, seeds)
         else:
+            suffix = ''
             res_codes = pool.map(self.run_validation_mcell3r, seeds)
     
         #for s in seeds:
@@ -130,7 +158,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
                     "See '" + os.path.join(self.test_work_path, self.test_name+'.pymcell.log') + "'.")
                 return None
                 
-            last_file = self.find_last_viz_file('viz_data/seed_' + str(s).zfill(5))
+            last_file = self.find_last_viz_file('viz_data' + suffix + '/seed_' + str(s).zfill(5))
             if not last_file:
                 log_test_error(self.test_name, self.tester_name, 
                     "Run with seed " + str(s) + " in work dir " + self.test_src_path + 
@@ -141,7 +169,9 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
             # add values with common key
             counts = Counter(counts) + Counter(curr_counts) 
     
-        return dict(counts)
+        # unify the counts, return None on error
+        unified_counts = self.unify_counts_with_bng_analyzer(counts, pymcell4)
+        return unified_counts
     
     
     def generate_seeds(self, count):

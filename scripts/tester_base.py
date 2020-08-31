@@ -246,7 +246,7 @@ class TesterBase:
         
         log_name = self.test_name+'.mcell.log'
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
-        if (exit_code):
+        if exit_code != 0:
             log_test_error(self.test_name, self.tester_name, "MCell failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
             return FAILED_MCELL
         else:

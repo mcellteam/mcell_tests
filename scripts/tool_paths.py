@@ -55,6 +55,9 @@ class ToolPaths:
             
         self.data_model_to_pymcell_binary = \
             os.path.join(self.mcell_dir_path, DATA_MODEL_TO_PYMCELL_DIR, DATA_MODEL_TO_PYMCELL_BINARY)
+
+        self.bng_analyzer_binary = \
+            os.path.join(self.mcell_dir_path, BNG_ANALYZER_DIR, BNG_ANALYZER_BINARY)
             
         self.work_path = os.path.join(THIS_DIR, '..', WORK_DIR_NAME)
         
