@@ -1,0 +1,63 @@
+1.34
+
+Validated against both BNG and MCell3R, 
+128 runs gives practically the same results
+
+24 runs:
+MCell3R:
+A(x!1,x!2).B(y!1,y!2)          87.5417
+A(x!1,x).B(y!1,y)              912.4583
+
+MCell4:
+A(x!1,x!2).B(y!1,y!2)          92.1250
+A(x!1,x).B(y!1,y)              907.8750
+
+BNG:
+Ax1x2By1y2                     90.9091
+Ax1xBy1y                       909.0909
+
+
+--- Validation results ---
+A(x!1,x!2).B(y!1,y!2)         : 1.338% (MCell4: 92.1250, BNG: 90.9091, MCell3: 87.5417)
+  - ERROR: difference against BNG is higher than tolerance of 0.5%
+A(x!1,x).B(y!1,y)             : 0.134% (MCell4: 907.8750, BNG: 909.0909, MCell3: 912.4583)
+--------------------------
+
+
+48 runs:
+MCell3R:
+A(x!1,x!2).B(y!1,y!2)          91.8542
+A(x!1,x).B(y!1,y)              908.1458
+
+MCell4:
+A(x!1,x!2).B(y!1,y!2)          93.1250
+A(x!1,x).B(y!1,y)              906.8750
+
+BNG:
+Ax1x2By1y2                     90.9091
+Ax1xBy1y                       909.0909
+
+128 runs:
+MCell3R:
+A(x!1,x!2).B(y!1,y!2)          91.0547
+A(x!1,x).B(y!1,y)              908.9453
+
+MCell4:
+A(x!1,x!2).B(y!1,y!2)          91.7422
+A(x!1,x).B(y!1,y)              908.2578
+
+BNG:
+Ax1x2By1y2                     90.9091
+Ax1xBy1y                       909.0909
+
+
+--- Validation results ---
+A(x!1,x!2).B(y!1,y!2)         : 0.916% (MCell4: 91.7422, BNG: 90.9091, MCell3: 91.0547)
+A(x!1,x).B(y!1,y)             : 0.092% (MCell4: 908.2578, BNG: 909.0909, MCell3: 908.9453)
+--------------------------
+
+
+--- Validation results ---
+A(x!1,x!2).B(y!1,y!2)         : 2.438% (MCell4: 93.1250, BNG: 90.9091, MCell3: 91.8542)
+A(x!1,x).B(y!1,y)             : 0.244% (MCell4: 906.8750, BNG: 909.0909, MCell3: 908.1458)
+--------------------------
