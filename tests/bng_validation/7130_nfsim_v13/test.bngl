@@ -1,11 +1,11 @@
 # transcription + phos + deletion
 begin model
 begin parameters
-	ITERATIONS  100
-    MCELL_DIFFUSION_CONSTANT_3D_A 1e-6
-    MCELL_DIFFUSION_CONSTANT_3D_DNA 1e-6
+	ITERATIONS  1000
+    MCELL_DIFFUSION_CONSTANT_3D_A 1e-3
+    MCELL_DIFFUSION_CONSTANT_3D_DNA 1e-3
 
-    MCELL_NO_COMPARTMENT_SIZE 1/8
+    MCELL_NO_COMPARTMENT_SIZE 1
     NA_um3 6.022e8
     VOL_RXN 1
     UNIMOL_RXN 10000
@@ -21,8 +21,8 @@ begin parameters
 	koff4    10 * UNIMOL_RXN
 end parameters
 begin species
-	A(b,b,b,c,c,p~P)  200
-    DNA() 1
+	A(b,b,b,c,c,p~P)  1000
+    DNA() 20
 end species
 begin reaction rules
     DNA()        ->  DNA() + A(b,b,b,c,c,p~P)    koff1
@@ -31,8 +31,9 @@ begin reaction rules
     A(p~P)       ->  Null                           koff3
 end reaction rules
 begin observables
-    Molecules Aphos  A(p~P)
-    Molecules Atotal A()
+    Species AbbbccpP A(b,b,b,c,c,p~P)
+    Species AbbbccpU A(b,b,b,c,c,p~U)
+    Species DNA DNA
 end observables
 end model
 

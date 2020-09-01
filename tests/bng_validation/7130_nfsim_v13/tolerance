@@ -1,0 +1,25 @@
+0.853
+
+Validated against both BNG and MCell3R
+
+MCell3R:
+A(b,b,b,c,c,p~P)               199.1667
+A(b,b,b,c,c,p~U)               200.2083
+DNA                            20.0000
+
+MCell4:
+A(b,b,b,c,c,p~P)               198.2917
+A(b,b,b,c,c,p~U)               200.6250
+DNA                            20.0000
+
+BNG:
+AbbbccpP                       199.9973
+AbbbccpU                       199.9862
+DNA                            20.0000
+
+
+--- Validation results ---
+A(b,b,b,c,c,p~P)              : 0.853% (MCell4: 198.2917, BNG: 199.9973, MCell3: 199.1667)
+A(b,b,b,c,c,p~U)              : 0.319% (MCell4: 200.6250, BNG: 199.9862, MCell3: 200.2083)
+DNA                           : 0.000% (MCell4: 20.0000, BNG: 20.0000, MCell3: 20.0000)
+--------------------------
