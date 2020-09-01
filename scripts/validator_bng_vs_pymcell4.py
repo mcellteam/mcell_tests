@@ -170,7 +170,11 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
             counts = Counter(counts) + Counter(curr_counts) 
     
         # unify the counts, return None on error
-        unified_counts = self.unify_counts_with_bng_analyzer(counts, pymcell4)
+        if not pymcell4:
+            unified_counts = self.unify_counts_with_bng_analyzer(counts, pymcell4)
+        else:
+            unified_counts = dict(counts)
+            
         return unified_counts
     
     
