@@ -1,14 +1,25 @@
 # simple_system.bngl
 begin model
 begin parameters
+	ITERATIONS  100
+    MCELL_DIFFUSION_CONSTANT_3D_A 1e-6
 
+    MCELL_NO_COMPARTMENT_SIZE 1/8
+    NA_um3 6.022e8
+    VOL_RXN 1
+    UNIMOL_RXN 10000
+    MCELL_REDEFINE_VOL_RXN NA_um3
+    
+    kon     1 * VOL_RXN
+	koff    5 * UNIMOL_RXN
+	
 end parameters
 begin species
-	A(b,p~U)  2000
-    A(b,p~P)  2000
+	A(b,p~U)  200
+    A(b,p~P)  200
 end species
 begin reaction rules
-	A(b,p~U) + A(b,p~P)  <->  A(b!1,p~U).A(b!1,p~P)    0.05, 10
+	A(b,p~U) + A(b,p~P)  <->  A(b!1,p~U).A(b!1,p~P)    kon, koff
 end reaction rules
 begin observables
     Molecules Complex A(b!1).A(b!1)
@@ -17,9 +28,4 @@ end observables
 end model
 
 generate_network({overwrite=>1})
-simulate_ode({suffix=>"ode",t_end=>1,n_steps=>100})
-resetConcentrations()
-simulate_ssa({suffix=>"ssa",t_end=>1,n_steps=>100})
-resetConcentrations()
-writeXML()
-
+simulate({method=>"ode",t_end=>1e-3,n_steps=>1000})

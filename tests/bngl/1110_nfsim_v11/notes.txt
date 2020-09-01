@@ -1,0 +1,5 @@
+Got identical result as MCell3R with:
+
+commit 62c3d3263652c75e3343acd7d6d992aeaeeb6bf1
+
+and default config
