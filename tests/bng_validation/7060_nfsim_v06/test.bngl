@@ -38,7 +38,7 @@ begin observables
     Species Bc1pPBc2pPCrossb1b2 B(c!1,p~P).B(c!2,p~P).Cross(b!1,b!2)
     Species Bc1pPBc2pUCrossb1b2 B(c!1,p~P).B(c!2,p~U).Cross(b!1,b!2)
     Species Bc1pUBc2pUCrossb1b2 B(c!1,p~U).B(c!2,p~U).Cross(b!1,b!2)
-    							
+	Species Bc1pUBc2pPCrossb1b2 B(c!1,p~U).B(c!2,p~P).Cross(b!1,b!2)							
 end observables
 end model
 

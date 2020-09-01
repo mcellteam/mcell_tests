@@ -1,0 +1,104 @@
+5.11
+
+Validated against BNG and MCell3R,
+This is the biggest difference: 
+24
+B(c,p~U)                      : 5.101% (MCell4: 144.5000, BNG: 137.4874, MCell3: 139.1250)
+
+THat however gets lower with more runs:
+72 runs:
+B(c,p~U)                      : 2.969% (MCell4: 141.5694, BNG: 137.4874, MCell3: 140.2917)
+
+
+
+24 runs:
+
+MCell3R:
+B(c!1,p~P).B(c!2,p~P).Cross(b!1,b!2) 214.6250
+B(c!1,p~P).Cross(b!1,b)        857.8333
+B(c!1,p~U).B(c!2,p~P).Cross(b!1,b!2) 22.0833
+B(c!1,p~U).B(c!2,p~U).Cross(b!1,b!2) 0.3333
+B(c!1,p~U).Cross(b!1,b)        47.9583
+B(c,p~P)                       2481.0000
+B(c,p~U)                       139.1250
+Cross(b,b)                     857.1667
+
+MCell4:
+B(c!1,p~P).B(c!2,p~P).Cross(b!1,b!2) 210.3750
+B(c!1,p~P).Cross(b!1,b)        847.8333
+B(c!1,p~U).B(c!2,p~P).Cross(b!1,b!2) 23.0417
+B(c!1,p~U).B(c!2,p~U).Cross(b!1,b!2) 0.2083
+B(c!1,p~U).Cross(b!1,b)        45.2500
+B(c,p~P)                       2495.1667
+B(c,p~U)                       144.5000
+Cross(b,b)                     873.2917
+
+BNG:
+Bc1pPBc2pPCrossb1b2            214.8190
+Bc1pPBc2pUCrossb1b2            21.8191
+Bc1pPCrossb1b                  856.4262
+Bc1pUBc2pUCrossb1b2            0.2144
+Bc1pUCrossb1b                  46.3934
+BcpP                           2485.9879
+BcpU                           137.4874
+Crossbb                        860.3279
+
+
+--- Validation results ---
+B(c!1,p~P).B(c!2,p~P).Cross(b!1,b!2): 2.069% (MCell4: 210.3750, BNG: 214.8190, MCell3: 214.6250)
+B(c!1,p~P).Cross(b!1,b)       : 1.003% (MCell4: 847.8333, BNG: 856.4262, MCell3: 857.8333)
+B(c!1,p~U).B(c!2,p~P).Cross(b!1,b!2): NA% (MCell4: 23.0417, BNG: -1.0000, MCell3: 22.0833)
+B(c!1,p~U).B(c!2,p~U).Cross(b!1,b!2): 2.844 (both are < 1)% (MCell4: 0.2083, BNG: 0.2144, MCell3: 0.3333)
+B(c!1,p~U).Cross(b!1,b)       : 2.465% (MCell4: 45.2500, BNG: 46.3934, MCell3: 47.9583)
+B(c,p~P)                      : 0.369% (MCell4: 2495.1667, BNG: 2485.9879, MCell3: 2481.0000)
+B(c,p~U)                      : 5.101% (MCell4: 144.5000, BNG: 137.4874, MCell3: 139.1250)
+Cross(b,b)                    : 1.507% (MCell4: 873.2917, BNG: 860.3279, MCell3: 857.1667)
+--------------------------
+
+
+
+72 runs:
+MCell3R:
+B(c!1,p~P).B(c!2,p~P).Cross(b!1,b!2) 212.0833
+B(c!1,p~P).Cross(b!1,b)        857.4722
+B(c!1,p~U).B(c!2,p~P).Cross(b!1,b!2) 21.7917
+B(c!1,p~U).B(c!2,p~U).Cross(b!1,b!2) 0.2361
+B(c!1,p~U).Cross(b!1,b)        47.1667
+B(c,p~P)                       2486.8472
+B(c,p~U)                       140.2917
+Cross(b,b)                     861.2500
+
+MCell4:
+B(c!1,p~P).B(c!2,p~P).Cross(b!1,b!2) 211.1111
+B(c!1,p~P).Cross(b!1,b)        850.3750
+B(c!1,p~U).B(c!2,p~P).Cross(b!1,b!2) 22.5000
+B(c!1,p~U).B(c!2,p~U).Cross(b!1,b!2) 0.2361
+B(c!1,p~U).Cross(b!1,b)        45.3889
+B(c,p~P)                       2494.9722
+B(c,p~U)                       141.5694
+Cross(b,b)                     870.3889
+
+BNG:
+Bc1pPBc2pPCrossb1b2            214.8190
+Bc1pPBc2pUCrossb1b2            21.8191
+Bc1pPCrossb1b                  856.4262
+Bc1pUBc2pPCrossb1b2            21.8191
+Bc1pUBc2pUCrossb1b2            0.2144
+Bc1pUCrossb1b                  46.3934
+BcpP                           2485.9879
+BcpU                           137.4874
+Crossbb                        860.3279
+
+
+--- Validation results ---
+B(c!1,p~P).B(c!2,p~P).Cross(b!1,b!2): 1.726% (MCell4: 211.1111, BNG: 214.8190, MCell3: 212.0833)
+B(c!1,p~P).Cross(b!1,b)       : 0.707% (MCell4: 850.3750, BNG: 856.4262, MCell3: 857.4722)
+B(c!1,p~U).B(c!2,p~P).Cross(b!1,b!2): 3.121% (MCell4: 22.5000, BNG: 21.8191, MCell3: 21.7917)
+B(c!1,p~U).B(c!2,p~U).Cross(b!1,b!2): 10.110 (both are < 1)% (MCell4: 0.2361, BNG: 0.2144, MCell3: 0.2361)
+B(c!1,p~U).Cross(b!1,b)       : 2.165% (MCell4: 45.3889, BNG: 46.3934, MCell3: 47.1667)
+B(c,p~P)                      : 0.361% (MCell4: 2494.9722, BNG: 2485.9879, MCell3: 2486.8472)
+B(c,p~U)                      : 2.969% (MCell4: 141.5694, BNG: 137.4874, MCell3: 140.2917)
+Cross(b,b)                    : 1.169% (MCell4: 870.3889, BNG: 860.3279, MCell3: 861.2500)
+--------------------------
+
+
