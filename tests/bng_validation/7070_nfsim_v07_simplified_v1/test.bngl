@@ -46,6 +46,9 @@ begin observables
     Species antir1rreca1bb anti(r!1,r).rec(a!1,b,b)
     Species antirr anti(r,r)
     Species recabb rec(a,b,b)
+    Species Bc1pUBc2pUBc3pUantir4r5reca5b2b3reca4b1b B(c!1,p~U).B(c!2,p~U).B(c!3,p~U).anti(r!4,r!5).rec(a!5,b!2,b!3).rec(a!4,b!1,b)
+    Species Bc1pUBc2pUantir3r4reca3b1b2reca4bb B(c!1,p~U).B(c!2,p~U).anti(r!3,r!4).rec(a!3,b!1,b!2).rec(a!4,b,b)
+    Species Bc1pUantir2r3reca2b1breca3bb B(c!1,p~U).anti(r!2,r!3).rec(a!2,b!1,b).rec(a!3,b,b)    
 end observables
 
 end model
