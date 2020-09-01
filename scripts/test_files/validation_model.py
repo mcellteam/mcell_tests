@@ -28,17 +28,15 @@ TIME_STEP = 1e-6 # mcell3r converter does not handle this yet
 DUMP = True
 EXPORT_DATA_MODEL = True
 
-subsystem = m.Subsystem()
-subsystem.load_bngl_molecule_types_and_reaction_rules('test.bngl')
+
+# ---- load bngl file ----
+
+model = m.Model()
 
 box_no_compartment = m.geometry_utils.create_box(
     'box_no_compartment', MCELL_NO_COMPARTMENT_SIZE
 )
-
-instantiation = m.InstantiationData()
-instantiation.load_bngl_seed_species('test.bngl', subsystem, box_no_compartment)
-instantiation.add_geometry_object(box_no_compartment)
-
+model.add_geometry_object(box_no_compartment)
 
 viz_output = m.VizOutput(
     mode = m.VizMode.ASCII,
@@ -46,12 +44,10 @@ viz_output = m.VizOutput(
     all_species = True,
     every_n_timesteps = ITERATIONS
 )
+model.add_viz_output(viz_output)
 
-observables = m.Observables()
-observables.add_viz_output(viz_output)
+model.load_bngl('test.bngl', './react_data/seed_' + str(SEED).zfill(5) + '/', box_no_compartment)
 
-
-model = m.Model()
 
 # ---- configuration ----
 
@@ -61,10 +57,6 @@ model.config.total_iterations_hint = ITERATIONS
 
 model.config.partition_dimension = MCELL_NO_COMPARTMENT_SIZE
 model.config.subpartition_dimension = MCELL_NO_COMPARTMENT_SIZE 
-
-model.add_subsystem(subsystem)
-model.add_instantiation_data(instantiation)
-model.add_observables(observables)
 
 model.initialize()
 
