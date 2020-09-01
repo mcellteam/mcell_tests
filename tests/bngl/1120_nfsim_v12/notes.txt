@@ -1,0 +1,1 @@
+Validated against both BNG and MCell3R with bng_validation/7120_nfsim_v12
