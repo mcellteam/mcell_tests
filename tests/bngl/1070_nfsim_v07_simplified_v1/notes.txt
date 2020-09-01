@@ -1,0 +1,1 @@
+validated using bng_validation/7070_nfsim_v07_simplified_v1

@@ -1,0 +1,184 @@
+14.9
+
+Tolerance is high due to low copy numbers:
+B(c!1,p~PP).anti(r!2,r).rec(a!2,b!1,b): 14.898% (MCell4: 2.6667, BNG: 3.1335, MCell3: 3.4583)
+
+24 runs
+
+MCell3R:
+B(c!1,p~P).B(c!2,p~P).anti(r!3,r).rec(a!3,b!1,b!2) 0.0417
+B(c!1,p~P).B(c!2,p~P).rec(a,b!1,b!2) 0.0417
+B(c!1,p~P).anti(r!2,r!3).rec(a!2,b!1,b).rec(a!3,b,b) 0.7917
+B(c!1,p~P).anti(r!2,r).rec(a!2,b!1,b) 1.5417
+B(c!1,p~P).rec(a,b!1,b)        7.2917
+B(c!1,p~PP).B(c!2,p~P).anti(r!3,r!4).rec(a!3,b!1,b).rec(a!4,b!2,b) 0.0417
+B(c!1,p~PP).B(c!2,p~P).rec(a,b!1,b!2) 0.1250
+B(c!1,p~PP).B(c!2,p~PP).B(c!3,p~PP).anti(r!4,r!5).rec(a!5,b!2,b!3).rec(a!4,b!1,b) 0.0417
+B(c!1,p~PP).B(c!2,p~PP).anti(r!3,r!4).rec(a!3,b!1,b!2).rec(a!4,b,b) 0.0417
+B(c!1,p~PP).B(c!2,p~PP).anti(r!3,r).rec(a!3,b!1,b!2) 0.5417
+B(c!1,p~PP).B(c!2,p~PP).rec(a,b!1,b!2) 1.4167
+B(c!1,p~PP).anti(r!2,r!3).rec(a!2,b!1,b).rec(a!3,b,b) 1.0000
+B(c!1,p~PP).anti(r!2,r).rec(a!2,b!1,b) 3.4583
+B(c!1,p~PP).rec(a,b!1,b)       14.3750
+B(c!1,p~U).B(c!2,p~P).anti(r!3,r!4).rec(a!3,b!1,b).rec(a!4,b!2,b) 0.9583
+B(c!1,p~U).B(c!2,p~P).anti(r!3,r).rec(a!3,b!1,b!2) 0.0417
+B(c!1,p~U).B(c!2,p~P).rec(a,b!1,b!2) 0.2917
+B(c!1,p~U).B(c!2,p~PP).B(c!3,p~P).anti(r!4,r!5).rec(a!5,b!2,b!3).rec(a!4,b!1,b) 0.0833
+B(c!1,p~U).B(c!2,p~PP).anti(r!3,r!4).rec(a!3,b!1,b!2).rec(a!4,b,b) 0.1667
+B(c!1,p~U).B(c!2,p~PP).anti(r!3,r!4).rec(a!3,b!1,b).rec(a!4,b!2,b) 0.3333
+B(c!1,p~U).B(c!2,p~PP).anti(r!3,r).rec(a!3,b!1,b!2) 0.7083
+B(c!1,p~U).B(c!2,p~PP).rec(a,b!1,b!2) 3.6667
+B(c!1,p~U).B(c!2,p~U).B(c!3,p~P).anti(r!4,r!5).rec(a!4,b!1,b!2).rec(a!5,b!3,b) 0.1250
+B(c!1,p~U).B(c!2,p~U).B(c!3,p~PP).B(c!4,p~PP).anti(r!5,r!6).rec(a!5,b!1,b!2).rec(a!6,b!3,b!4) 0.0417
+B(c!1,p~U).B(c!2,p~U).anti(r!3,r!4).rec(a!3,b!1,b!2).rec(a!4,b,b) 0.4583
+B(c!1,p~U).B(c!2,p~U).anti(r!3,r!4).rec(a!3,b!1,b).rec(a!4,b!2,b) 0.3750
+B(c!1,p~U).B(c!2,p~U).anti(r!3,r).rec(a!3,b!1,b!2) 1.9583
+B(c!1,p~U).B(c!2,p~U).rec(a,b!1,b!2) 13.4167
+B(c!1,p~U).anti(r!2,r!3).rec(a!2,b!1,b).rec(a!3,b,b) 4.8750
+B(c!1,p~U).anti(r!2,r).rec(a!2,b!1,b) 22.4167
+B(c!1,p~U).rec(a,b!1,b)        109.8750
+B(c,p~P)                       14.6667
+B(c,p~PP)                      32.3750
+B(c,p~U)                       237.1667
+anti(r!1,r!2).rec(a!1,b,b).rec(a!2,b,b) 6.7500
+anti(r!1,r).rec(a!1,b,b)       48.4167
+anti(r,r)                      104.7917
+rec(a,b,b)                     238.2083
+
+MCell4:
+B(c!1,p~P).B(c!2,p~P).anti(r!3,r).rec(a!3,b!1,b!2) 0.0417
+B(c!1,p~P).B(c!2,p~P).rec(a,b!1,b!2) 0.1250
+B(c!1,p~P).anti(r!2,r!3).rec(a!2,b!1,b).rec(a!3,b,b) 0.5417
+B(c!1,p~P).anti(r!2,r).rec(a!2,b!1,b) 1.8333
+B(c!1,p~P).rec(a,b!1,b)        6.7917
+B(c!1,p~PP).B(c!2,p~P).anti(r!3,r!4).rec(a!3,b!1,b).rec(a!4,b!2,b) 0.1250
+B(c!1,p~PP).B(c!2,p~P).anti(r!3,r).rec(a!3,b!1,b!2) 0.1250
+B(c!1,p~PP).B(c!2,p~P).rec(a,b!1,b!2) 0.0417
+B(c!1,p~PP).B(c!2,p~PP).B(c!3,p~P).anti(r!4,r!5).rec(a!4,b!1,b!2).rec(a!5,b!3,b) 0.0417
+B(c!1,p~PP).B(c!2,p~PP).anti(r!3,r!4).rec(a!3,b!1,b!2).rec(a!4,b,b) 0.1667
+B(c!1,p~PP).B(c!2,p~PP).anti(r!3,r).rec(a!3,b!1,b!2) 0.5000
+B(c!1,p~PP).B(c!2,p~PP).rec(a,b!1,b!2) 1.5417
+B(c!1,p~PP).anti(r!2,r!3).rec(a!2,b!1,b).rec(a!3,b,b) 0.7917
+B(c!1,p~PP).anti(r!2,r).rec(a!2,b!1,b) 2.6667
+B(c!1,p~PP).rec(a,b!1,b)       13.6667
+B(c!1,p~U).B(c!2,p~P).B(c!3,p~P).anti(r!4,r!5).rec(a!5,b!2,b!3).rec(a!4,b!1,b) 0.0833
+B(c!1,p~U).B(c!2,p~P).anti(r!3,r!4).rec(a!3,b!1,b).rec(a!4,b!2,b) 1.2500
+B(c!1,p~U).B(c!2,p~P).anti(r!3,r).rec(a!3,b!1,b!2) 0.0833
+B(c!1,p~U).B(c!2,p~P).rec(a,b!1,b!2) 0.2083
+B(c!1,p~U).B(c!2,p~PP).B(c!3,p~P).anti(r!4,r!5).rec(a!4,b!1,b!2).rec(a!5,b!3,b) 0.0417
+B(c!1,p~U).B(c!2,p~PP).B(c!3,p~P).anti(r!4,r!5).rec(a!5,b!2,b!3).rec(a!4,b!1,b) 0.0833
+B(c!1,p~U).B(c!2,p~PP).B(c!3,p~PP).anti(r!4,r!5).rec(a!5,b!2,b!3).rec(a!4,b!1,b) 0.0417
+B(c!1,p~U).B(c!2,p~PP).anti(r!3,r!4).rec(a!3,b!1,b!2).rec(a!4,b,b) 0.0833
+B(c!1,p~U).B(c!2,p~PP).anti(r!3,r!4).rec(a!3,b!1,b).rec(a!4,b!2,b) 0.2917
+B(c!1,p~U).B(c!2,p~PP).anti(r!3,r).rec(a!3,b!1,b!2) 0.5417
+B(c!1,p~U).B(c!2,p~PP).rec(a,b!1,b!2) 2.8333
+B(c!1,p~U).B(c!2,p~U).B(c!3,p~P).anti(r!4,r!5).rec(a!4,b!1,b!2).rec(a!5,b!3,b) 0.1250
+B(c!1,p~U).B(c!2,p~U).B(c!3,p~P).anti(r!4,r!5).rec(a!5,b!2,b!3).rec(a!4,b!1,b) 0.1250
+B(c!1,p~U).B(c!2,p~U).B(c!3,p~PP).B(c!4,p~P).anti(r!5,r!6).rec(a!6,b!2,b!3).rec(a!5,b!1,b!4) 0.0417
+B(c!1,p~U).B(c!2,p~U).B(c!3,p~U).anti(r!4,r!5).rec(a!5,b!2,b!3).rec(a!4,b!1,b) 0.0417
+B(c!1,p~U).B(c!2,p~U).anti(r!3,r!4).rec(a!3,b!1,b!2).rec(a!4,b,b) 0.5000
+B(c!1,p~U).B(c!2,p~U).anti(r!3,r!4).rec(a!3,b!1,b).rec(a!4,b!2,b) 0.5833
+B(c!1,p~U).B(c!2,p~U).anti(r!3,r).rec(a!3,b!1,b!2) 2.4583
+B(c!1,p~U).B(c!2,p~U).rec(a,b!1,b!2) 12.5833
+B(c!1,p~U).anti(r!2,r!3).rec(a!2,b!1,b).rec(a!3,b,b) 5.8333
+B(c!1,p~U).anti(r!2,r).rec(a!2,b!1,b) 23.0833
+B(c!1,p~U).rec(a,b!1,b)        113.6250
+B(c,p~P)                       13.7083
+B(c,p~PP)                      30.0000
+B(c,p~U)                       237.3750
+anti(r!1,r!2).rec(a!1,b,b).rec(a!2,b,b) 6.1667
+anti(r!1,r).rec(a!1,b,b)       47.9583
+anti(r,r)                      103.7500
+rec(a,b,b)                     235.3750
+
+BNG:
+Bc1pPBc2pPantir3rreca3b1b2     0.0300
+Bc1pPBc2pPrecab1b2             0.0817
+Bc1pPPBc2pPPBc3pPantir4r5reca4b1b2reca5b3b 0.0259
+Bc1pPPBc2pPPantir3r4reca3b1b2reca4bb 0.1151
+Bc1pPPBc2pPPantir3rreca3b1b2   0.3999
+Bc1pPPBc2pPPrecab1b2           1.6579
+Bc1pPPBc2pPantir3r4reca3b1breca4b2b 0.0417
+Bc1pPPBc2pPantir3rreca3b1b2    0.0570
+Bc1pPPBc2pPrecab1b2            0.2175
+Bc1pPPantir2r3reca2b1breca3bb  0.7586
+Bc1pPPantir2rreca2b1b          3.1335
+Bc1pPPrecab1b                  14.7769
+Bc1pPantir2r3reca2b1breca3bb   0.5938
+Bc1pPantir2rreca2b1b           1.8379
+Bc1pPrecab1b                   7.0074
+Bc1pUBc2pPBc3pPantir4r5reca5b2b3reca4b1b 0.0375
+Bc1pUBc2pPPBc3pPPantir4r5reca5b2b3reca4b1b 0.0936
+Bc1pUBc2pPPBc3pPantir4r5reca4b1b2reca5b3b 0.0308
+Bc1pUBc2pPPBc3pPantir4r5reca5b2b3reca4b1b 0.0316
+Bc1pUBc2pPPantir3r4reca3b1b2reca4bb 0.1507
+Bc1pUBc2pPPantir3r4reca3b1breca4b2b 0.3615
+Bc1pUBc2pPPantir3rreca3b1b2    0.6528
+Bc1pUBc2pPPrecab1b2            3.1759
+Bc1pUBc2pPantir3r4reca3b1breca4b2b 1.0424
+Bc1pUBc2pPantir3rreca3b1b2     0.0666
+Bc1pUBc2pPrecab1b2             0.2769
+Bc1pUBc2pUBc3pPPBc4pPantir5r6reca6b2b3reca5b1b4 0.0010
+Bc1pUBc2pUBc3pPantir4r5reca4b1b2reca5b3b 0.1112
+Bc1pUBc2pUBc3pPantir4r5reca5b2b3reca4b1b 0.0321
+Bc1pUBc2pUBc3pUantir4r5reca5b2b3reca4b1b 0.0523
+Bc1pUBc2pUantir3r4reca3b1b2reca4bb 0.5993
+Bc1pUBc2pUantir3r4reca3b1breca4b2b 0.3522
+Bc1pUBc2pUantir3rreca3b1b2     2.6659
+Bc1pUBc2pUrecab1b2             13.2443
+Bc1pUantir2r3reca2b1breca3bb   5.1742
+Bc1pUantir2rreca2b1b           22.6110
+Bc1pUrecab1b                   111.0917
+BcpP                           14.4588
+BcpPP                          30.1772
+BcpU                           236.1404
+antir1r2reca1bbreca2bb         5.8112
+antir1rreca1bb                 49.1181
+antirr                         103.7900
+recabb                         236.6225
+
+
+--- Validation results ---
+B(c!1,p~P).B(c!2,p~P).anti(r!3,r).rec(a!3,b!1,b!2): 38.745 (both are < 1)% (MCell4: 0.0417, BNG: 0.0300, MCell3: 0.0417)
+B(c!1,p~P).B(c!2,p~P).rec(a,b!1,b!2): 52.934 (both are < 1)% (MCell4: 0.1250, BNG: 0.0817, MCell3: 0.0417)
+B(c!1,p~P).anti(r!2,r!3).rec(a!2,b!1,b).rec(a!3,b,b): 8.776 (both are < 1)% (MCell4: 0.5417, BNG: 0.5938, MCell3: 0.7917)
+B(c!1,p~P).anti(r!2,r).rec(a!2,b!1,b): 0.248% (MCell4: 1.8333, BNG: 1.8379, MCell3: 1.5417)
+B(c!1,p~P).rec(a,b!1,b)       : 3.079% (MCell4: 6.7917, BNG: 7.0074, MCell3: 7.2917)
+B(c!1,p~PP).B(c!2,p~P).anti(r!3,r!4).rec(a!3,b!1,b).rec(a!4,b!2,b): 199.685 (both are < 1)% (MCell4: 0.1250, BNG: 0.0417, MCell3: 0.0417)
+B(c!1,p~PP).B(c!2,p~P).anti(r!3,r).rec(a!3,b!1,b!2): 119.288 (both are < 1)% (MCell4: 0.1250, BNG: 0.0570, MCell3: -1.0000)
+B(c!1,p~PP).B(c!2,p~P).rec(a,b!1,b!2): 80.845 (both are < 1)% (MCell4: 0.0417, BNG: 0.2175, MCell3: 0.1250)
+B(c!1,p~PP).B(c!2,p~PP).B(c!3,p~P).anti(r!4,r!5).rec(a!4,b!1,b!2).rec(a!5,b!3,b): 60.872 (both are < 1)% (MCell4: 0.0417, BNG: 0.0259, MCell3: -1.0000)
+B(c!1,p~PP).B(c!2,p~PP).anti(r!3,r!4).rec(a!3,b!1,b!2).rec(a!4,b,b): 44.844 (both are < 1)% (MCell4: 0.1667, BNG: 0.1151, MCell3: 0.0417)
+B(c!1,p~PP).B(c!2,p~PP).anti(r!3,r).rec(a!3,b!1,b!2): 25.024 (both are < 1)% (MCell4: 0.5000, BNG: 0.3999, MCell3: 0.5417)
+B(c!1,p~PP).B(c!2,p~PP).rec(a,b!1,b!2): 7.011% (MCell4: 1.5417, BNG: 1.6579, MCell3: 1.4167)
+B(c!1,p~PP).anti(r!2,r!3).rec(a!2,b!1,b).rec(a!3,b,b): 4.359 (both are < 1)% (MCell4: 0.7917, BNG: 0.7586, MCell3: 1.0000)
+B(c!1,p~PP).anti(r!2,r).rec(a!2,b!1,b): 14.898% (MCell4: 2.6667, BNG: 3.1335, MCell3: 3.4583)
+B(c!1,p~U).B(c!2,p~P).B(c!3,p~P).anti(r!4,r!5).rec(a!5,b!2,b!3).rec(a!4,b!1,b): 122.138 (both are < 1)% (MCell4: 0.0833, BNG: 0.0375, MCell3: -1.0000)
+B(c!1,p~U).B(c!2,p~P).anti(r!3,r!4).rec(a!3,b!1,b).rec(a!4,b!2,b): 19.917% (MCell4: 1.2500, BNG: 1.0424, MCell3: 0.9583)
+B(c!1,p~U).B(c!2,p~P).anti(r!3,r).rec(a!3,b!1,b!2): 25.064 (both are < 1)% (MCell4: 0.0833, BNG: 0.0666, MCell3: 0.0417)
+B(c!1,p~U).B(c!2,p~P).rec(a,b!1,b!2): 24.753 (both are < 1)% (MCell4: 0.2083, BNG: 0.2769, MCell3: 0.2917)
+B(c!1,p~U).B(c!2,p~PP).B(c!3,p~P).anti(r!4,r!5).rec(a!4,b!1,b!2).rec(a!5,b!3,b): 35.265 (both are < 1)% (MCell4: 0.0417, BNG: 0.0308, MCell3: -1.0000)
+B(c!1,p~U).B(c!2,p~PP).B(c!3,p~P).anti(r!4,r!5).rec(a!5,b!2,b!3).rec(a!4,b!1,b): 163.513 (both are < 1)% (MCell4: 0.0833, BNG: 0.0316, MCell3: 0.0833)
+B(c!1,p~U).B(c!2,p~PP).B(c!3,p~PP).anti(r!4,r!5).rec(a!5,b!2,b!3).rec(a!4,b!1,b): 55.484 (both are < 1)% (MCell4: 0.0417, BNG: 0.0936, MCell3: -1.0000)
+B(c!1,p~U).B(c!2,p~PP).anti(r!3,r!4).rec(a!3,b!1,b!2).rec(a!4,b,b): 44.706 (both are < 1)% (MCell4: 0.0833, BNG: 0.1507, MCell3: 0.1667)
+B(c!1,p~U).B(c!2,p~PP).anti(r!3,r!4).rec(a!3,b!1,b).rec(a!4,b!2,b): 19.328 (both are < 1)% (MCell4: 0.2917, BNG: 0.3615, MCell3: 0.3333)
+B(c!1,p~U).B(c!2,p~PP).anti(r!3,r).rec(a!3,b!1,b!2): 17.022 (both are < 1)% (MCell4: 0.5417, BNG: 0.6528, MCell3: 0.7083)
+B(c!1,p~U).B(c!2,p~PP).rec(a,b!1,b!2): 10.787% (MCell4: 2.8333, BNG: 3.1759, MCell3: 3.6667)
+B(c!1,p~U).B(c!2,p~U).B(c!3,p~P).anti(r!4,r!5).rec(a!4,b!1,b!2).rec(a!5,b!3,b): 12.388 (both are < 1)% (MCell4: 0.1250, BNG: 0.1112, MCell3: 0.1250)
+B(c!1,p~U).B(c!2,p~U).B(c!3,p~P).anti(r!4,r!5).rec(a!5,b!2,b!3).rec(a!4,b!1,b): 289.619 (both are < 1)% (MCell4: 0.1250, BNG: 0.0321, MCell3: -1.0000)
+B(c!1,p~U).B(c!2,p~U).B(c!3,p~PP).B(c!4,p~P).anti(r!5,r!6).rec(a!6,b!2,b!3).rec(a!5,b!1,b!4): 4206.137 (both are < 1)% (MCell4: 0.0417, BNG: 0.0010, MCell3: -1.0000)
+B(c!1,p~U).B(c!2,p~U).B(c!3,p~U).anti(r!4,r!5).rec(a!5,b!2,b!3).rec(a!4,b!1,b): 20.257 (both are < 1)% (MCell4: 0.0417, BNG: 0.0523, MCell3: -1.0000)
+B(c!1,p~U).B(c!2,p~U).anti(r!3,r!4).rec(a!3,b!1,b!2).rec(a!4,b,b): 16.573 (both are < 1)% (MCell4: 0.5000, BNG: 0.5993, MCell3: 0.4583)
+B(c!1,p~U).B(c!2,p~U).anti(r!3,r!4).rec(a!3,b!1,b).rec(a!4,b!2,b): 65.626 (both are < 1)% (MCell4: 0.5833, BNG: 0.3522, MCell3: 0.3750)
+B(c!1,p~U).B(c!2,p~U).anti(r!3,r).rec(a!3,b!1,b!2): 7.785% (MCell4: 2.4583, BNG: 2.6659, MCell3: 1.9583)
+B(c!1,p~U).B(c!2,p~U).rec(a,b!1,b!2): 4.990% (MCell4: 12.5833, BNG: 13.2443, MCell3: 13.4167)
+B(c!1,p~U).anti(r!2,r!3).rec(a!2,b!1,b).rec(a!3,b,b): 12.738% (MCell4: 5.8333, BNG: 5.1742, MCell3: 4.8750)
+B(c!1,p~U).anti(r!2,r).rec(a!2,b!1,b): 2.089% (MCell4: 23.0833, BNG: 22.6110, MCell3: 22.4167)
+B(c!1,p~U).rec(a,b!1,b)       : 2.280% (MCell4: 113.6250, BNG: 111.0917, MCell3: 109.8750)
+B(c,p~P)                      : 5.191% (MCell4: 13.7083, BNG: 14.4588, MCell3: 14.6667)
+B(c,p~PP)                     : 0.587% (MCell4: 30.0000, BNG: 30.1772, MCell3: 32.3750)
+B(c,p~U)                      : 0.523% (MCell4: 237.3750, BNG: 236.1404, MCell3: 237.1667)
+anti(r!1,r!2).rec(a!1,b,b).rec(a!2,b,b): 6.117% (MCell4: 6.1667, BNG: 5.8112, MCell3: 6.7500)
+anti(r!1,r).rec(a!1,b,b)      : 2.361% (MCell4: 47.9583, BNG: 49.1181, MCell3: 48.4167)
+anti(r,r)                     : 0.039% (MCell4: 103.7500, BNG: 103.7900, MCell3: 104.7917)
+rec(a,b,b)                    : 0.527% (MCell4: 235.3750, BNG: 236.6225, MCell3: 238.2083)

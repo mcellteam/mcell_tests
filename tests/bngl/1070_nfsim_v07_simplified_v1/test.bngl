@@ -34,8 +34,6 @@ begin reaction rules
 end reaction rules
 
 begin observables
-    Molecules Bphos    B(p~P)
-    Molecules BphosP   B(p~PP)
     Molecules B_rec    rec(b!1).B(c!1)
     Molecules anti_rec rec(a!1).anti(r!1)
     Molecules full     B(c!1).rec(b!1,a!2).anti(r!2,r!3).rec(b!4,a!3).B(c!4)

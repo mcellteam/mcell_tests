@@ -1,7 +1,7 @@
 begin model
 begin parameters
 
-	ITERATIONS  1000
+	ITERATIONS  100
     MCELL_DIFFUSION_CONSTANT_3D_anti 1e-3
     MCELL_DIFFUSION_CONSTANT_3D_rec 1e-3
     MCELL_DIFFUSION_CONSTANT_3D_B 1e-3
@@ -23,9 +23,8 @@ begin parameters
 end parameters
 
 begin species	
-    anti(r,r)   1000
-    rec(a,b,b)  2000
-	B(c,p~U)    2000
+    B(c!1,p~U).B(c!2,p~U).B(c!3,p~U).anti(r!4,r!5).rec(a!5,b!2,b!3).rec(a!4,b!1,b)   10
+    B(c!1,p~U).B(c!2,p~U).anti(r!3,r!4).rec(a!3,b!1,b!2).rec(a!4,b,b)  10
 end species
 
 begin reaction rules	
