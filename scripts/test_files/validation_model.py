@@ -24,7 +24,11 @@ if len(sys.argv) == 3 and sys.argv[1] == '-seed':
 else:
     SEED = 1
     
-TIME_STEP = 1e-6 # mcell3r converter does not handle this yet  
+if 'MCELL_TIME_STEP' in params:
+    TIME_STEP = float(params['MCELL_TIME_STEP'])
+else:
+    TIME_STEP = 1e-6 
+    
 DUMP = True
 EXPORT_DATA_MODEL = True
 
