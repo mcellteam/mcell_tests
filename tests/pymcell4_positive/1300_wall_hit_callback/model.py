@@ -85,5 +85,5 @@ for i in range(ITERATIONS + 1):
 model.end_simulation()
 
 print("Total number of wall hits: " + str(context.count))
-assert context.count == 36686
+assert context.count == 36045
 
