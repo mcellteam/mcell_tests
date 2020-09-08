@@ -85,6 +85,12 @@ begin observables
     Species antir1rreca1bb anti(r!1,r).rec(a!1,b,b)
     Species antirr anti(r,r)
     Species recabb rec(a,b,b)
+    Species Bc1pPPBc2pPantir3r4reca3b1b2reca4bb B(c!1,p~PP).B(c!2,p~P).anti(r!3,r!4).rec(a!3,b!1,b!2).rec(a!4,b,b)
+    Species Bc1pPPBc2pPPBc3pPPBc4pPantir5r6reca6b2b3reca5b1b4 B(c!1,p~PP).B(c!2,p~PP).B(c!3,p~PP).B(c!4,p~P).anti(r!5,r!6).rec(a!6,b!2,b!3).rec(a!5,b!1,b!4)
+    Species Bc1pUBc2pUBc3pPBc4pPantir5r6reca5b1b2reca6b3b4 B(c!1,p~U).B(c!2,p~U).B(c!3,p~P).B(c!4,p~P).anti(r!5,r!6).rec(a!5,b!1,b!2).rec(a!6,b!3,b!4)
+    Species Bc1pUBc2pUBc3pPBc4pPantir5r6reca5b1b3reca6b2b4 B(c!1,p~U).B(c!2,p~U).B(c!3,p~P).B(c!4,p~P).anti(r!5,r!6).rec(a!5,b!1,b!3).rec(a!6,b!2,b!4)
+    Species Bc1pUBc2pUBc3pPPantir4r5reca4b1b2reca5b3b B(c!1,p~U).B(c!2,p~U).B(c!3,p~PP).anti(r!4,r!5).rec(a!4,b!1,b!2).rec(a!5,b!3,b)
+    Species Bc1pUBc2pUBc3pPPantir4r5reca5b2b3reca4b1b B(c!1,p~U).B(c!2,p~U).B(c!3,p~PP).anti(r!4,r!5).rec(a!5,b!2,b!3).rec(a!4,b!1,b)
 
 end observables
 end model

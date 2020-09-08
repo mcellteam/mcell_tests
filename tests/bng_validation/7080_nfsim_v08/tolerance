@@ -1,4 +1,4 @@
-2.9
+1.57
 
 MCell3R:
 DNA                            500.0000
@@ -9,10 +9,10 @@ RNA                            1981.2083
 
 MCell4:
 DNA                            500.0000
-Protein1(y!1).Protein2(y!1)    79.6667
-Protein1(y)                    2029.8333
-Protein2(y)                    1050.7917
-RNA                            1972.2083
+Protein1(y!1).Protein2(y!1)    76.2500
+Protein1(y)                    2043.4167
+Protein2(y)                    1052.3750
+RNA                            1958.8333
 
 BNG:
 DNA                            500.0000
@@ -24,9 +24,9 @@ RNA                            1967.3467
 
 --- Validation results ---
 DNA                           : 0.000% (MCell4: 500.0000, BNG: 500.0000, MCell3: 500.0000)
-Protein1(y!1).Protein2(y!1)   : 2.849% (MCell4: 79.6667, BNG: 77.4598, MCell3: 78.4167)
-Protein1(y)                   : 0.193% (MCell4: 2029.8333, BNG: 2033.7573, MCell3: 2044.3333)
-Protein2(y)                   : 1.003% (MCell4: 1050.7917, BNG: 1040.3601, MCell3: 1052.2917)
-RNA                           : 0.247% (MCell4: 1972.2083, BNG: 1967.3467, MCell3: 1981.2083)
+Protein1(y!1).Protein2(y!1)   : 1.562% (MCell4: 76.2500, BNG: 77.4598, MCell3: 78.4167)
+Protein1(y)                   : 0.475% (MCell4: 2043.4167, BNG: 2033.7573, MCell3: 2044.3333)
+Protein2(y)                   : 1.155% (MCell4: 1052.3750, BNG: 1040.3601, MCell3: 1052.2917)
+RNA                           : 0.433% (MCell4: 1958.8333, BNG: 1967.3467, MCell3: 1981.2083)
 --------------------------
 

@@ -1,8 +1,6 @@
-4.51
+2.49
 
 Validated against both BNG and MCell3R
-
-24 runs:
 
 MCell3R:
 A(b!1,p~U).A(b!1,p~P)          14.2500
@@ -11,9 +9,9 @@ A(b,p~U)                       922.0417
 DNA                            20.0000
 
 MCell4:
-A(b!1,p~U).A(b!1,p~P)          15.0833
-A(b,p~P)                       865.5000
-A(b,p~U)                       925.9167
+A(b!1,p~U).A(b!1,p~P)          14.7917
+A(b,p~P)                       881.2083
+A(b,p~U)                       923.2917
 DNA                            20.0000
 
 BNG:
@@ -24,8 +22,8 @@ DNA                            20.0000
 
 
 --- Validation results ---
-A(b!1,p~U).A(b!1,p~P)         : 4.502% (MCell4: 15.0833, BNG: 14.4336, MCell3: 14.2500)
-A(b,p~P)                      : 0.456% (MCell4: 865.5000, BNG: 869.4674, MCell3: 868.2917)
-A(b,p~U)                      : 0.701% (MCell4: 925.9167, BNG: 919.4674, MCell3: 922.0417)
+A(b!1,p~U).A(b!1,p~P)         : 2.481% (MCell4: 14.7917, BNG: 14.4336, MCell3: 14.2500)
+A(b,p~P)                      : 1.350% (MCell4: 881.2083, BNG: 869.4674, MCell3: 868.2917)
+A(b,p~U)                      : 0.416% (MCell4: 923.2917, BNG: 919.4674, MCell3: 922.0417)
 DNA                           : 0.000% (MCell4: 20.0000, BNG: 20.0000, MCell3: 20.0000)
 --------------------------
