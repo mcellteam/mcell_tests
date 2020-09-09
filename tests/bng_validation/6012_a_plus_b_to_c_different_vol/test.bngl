@@ -1,0 +1,49 @@
+begin model
+
+begin parameters
+	#TIME_STEP  1e-6
+	VACANCY_SEARCH_DISTANCE  10
+	
+	ITERATIONS  1000
+	# we need a huge diffusion constant to 
+	# get close to the 'well-mixed' variant
+    MCELL_DIFFUSION_CONSTANT_3D_A 1e-2
+    MCELL_DIFFUSION_CONSTANT_3D_B 1e-2
+    MCELL_DIFFUSION_CONSTANT_3D_C 1e-2	
+    
+    V 1.41e-15 #litres
+    Na 6.02e23     
+    
+    MCELL_NO_COMPARTMENT_SIZE 1.12134617045 # 1 side, um
+    
+    NA_vol Na * V
+    VOL_RXN 1
+    MCELL_REDEFINE_VOL_RXN NA_vol
+    
+    kp1  4e8/(Na*V) * VOL_RXN
+end parameters
+begin molecule types
+	A()
+	B()
+	C()
+end molecule types
+
+begin seed species
+	 A  1000
+	 B  1000
+end seed species
+
+begin observables
+    Molecules A A
+    Molecules B B
+    Molecules C C
+end observables
+
+begin reaction rules
+	A + B -> C kp1
+end reaction rules
+
+end model
+
+generate_network({overwrite=>1})
+simulate({method=>"ode",t_end=>1e-3,n_steps=>1000})
