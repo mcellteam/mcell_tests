@@ -1,0 +1,66 @@
+3.1
+
+24 runs:
+MCell3R:
+B_rec                          219.7917
+Bphos                          24.8333
+BphosP                         57.9583
+anti_rec                       112.0000
+full                           5.9167
+
+MCell4:
+B_rec                          221.8750
+Bphos                          27.0833
+BphosP                         57.0833
+anti_rec                       114.5000
+full                           5.8333
+
+BNG:
+B_rec                          219.2236
+Bphos                          26.2697
+BphosP                         58.3909
+anti_rec                       111.8473
+full                           6.0121
+
+
+--- Validation results ---
+B_rec                         : 1.209% (MCell4: 221.8750, BNG: 219.2236, MCell3: 219.7917)
+Bphos                         : 3.097% (MCell4: 27.0833, BNG: 26.2697, MCell3: 24.8333)
+BphosP                        : 2.239% (MCell4: 57.0833, BNG: 58.3909, MCell3: 57.9583)
+anti_rec                      : 2.372% (MCell4: 114.5000, BNG: 111.8473, MCell3: 112.0000)
+full                          : 2.973% (MCell4: 5.8333, BNG: 6.0121, MCell3: 5.9167)
+--------------------------
+
+
+72 runs
+- the difference is bigger
+
+MCell3R:
+B_rec                          217.9583
+Bphos                          25.7361
+BphosP                         56.7778
+anti_rec                       110.7361
+full                           6.7778
+
+MCell4:
+B_rec                          220.1389
+Bphos                          25.8056
+BphosP                         56.0556
+anti_rec                       112.4306
+full                           6.1944
+
+BNG:
+B_rec                          219.2236
+Bphos                          26.2697
+BphosP                         58.3909
+anti_rec                       111.8473
+full                           6.0121
+
+
+--- Validation results ---
+B_rec                         : 0.418% (MCell4: 220.1389, BNG: 219.2236, MCell3: 217.9583)
+Bphos                         : 1.767% (MCell4: 25.8056, BNG: 26.2697, MCell3: 25.7361)
+BphosP                        : 3.999% (MCell4: 56.0556, BNG: 58.3909, MCell3: 56.7778)
+  - ERROR: difference against BNG is higher than tolerance of 3.1%
+anti_rec                      : 0.522% (MCell4: 112.4306, BNG: 111.8473, MCell3: 110.7361)
+full                          : 3.033% (MCell4: 6.1944, BNG: 6.0121, MCell3: 6.7778)
