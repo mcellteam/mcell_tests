@@ -50,7 +50,7 @@ viz_output = m.VizOutput(
 )
 model.add_viz_output(viz_output)
 
-model.load_bngl('test.bngl', './react_data/seed_' + str(SEED).zfill(5) + '/', box_no_compartment)
+model.load_bngl('test.bngl', './react_data4/seed_' + str(SEED).zfill(5) + '/', box_no_compartment)
 
 
 # ---- configuration ----

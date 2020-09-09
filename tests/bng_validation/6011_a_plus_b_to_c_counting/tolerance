@@ -1,0 +1,25 @@
+0.01
+
+Simple test to check that validation through molecule BNGL observables work
+
+MCell3R:
+Amol                           500.0417
+Bmol                           500.0417
+Cmol                           499.9583
+
+MCell4:
+Amol                           500.0417
+Bmol                           500.0417
+Cmol                           499.9583
+
+BNG:
+Amol                           500.0000
+Bmol                           500.0000
+Cmol                           500.0000
+
+
+--- Validation results ---
+Amol                          : 0.008% (MCell4: 500.0417, BNG: 500.0000, MCell3: 500.0417)
+Bmol                          : 0.008% (MCell4: 500.0417, BNG: 500.0000, MCell3: 500.0417)
+Cmol                          : 0.008% (MCell4: 499.9583, BNG: 500.0000, MCell3: 499.9583)
+--------------------------
