@@ -285,6 +285,11 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
     
     def print_counts(self, cat, counts):
         print(cat + ':')
+        
+        if counts is None:
+            print("None - error occured while obtaining data")
+            return
+        
         for k,v in sorted(counts.items()):
             print(k.ljust(30) + ' ' + format(v, '.4f'))
         print('')
@@ -295,6 +300,11 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         self.print_counts("MCell4", mcell4_counts)
         self.print_counts("BNG", bng_counts)
         
+        mcell3r_vs_mcell4 = False # default is bng vs mcell4
+        if os.path.exists(os.path.join(self.test_src_path, 'mcell3r_vs_mcell4')): 
+            mcell3r_vs_mcell4 = True
+
+        
         print('\n--- Validation results ---')
         
         observables_missing_in_bng = []
@@ -302,31 +312,50 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         res = PASSED
         for key,cnt in sorted(mcell4_counts.items()):
             bng_name = key.replace('(', '').replace(')', '').replace('~', '').replace('!', '').replace('.', '').replace(',', '')
-            mcell4_counts = cnt
+            mcell4_cnt = cnt
             if bng_name in bng_counts:
-                bng_count = bng_counts[bng_name]
-                diff_perc = format(abs(((mcell4_counts / bng_count) - 1.0) * 100), '.3f')
+                bng_cnt = bng_counts[bng_name]
+                if not mcell3r_vs_mcell4:
+                    if bng_cnt != 0:
+                        diff_perc = format(abs(((mcell4_cnt / bng_cnt) - 1.0) * 100), '.3f')
+                    else:
+                        if mcell4_cnt == 0:
+                            diff_perc = '0.000'
+                        else:
+                            diff_perc = 'NA'
             else:
-                bng_count = -1
+                bng_cnt = -1
                 diff_perc = 'NA'
                 observables_missing_in_bng.append((bng_name, key))
             
             if key in mcell3_counts:
-                mcell3_num = mcell3_counts[key]
+                mcell3_cnt = mcell3_counts[key]
+                if mcell3r_vs_mcell4:
+                    if mcell3_cnt != 0:
+                        diff_perc = format(abs(((mcell4_cnt / mcell3_cnt) - 1.0) * 100), '.3f')
+                    else:
+                        if mcell4_cnt == 0:
+                            diff_perc = '0.000'
+                        else:
+                            diff_perc = 'NA'                
             else:
-                mcell3_num = -1
+                mcell3_cnt = -1
 
             less_than1_msg = ''
-            if mcell4_counts < 1 and bng_count < 1:
+            if mcell4_cnt < 1 and bng_cnt < 1:
                 less_than1_msg = ' (both are < 1)'
             
             print(key.ljust(30) + ': ' + diff_perc + less_than1_msg + \
-                  '% (MCell4: ' + format(mcell4_counts, '.4f') + \
-                  ', BNG: ' + format(bng_count, '.4f') + 
-                  ', MCell3: ' + format(mcell3_num, '.4f') + ')')
+                  '% (MCell4: ' + format(mcell4_cnt, '.4f') + \
+                  ', BNG: ' + format(bng_cnt, '.4f') + 
+                  ', MCell3: ' + format(mcell3_cnt, '.4f') + ')')
             
-            if less_than1_msg == '' and bng_count != -1 and float(diff_perc) > tolerance:
-                print('  - ERROR: difference against BNG is higher than tolerance of ' + str(tolerance) + '%')
+            if less_than1_msg == '' and bng_cnt != -1 and float(diff_perc) > tolerance:
+                if mcell3r_vs_mcell4:
+                    ref = 'MCell3R'
+                else:
+                    ref = 'BNG'
+                print('  - ERROR: difference against ' + ref + ' is higher than tolerance of ' + str(tolerance) + '%')
                 res = FAILED_VALIDATION
         
         print('--------------------------\n')
