@@ -65,15 +65,15 @@ class TesterPymcell4(TesterBase):
         shutil.copytree(new_res, reference)
 
 
-    def run_pymcell(self, test_dir:str, test_file='model.py', extra_args=[]) -> int:
+    def run_pymcell4(self, test_dir:str, test_file='model.py', extra_args=[], seed=1) -> int:
         # we need to set the path to the build using MCELL_DIR system variable
         # and the command will be executed as shell
         cmdstr = 'export ' + MCELL_DIR_VARIABLE + '=' + self.tool_paths.mcell_dir_path + ';'
         cmdstr +=  self.tool_paths.python_binary + ' ' + os.path.join(test_dir, test_file)
-        cmd = [ cmdstr ]
+        cmd = [ cmdstr, '-seed', str(seed) ]
         cmd += extra_args
         
-        log_name = self.test_name+'.pymcell4.log'
+        log_name = self.test_name + '_' + str(seed).zfill(5) + '.pymcell4.log'
         # run in wrk d
         exit_code = run(cmd, shell=True, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         if (exit_code):
@@ -103,7 +103,7 @@ class TesterPymcell4(TesterBase):
         
         self.copy_all_bngl_files_to_work_dir()
         
-        res = self.run_pymcell(test_dir=self.test_src_path)
+        res = self.run_pymcell4(test_dir=self.test_src_path)
         
         if self.is_todo_test():
             return TODO_TEST

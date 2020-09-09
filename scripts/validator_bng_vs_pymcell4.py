@@ -85,7 +85,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
     
            
     def run_validation_pymcell4(self, seed):
-        res = self.run_pymcell(test_dir=self.test_work_path, test_file='validation_model.py', extra_args=['-seed', str(seed)])
+        res = self.run_pymcell4(test_dir=self.test_work_path, test_file='validation_model.py', seed=seed)
         return res
     
     def run_validation_mcell3r(self, seed):
@@ -282,17 +282,23 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         
         return self.gen_last_it_bng_observables_counts()
     
-    
+        
+    def log_report(self, msg):
+        print(msg)
+        with open(os.path.join(self.test_work_path, 'validation_report.txt'), 'a+') as f:
+            f.write(msg + '\n')
+            
+                
     def print_counts(self, cat, counts):
-        print(cat + ':')
+        self.log_report(cat + ':')
         
         if counts is None:
-            print("None - error occured while obtaining data")
+            self.log_report("None - error occured while obtaining data")
             return
         
         for k,v in sorted(counts.items()):
-            print(k.ljust(30) + ' ' + format(v, '.4f'))
-        print('')
+            self.log_report(k.ljust(30) + ' ' + format(v, '.4f'))
+        self.log_report('')
         
     
     def validate_mcell_output(self, mcell3_counts, mcell4_counts, bng_counts, tolerance):
@@ -301,11 +307,12 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         self.print_counts("BNG", bng_counts)
         
         mcell3r_vs_mcell4 = False # default is bng vs mcell4
+        ref = 'BNG'
         if os.path.exists(os.path.join(self.test_src_path, 'mcell3r_vs_mcell4')): 
             mcell3r_vs_mcell4 = True
-
+            ref = 'MCell3R'
         
-        print('\n--- Validation results ---')
+        self.log_report('\n--- Validation results MCell4 vs ' + ref + ' ---')
         
         observables_missing_in_bng = []
         
@@ -342,34 +349,37 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
                 mcell3_cnt = -1
 
             less_than1_msg = ''
-            if mcell4_cnt < 1 and bng_cnt < 1:
-                less_than1_msg = ' (both are < 1)'
+            if mcell4_cnt < 1:
+                if mcell3r_vs_mcell4:
+                    if mcell3_cnt < 1:
+                        less_than1_msg = ' -- (both<1)'
+                        diff_perc = ''
+                else:
+                    if bng_cnt < 1:
+                        less_than1_msg = ' -- (both<1)'
+                        diff_perc = ''
             
-            print(key.ljust(30) + ': ' + diff_perc + less_than1_msg + \
+            self.log_report(key.ljust(30) + ': ' + diff_perc + less_than1_msg + \
                   '% (MCell4: ' + format(mcell4_cnt, '.4f') + \
                   ', BNG: ' + format(bng_cnt, '.4f') + 
                   ', MCell3: ' + format(mcell3_cnt, '.4f') + ')')
             
             if less_than1_msg == '' and bng_cnt != -1 and float(diff_perc) > tolerance:
-                if mcell3r_vs_mcell4:
-                    ref = 'MCell3R'
-                else:
-                    ref = 'BNG'
-                print('  - ERROR: difference against ' + ref + ' is higher than tolerance of ' + str(tolerance) + '%')
+                self.log_report('  - ERROR: difference against ' + ref + ' is higher than tolerance of ' + str(tolerance) + '%')
                 res = FAILED_VALIDATION
         
         print('--------------------------\n')
         
         if observables_missing_in_bng:
-            print('ERROR: missing observables in BNG, add following lines to the bngl file:')
+            self.log_report('ERROR: missing observables in BNG, add following lines to the bngl file:')
             for (obs_name, pat) in observables_missing_in_bng:
-                print('    Species ' + obs_name + ' ' + pat)
+                self.log_report('    Species ' + obs_name + ' ' + pat)
             res = FAILED_VALIDATION
         
         if res == PASSED:
-            print('PASSED')
+            self.log_report('PASSED')
         else:
-            print('FAILED: differences are too large')
+            self.log_report('FAILED: differences are too large')
         
         return res
         
@@ -390,6 +400,8 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
             return SKIPPED
         
         self.clean_and_create_work_dir()
+        
+        print('Report will be printed to ' + os.path.join(self.test_work_path, 'validation_report.txt'))
         
         self.copy_pymcell4_runner_and_test()
         shutil.copy(

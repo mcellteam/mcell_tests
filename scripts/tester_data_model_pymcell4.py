@@ -107,7 +107,7 @@ class TesterDataModelPymcell4(TesterPymcell4):
         res = self.run_dm_to_pymcell_conversion(os.path.join(self.test_src_path, self.test_name + '.json'))
             
         if res == PASSED:
-            res = self.run_pymcell(test_dir=self.test_work_path)
+            res = self.run_pymcell4(test_dir=self.test_work_path)
         
         if self.is_todo_test() or self.is_todo_for_datamodel_test():
             return TODO_TEST

@@ -70,7 +70,7 @@ class TesterBnglPymcell4(TesterPymcell4):
         
         self.copy_pymcell4_runner_and_test()
         
-        res = self.run_pymcell(test_dir=self.test_work_path)
+        res = self.run_pymcell4(test_dir=self.test_work_path)
         
         if self.is_todo_test():
             return TODO_TEST
