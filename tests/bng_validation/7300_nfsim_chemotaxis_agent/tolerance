@@ -1,0 +1,82 @@
+16.5
+
+Small copy nrs:
+Tar3                          : 16.450% (MCell4: 1.6667, BNG: 1.4312, MCell3: 0.0000)
+
+MCellR results are completely wrong, not sure why.
+
+24:
+MCell3R:
+Bp                             0.0000
+Tar0                           0.0000
+Tar1                           0.0000
+Tar2                           2250.0000
+Tar3                           0.0000
+Tar4                           0.0000
+TarBp                          0.0000
+Tarp                           1551.0833
+Tsr0                           0.0000
+Tsr1                           0.0000
+Tsr2                           2250.0000
+Tsr3                           0.0000
+Tsr4                           0.0000
+TsrBp                          0.0000
+Tsrp                           1562.7917
+Yp                             0.0000
+
+MCell4:
+Bp                             13.5417
+Tar0                           0.0000
+Tar1                           0.0417
+Tar2                           2248.2917
+Tar3                           1.6667
+Tar4                           0.0000
+TarBp                          1.7083
+Tarp                           33.1667
+Tsr0                           0.0000
+Tsr1                           0.0417
+Tsr2                           2248.3333
+Tsr3                           1.6250
+Tsr4                           0.0000
+TsrBp                          1.6250
+Tsrp                           34.5000
+Yp                             1645.1667
+
+BNG:
+Bp                             12.7926
+Tar0                           0.0000
+Tar1                           0.0342
+Tar2                           2248.5346
+Tar3                           1.4312
+Tar4                           0.0000
+TarBp                          1.6483
+Tarp                           33.4034
+Tsr0                           0.0000
+Tsr1                           0.0342
+Tsr2                           2248.5346
+Tsr3                           1.4312
+Tsr4                           0.0000
+TsrBp                          1.6483
+Tsrp                           33.4034
+Yp                             1640.4289
+
+
+--- Validation results ---
+Bp                            : 5.855% (MCell4: 13.5417, BNG: 12.7926, MCell3: 0.0000)
+Tar0                          : 100.000 (both are < 1)% (MCell4: 0.0000, BNG: 0.0000, MCell3: 0.0000)
+Tar1                          : 21.944 (both are < 1)% (MCell4: 0.0417, BNG: 0.0342, MCell3: 0.0000)
+Tar2                          : 0.011% (MCell4: 2248.2917, BNG: 2248.5346, MCell3: 2250.0000)
+Tar3                          : 16.450% (MCell4: 1.6667, BNG: 1.4312, MCell3: 0.0000)
+Tar4                          : 100.000 (both are < 1)% (MCell4: 0.0000, BNG: 0.0000, MCell3: 0.0000)
+TarBp                         : 3.645% (MCell4: 1.7083, BNG: 1.6483, MCell3: 0.0000)
+Tarp                          : 0.709% (MCell4: 33.1667, BNG: 33.4034, MCell3: 1551.0833)
+Tsr0                          : 100.000 (both are < 1)% (MCell4: 0.0000, BNG: 0.0000, MCell3: 0.0000)
+Tsr1                          : 21.944 (both are < 1)% (MCell4: 0.0417, BNG: 0.0342, MCell3: 0.0000)
+Tsr2                          : 0.009% (MCell4: 2248.3333, BNG: 2248.5346, MCell3: 2250.0000)
+Tsr3                          : 13.539% (MCell4: 1.6250, BNG: 1.4312, MCell3: 0.0000)
+Tsr4                          : 100.000 (both are < 1)% (MCell4: 0.0000, BNG: 0.0000, MCell3: 0.0000)
+TsrBp                         : 1.411% (MCell4: 1.6250, BNG: 1.6483, MCell3: 0.0000)
+Tsrp                          : 3.283% (MCell4: 34.5000, BNG: 33.4034, MCell3: 1562.7917)
+Yp                            : 0.289% (MCell4: 1645.1667, BNG: 1640.4289, MCell3: 0.0000)
+--------------------------
+
