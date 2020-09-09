@@ -326,6 +326,8 @@ def report_results(results: Dict) -> int:
     todo_tests_count = 0
     failed_tests = []
     for key, value in results.items():
+        if not value:
+            fatal_error('Invalid result for ' + key)
         print(RESULT_NAMES[value] + ": " + str(key))
         if value == PASSED:
             passed_count += 1

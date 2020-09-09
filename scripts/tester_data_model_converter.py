@@ -104,8 +104,8 @@ class TesterDataModelConverter(TesterBase):
             res = self.run_dm_to_mdl_conversion(os.path.join(self.test_work_path, 'data_model.json'), '-data-model-from-mdl')
             
         if res == PASSED:
-            res = self.change_viz_output_to_ascii()
-            
+            self.change_viz_output_to_ascii()
+        
         if res == PASSED:
             mcell_args = MCELL_BASE_ARGS.copy()
             if self.mcell4_testing:

@@ -151,9 +151,7 @@ class TesterDataModel(TesterBase):
         if res != PASSED:
             return res
         
-        res = self.change_viz_output_to_ascii()
-        if res != PASSED:
-            return res
+        self.change_viz_output_to_ascii()
          
         mcell_args = MCELL_BASE_ARGS.copy()
         if self.mcell4_testing:
