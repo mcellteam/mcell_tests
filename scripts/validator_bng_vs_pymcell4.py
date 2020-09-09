@@ -405,7 +405,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
             mcell3r_counts_per_run = {}
             if not ONLY_MCELL4_AND_BNG:
                 # run mcell3r
-                res = self.convert_bngl_to_mdl()
+                res = self.convert_bngl_to_mdl(only_last_viz_output=True)
                 if res != PASSED:
                     return res
                 

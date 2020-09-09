@@ -46,6 +46,10 @@ def replace_in_file(fname, search_for, replace_with) -> None:
         for line in lines:
             outfile.write(line)
    
-    
-    
-
+def find_in_file(fname, search_for) -> None:
+    lines = []
+    with open(fname, "r") as infile:
+        for line in infile:
+            if search_for in line:
+                return line
+    return ''

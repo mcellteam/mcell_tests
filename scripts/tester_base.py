@@ -31,7 +31,7 @@ from typing import List, Dict
 import data_output_diff
 
 from test_settings import *
-from test_utils import log_test_error, log_test_success, replace_in_file
+from test_utils import log_test_error, log_test_success, replace_in_file, find_in_file
 from tool_paths import ToolPaths
 
 
@@ -296,7 +296,7 @@ class TesterBase:
         else:
             return PASSED
         
-    def convert_bngl_to_mdl(self):
+    def convert_bngl_to_mdl(self, only_last_viz_output=False):
         res = self.run_bngl_to_dm_conversion(os.path.join(self.test_src_path, 'test.bngl'))
         if res != PASSED:
             return res
@@ -304,14 +304,34 @@ class TesterBase:
         res = self.run_dm_to_mdl_conversion(os.path.join(self.test_work_path, 'data_model.json'))
         if res != PASSED:
             return res
-        res = self.change_viz_output_to_ascii()
+        self.change_viz_output_to_ascii()
+        if (only_last_viz_output):
+            self.change_viz_output_to_output_only_last_it()
         return res       
         
-    def change_viz_output_to_ascii(self) -> int:
+    def change_viz_output_to_ascii(self):
         fname = os.path.join(self.test_work_path, 'Scene.viz_output.mdl')
         replace_in_file(fname, 'CELLBLENDER', 'ASCII')
-        return PASSED
+        
+    def change_viz_output_to_output_only_last_it(self):
+        # get iterations from Scene.main.mdl
+        main_fname = os.path.join(self.test_work_path, 'Scene.main.mdl')
 
+        iters_line = find_in_file(main_fname, 'ITERATIONS')
+        if iters_line:
+            iters_str = iters_line.split()[2]
+        else:
+            print("Did not find ITERATIONS, could not update viz output to produce output on the last iteration")
+            return
+        
+        # update ITERATION_NUMBERS
+        viz_fname = os.path.join(self.test_work_path, 'Scene.viz_output.mdl')
+        replace_in_file(
+            viz_fname, 
+            'ITERATION_NUMBERS {ALL_DATA @ ALL_ITERATIONS}', 
+            'ITERATION_NUMBERS {ALL_DATA @ [[0 TO ' + iters_str + ' STEP ' + iters_str + ']]}'
+        )
+        
     @abc.abstractmethod        
     def test(self) -> int:
         pass  # derived methods return integer value PASSED, FAILED_MCELL, etc.
