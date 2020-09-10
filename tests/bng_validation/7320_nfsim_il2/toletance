@@ -1,0 +1,50 @@
+0.655
+
+Match both with MCell3R and BNG
+
+MCell3R:
+ChromIL2_Stat5                 0.0000
+ChromIL2_open                  100.0000
+IL2Ra_free                     240.9167
+IL2Rb_free                     1000.8333
+IL2Rb_total                    1001.3750
+IL2_IL2Ra                      1758.9583
+IL2_IL2Ra_IL2Rb                0.5417
+IL2_free                       240.5000
+StatPhos                       0.0000
+
+MCell4:
+ChromIL2_Stat5                 0.0000
+ChromIL2_open                  100.0000
+IL2Ra_free                     240.2083
+IL2Rb_free                     1000.9583
+IL2Rb_total                    1001.5417
+IL2_IL2Ra                      1759.6250
+IL2_IL2Ra_IL2Rb                0.5833
+IL2_free                       239.7917
+StatPhos                       0.0417
+
+BNG:
+ChromIL2_Stat5                 0.0000
+ChromIL2_open                  100.0000
+IL2Ra_free                     241.7133
+IL2Rb_free                     1001.4977
+IL2Rb_total                    1001.9752
+IL2_IL2Ra                      1758.1486
+IL2_IL2Ra_IL2Rb                0.4776
+IL2_free                       241.3691
+StatPhos                       0.0080
+
+
+--- Validation results MCell4 vs BNG ---
+ChromIL2_Stat5                :  -- (both<1)% (MCell4: 0.0000, BNG: 0.0000, MCell3: 0.0000)
+ChromIL2_open                 : 0.000% (MCell4: 100.0000, BNG: 100.0000, MCell3: 100.0000)
+IL2Ra_free                    : 0.623% (MCell4: 240.2083, BNG: 241.7133, MCell3: 240.9167)
+IL2Rb_free                    : 0.054% (MCell4: 1000.9583, BNG: 1001.4977, MCell3: 1000.8333)
+IL2Rb_total                   : 0.043% (MCell4: 1001.5417, BNG: 1001.9752, MCell3: 1001.3750)
+IL2_IL2Ra                     : 0.084% (MCell4: 1759.6250, BNG: 1758.1486, MCell3: 1758.9583)
+IL2_IL2Ra_IL2Rb               :  -- (both<1)% (MCell4: 0.5833, BNG: 0.4776, MCell3: 0.5417)
+IL2_free                      : 0.654% (MCell4: 239.7917, BNG: 241.3691, MCell3: 240.5000)
+StatPhos                      :  -- (both<1)% (MCell4: 0.0417, BNG: 0.0080, MCell3: 0.0000)
+--------------------------
+
