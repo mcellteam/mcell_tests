@@ -23,7 +23,6 @@ import glob
 import random
 import multiprocessing
 import re
-from collections import Counter
 from typing import List, Dict
 
 from test_settings import *
@@ -50,6 +49,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
     def __init___(self, test_dir: str, args: List[str], tool_paths: ToolPaths):
         super(TesterMdl, self).__init__(test_dir, args, tool_paths)
     
+    
     @staticmethod
     def check_prerequisites(tool_paths: ToolPaths) -> None:
         if not os.path.exists(tool_paths.pymcell4_lib):
@@ -58,6 +58,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
             fatal_error("Path to bionetgen must be set using -n.")
         if not os.path.exists(tool_paths.bng2pl_script):
             fatal_error("Could not find script '" + tool_paths.bng2pl_script + ".")
+            
             
     def copy_pymcell4_runner_and_test(self):
         shutil.copy(
@@ -73,7 +74,16 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
             os.path.join(self.test_src_path, TEST_BNGL),
             self.test_work_path 
         )
-        
+
+    
+    def merge_counts(self, dst, src):
+        for k,v in src.items():
+            if k in dst:
+                dst[k] += v
+            else:
+                dst[k] = v
+            
+            
     def get_molecule_counts_from_ascii_file(self, filename):
         counts = {}
         with open(filename, 'r') as fin:
@@ -166,7 +176,8 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
             curr_counts = self.get_molecule_counts_from_ascii_file(last_file)
             
             # add values with common key
-            counts = Counter(counts) + Counter(curr_counts)
+            self.merge_counts(self, counts, curr_counts)
+
         return counts 
 
 
@@ -267,6 +278,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         last_line = self.get_last_line(gdat_file)
                 
         observables = first_line.split()[2:]
+        print("OOO " + str(observables))
         counts = last_line.split()[1:] # no leading '#'
                 
         assert len(observables) == len(counts)
@@ -288,7 +300,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
             return FAILED_BNG2PL
         else:
             return PASSED
-    
+
     
     def run_bng_and_get_counts(self, seeds):
         
@@ -326,10 +338,10 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
                     return None
             
             # colect results
-            counts = Counter()
+            counts = {}
             for d in dirs:
                 curr_counts = self.get_last_it_bng_observables_counts(d)
-                counts = Counter(counts) + Counter(curr_counts)
+                self.merge_counts(counts, curr_counts)
                 
             # average them directly
             res = {}
