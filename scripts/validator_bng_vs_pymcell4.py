@@ -186,7 +186,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
             curr_counts = self.get_molecule_counts_from_ascii_file(last_file)
             
             # add values with common key
-            self.merge_counts(self, counts, curr_counts)
+            self.merge_counts(counts, curr_counts)
 
         return counts 
 
