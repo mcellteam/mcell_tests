@@ -28,7 +28,7 @@ from typing import List, Dict
 
 from test_settings import *
 from tester_bngl_pymcell4 import TesterBnglPymcell4
-from test_utils import log_test_error
+from test_utils import log_test_error, find_in_file, replace_in_file
 from tool_paths import ToolPaths
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -40,6 +40,10 @@ ONLY_BNG = False
 ONLY_MCELL4_AND_BNG = False 
 
 DEFALT_TOLERANCE_PERCENTS = 0.5 
+
+TEST_BNGL = 'test.bngl'
+TEST_GDAT = 'test.gdat'
+
 
 
 class ValidatorBngVsPymcell4(TesterBnglPymcell4):
@@ -66,7 +70,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         )        
 
         shutil.copy(
-            os.path.join(self.test_src_path, 'test.bngl'),
+            os.path.join(self.test_src_path, TEST_BNGL),
             self.test_work_path 
         )
         
@@ -135,28 +139,28 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         return res_counts
         
         
-    def check_res_code(self, seed, res_code):
+    def check_res_code(self, seed, res_code, tool):
         if res_code != PASSED:
             log_test_error(self.test_name, self.tester_name, 
-                "Run with seed " + str(s) + " in work dir " + self.test_src_path + 
-                " failed (only first fail is reported). "
-                "See '" + os.path.join(self.test_work_path, self.test_name+'.pymcell.log') + "'.")
+                "Run of " + tool + " with seed " + str(seed) + " in work dir " + self.test_src_path + 
+                " failed (only first fail is reported). ")
             return False
         else:
             return True
         
     
     def get_species_counts(self, seeds, res_codes, suffix):
+        tool = 'MCell4' if suffix == '4' else 'MCell3R'
         counts = {}
         for i in range(len(seeds)):
             s = seeds[i]
-            if not self.check_res_code(s, res_codes[i]):
+            if not self.check_res_code(s, res_codes[i], tool):
                 return None
                 
             last_file = self.find_last_viz_file('viz_data' + suffix + '/seed_' + str(s).zfill(5))
             if not last_file:
                 log_test_error(self.test_name, self.tester_name, 
-                    "Run with seed " + str(s) + " in work dir " + self.test_work_path + 
+                    "Run of " + tool + " with seed " + str(s) + " in work dir " + self.test_work_path + 
                     " - did not find output viz data file")
                 return None
             curr_counts = self.get_molecule_counts_from_ascii_file(last_file)
@@ -183,7 +187,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         counts = {}
         for i in range(len(seeds)):
             s = seeds[i]
-            if not self.check_res_code(s, res_codes[i]):
+            if not self.check_res_code(s, res_codes[i], suffix):
                 return None
                 
             react_dir = 'react_data' + suffix + '/seed_' + str(s).zfill(5)
@@ -252,13 +256,15 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         return res    
 
 
-    def gen_last_it_bng_observables_counts(self):
+    def get_last_it_bng_observables_counts(self, dir):
         first_line = ''
         
-        with open('test.gdat', 'r') as f:
+        gdat_file = os.path.join(self.test_work_path, dir, TEST_GDAT)
+                
+        with open(gdat_file, 'r') as f:
             first_line = f.readline()
             
-        last_line = self.get_last_line('test.gdat')
+        last_line = self.get_last_line(gdat_file)
                 
         observables = first_line.split()[2:]
         counts = last_line.split()[1:] # no leading '#'
@@ -267,20 +273,70 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         res = {observables[i]: float(counts[i]) for i in range(len(observables))} 
         return res
         
-
-    def run_bng_and_get_counts(self):
-        # we need to set the path to the build using MCELL_DIR system variable
-        # and the command will be executed as shell
-        cmd = [ self.tool_paths.bng2pl_script, 'test.bngl' ]
         
+    def run_validation_bng(self, dir):
+        
+        cmd = [ self.tool_paths.bng2pl_script, TEST_BNGL ]
+        
+        dir = os.path.join(self.test_work_path, dir)
         log_name = self.test_name+'.bng2pl.log'
         # run in work dir
-        exit_code = run(cmd, shell=True, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
-        if (exit_code):
-            log_test_error(self.test_name, self.tester_name, "BNG2.pl failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
-            return None
+        exit_code = run(cmd, shell=True, cwd=dir, verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         
-        return self.gen_last_it_bng_observables_counts()
+        if (exit_code):
+            log_test_error(self.test_name, self.tester_name, "BNG2.pl failed, see '" + os.path.join(dir, log_name) + "'.")
+            return FAILED_BNG2PL
+        else:
+            return PASSED
+    
+    
+    def run_bng_and_get_counts(self, seeds):
+        
+        # nfsim or ode?
+        # does not handle comments
+        line = find_in_file(TEST_BNGL, 'method=>"nf"')
+        if not line:
+            # ODE
+            dir = 'ode'
+            os.mkdir(dir)
+            shutil.copy(TEST_BNGL, dir)
+                     
+            self.run_validation_bng(dir)
+            return self.get_last_it_bng_observables_counts(dir)
+        else:
+            # NFSim - multiple runs are needed
+            dirs = []
+            for s in seeds:
+                dir = 'nf_' + str(s).zfill(5)
+                os.mkdir(dir)
+                shutil.copy(TEST_BNGL, dir)
+                # update seed value
+                replace_in_file(os.path.join(dir, TEST_BNGL), 'seed=>1', 'seed=>' + str(s))
+                dirs.append(dir)
+            
+            cpu_count = multiprocessing.cpu_count()
+            pool = multiprocessing.Pool(processes=cpu_count)
+
+            # run in parallel        
+            res_codes = pool.map(self.run_validation_bng, dirs)
+            
+            # check exit codes
+            for c in res_codes:
+                if c != PASSED:
+                    return None
+            
+            # colect results
+            counts = Counter()
+            for d in dirs:
+                curr_counts = self.get_last_it_bng_observables_counts(d)
+                counts = Counter(counts) + Counter(curr_counts)
+                
+            # average them directly
+            res = {}
+            for name,count in counts.items():
+                res[name] = float(count)/len(seeds)
+            return res
+            
     
         
     def log_report(self, msg):
@@ -364,7 +420,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
                   ', BNG: ' + format(bng_cnt, '.4f') + 
                   ', MCell3: ' + format(mcell3_cnt, '.4f') + ')')
             
-            if less_than1_msg == '' and bng_cnt != -1 and float(diff_perc) > tolerance:
+            if less_than1_msg == '' and bng_cnt != -1 and diff_perc != 'NA' and float(diff_perc) > tolerance:
                 self.log_report('  - ERROR: difference against ' + ref + ' is higher than tolerance of ' + str(tolerance) + '%')
                 res = FAILED_VALIDATION
         
@@ -408,11 +464,11 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
             os.path.join(THIS_DIR, TEST_FILES_DIR, 'validation_model.py'),
             self.test_work_path 
         )
+        
+        num_runs = self.tool_paths.opts.validation_runs
+        seeds = self.generate_seeds(num_runs)
 
         if not ONLY_BNG:
-            num_runs = self.tool_paths.opts.validation_runs
-            
-            seeds = self.generate_seeds(num_runs)
             
             mcell3r_counts_per_run = {}
             if not ONLY_MCELL4_AND_BNG:
@@ -433,8 +489,8 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
                 return FAILED_MCELL
             pymcell4_counts_per_run = { key:cnt/num_runs for key,cnt in pymcell4_counts.items() }
         
-        # run bng - we are usign ODE (at least for now), so a single run is sufficient
-        bng_counts = self.run_bng_and_get_counts()
+        # run bng 
+        bng_counts = self.run_bng_and_get_counts(seeds)
         if ONLY_BNG:
             self.print_counts("BNG", bng_counts)
         
