@@ -1,5 +1,6 @@
 begin parameters
  V 1.41e-15 #litres
+ Na 6.02e23
  
  MCELL_NO_COMPARTMENT_SIZE 1.12134617045 # 1 side, um
 
@@ -15,10 +16,9 @@ begin parameters
  MCELL_DIFFUSION_CONSTANT_3D_R 1e-3
  MCELL_DIFFUSION_CONSTANT_3D_Y 1e-3
  
- VOL_RATE_MULT 100
+ VOL_RATE_MULT 200
  UNIMOL_RATE_MULT 100
  
- Na 6.02e23
  kpTR 2.857143e6/(Na*V) * VOL_RXN * VOL_RATE_MULT
  kmTR 1.25 * UNIMOL_RATE_MULT
  kcTR 0.75 * UNIMOL_RATE_MULT
@@ -198,7 +198,6 @@ begin observables
  Molecules Tarp Tar(p~1)
  Molecules Tsrp Tsr(p~1)
 end observables
-
 
 simulate({method=>"ode",t_end=>1000e-6,n_steps=>1000})
 

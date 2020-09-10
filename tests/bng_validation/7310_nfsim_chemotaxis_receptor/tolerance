@@ -1,0 +1,80 @@
+8.36
+
+High tolerance due to low copy numbers:
+Tsr3                          : 8.356% (MCell4: 2.5312, BNG: 2.3360, MCell3: 2.2500)
+
+
+MCell3R:
+Bp                             10.4141
+Tar0                           0.0000
+Tar1                           0.0938
+Tar2                           2247.8984
+Tar3                           2.0078
+Tar4                           0.0000
+TarBp                          3.1641
+Tarp                           18.1016
+Tsr0                           0.0000
+Tsr1                           0.0859
+Tsr2                           2247.6641
+Tsr3                           2.2500
+Tsr4                           0.0000
+TsrBp                          2.5625
+Tsrp                           17.8047
+Yp                             1657.9297
+
+MCell4:
+Bp                             11.0000
+Tar0                           0.0000
+Tar1                           0.0938
+Tar2                           2247.6016
+Tar3                           2.3047
+Tar4                           0.0000
+TarBp                          2.8672
+Tarp                           17.6484
+Tsr0                           0.0000
+Tsr1                           0.0469
+Tsr2                           2247.4219
+Tsr3                           2.5312
+Tsr4                           0.0000
+TsrBp                          2.9844
+Tsrp                           17.8906
+Yp                             1656.1172
+
+BNG:
+Bp                             10.6145
+Tar0                           0.0000
+Tar1                           0.0624
+Tar2                           2247.6015
+Tar3                           2.3360
+Tar4                           0.0001
+TarBp                          2.8987
+Tarp                           16.8736
+Tsr0                           0.0000
+Tsr1                           0.0624
+Tsr2                           2247.6015
+Tsr3                           2.3360
+Tsr4                           0.0001
+TsrBp                          2.8987
+Tsrp                           16.8736
+Yp                             1655.2102
+
+
+--- Validation results MCell4 vs BNG ---
+Bp                            : 3.632% (MCell4: 11.0000, BNG: 10.6145, MCell3: 10.4141)
+Tar0                          :  -- (both<1)% (MCell4: 0.0000, BNG: 0.0000, MCell3: 0.0000)
+Tar1                          :  -- (both<1)% (MCell4: 0.0938, BNG: 0.0624, MCell3: 0.0938)
+Tar2                          : 0.000% (MCell4: 2247.6016, BNG: 2247.6015, MCell3: 2247.8984)
+Tar3                          : 1.342% (MCell4: 2.3047, BNG: 2.3360, MCell3: 2.0078)
+Tar4                          :  -- (both<1)% (MCell4: 0.0000, BNG: 0.0001, MCell3: 0.0000)
+TarBp                         : 1.086% (MCell4: 2.8672, BNG: 2.8987, MCell3: 3.1641)
+Tarp                          : 4.592% (MCell4: 17.6484, BNG: 16.8736, MCell3: 18.1016)
+Tsr0                          :  -- (both<1)% (MCell4: 0.0000, BNG: 0.0000, MCell3: 0.0000)
+Tsr1                          :  -- (both<1)% (MCell4: 0.0469, BNG: 0.0624, MCell3: 0.0859)
+Tsr2                          : 0.008% (MCell4: 2247.4219, BNG: 2247.6015, MCell3: 2247.6641)
+Tsr3                          : 8.356% (MCell4: 2.5312, BNG: 2.3360, MCell3: 2.2500)
+Tsr4                          :  -- (both<1)% (MCell4: 0.0000, BNG: 0.0001, MCell3: 0.0000)
+TsrBp                         : 2.956% (MCell4: 2.9844, BNG: 2.8987, MCell3: 2.5625)
+Tsrp                          : 6.027% (MCell4: 17.8906, BNG: 16.8736, MCell3: 17.8047)
+Yp                            : 0.055% (MCell4: 1656.1172, BNG: 1655.2102, MCell3: 1657.9297)
+--------------------------
+
