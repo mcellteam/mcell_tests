@@ -233,7 +233,7 @@ class TesterBase:
         return res           
 
     # main_mdl_file - full path needst to be provided
-    def run_mcell(self, mcell_args: List[str], main_mdl_file: str) -> int:
+    def run_mcell(self, mcell_args: List[str], main_mdl_file: str, timeout_sec=MCELL_TIMEOUT) -> int:
         cmd = [ self.tool_paths.mcell_binary ]
         cmd += mcell_args
         cmd += [ main_mdl_file ]
@@ -245,7 +245,7 @@ class TesterBase:
             cmd += [ '-r', mdlr_rules_file ]
         
         log_name = self.test_name+'.mcell.log'
-        exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
+        exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=timeout_sec)
         if exit_code != 0:
             log_test_error(self.test_name, self.tester_name, "MCell failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
             return FAILED_MCELL

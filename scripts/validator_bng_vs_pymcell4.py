@@ -99,15 +99,25 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
     
            
     def run_validation_pymcell4(self, seed):
-        res = self.run_pymcell4(test_dir=self.test_work_path, test_file='validation_model.py', seed=seed)
+        res = self.run_pymcell4(
+            test_dir=self.test_work_path, 
+            test_file='validation_model.py', 
+            seed=seed, 
+            timeout_sec=VALIDATION_TIMEOUT)
+        
         return res
     
+    
     def run_validation_mcell3r(self, seed):
-        res = self.run_mcell(['-seed', str(seed)], os.path.join('..', self.test_work_path, MAIN_MDL_FILE))
+        res = self.run_mcell(
+            ['-seed', str(seed)], 
+            os.path.join('..', self.test_work_path, MAIN_MDL_FILE), 
+            timeout_sec=VALIDATION_TIMEOUT)
         
         if res == PASSED:
             self.postrocess_mcell3r(seed)
         return res    
+    
     
     def find_last_viz_file(self, dir):
         files = os.listdir(dir)
@@ -278,7 +288,6 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         last_line = self.get_last_line(gdat_file)
                 
         observables = first_line.split()[2:]
-        print("OOO " + str(observables))
         counts = last_line.split()[1:] # no leading '#'
                 
         assert len(observables) == len(counts)
