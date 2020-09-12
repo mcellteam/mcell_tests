@@ -272,7 +272,10 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         
         random.seed(a=200)
         for i in range(0, count):
-            res.append(random.randint(1, 65535))
+            new_seed = random.randint(1, 65535)
+            while new_seed in res:
+                new_seed = random.randint(1, 65535)
+            res.append(new_seed)
             
         return res    
 

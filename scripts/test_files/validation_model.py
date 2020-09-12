@@ -57,7 +57,7 @@ model.load_bngl('test.bngl', './react_data4/seed_' + str(SEED).zfill(5) + '/', b
 model.notifications.rxn_and_species_report = False
 
 
-model.config.time_step = TIME_STEP # TODO, cannot be in 
+model.config.time_step = TIME_STEP
 model.config.seed = SEED
 model.config.total_iterations_hint = ITERATIONS 
 
