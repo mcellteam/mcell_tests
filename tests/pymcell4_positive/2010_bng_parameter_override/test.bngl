@@ -1,0 +1,8 @@
+begin model
+
+begin parameters
+    a 3.5
+    b a * 5
+end parameters
+
+end model
