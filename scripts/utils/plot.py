@@ -40,6 +40,9 @@ def get_mcell_observables_counts(dir):
 
 
 def get_bng_observables_counts(file, counts):
+    if not os.path.exists(file):
+        print("Expected file " + file + " not found, skipping it")
+        return
      
     with open(file, 'r') as f:
         first_line = f.readline()
@@ -86,11 +89,11 @@ if len(sys.argv) == 4:
     bng_dir = sys.argv[3]
 
 counts = []
-counts.append(get_mcell_observables_counts(sys.argv[1]))
-counts.append(get_mcell_observables_counts(sys.argv[2]))
+counts.append(get_mcell_observables_counts(mcell3_dir))
+counts.append(get_mcell_observables_counts(mcell4_dir))
 
 # may be empty
-counts.append(get_nfsim_observables_counts(sys.argv[3]))
+counts.append(get_nfsim_observables_counts(bng_dir))
 
 assert counts[0].keys() == counts[1].keys()
 assert not counts[2] or counts[0].keys() == counts[2].keys()
