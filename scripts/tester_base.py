@@ -186,7 +186,7 @@ class TesterBase:
         if not os.path.exists(ref_path):
             if required:
                 log("Required reference data path " + ref_path + " was not found.")
-                return FAILED_DIFF
+                return FAILED_REF_DATA_NOT_FOUND
             else:
                 return PASSED
         

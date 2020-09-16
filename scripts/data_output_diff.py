@@ -101,7 +101,7 @@ def compare_data_output_directory(dir_ref, dir_new, exact=False, fdiff_args=[]):
     ref_dir = os.path.abspath(dir_ref)
     if not os.path.exists(ref_dir):
         log('Directory ' + ref_dir + ' does not exist')
-        return FAILED_DIFF
+        return FAILED_REF_DATA_NOT_FOUND
         
     files_ref = os.listdir(ref_dir)
     
