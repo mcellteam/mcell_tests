@@ -1,0 +1,2 @@
+based on nfsim/test/chemotaxis/receptor.bngl,
+validated with bng_validation/7310_nfsim_chemotaxis_receptor

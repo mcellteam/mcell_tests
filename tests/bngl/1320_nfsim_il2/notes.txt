@@ -1,0 +1,2 @@
+based on nfsim/test/il2/il2_Treg.bngl,
+validated with bng_validation/7320_nfsim_il2
