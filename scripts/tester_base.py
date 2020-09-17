@@ -253,7 +253,7 @@ class TesterBase:
             return PASSED
     
     
-    def postrocess_mcell3r(self, seed):
+    def postrocess_mcell3r(self, seed=1):
         cmd = [ self.tool_paths.python_binary, self.tool_paths.postprocess_mcell3r_script, str(seed), MAIN_MDLR_RULES_FILE ]
         log_name = self.test_name + '.postprocess_mcell3r.log'
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)

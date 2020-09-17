@@ -15,7 +15,6 @@ import mcell as m
 
 params = m.bngl_utils.load_bngl_parameters('test.bngl')
 
-MCELL_NO_COMPARTMENT_SIZE = params['MCELL_NO_COMPARTMENT_SIZE']
 ITERATIONS = int(params['ITERATIONS'])
 
 if len(sys.argv) == 3 and sys.argv[1] == '-seed':
@@ -37,10 +36,16 @@ EXPORT_DATA_MODEL = True
 
 model = m.Model()
 
-box_no_compartment = m.geometry_utils.create_box(
-    'box_no_compartment', MCELL_NO_COMPARTMENT_SIZE
-)
-model.add_geometry_object(box_no_compartment)
+if 'MCELL_NO_COMPARTMENT_SIZE' in params:
+    MCELL_NO_COMPARTMENT_SIZE = params['MCELL_NO_COMPARTMENT_SIZE']
+    box_no_compartment = m.geometry_utils.create_box(
+        'box_no_compartment', MCELL_NO_COMPARTMENT_SIZE
+    )
+    model.add_geometry_object(box_no_compartment)
+else:
+    MCELL_NO_COMPARTMENT_SIZE = 1
+    box_no_compartment = None
+
 
 viz_output = m.VizOutput(
     mode = m.VizMode.ASCII,
