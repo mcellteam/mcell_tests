@@ -1,0 +1,7 @@
+Same test as 0012 only partition size is different, 
+gives different result, needs to be fixed
+
+Seems related to overlapping walls, but it is wierd why this should be happening
+
+Difference agaist 0012 is that MCELL_NO_COMPARTMENT_SIZE is defined:
+MCELL_NO_COMPARTMENT_SIZE 0.0625 

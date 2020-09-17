@@ -1,0 +1,1 @@
+Same test as 0010 and 0011, only uises compartments for release and geometry definition
