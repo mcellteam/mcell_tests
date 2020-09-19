@@ -1,0 +1,35 @@
+begin model
+
+begin parameters
+	VACANCY_SEARCH_DISTANCE  10
+	
+	ITERATIONS  10
+    MCELL_DIFFUSION_CONSTANT_2D_A 1e-7
+    
+    MCELL_DIFFUSION_CONSTANT_2D_B 1e-7
+    
+end parameters
+begin molecule types
+	A()
+	B()
+end molecule types
+
+begin compartments
+    PM 2 0.01     # volume for surface compartments is ignored by MCell4, but required for BNG
+    CP 3 0.1^3 PM # only 3d compartments are created as objects, 
+                  # releases for their 2D parents are done here 
+end compartments
+
+begin seed species
+	A@PM 1  # the default orientation is up (')
+end seed species
+
+begin observables
+    Molecules Amol A
+end observables
+
+begin reaction rules
+    A() -> B() 1e-8  # MCellR converter requires at least one rule, also we must not set it to 0, see MCELL4_NO_RNG_FOR_UNIMOL_RXN_P_0 
+end reaction rules
+
+end model
