@@ -74,7 +74,7 @@ begin observables
   Molecules LynFree Lyn(SH2,U)                                              # Should be: "COUNT[Lyn(U,SH2), WORLD]"
   Molecules RecRecLigLynUg Rec(a!1,b).Lig(l!1,l!2).Rec(a!2,b!3).Lyn(SH2,U!3)  # Should be: "COUNT[Lig(l!1,l!2).Lyn(U!3,SH2).Rec(a!2,b!3).Rec(a!1,b), WORLD]"
   Molecules RecPbeta Rec(b~pY!?)  #question means bound or not bound, i.e. regardless if bound to something esle, bind.                                          # Should be: "COUNT[Rec(b~pY!?), WORLD]"
-  Molecules RecPgamma Rec(g~pY), Rec(g~pY!+) #plus means there has to be at least one bond                               # Should be: "COUNT[Rec(g~pY),WORLD] + COUNT[Rec(g~pY!+), WORLD]"
+  Molecules RecPgamma Rec(g~pY!?) # Should be: "COUNT[Rec(g~pY),WORLD] + COUNT[Rec(g~pY!+), WORLD]"
   Molecules RecSyk Syk(tSH2!1).Rec(g~pY!1)                                  # Should be: "COUNT[Rec(g~pY!1).Syk(tSH2!1), WORLD]"
   Molecules RecSykPS Syk(a~pY,tSH2!1).Rec(g~pY!1)                           # Should be: "COUNT[Rec(g~pY!1).Syk(tSH2!1,a~pY), WORLD]"
 end observables
@@ -86,22 +86,22 @@ begin reaction rules
   Rec(a) + Lig(l,l) <-> Lig(l,l!1).Rec(a!1) kp1,km1 #free ligand binding to receptor
   Rec(a) + Lig(l,l!1).Rec(a!1) <-> Rec(a!2).Lig(l!2,l!1).Rec(a!1) kp2,km2 # surface reaction/cross linking reaction, reaction on m binds to ligand molecule which
   Rec(b~Y) + Lyn(SH2,U) <-> Lyn(SH2,U!1).Rec(b~Y!1) kpL,kmL
-#  Rec(a!1,b~Y).Lig(l!1,l!2).Rec(a!2,b~Y!3).Lyn(SH2,U!3) -> Rec(a!1,b~pY).Lig(l!1,l!2).Rec(a!2,b~Y!3).Lyn(SH2,U!3) pLb
-#  Rec(a!1,g~Y).Lig(l!1,l!2).Rec(a!2,b~Y!3).Lyn(SH2,U!3) -> Rec(a!1,g~pY).Lig(l!1,l!2).Rec(a!2,b~Y!3).Lyn(SH2,U!3) pLg
-#  Rec(b~pY) + Lyn(SH2,U) <-> Lyn(SH2!1,U).Rec(b~pY!1) kpLs,kmLs
-#  Rec(a!1,b~Y).Lig(l!1,l!2).Rec(a!2,b~pY!3).Lyn(SH2!3,U) -> Rec(a!1,b~pY).Lig(l!1,l!2).Rec(a!2,b~pY!3).Lyn(SH2!3,U) pLbs
-#  Rec(a!1,g~Y).Lig(l!1,l!2).Rec(a!2,b~pY!3).Lyn(SH2!3,U) -> Rec(a!1,g~pY).Lig(l!1,l!2).Rec(a!2,b~pY!3).Lyn(SH2!3,U) pLgs
-#  Rec(g~pY) + Syk(tSH2) <-> Syk(tSH2!1).Rec(g~pY!1) kpS,kmS
-#  Rec(a!1,g~pY!4).Lig(l!1,l!2).Rec(a!2,b~Y!3).Lyn(SH2,U!3).Syk(l~Y,tSH2!4) -> Rec(a!1,g~pY!4).Lig(l!1,l!2).Rec(a!2,b~Y!3).Lyn(SH2,U!3).Syk(l~pY,tSH2!4) pLS
-#  Rec(a!1,g~pY!4).Lig(l!1,l!2).Rec(a!2,b~pY!3).Lyn(SH2!3,U).Syk(l~Y,tSH2!4) -> Rec(a!1,g~pY!4).Lig(l!1,l!2).Rec(a!2,b~pY!3).Lyn(SH2!3,U).Syk(l~pY,tSH2!4) pLSs
-#  Rec(a!1,g~pY!4).Lig(l!1,l!2).Rec(a!2,g~pY!3).Syk(a~Y,tSH2!3).Syk(a~Y,tSH2!4) -> Rec(a!1,g~pY!4).Lig(l!1,l!2).Rec(a!2,g~pY!3).Syk(a~Y,tSH2!3).Syk(a~pY,tSH2!4) pSS
-#  Rec(a!1,g~pY!4).Lig(l!1,l!2).Rec(a!2,g~pY!3).Syk(a~pY,tSH2!3).Syk(a~Y,tSH2!4) -> Rec(a!1,g~pY!4).Lig(l!1,l!2).Rec(a!2,g~pY!3).Syk(a~pY,tSH2!3).Syk(a~pY,tSH2!4) pSSs
-#  Rec(b~pY) -> Rec(b~Y) dm
-#  Rec(g~pY) -> Rec(g~Y) dm
-#  Syk(l~pY,tSH2!+) -> Syk(l~Y,tSH2!+) dm
-#  Syk(a~pY,tSH2!+) -> Syk(a~Y,tSH2!+) dm
-#  Syk(l~pY,tSH2) -> Syk(l~Y,tSH2) dc
-#  Syk(a~pY,tSH2) -> Syk(a~Y,tSH2) dc
+  Rec(a!1,b~Y).Lig(l!1,l!2).Rec(a!2,b~Y!3).Lyn(SH2,U!3) -> Rec(a!1,b~pY).Lig(l!1,l!2).Rec(a!2,b~Y!3).Lyn(SH2,U!3) pLb
+  Rec(a!1,g~Y).Lig(l!1,l!2).Rec(a!2,b~Y!3).Lyn(SH2,U!3) -> Rec(a!1,g~pY).Lig(l!1,l!2).Rec(a!2,b~Y!3).Lyn(SH2,U!3) pLg
+  Rec(b~pY) + Lyn(SH2,U) <-> Lyn(SH2!1,U).Rec(b~pY!1) kpLs,kmLs
+  Rec(a!1,b~Y).Lig(l!1,l!2).Rec(a!2,b~pY!3).Lyn(SH2!3,U) -> Rec(a!1,b~pY).Lig(l!1,l!2).Rec(a!2,b~pY!3).Lyn(SH2!3,U) pLbs
+  Rec(a!1,g~Y).Lig(l!1,l!2).Rec(a!2,b~pY!3).Lyn(SH2!3,U) -> Rec(a!1,g~pY).Lig(l!1,l!2).Rec(a!2,b~pY!3).Lyn(SH2!3,U) pLgs
+  Rec(g~pY) + Syk(tSH2) <-> Syk(tSH2!1).Rec(g~pY!1) kpS,kmS
+  Rec(a!1,g~pY!4).Lig(l!1,l!2).Rec(a!2,b~Y!3).Lyn(SH2,U!3).Syk(l~Y,tSH2!4) -> Rec(a!1,g~pY!4).Lig(l!1,l!2).Rec(a!2,b~Y!3).Lyn(SH2,U!3).Syk(l~pY,tSH2!4) pLS
+  Rec(a!1,g~pY!4).Lig(l!1,l!2).Rec(a!2,b~pY!3).Lyn(SH2!3,U).Syk(l~Y,tSH2!4) -> Rec(a!1,g~pY!4).Lig(l!1,l!2).Rec(a!2,b~pY!3).Lyn(SH2!3,U).Syk(l~pY,tSH2!4) pLSs
+  Rec(a!1,g~pY!4).Lig(l!1,l!2).Rec(a!2,g~pY!3).Syk(a~Y,tSH2!3).Syk(a~Y,tSH2!4) -> Rec(a!1,g~pY!4).Lig(l!1,l!2).Rec(a!2,g~pY!3).Syk(a~Y,tSH2!3).Syk(a~pY,tSH2!4) pSS
+  Rec(a!1,g~pY!4).Lig(l!1,l!2).Rec(a!2,g~pY!3).Syk(a~pY,tSH2!3).Syk(a~Y,tSH2!4) -> Rec(a!1,g~pY!4).Lig(l!1,l!2).Rec(a!2,g~pY!3).Syk(a~pY,tSH2!3).Syk(a~pY,tSH2!4) pSSs
+  Rec(b~pY) -> Rec(b~Y) dm
+  Rec(g~pY) -> Rec(g~Y) dm
+  Syk(l~pY,tSH2!+) -> Syk(l~Y,tSH2!+) dm
+  Syk(a~pY,tSH2!+) -> Syk(a~Y,tSH2!+) dm
+  Syk(l~pY,tSH2) -> Syk(l~Y,tSH2) dc
+  Syk(a~pY,tSH2) -> Syk(a~Y,tSH2) dc
 end reaction rules
 end model
 
