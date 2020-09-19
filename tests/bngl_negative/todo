@@ -1,0 +1,3 @@
+This directory is not tested yet, it contains diverse negative BNGL tests
+that require MCell4.
+BNGL-only negative tests should be placed alognt with the BNG library.  
