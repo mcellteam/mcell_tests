@@ -1,0 +1,38 @@
+begin model
+
+begin parameters
+	#TIME_STEP  1e-6
+	VACANCY_SEARCH_DISTANCE  10
+	
+	ITERATIONS  10
+    MCELL_DIFFUSION_CONSTANT_2D_A 1e-6
+    MCELL_DIFFUSION_CONSTANT_2D_B 5e-6
+    MCELL_DIFFUSION_CONSTANT_2D_C 7e-6	
+    
+    MCELL_NO_COMPARTMENT_SIZE 0.0625
+end parameters
+begin molecule types
+	A()
+	B()
+	C()
+end molecule types
+
+begin compartments
+    PM 2 0.01     
+    CP 3 0.1^3 PM  
+end compartments
+
+begin seed species
+	 A@PM  10
+	 B@PM  10
+end seed species
+
+begin observables
+    Molecules A A
+end observables
+
+begin reaction rules
+	A + B -> C 1E9
+end reaction rules
+
+end model
