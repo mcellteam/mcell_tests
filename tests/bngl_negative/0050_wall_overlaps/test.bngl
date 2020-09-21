@@ -1,3 +1,5 @@
+# FAIL: object created for compartment CP and box from MCELL_NO_COMPARTMENT_SIZE overlap
+#  check for Error: walls are overlapped: wall side 11 from 'CP' and wall side 11 from 'box_no_compartment'.
 begin model
 
 begin parameters
