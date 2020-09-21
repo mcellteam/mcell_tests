@@ -86,7 +86,7 @@ def get_tester_name(class_def):
 # TODO: maybe move check_preconditions and other things such as initialization 
 # out, 
 class TesterBase:
-    def __init__(self, test_src_path: str, args: List[str], tool_paths: ToolPaths):
+    def __init__(self, test_src_path: str, test_dir_suffix:str, args: List[str], tool_paths: ToolPaths):
         
         self.mcell4_testing = False
         self.args = args
@@ -114,7 +114,7 @@ class TesterBase:
         # working directory for this specific test
         self.test_work_path = os.path.abspath(
             os.path.join(self.tool_paths.work_path,
-                         self.tester_name, # set in parent
+                         self.tester_name + test_dir_suffix, # tester_name is set in parent
                          os.path.basename(self.test_category_path),
                          os.path.basename(self.test_set_path),
                          self.test_name

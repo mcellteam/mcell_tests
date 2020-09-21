@@ -1,0 +1,12 @@
+[[set]]
+  category = 'tests'
+  testSet = 'mdl'
+  testerClass = 'TesterMdl'
+  testDirSuffix = '_mcell3'
+ 
+[[set]]
+  category = 'tests'
+  testSet = 'mdl'
+  testerClass = 'TesterMdl'
+  args = ['mcell4']
+  testDirSuffix = '_mcell4'

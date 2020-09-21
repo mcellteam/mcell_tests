@@ -73,8 +73,10 @@ from utils import run, log, fatal_error
 DEFAULT_CONFIG_PATH = os.path.join('test_configs', 'default.toml')
 KEY_SET = 'set'
 KEY_CATEGORY = 'category'
+# TODO: these keys should use lowercase with underscores naming
 KEY_TEST_SET = 'testSet'
 KEY_TESTER_CLASS = 'testerClass'
+KEY_TEST_DIR_SUFFIX = 'testDirSuffix'
 KEY_ARGS = 'args'
 
 
@@ -150,10 +152,11 @@ def process_opts() -> TestOptions:
 
 
 class TestSetInfo:
-    def __init__(self, category: str, test_set_name: str, tester_class: str, args: List[str]):
+    def __init__(self, category: str, test_set_name: str, tester_class: str, test_dir_suffix, args: List[str]):
         self.category = category  # e.g. tests or examples
         self.test_set_name = test_set_name  # e.g. nutmeg_positive
         self.tester_class = tester_class  # class derived from TesterBase
+        self.test_dir_suffix = test_dir_suffix  
         self.args = args # enabled when mcell4 should be tested
 
 
@@ -161,7 +164,9 @@ class TestSetInfo:
 class TestInfo(TestSetInfo):
     def __init__(self, test_set_info: TestSetInfo, test_path: str):
         self.test_path = test_path  # full path to the test directory
-        super(TestInfo, self).__init__(test_set_info.category, test_set_info.test_set_name, test_set_info.tester_class, test_set_info.args)
+        super(TestInfo, self).__init__(
+            test_set_info.category, test_set_info.test_set_name, test_set_info.tester_class, 
+            test_set_info.test_dir_suffix, test_set_info.args)
 
     def __repr__(self):
         return os.path.join(self.test_path) + ' [' + get_tester_name(self.tester_class) + ']'
@@ -172,7 +177,7 @@ class TestInfo(TestSetInfo):
         return self.category + '/' + self.test_set_name + '/' + os.path.basename(self.test_path)
     
     def get_name_w_tester_class(self):
-        return get_tester_name(self.tester_class) + '/' + self.get_full_name()
+        return get_tester_name(self.tester_class) + self.test_dir_suffix + '/' + self.get_full_name()
 
     def get_full_name_for_sorting(self):
         # for sorting, we would like the long tests to be run as the first ones (due to parallel execution)
@@ -198,7 +203,7 @@ def get_test_dirs(test_set_info: TestSetInfo) -> List[TestInfo]:
 def run_single_test(test_info: TestInfo, tool_paths: ToolPaths) -> int:
     start = time.time()
 
-    test_obj = test_info.tester_class(test_info.test_path, test_info.args, tool_paths)
+    test_obj = test_info.tester_class(test_info.test_path, test_info.test_dir_suffix, test_info.args, tool_paths)
     res = test_obj.test()
     
     end = time.time()
@@ -255,11 +260,15 @@ def load_test_config(config_path: str) -> List[TestSetInfo]:
                 tester_class = ValidatorBngVsPymcell4
             else:
                 fatal_error("Unknown tester class '" + class_name + "' in '" + config_path + "'.")
+            
+            test_dir_suffix = ''
+            if KEY_TEST_DIR_SUFFIX in set:
+                test_dir_suffix = get_dict_value(set, KEY_TEST_DIR_SUFFIX, config_path)
                 
             args = []
             if KEY_ARGS in set:
                 args = set[KEY_ARGS]
-            res.append(TestSetInfo(category, test_set_name, tester_class, args))
+            res.append(TestSetInfo(category, test_set_name, tester_class, test_dir_suffix, args))
                   
     return res
 
