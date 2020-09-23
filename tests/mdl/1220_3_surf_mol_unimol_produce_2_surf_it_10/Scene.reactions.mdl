@@ -1,0 +1,5 @@
+DEFINE_REACTIONS
+{
+  sa' -> sb'+sc' [1e6]
+}
+
