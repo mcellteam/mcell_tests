@@ -450,7 +450,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         
         print('--------------------------\n')
         
-        if observables_missing_in_bng:
+        if bng_counts and observables_missing_in_bng:
             self.log_report('ERROR: missing observables in BNG, add following lines to the bngl file:')
             for (obs_name, pat) in observables_missing_in_bng:
                 self.log_report('    Species ' + obs_name + ' ' + pat)
@@ -513,10 +513,13 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
                 return FAILED_MCELL
             pymcell4_counts_per_run = { key:cnt/num_runs for key,cnt in pymcell4_counts.items() }
         
-        # run bng 
-        bng_counts = self.run_bng_and_get_counts(seeds)
-        if ONLY_BNG:
-            self.print_counts("BNG", bng_counts)
+        if not os.path.exists(os.path.join(self.test_src_path, 'no_bng')): 
+            # run bng 
+            bng_counts = self.run_bng_and_get_counts(seeds)
+            if ONLY_BNG:
+                self.print_counts("BNG", bng_counts)
+        else:
+            bng_counts = {}
         
         tolerance = self.get_tolerance()
         
