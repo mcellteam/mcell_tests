@@ -138,8 +138,14 @@ class TesterBase:
         if os.path.exists(os.path.join(self.test_src_path, 'skip')):
             log("SKIP : " + self.test_name)
             return True
-        else:
-            return False
+        elif os.path.exists(os.path.join(self.test_src_path, 'skip_debug')):
+            # detection uses the parent directory of mcell
+            mcell_dir = os.path.basename(os.path.dirname(self.tool_paths.mcell_binary))
+            if 'debug' in mcell_dir:
+                log("SKIP : " + self.test_name)
+                return True
+            
+        return False
             
     def is_known_fail(self) -> bool:
         # TODO: report this in a better way, should be reported as error when it starts to wok
