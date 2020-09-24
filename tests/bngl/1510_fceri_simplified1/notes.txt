@@ -1,1 +1,6 @@
-Getting identical result as in MCell3R
+Getting identical result as in MCell3R,
+but only because the rate is high (1e8),
+a better test is in 1511.
+
+
+Validates diffusion and detection of surf bimol rxns

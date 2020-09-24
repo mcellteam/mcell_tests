@@ -1,0 +1,19 @@
+Same as 1510 only rxn rate is lower
+
+The issue is:
+
+MCell3R compute_pb_factor: 
+reactants have orientation 'up' even it is not specified explicitely anywhere:
+
+      if ((rx->geometries[0] + rx->geometries[1]) *
+                  (rx->geometries[0] - rx->geometries[1]) ==
+              0 &&
+          rx->geometries[0] * rx->geometries[1] != 0) {
+        pb_factor *= 2.0;
+      }
+      
+In MCell4, the default orientation is 'any', so the rates are not multiplied.
+
+      if ( ((orient0 + orient1) * (orient0 - orient1) == 0) && (orient0 * orient1 != 0) ) {
+        pb_factor *= 2.0;
+      }         
