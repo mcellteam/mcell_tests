@@ -1,0 +1,4 @@
+MCell4 result differs from MCell3 -
+- MCell3 detects that species c cannot react and diffuses 
+  it up to the barrier
+- MCell4 simulates it each timestep  
