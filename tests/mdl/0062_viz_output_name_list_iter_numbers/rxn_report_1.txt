@@ -1,9 +1,0 @@
-RXN report, 2020-09-26 07:09:37
-
-rxn class for reactants: 
-    b (0) + a (2)
-0: products based on rule a + b -> c 1e+08 (id: 0)
-    c (3) 
-cum_probs: 0.0431026, max_fixed_p: 0.0431026, min_noreaction_p: 0.0431026
-
-
