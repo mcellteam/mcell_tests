@@ -1,40 +1,9 @@
-[[set]]
-  category = 'tests'
-  testSet = 'mdl'
-  testerClass = 'TesterMdl'
+[[include]]
+  file = 'mcell3_all.toml'
+  testDirSuffix = '_mcell3'
   
-[[set]]
-  category = 'examples'
-  testSet = 'datamodel'
-  testerClass = 'TesterDataModel'
+[[include]]
+  file = 'mcell4_all.toml'
+  testDirSuffix = '_mcell4'
 
-[[set]]
-  category = 'tests'
-  testSet = 'datamodel_mcellr'
-  testerClass = 'TesterDataModel'
-
-[[set]]
-  category = 'tests'
-  testSet = 'nutmeg_positive'
-  testerClass = 'TesterNutmeg'
-
-[[set]]
-  category = 'tests'
-  testSet = 'nutmeg_negative'
-  testerClass = 'TesterNutmeg'
-
-[[set]]
-  category = 'tests'
-  testSet = 'nutmeg_mcellr'
-  testerClass = 'TesterNutmeg'
-  
-[[set]]
-  category = '../mcell_tests_private/tests'
-  testSet = 'mdl'
-  testerClass = 'TesterMdl'
-  
-[[set]]
-  category = 'tests'
-  testSet = 'blender_python'
-  testerClass = 'TesterPython'
     

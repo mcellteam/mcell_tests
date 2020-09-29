@@ -17,6 +17,7 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 For the complete terms of the GNU General Public License, please see this URL:
 http://www.gnu.org/licenses/gpl-2.0.html
 """
+from xml.etree.ElementInclude import include
 
 """
 This module contains diverse utility functions shared among all mcell-related 
@@ -72,6 +73,8 @@ from utils import run, log, fatal_error
 
 DEFAULT_CONFIG_PATH = os.path.join('test_configs', 'default.toml')
 KEY_SET = 'set'
+KEY_INCLUDE = 'include'
+KEY_FILE = 'file'
 KEY_CATEGORY = 'category'
 # TODO: these keys should use lowercase with underscores naming
 KEY_TEST_SET = 'testSet'
@@ -216,10 +219,12 @@ def get_dict_value(d: Dict, key: str, fname: str) -> str:
         fatal_error("Required field '" + key + "' not found in '" + fname + "'.")
     res = d[key]
     return res
-    
-    
+
+
 def load_test_config(config_path: str) -> List[TestSetInfo]:
     top_dict = toml.load(config_path)
+    
+    config_dir = os.path.dirname(config_path)
     
     res = []
     if KEY_SET in top_dict:
@@ -269,7 +274,24 @@ def load_test_config(config_path: str) -> List[TestSetInfo]:
             if KEY_ARGS in set:
                 args = set[KEY_ARGS]
             res.append(TestSetInfo(category, test_set_name, tester_class, test_dir_suffix, args))
-                  
+
+
+    if KEY_INCLUDE in top_dict:
+        includes_list = get_dict_value(top_dict, KEY_INCLUDE, config_path)
+        
+        for include in includes_list:
+            file = get_dict_value(include, KEY_FILE, config_path)
+            # load included file recursively
+            included_fname = os.path.join(config_dir, file)
+            included_test_set_infos = load_test_config(included_fname)
+            
+            if KEY_TEST_DIR_SUFFIX in include:
+                # override test dir suffix
+                for info in included_test_set_infos:
+                    info.test_dir_suffix = get_dict_value(include, KEY_TEST_DIR_SUFFIX, included_fname)
+        
+            res += included_test_set_infos
+                          
     return res
 
     
