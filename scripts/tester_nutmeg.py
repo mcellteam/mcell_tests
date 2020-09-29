@@ -414,7 +414,7 @@ class TesterNutmeg(TesterBase):
                         log("Warning: Max memory testing is not supported on Windows for test definition '" + run_info.json_file + "', test is run without this check.")
                     else:
                         # insert call to ulimit in front
-                        mcell_cmd = 'ulimit -sv ' + str(run_info.max_memory * 1000) + ';' + str.join(" ", mcell_cmd)  
+                        mcell_cmd = 'ulimit -v ' + str(run_info.max_memory * 1000) + ';' + str.join(" ", mcell_cmd)  
                 
                 run_res = subprocess.run(
                     mcell_cmd, shell=shell, 

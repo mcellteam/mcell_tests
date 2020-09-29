@@ -1,11 +1,11 @@
 author = "Adam Husar ahusar@salk.edu"
 date = "2019-09-09"
-description = "Regression test for case when generating .gdta file by nfSIM too too much of memory since it was not freed up."
+description = "Regression test for case when generating .gdat file take up much of memory since it was not freed up."
 
 [[checks]]
   testType = "CHECK_SUCCESS"
 
 [run]
   jsonFile = "0100_CaM_CaMKII_mcellr_mem_leak_test.json"
-  maxMemory = 40 # MB
+  maxMemory = 120 # MB
 
