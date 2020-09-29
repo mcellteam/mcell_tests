@@ -1,0 +1,2 @@
+Reference data differ from MCell3 3.5.1 due to enablement of macro 
+MCELL3_REVERSE_INITIAL_SURF_MOL_PLACEMENT_BY_NUM
