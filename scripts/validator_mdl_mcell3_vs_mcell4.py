@@ -118,16 +118,27 @@ class ValidatorMcell3VsMcell4Mdl(ValidatorBngVsPymcell4):
         
         self.clean_and_create_work_dir()
         
-        print('Report will be printed to ' + os.path.join(self.test_work_path, 'validation_report.txt'))
+        print("Report will be printed to " + os.path.join(self.test_work_path, "validation_report.txt"))
         
         num_runs = self.tool_paths.opts.validation_runs
         seeds = self.generate_seeds(num_runs)
 
-        mcell3_counts = self.get_molecule_counts_for_multiple_mdl_runs(False, seeds)
-        mcell3_counts_per_run = { key:cnt/num_runs for key,cnt in mcell3_counts.items() }
 
         mcell4_counts = self.get_molecule_counts_for_multiple_mdl_runs(True, seeds)
+        if not mcell4_counts:
+            print("MCell4 runs failed")
+            return FAILED_MCELL
+        else:
+            print("MCell4 runs finished")
         mcell4_counts_per_run = { key:cnt/num_runs for key,cnt in mcell4_counts.items() }
+        
+        mcell3_counts = self.get_molecule_counts_for_multiple_mdl_runs(False, seeds)
+        if not mcell3_counts:
+            print("MCell3 runs failed")
+            return FAILED_MCELL
+        else:
+            print("MCell3 runs finished")
+        mcell3_counts_per_run = { key:cnt/num_runs for key,cnt in mcell3_counts.items() }
                                     
         tolerance = self.get_tolerance()
         
