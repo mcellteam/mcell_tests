@@ -3,6 +3,8 @@
 **/react_data
 **/dump*
 **/dump*
+**/rxn_report_*
+**/species_report_*
 /benchmarks/*/oprofile_data
 /work/
 /**/*.blend1
