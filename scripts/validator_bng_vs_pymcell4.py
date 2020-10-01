@@ -109,9 +109,10 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
     
     
     def run_validation_mcell3r(self, seed):
-        res = self.run_mcell(
-            ['-seed', str(seed)], 
+        res = self.run_mcell( 
+            [],
             os.path.join('..', self.test_work_path, MAIN_MDL_FILE), 
+            seed=seed,
             timeout_sec=VALIDATION_TIMEOUT)
         
         if res == PASSED:

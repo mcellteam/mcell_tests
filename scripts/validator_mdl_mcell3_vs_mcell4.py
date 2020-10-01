@@ -46,8 +46,9 @@ class ValidatorMcell3VsMcell4Mdl(ValidatorBngVsPymcell4):
            
     def run_validation_mcell4(self, seed):
         res = self.run_mcell(
-            ['-seed', str(seed), '-mcell4'], 
+            ['-mcell4'], 
             os.path.join(self.test_src_path, MAIN_MDL_FILE), 
+            seed=seed,            
             timeout_sec=VALIDATION_TIMEOUT)
         
         return res
@@ -55,8 +56,9 @@ class ValidatorMcell3VsMcell4Mdl(ValidatorBngVsPymcell4):
     
     def run_validation_mcell3(self, seed):
         res = self.run_mcell(
-            ['-seed', str(seed)], 
+            [], 
             os.path.join(self.test_src_path, MAIN_MDL_FILE), 
+            seed=seed,            
             timeout_sec=VALIDATION_TIMEOUT)
 
         return res    

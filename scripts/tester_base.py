@@ -239,9 +239,11 @@ class TesterBase:
         return res           
 
     # main_mdl_file - full path needst to be provided
-    def run_mcell(self, mcell_args: List[str], main_mdl_file: str, timeout_sec=MCELL_TIMEOUT) -> int:
+    def run_mcell(self, mcell_args: List[str], main_mdl_file: str, seed=1, timeout_sec=MCELL_TIMEOUT) -> int:
         cmd = [ self.tool_paths.mcell_binary ]
         cmd += mcell_args
+        if seed != 1:
+            cmd += ['-seed', str(seed)]
         cmd += [ main_mdl_file ]
         cmd += self.extra_args.mcell_args
 
@@ -250,7 +252,16 @@ class TesterBase:
         if os.path.exists(mdlr_rules_file):
             cmd += [ '-r', mdlr_rules_file ]
         
-        log_name = self.test_name+'.mcell.log'
+        if '-mcell4' in cmd:
+            log_suffix = '.mcell4.log'
+        else:
+            log_suffix = '.mcell3.log'
+        
+        if seed == 1:
+            log_name = self.test_name + '.' + log_suffix 
+        else:
+            log_name = self.test_name + '_' + str(seed).zfill(5) + log_suffix 
+            
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=timeout_sec)
         if exit_code != 0:
             log_test_error(self.test_name, self.tester_name, "MCell failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
