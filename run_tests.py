@@ -17,7 +17,6 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 For the complete terms of the GNU General Public License, please see this URL:
 http://www.gnu.org/licenses/gpl-2.0.html
 """
-from xml.etree.ElementInclude import include
 
 """
 This module contains diverse utility functions shared among all mcell-related 
@@ -66,6 +65,7 @@ from tester_bngl_pymcell4 import TesterBnglPymcell4
 from tester_external import TesterExternal
 from benchmark_mdl import BenchmarkMdl
 from validator_bng_vs_pymcell4 import ValidatorBngVsPymcell4
+from validator_mdl_mcell3_vs_mcell4 import ValidatorMcell3VsMcell4Mdl
 
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
 
@@ -263,6 +263,8 @@ def load_test_config(config_path: str) -> List[TestSetInfo]:
                 tester_class = BenchmarkMdl
             elif class_name == 'ValidatorBngVsPymcell4':
                 tester_class = ValidatorBngVsPymcell4
+            elif class_name == 'ValidatorMcell3VsMcell4Mdl':
+                tester_class = ValidatorMcell3VsMcell4Mdl
             else:
                 fatal_error("Unknown tester class '" + class_name + "' in '" + config_path + "'.")
             

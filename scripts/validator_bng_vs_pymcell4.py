@@ -384,11 +384,12 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
     def validate_mcell_output(self, mcell3_counts, mcell4_counts, bng_counts, tolerance):
         self.print_counts("MCell3R", mcell3_counts)
         self.print_counts("MCell4", mcell4_counts)
-        self.print_counts("BNG", bng_counts)
+        if bng_counts:
+            self.print_counts("BNG", bng_counts)
         
         mcell3r_vs_mcell4 = False # default is bng vs mcell4
         ref = 'BNG'
-        if os.path.exists(os.path.join(self.test_src_path, 'mcell3r_vs_mcell4')): 
+        if not bng_counts or os.path.exists(os.path.join(self.test_src_path, 'mcell3r_vs_mcell4')): 
             mcell3r_vs_mcell4 = True
             ref = 'MCell3R'
         
@@ -441,7 +442,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
             
             self.log_report(key.ljust(30) + ': ' + diff_perc + less_than1_msg + \
                   '% (MCell4: ' + format(mcell4_cnt, '.4f') + \
-                  ', BNG: ' + format(bng_cnt, '.4f') + 
+                  ((', BNG: ' + format(bng_cnt, '.4f')) if bng_counts else '') + 
                   ', MCell3: ' + format(mcell3_cnt, '.4f') + ')')
             
             if less_than1_msg == '' and bng_cnt != -1 and diff_perc != 'NA' and float(diff_perc) > tolerance:
