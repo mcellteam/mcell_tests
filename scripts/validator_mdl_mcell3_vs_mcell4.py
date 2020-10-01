@@ -62,6 +62,16 @@ class ValidatorMcell3VsMcell4Mdl(ValidatorBngVsPymcell4):
         return res    
     
     
+    def move_output_dirs(self, suffix):
+        # MCell4 generates viz_output dir as well, we need to distinguish it from mcell3 run
+        viz_dir = os.path.join(self.test_work_path, 'viz_data')
+        shutil.move(viz_dir, viz_dir + suffix)
+        
+        react_dir = os.path.join(self.test_work_path, 'react_data')
+        if os.path.exists(react_dir):
+            shutil.move(react_dir, react_dir + suffix)
+    
+    
     def get_molecule_counts_for_multiple_mdl_runs(self, mcell4, seeds):
         
         # Set up the parallel task pool to use all available processors
@@ -72,16 +82,11 @@ class ValidatorMcell3VsMcell4Mdl(ValidatorBngVsPymcell4):
         if mcell4:
             suffix = '4'
             res_codes = pool.map(self.run_validation_mcell4, seeds)
-            # MCell4 generates viz_output dir as well, we need to distinguish it from mcell3 run
-            viz_dir = os.path.join(self.test_work_path, 'viz_data')
-            shutil.move(viz_dir, viz_dir + suffix)
-            
-            react_dir = os.path.join(self.test_work_path, 'react_data')
-            if os.path.exists(react_dir):
-                shutil.move(react_dir, react_dir + suffix)
+            self.move_output_dirs(suffix)
         else:
-            suffix = ''
+            suffix = '3'
             res_codes = pool.map(self.run_validation_mcell3, seeds)
+            self.move_output_dirs(suffix)
     
         if os.path.exists(os.path.join(self.test_src_path, 'molecule_counts')): 
             # use observables from react_output
