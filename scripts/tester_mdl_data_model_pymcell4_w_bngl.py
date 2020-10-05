@@ -28,7 +28,7 @@ from typing import List, Dict
 
 from test_settings import *
 from tester_base import TesterBase
-from tester_pymcell4 import TesterPymcell4
+from tester_mdl_data_model_pymcell4 import TesterMdlDataModelPymcell4
 from test_utils import log_test_error, replace_in_file
 from tool_paths import ToolPaths
 
@@ -42,7 +42,7 @@ MCELL_BASE_ARGS = ['-seed', '1']
 SEED_DIR = 'seed_00001'
 
 
-class TesterDataModelPymcell4(TesterPymcell4):
+class TesterMdlDataModelPymcell4WBngl(TesterMdlDataModelPymcell4):
     def __init___(self, test_src_path: str, args: List[str], tool_paths: ToolPaths):
         super(TesterMdl, self).__init__(test_src_path, args, tool_paths)
         
@@ -53,41 +53,6 @@ class TesterDataModelPymcell4(TesterPymcell4):
             
         TesterBase.check_prerequisites(tool_paths)
 
-    def run_dm_to_pymcell_conversion(self, data_model_file: str, extra_args=[]):
-        cmd = [ self.tool_paths.data_model_to_pymcell_binary, data_model_file ]
-        cmd += extra_args
-        
-        log_name = self.test_name+'.mcell_dm_to_pymcell.log'
-        exit_code = run(cmd, cwd=self.test_work_path, verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
-        if (exit_code):
-            log_test_error(self.test_name, self.tester_name, "Data model to pymcell4 conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
-            return FAILED_MCELL
-        else:
-            return PASSED
-
-    def should_be_skipped_for_datamodel_test(self) -> bool:
-        if os.path.exists(os.path.join(self.test_src_path, 'skip_datamodel')):
-            log("SKIP DATAMODEL: " + self.test_name)
-            return True
-        else:
-            return False
-
-
-    def should_be_skipped_for_pymcell4_test(self) -> bool:
-        if os.path.exists(os.path.join(self.test_src_path, 'skip_pymcell4')):
-            log("SKIP PYMCELL4: " + self.test_name)
-            return True
-        else:
-            return False
-
-
-    def is_todo_for_datamodel_test(self) -> bool:
-        if os.path.exists(os.path.join(self.test_src_path, 'todo_datamodel')):
-            log("TODO DATAMODEL : " + self.test_name)
-            return True
-        else:
-            return False
-    
             
     def test(self) -> int:
         
@@ -104,8 +69,12 @@ class TesterDataModelPymcell4(TesterPymcell4):
             return KNOWN_FAIL
         
         self.clean_and_create_work_dir()
+        
+        res = self.run_mdl_to_dm_conversion(MCELL_BASE_ARGS, os.path.join(self.test_src_path, MAIN_MDL_FILE))
 
-        res = self.run_dm_to_pymcell_conversion(os.path.join(self.test_src_path, self.test_name + '.json'))
+        if res == PASSED: 
+            # fixme use name data_model.json 
+            res = self.run_dm_to_pymcell_conversion(os.path.join(self.test_work_path, 'data_model.json'), extra_args=['-b'])
             
         if res == PASSED:
             res = self.run_pymcell4(test_dir=self.test_work_path)

@@ -59,6 +59,7 @@ from tester_python import TesterPython
 from tester_pymcell4 import TesterPymcell4
 from tester_data_model_pymcell4 import TesterDataModelPymcell4
 from tester_mdl_data_model_pymcell4 import TesterMdlDataModelPymcell4
+from tester_mdl_data_model_pymcell4_w_bngl import TesterMdlDataModelPymcell4WBngl
 from tester_nutmeg_pymcell4 import TesterNutmegPymcell4
 from tester_bngl_mcell3r import TesterBnglMcell3R
 from tester_bngl_pymcell4 import TesterBnglPymcell4
@@ -251,6 +252,8 @@ def load_test_config(config_path: str) -> List[TestSetInfo]:
                 tester_class = TesterDataModelPymcell4
             elif class_name == 'TesterMdlDataModelPymcell4':
                 tester_class = TesterMdlDataModelPymcell4
+            elif class_name == 'TesterMdlDataModelPymcell4WBngl':
+                tester_class = TesterMdlDataModelPymcell4WBngl
             elif class_name == 'TesterNutmegPymcell4':
                 tester_class = TesterNutmegPymcell4
             elif class_name == 'TesterBnglMcell3R':
