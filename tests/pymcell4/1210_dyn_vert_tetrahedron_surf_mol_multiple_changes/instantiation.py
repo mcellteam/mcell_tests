@@ -10,7 +10,7 @@ from geometry import *
 
 Tetrahedron_rel = m.ReleaseSite(
     name = 'Tetrahedron_rel',
-    species = sm,
+    complex_instance = sm,
     orientation = m.Orientation.UP,
     region = Tetrahedron,
     number_to_release = 10
