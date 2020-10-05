@@ -381,7 +381,7 @@ def report_results(results: Dict) -> int:
     res = 0       
     if failed_tests:
         log("\n\nFAILED TESTS:")
-        for test in failed_tests:
+        for test in sorted(failed_tests):
             print(RESULT_NAMES[test[0]] + ": " + str(test[1]))
         
         log("\n!! THERE WERE ERRORS !!")
