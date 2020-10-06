@@ -1,0 +1,1 @@
+Loosely based on 0062, added geometry and viz output prints all molecules

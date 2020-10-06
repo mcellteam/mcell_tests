@@ -1,0 +1,23 @@
+1
+
+512 runs w MCELL3_4_SAFE_DIFF_STEP_RETURNS_CONSTANT
+
+MCell3R:
+a                              931.7227
+b                              931.7227
+c                              68.2773
+
+MCell4:
+a                              931.0781
+b                              931.0781
+c                              68.9219
+
+
+--- Validation results MCell4 vs MCell3R ---
+a                             : 0.069% (MCell4: 931.0781, MCell3: 931.7227)
+b                             : 0.069% (MCell4: 931.0781, MCell3: 931.7227)
+c                             : 0.944% (MCell4: 68.9219, MCell3: 68.2773)
+--------------------------
+
+PASSED
+

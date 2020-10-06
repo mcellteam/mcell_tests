@@ -1,0 +1,43 @@
+1
+
+512 runs:
+
+MCell4 runs finished
+MCell3 runs finished
+MCell3R:
+a                              963.0000
+b                              963.0000
+c                              37.0000
+
+MCell4:
+a                              962.4629
+b                              962.4629
+c                              37.5371
+
+
+--- Validation results MCell4 vs MCell3R ---
+a                             : 0.056% (MCell4: 962.4629, MCell3: 963.0000)
+b                             : 0.056% (MCell4: 962.4629, MCell3: 963.0000)
+c                             : 1.452% (MCell4: 37.5371, MCell3: 37.0000)
+--------------------------
+
+
+512 runs no custom timestep:
+
+Overriding default tolerance to 1.0%
+MCell3R:
+a                              963.7031
+b                              963.7031
+c                              36.2969
+
+MCell4:
+a                              963.7168
+b                              963.7168
+c                              36.2832
+
+
+--- Validation results MCell4 vs MCell3R ---
+a                             : 0.001% (MCell4: 963.7168, MCell3: 963.7031)
+b                             : 0.001% (MCell4: 963.7168, MCell3: 963.7031)
+c                             : 0.038% (MCell4: 36.2832, MCell3: 36.2969)
+--------------------------

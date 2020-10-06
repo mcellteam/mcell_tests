@@ -1,0 +1,63 @@
+1
+
+48 runs w MCELL3_4_SAFE_DIFF_STEP_RETURNS_CONSTANT
+
+MCell3R:
+a                              961.5417
+b                              961.5417
+c                              38.4583
+
+MCell4:
+a                              961.1042
+b                              961.1042
+c                              38.8958
+
+
+--- Validation results MCell4 vs MCell3R ---
+a                             : 0.045% (MCell4: 961.1042, MCell3: 961.5417)
+b                             : 0.045% (MCell4: 961.1042, MCell3: 961.5417)
+c                             : 1.138% (MCell4: 38.8958, MCell3: 38.4583)
+--------------------------
+
+
+48 runs no MCELL3_4_SAFE_DIFF_STEP_RETURNS_CONSTANT
+
+Overriding default tolerance to 1.0%
+MCell3R:
+a                              952.7917
+b                              952.7917
+c                              47.2083
+
+MCell4:
+a                              952.2083
+b                              952.2083
+c                              47.7917
+
+
+--- Validation results MCell4 vs MCell3R ---
+a                             : 0.061% (MCell4: 952.2083, MCell3: 952.7917)
+b                             : 0.061% (MCell4: 952.2083, MCell3: 952.7917)
+c                             : 1.236% (MCell4: 47.7917, MCell3: 47.2083)
+--------------------------
+
+
+48 run no MCELL3_4_SAFE_DIFF_STEP_RETURNS_CONSTANT, viz output each iter
+
+MCell3R:
+a                              952.0625
+b                              952.0625
+c                              47.9375
+
+MCell4:
+a                              952.0625
+b                              952.0625
+c                              47.9375
+
+
+--- Validation results MCell4 vs MCell3R ---
+a                             : 0.000% (MCell4: 952.0625, MCell3: 952.0625)
+b                             : 0.000% (MCell4: 952.0625, MCell3: 952.0625)
+c                             : 0.000% (MCell4: 47.9375, MCell3: 47.9375)
+--------------------------
+
+ 

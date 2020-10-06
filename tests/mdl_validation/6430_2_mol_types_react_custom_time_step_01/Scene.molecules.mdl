@@ -1,0 +1,20 @@
+
+DEFINE_MOLECULES
+{
+  a
+  {
+    DIFFUSION_CONSTANT_3D = 1e-6
+    CUSTOM_TIME_STEP = 1e-7
+  }
+  
+  b
+  {
+    DIFFUSION_CONSTANT_3D = 1e-6
+  }
+  
+  c
+  {
+    DIFFUSION_CONSTANT_3D = 1e-5
+  }
+}
+
