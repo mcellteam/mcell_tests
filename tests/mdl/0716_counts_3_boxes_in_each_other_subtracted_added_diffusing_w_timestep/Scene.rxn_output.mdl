@@ -1,0 +1,12 @@
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-5
+  {COUNT[a,WORLD]}=> "./react_data/seed_" & seed & "/a.World.dat"
+  {COUNT[a,Scene.Cube1]}=> "./react_data/seed_" & seed & "/a.Cube1.dat"
+  {COUNT[a,Scene.Cube2]}=> "./react_data/seed_" & seed & "/a.Cube2.dat"
+  {COUNT[a,Scene.Cube3]}=> "./react_data/seed_" & seed & "/a.Cube3.dat"
+  {COUNT[a,Scene.Cube2] - COUNT[a,Scene.Cube1]}=> "./react_data/seed_" & seed & "/a.Cube2minus1.dat"
+  {COUNT[a,Scene.Cube3] - COUNT[a,Scene.Cube1]}=> "./react_data/seed_" & seed & "/a.Cube3minus1.dat"
+  {COUNT[a,Scene.Cube3] - COUNT[a,Scene.Cube2] + COUNT[a,Scene.Cube1]}=> "./react_data/seed_" & seed & "/a.Cube3minus2plus1.dat"
+}
+
