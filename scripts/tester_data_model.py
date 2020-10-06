@@ -138,7 +138,17 @@ class TesterDataModel(TesterBase):
                 log("Updating reference file '" + f + "'")
                 shutil.copyfile(os.path.join(mcellr_gdat_res, f), os.path.join(mcellr_gdat_reference, f))
 
+    def should_be_skipped_for_datamodel_mdl_test(self) -> bool:
+        if os.path.exists(os.path.join(self.test_src_path, 'skip_datamodel_mdl')):
+            log("SKIP DATAMODEL: " + self.test_name)
+            return True
+        else:
+            return False
+
     def test(self) -> int:
+        if self.should_be_skipped_for_datamodel_mdl_test():
+            return SKIPPED
+
         if self.should_be_skipped():
             return SKIPPED
             
@@ -166,7 +176,7 @@ class TesterDataModel(TesterBase):
             return res
         
         if not UPDATE_REFERENCE:
-            res = self.check_reference_data(SEED_DIR, viz_ref_required=True)
+            res = self.check_reference_data(SEED_DIR, viz_ref_required=False)
         else:
             self.update_reference()
         
