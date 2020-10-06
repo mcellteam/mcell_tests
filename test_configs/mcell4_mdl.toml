@@ -1,13 +1,11 @@
-# MDL to data model and then to pymcell4
 [[set]]
   category = 'tests'
   testSet = 'mdl'
-  testerClass = 'TesterMdlDataModelPymcell4'
+  testerClass = 'TesterMdl'
   args = ['mcell4']
-  
+
 [[set]]
   category = '../mcell_tests_private/tests'
   testSet = 'mdl'
-  testerClass = 'TesterMdlDataModelPymcell4'
+  testerClass = 'TesterMdl'
   args = ['mcell4']
-  

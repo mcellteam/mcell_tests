@@ -6,4 +6,8 @@
   file = 'mcell4_all.toml'
   testDirSuffix = '_mcell4'
 
-    
+[[set]]
+  category = 'tests'
+  testSet = 'blender_python'
+  testerClass = 'TesterPython'
+  

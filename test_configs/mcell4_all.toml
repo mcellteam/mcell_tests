@@ -1,122 +1,30 @@
-# TODO: add support for includes and reorganize
-
-# tester_nutmeg_pymcell4.py
-[[set]]
-  category = 'tests'
-  testSet = 'pymcell4_nutmeg'
-  testerClass = 'TesterNutmegPymcell4'
-  
-  
-# mcell4.toml
-# MDL and nutmeg
-[[set]]
-  category = 'tests'
-  testSet = 'mdl'
-  testerClass = 'TesterMdl'
-  args = ['mcell4']
-
-[[set]]
-  category = '../mcell_tests_private/tests'
-  testSet = 'mdl'
-  testerClass = 'TesterMdl'
-  args = ['mcell4']
-  
-[[set]]
-  category = 'tests'
-  testSet = 'nutmeg4_positive'
-  testerClass = 'TesterNutmeg'
-  args = ['mcell4']
-  
-[[set]]
-  category = 'tests'
-  testSet = 'data_model'
-  testerClass = 'TesterDataModel'
-  args = ['mcell4']
-  
-# data_model_convert4.toml
-# MDL to data model and back to MDL 
-[[set]]
-  category = 'tests'
-  testSet = 'mdl'
-  testerClass = 'TesterDataModelConverter'
-  args = ['mcell4']
-  
-[[set]]
-  category = '../mcell_tests_private/tests'
-  testSet = 'mdl'
-  testerClass = 'TesterDataModelConverter'
-  args = ['mcell4']
-  
-# mdl_data_model_pymcell4.toml
-# MDL to data model and then to pymcell4
-[[set]]
-  category = 'tests'
-  testSet = 'mdl'
-  testerClass = 'TesterMdlDataModelPymcell4'
-  args = ['mcell4']
-  
-[[set]]
-  category = '../mcell_tests_private/tests'
-  testSet = 'mdl'
-  testerClass = 'TesterMdlDataModelPymcell4'
-  args = ['mcell4']
-  
-# data_model_pymcell4.toml
-# data model to pymcell4
-[[set]]
-  category = 'tests'
-  testSet = 'data_model'
-  testerClass = 'TesterDataModelPymcell4'
-  args = ['mcell4']
-  
-[[set]]
-  category = '../mcell_tests_private/tests'
-  testSet = 'data_model'
-  testerClass = 'TesterDataModelPymcell4'
-  args = ['mcell4']
-  
-# part of pymcell4.toml  
-[[set]]
-  category = 'tests'
-  testSet = 'pymcell4'
-  testerClass = 'TesterPymcell4'
-  args = ['mcell4']
-  
-[[set]]
-  category = 'tests'
-  testSet = 'pymcell4_positive'
-  testerClass = 'TesterPymcell4'
-  args = ['mcell4']  
-
-# bngl_to_pymcell4.toml
-[[set]]
-  category = 'tests'
-  testSet = 'bngl'
-  testerClass = 'TesterBnglPymcell4'
-  args = ['mcell4']
-  
-[[set]]
-  category = '../mcell_tests_private/tests'
-  testSet = 'bngl'
-  testerClass = 'TesterBnglPymcell4'
-  args = ['mcell4']  
+[[include]]
+  file = 'mcell4_mdl.toml'
     
-[[set]]
-  category = '../mcell_tests_private/models/hebrew_univ_jerusalem'
-  testSet = 'pymcell4'
-  testerClass = 'TesterPymcell4'
-  args = ['mcell4'] # needed to know which reference data to use
+[[include]]
+  file = 'mcell4_nutmeg.toml'
 
-[[set]]
-  category = 'external'
-  testSet = 'bng_test'
-  testerClass = 'TesterExternal'
-  args = ['python3', '$MCELL_TESTS_DIR/../mcell/libs/bng/test/test.py', '$MCELL_BUILD_DIR']
+[[include]]
+  file = 'data_model_mcell4.toml'
   
-[[set]]
-  category = 'utils_tests'
-  testSet = 'bng_analyzer'
-  testerClass = 'TesterExternal'
-  args = ['$MCELL_TESTS_DIR/tests/utils_tests/bng_analyzer/test.sh', '$MCELL_BUILD_DIR/utils/bng_analyzer/bng_analyzer', '$MCELL_TESTS_DIR/tests/utils_tests/bng_analyzer/', '$MCELL_TESTS_DIR/work/bng_analyzer']
+[[include]]
+  file = 'data_model_convert4.toml'
+  
+[[include]]
+  file = 'mdl_data_model_pymcell4.toml'
 
+[[include]]
+  file = 'mdl_data_model_pymcell4_w_bngl.toml'
+  
+[[include]]
+  file = 'data_model_pymcell4.toml'
+  
+[[include]]
+  file = 'pymcell4_api.toml'
+    
+[[include]]
+  file = 'bngl_to_pymcell4.toml'
+
+[[include]]
+  file = 'external.toml'
     

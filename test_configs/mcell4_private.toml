@@ -1,5 +1,0 @@
-[[set]]
-  category = '../mcell_tests_private/models/hebrew_univ_jerusalem'
-  testSet = 'pymcell4'
-  testerClass = 'TesterPymcell4'
-  args = ['mcell4'] # needed to know which reference data to use

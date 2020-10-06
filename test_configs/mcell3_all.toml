@@ -1,7 +1,15 @@
-[[set]]
-  category = 'tests'
-  testSet = 'mdl'
-  testerClass = 'TesterMdl'
+[[include]]
+  file = 'mcell3_mdl.toml'
+
+[[include]]
+  file = 'mcell3_dyn_geom.toml'
+  
+[[include]]
+  file = 'mcell3_nutmeg.toml'
+
+# TODO: reference data for MCell3
+#[[include]]
+#  file = 'data_model_mcell3.toml'
   
 [[set]]
   category = 'examples'
@@ -12,29 +20,4 @@
   category = 'tests'
   testSet = 'datamodel_mcellr'
   testerClass = 'TesterDataModel'
-
-[[set]]
-  category = 'tests'
-  testSet = 'nutmeg_positive'
-  testerClass = 'TesterNutmeg'
-
-[[set]]
-  category = 'tests'
-  testSet = 'nutmeg_negative'
-  testerClass = 'TesterNutmeg'
-
-[[set]]
-  category = 'tests'
-  testSet = 'nutmeg_mcellr'
-  testerClass = 'TesterNutmeg'
-  
-[[set]]
-  category = '../mcell_tests_private/tests'
-  testSet = 'mdl'
-  testerClass = 'TesterMdl'
-  
-[[set]]
-  category = 'tests'
-  testSet = 'blender_python'
-  testerClass = 'TesterPython'
     
