@@ -36,6 +36,7 @@
 #include <sstream>
 #include <stdexcept>      // std::invalid_argument
 #include <iomanip>
+#include <algorithm>
 
 using namespace std;
 
@@ -139,8 +140,13 @@ string fdiff_streams(ifstream& ref, ifstream& test, float_t tolerance) {
     }
 
     if (ref_info.name != test_info.name) {
-      return "Different first column (name or time) - ref: " + ref_info.name +
-          ", vs test: " + test_info.name;
+      // dot can be replaced with underscore, needed in some tests
+      std::replace(ref_info.name.begin(), ref_info.name.end(), '.', '_');
+      std::replace(test_info.name.begin(), test_info.name.end(), '.', '_');
+      if (ref_info.name != test_info.name) {
+    	  return "Different first column (name or time) - ref: " + ref_info.name +
+    			  ", vs test: " + test_info.name;
+      }
     }
 
     if (ref_info.num_parsed_values != test_info.num_parsed_values) {
