@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 
 """
-Copyright (C) 2019 by
-The Salk Institute for Biological Studies and
-Pittsburgh Supercomputing Center, Carnegie Mellon University
+Copyright (C) 2019,2020 by
+The Salk Institute for Biological Studies 
 
 This program is free software; you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
@@ -58,6 +57,7 @@ from tester_pymcell import TesterPymcell
 from tester_python import TesterPython
 from tester_pymcell4 import TesterPymcell4
 from tester_data_model_pymcell4 import TesterDataModelPymcell4
+from tester_data_model_pymcell4_w_bngl import TesterDataModelPymcell4WBngl
 from tester_mdl_data_model_pymcell4 import TesterMdlDataModelPymcell4
 from tester_mdl_data_model_pymcell4_w_bngl import TesterMdlDataModelPymcell4WBngl
 from tester_nutmeg_pymcell4 import TesterNutmegPymcell4
@@ -250,6 +250,8 @@ def load_test_config(config_path: str) -> List[TestSetInfo]:
                 tester_class = TesterPymcell4
             elif class_name == 'TesterDataModelPymcell4':
                 tester_class = TesterDataModelPymcell4
+            elif class_name == 'TesterDataModelPymcell4WBngl':
+                tester_class = TesterDataModelPymcell4WBngl
             elif class_name == 'TesterMdlDataModelPymcell4':
                 tester_class = TesterMdlDataModelPymcell4
             elif class_name == 'TesterMdlDataModelPymcell4WBngl':
