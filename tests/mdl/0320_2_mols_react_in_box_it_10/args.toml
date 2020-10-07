@@ -1,2 +1,0 @@
-# the geometry coordinates in MDL cannot be precisely represented in double 
-fdiff_datamodel_converter = "1e-7"

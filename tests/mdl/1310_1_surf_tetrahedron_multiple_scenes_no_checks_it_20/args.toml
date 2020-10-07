@@ -1,4 +1,3 @@
 # mcell3 asks random generator for additional 3 random numbers when ??? is used,
 # we do not want this behavior because such support is not in mcell4 yet
 mcell = "-with_checks no"    
-fdiff_datamodel_converter = "1e-7"
