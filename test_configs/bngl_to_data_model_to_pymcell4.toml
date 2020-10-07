@@ -1,0 +1,13 @@
+[[set]]
+  category = 'tests'
+  testSet = 'bngl'
+  testerClass = 'TesterBnglDataModelPymcell4'
+  testDirSuffix = '_w_bngl'
+  args = ['convert_w_bngl']
+  
+[[set]]
+  category = '../mcell_tests_private/tests'
+  testSet = 'bngl'
+  testerClass = 'TesterBnglDataModelPymcell4'
+  testDirSuffix = '_w_bngl'
+  args = ['convert_w_bngl']  
