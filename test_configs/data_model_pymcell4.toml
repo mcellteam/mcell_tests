@@ -10,4 +10,28 @@
   testSet = 'data_model'
   testerClass = 'TesterDataModelPymcell4'
   args = ['mcell4']
+
+[[set]]
+  category = 'tests'
+  testSet = 'data_model'
+  testerClass = 'TesterDataModelPymcell4WBngl'
+  args = ['mcell4']
+
+[[set]]
+  category = '../mcell_tests_private/tests'
+  testSet = 'data_model'
+  testerClass = 'TesterDataModelPymcell4WBngl'
+  args = ['mcell4']
   
+# TODO  - does not work yet
+#[[set]]
+#  category = '../mcell_tests_private/tests'
+#  testSet = 'data_model_bngl'
+#  testerClass = 'TesterDataModelPymcell4'
+#  args = ['mcell4']  
+    
+[[set]]
+  category = '../mcell_tests_private/tests'
+  testSet = 'data_model_bngl'
+  testerClass = 'TesterDataModelPymcell4WBngl'
+  args = ['mcell4']  

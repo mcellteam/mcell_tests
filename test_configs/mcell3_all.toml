@@ -7,7 +7,7 @@
 [[include]]
   file = 'mcell3_nutmeg.toml'
 
-# TODO: reference data for MCell3
+# TODO: reference data for MCell3 are missing
 #[[include]]
 #  file = 'data_model_mcell3.toml'
   
