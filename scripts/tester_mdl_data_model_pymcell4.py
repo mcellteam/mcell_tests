@@ -87,8 +87,13 @@ class TesterMdlDataModelPymcell4(TesterDataModelPymcell4):
         res = self.run_mdl_to_dm_conversion(MCELL_BASE_ARGS, os.path.join(self.test_src_path, MAIN_MDL_FILE))
 
         if res == PASSED: 
-            # fixme use name data_model.json 
-            res = self.run_dm_to_pymcell_conversion(os.path.join(self.test_work_path, 'data_model.json'))
+            extra_args = []
+            if ARG_CONVERT_W_BNGL in self.args:
+                extra_args = ['-b']   
+                
+            res = self.run_dm_to_pymcell_conversion(
+                os.path.join(self.test_work_path, 'data_model.json'), 
+                extra_args=extra_args)
             
         if res == PASSED:
             res = self.run_pymcell4(test_dir=self.test_work_path)

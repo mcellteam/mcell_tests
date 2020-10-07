@@ -58,6 +58,8 @@ PYMCELL_DIR = 'python'
 PYMCELL4_LIB = 'mcell' + DLL_EXT
 PYMCELL4_DIR = 'lib'
 
+ARG_MCELL4 = 'mcell4'
+ARG_CONVERT_W_BNGL = 'convert_w_bngl'
 
 DEFAULT_PYTHON_BINARY = 'python3' + EXE_EXT
 DATA_MODEL_TO_MDL_DIR = 'mdl'

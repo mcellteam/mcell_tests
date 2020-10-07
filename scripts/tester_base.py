@@ -91,7 +91,7 @@ class TesterBase:
         self.mcell4_testing = False
         self.args = args
         if args:
-            if args == ['mcell4']:
+            if ARG_MCELL4 in args:
                 self.mcell4_testing = True
 
         self.tester_name = get_tester_name(type(self)) 

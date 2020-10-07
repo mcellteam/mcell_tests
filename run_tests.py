@@ -57,9 +57,7 @@ from tester_pymcell import TesterPymcell
 from tester_python import TesterPython
 from tester_pymcell4 import TesterPymcell4
 from tester_data_model_pymcell4 import TesterDataModelPymcell4
-from tester_data_model_pymcell4_w_bngl import TesterDataModelPymcell4WBngl
 from tester_mdl_data_model_pymcell4 import TesterMdlDataModelPymcell4
-from tester_mdl_data_model_pymcell4_w_bngl import TesterMdlDataModelPymcell4WBngl
 from tester_nutmeg_pymcell4 import TesterNutmegPymcell4
 from tester_bngl_mcell3r import TesterBnglMcell3R
 from tester_bngl_pymcell4 import TesterBnglPymcell4
@@ -162,8 +160,18 @@ class TestSetInfo:
         self.tester_class = tester_class  # class derived from TesterBase
         self.test_dir_suffix = test_dir_suffix  
         self.args = args # enabled when mcell4 should be tested
-
-
+        
+    def has_same_base_dir(self, other):
+        return \
+            self.category == other.category and \
+            self.test_set_name == other.test_set_name and \
+            self.tester_class == other.tester_class and \
+            self.test_dir_suffix == other.test_dir_suffix  
+        
+    def __repr__(self):
+        attrs = vars(self)
+        return ", ".join("%s: %s" % item for item in attrs.items())        
+        
 # we are only adding the specific test directory
 class TestInfo(TestSetInfo):
     def __init__(self, test_set_info: TestSetInfo, test_path: str):
@@ -250,12 +258,8 @@ def load_test_config(config_path: str) -> List[TestSetInfo]:
                 tester_class = TesterPymcell4
             elif class_name == 'TesterDataModelPymcell4':
                 tester_class = TesterDataModelPymcell4
-            elif class_name == 'TesterDataModelPymcell4WBngl':
-                tester_class = TesterDataModelPymcell4WBngl
             elif class_name == 'TesterMdlDataModelPymcell4':
                 tester_class = TesterMdlDataModelPymcell4
-            elif class_name == 'TesterMdlDataModelPymcell4WBngl':
-                tester_class = TesterMdlDataModelPymcell4WBngl
             elif class_name == 'TesterNutmegPymcell4':
                 tester_class = TesterNutmegPymcell4
             elif class_name == 'TesterBnglMcell3R':
@@ -293,18 +297,34 @@ def load_test_config(config_path: str) -> List[TestSetInfo]:
             included_test_set_infos = load_test_config(included_fname)
             
             if KEY_TEST_DIR_SUFFIX in include:
-                # override test dir suffix
+                # append test dir suffix
                 for info in included_test_set_infos:
-                    info.test_dir_suffix = get_dict_value(include, KEY_TEST_DIR_SUFFIX, included_fname)
+                    info.test_dir_suffix += get_dict_value(include, KEY_TEST_DIR_SUFFIX, included_fname)
         
             res += included_test_set_infos
                           
     return res
 
+
+def check_different_dirs(test_set_infos):
+    num_test_sets = len(test_set_infos)
+    for i in range(num_test_sets):
+        curr = test_set_infos[i]
+        for k in range(i + 1, num_test_sets):
+            checked = test_set_infos[k]
+            if curr.has_same_base_dir(checked): 
+                print("Error: 2 test set infos are set to use the same directory:")
+                print(str(curr))
+                print(str(checked))
+                sys.exit(1)
+        
+        
     
 def collect_and_run_tests(tool_paths: ToolPaths, opts: TestOptions) -> Dict:
     
     test_set_infos = load_test_config(opts.config)
+    
+    check_different_dirs(test_set_infos)
     
     test_infos = []
     tester_classes = set()

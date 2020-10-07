@@ -105,7 +105,13 @@ class TesterDataModelPymcell4(TesterPymcell4):
         
         self.clean_and_create_work_dir()
 
-        res = self.run_dm_to_pymcell_conversion(os.path.join(self.test_src_path, self.test_name + '.json'))
+        extra_args = []
+        if ARG_CONVERT_W_BNGL in self.args:
+            extra_args = ['-b']   
+            
+        res = self.run_dm_to_pymcell_conversion(
+            os.path.join(self.test_src_path, self.test_name + '.json'), 
+            extra_args=extra_args)            
             
         if res == PASSED:
             res = self.run_pymcell4(test_dir=self.test_work_path)
