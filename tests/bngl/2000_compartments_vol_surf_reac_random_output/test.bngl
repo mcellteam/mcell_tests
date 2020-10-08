@@ -1,0 +1,48 @@
+# model received from Junhao through forum on Sep 24, 2020
+# https://mcell.freeforums.net/post/16/thread
+
+begin model
+begin parameters
+	NA_um3  602200000.0
+	vol_rxn  NA_um3
+	kd_fut8  25
+	kd_fut8s  46
+	kf_fut8  192/60
+	kd_GnTI  260
+	kd_GnTIs  170
+	kf_GnTI  790/60
+	kd_GnTII  190
+	kd_GnTIIs  960
+	kf_GnTII  1314/60
+	ITERATIONS  1000
+	MCELL_TIME_STEP  0.0001
+	VACANCY_SEARCH_DISTANCE  10.0
+	
+	MCELL_DIFFUSION_CONSTANT_3D_GlcNAc 1e-6
+	MCELL_DIFFUSION_CONSTANT_2D_GnTI 1e-8
+	MCELL_DIFFUSION_CONSTANT_2D_GnTII 1e-8
+end parameters
+begin molecule types
+	GlcNAc(chain,enz,fucose,site)
+	GnTI(GlcNAc,head)
+	GnTII(GlcNAc,head)
+end molecule types
+begin compartments
+	EC 3 2
+	PM 2 1 EC
+	CP 3 1 PM
+end compartments
+begin seed species
+	 GlcNAc(chain,enz,fucose,site)@CP  100
+	 GnTI(GlcNAc,head)@PM  100
+	 GnTII(GlcNAc,head)@PM  100
+end seed species
+begin observables
+	Molecules GnTII GnTII(GlcNAc!1,head).GlcNAc(enz!1,site)
+	#Molecules GlcNAc_at_EC GlcNAc@EC
+	#Molecules GlcNAc_at_CP GlcNAc@CP
+end observables
+begin reaction rules
+	GlcNAc(enz,site) + GnTI(GlcNAc,head) <-> GnTI(GlcNAc!1,head).GlcNAc(enz!1,site) 10000000,100
+end reaction rules
+end model
