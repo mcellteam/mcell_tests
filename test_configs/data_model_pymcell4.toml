@@ -25,16 +25,16 @@
   testDirSuffix = '_w_bngl'  
   args = ['mcell4', 'convert_w_bngl']
   
-# TODO  - does not work yet
-#[[set]]
-#  category = '../mcell_tests_private/tests'
-#  testSet = 'data_model_bngl'
-#  testerClass = 'TesterDataModelPymcell4'
-#  args = ['mcell4']  
+[[set]]
+  category = '../mcell_tests_private/tests'
+  testSet = 'data_model_bngl'
+  testerClass = 'TesterDataModelPymcell4'
+  args = ['mcell4']  
     
 [[set]]
   category = '../mcell_tests_private/tests'
   testSet = 'data_model_bngl'
   testerClass = 'TesterDataModelPymcell4'
   testDirSuffix = '_w_bngl'  
-  args = ['mcell4', 'convert_w_bngl']  
+  args = ['mcell4', 'convert_w_bngl']
+    

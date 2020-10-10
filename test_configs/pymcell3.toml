@@ -1,3 +1,4 @@
+# not supported anymore, fails
 [[set]]
   category = 'examples'
   testSet = 'pymcell3'
