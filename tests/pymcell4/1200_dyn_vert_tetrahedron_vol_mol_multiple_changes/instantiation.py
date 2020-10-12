@@ -10,7 +10,7 @@ from geometry import *
 
 rel_a = m.ReleaseSite(
     name = 'rel_a',
-    complex_instance = vm,
+    complex = vm,
     shape = m.Shape.SPHERICAL,
     location = m.Vec3(0, 0, 0),
     site_diameter = 0,
