@@ -26,8 +26,10 @@
   file = 'bngl_to_data_model_to_pymcell4.toml'
 
 # intermediate version of pymcell, will be removed
-[[include]]  
-  file = 'pymcell3_4.toml'
+# temporarily disabled because it does not work on MacOS 
+#[[include]]  
+#  file = 'pymcell3_4.toml'
+
   
 [[include]]
   file = 'external.toml'
