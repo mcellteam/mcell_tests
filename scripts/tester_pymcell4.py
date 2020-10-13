@@ -89,7 +89,12 @@ class TesterPymcell4(TesterBase):
                 file,
                 self.test_work_path 
             )
-        
+        # TODO: copy all files or make a list of files to be copied
+        for file in glob.glob(os.path.join(self.test_src_path, '*.species')):
+            shutil.copy(
+                file,
+                self.test_work_path 
+            )
         
     def test(self) -> int:
             
