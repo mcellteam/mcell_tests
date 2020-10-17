@@ -53,8 +53,8 @@ end parameters
 begin species
  Tsr(me~2,B,R,p~0) 2250
  Tar(me~2,B,R,p~0) 2250
- B(T,p~0)        238
- R(T)              136
+ B(T,p~0)        238*10
+ R(T)              136*10
  Y(p~0)        8236
 end species
 
