@@ -57,7 +57,7 @@ class TesterExternal(TesterBase):
             arg = arg.replace(ARG_MCELL_BUILD_DIR, self.tool_paths.mcell_dir_path)
             cmd.append(arg)
         
-        ec = run(cmd, cwd=self.test_work_path, verbose=True)
+        ec = run(cmd, shell=True, cwd=self.test_work_path, verbose=True)
         if ec == 0:
             return PASSED
         else:

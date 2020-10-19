@@ -9,4 +9,25 @@
   testSet = 'bng_test'
   testerClass = 'TesterExternal'
   args = ['python3', '$MCELL_TESTS_DIR/../mcell/libs/bng/test/test.py', '$MCELL_BUILD_DIR']
+
+[[set]]
+  category = 'utils_tests'
+  testSet = 'mcell4_runner/0000_seeds_w_fail'
+  testerClass = 'TesterExternal'
+  args = [
+    '$MCELL_TESTS_DIR/tests/utils_tests/mcell4_runner/0000_seeds_w_fail/test.sh',
+    '$MCELL_BUILD_DIR', '$MCELL_TESTS_DIR'
+  ] 
   
+[[set]]
+  category = 'utils_tests'
+  testSet = 'mcell4_runner/0001_args_file'
+  testerClass = 'TesterExternal'
+  args = [
+    'export MCELL_DIR=$MCELL_BUILD_DIR;',
+    'python', 
+    '$MCELL_BUILD_DIR/utils/mcell4_runner.py', 
+    '$MCELL_TESTS_DIR/tests/utils_tests/mcell4_runner/0001_args_file/test.py', 
+    '-a', '$MCELL_TESTS_DIR/tests/utils_tests/mcell4_runner/0001_args_file/test_args.txt'
+  ] 
+     
