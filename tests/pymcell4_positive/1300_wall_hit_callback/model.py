@@ -74,7 +74,7 @@ context = HitCount()
 
 # the object and species are optional, this simple test contains single
 # object and species anyway 
-model.register_wall_hit_callback(
+model.register_mol_wall_hit_callback(
     wall_hit_callback, context
     #, tetrahedron_object, vm_species 
 )
