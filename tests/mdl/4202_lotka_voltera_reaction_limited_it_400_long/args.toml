@@ -1,0 +1,2 @@
+# result differs slightly on MacOS with MCell3
+fdiff = "1e-7"
