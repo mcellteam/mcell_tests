@@ -13,11 +13,17 @@ else:
 import mcell as m
 
 
+if len(sys.argv) == 3 and sys.argv[1] == '-seed':
+    # overwrite value SEED defined in module parameters
+    SEED = int(sys.argv[2])
+else:
+    SEED = 1
+
+
 params = m.bngl_utils.load_bngl_parameters('test.bngl')
 
 ITERATIONS = int(params['ITERATIONS'])
-#VACANCY_SEARCH_DISTANCE = params['VACANCY_SEARCH_DISTANCE'] # not supported by mcell4 yet
-SEED = 1
+    
 if 'MCELL_TIME_STEP' in params:
     TIME_STEP = float(params['MCELL_TIME_STEP'])
 else:
