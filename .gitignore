@@ -5,6 +5,7 @@
 **/dump*
 **/rxn_report_*
 **/species_report_*
+**/data_layout.json
 /benchmarks/*/oprofile_data
 /work/
 /**/*.blend1
