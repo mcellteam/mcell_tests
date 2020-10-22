@@ -646,7 +646,7 @@ Sphere1_vertex_list = [
     [0.969196200370789, -1.5749089717865, 0.0120642185211182]
 ] # Sphere1_vertex_list
 
-Sphere1_element_connections = [
+Sphere1_wall_list = [
     [0, 19, 18], 
     [1, 25, 39], 
     [0, 18, 53], 
@@ -1927,12 +1927,12 @@ Sphere1_element_connections = [
     [24, 25, 641], 
     [641, 25, 26], 
     [25, 1, 26]
-] # Sphere1_element_connections
+] # Sphere1_wall_list
 
 Sphere1 = m.GeometryObject(
     name = 'Sphere1',
     vertex_list = Sphere1_vertex_list,
-    element_connections = Sphere1_element_connections,
+    wall_list = Sphere1_wall_list,
     surface_regions = []
 )
 # ^^^^ Sphere1 ^^^^
@@ -2584,7 +2584,7 @@ Sphere2_vertex_list = [
     [2.39514446258545, -0.195790588855743, 0.590474545955658]
 ] # Sphere2_vertex_list
 
-Sphere2_element_connections = [
+Sphere2_wall_list = [
     [0, 19, 18], 
     [1, 25, 39], 
     [0, 18, 53], 
@@ -3865,12 +3865,12 @@ Sphere2_element_connections = [
     [24, 25, 641], 
     [641, 25, 26], 
     [25, 1, 26]
-] # Sphere2_element_connections
+] # Sphere2_wall_list
 
 Sphere2 = m.GeometryObject(
     name = 'Sphere2',
     vertex_list = Sphere2_vertex_list,
-    element_connections = Sphere2_element_connections,
+    wall_list = Sphere2_wall_list,
     surface_regions = []
 )
 # ^^^^ Sphere2 ^^^^

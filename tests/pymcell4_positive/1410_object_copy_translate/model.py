@@ -30,9 +30,9 @@ model.add_geometry_object(Tetrahedron2)
 
 # ---- initialization and execution ----
 
-v0 = np.array(Tetrahedron_vertex_list[Tetrahedron_element_connections[0][0]])
-v1 = np.array(Tetrahedron_vertex_list[Tetrahedron_element_connections[0][1]])
-v2 = np.array(Tetrahedron_vertex_list[Tetrahedron_element_connections[0][2]])
+v0 = np.array(Tetrahedron_vertex_list[Tetrahedron_wall_list[0][0]])
+v1 = np.array(Tetrahedron_vertex_list[Tetrahedron_wall_list[0][1]])
+v2 = np.array(Tetrahedron_vertex_list[Tetrahedron_wall_list[0][2]])
 v = [v0, v1, v2] 
 
 def assert_eq(a, b):

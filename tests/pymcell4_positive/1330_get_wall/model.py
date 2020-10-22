@@ -23,9 +23,9 @@ model.add_geometry_object(Tetrahedron)
 
 # ---- initialization and execution ----
 
-v0 = np.array(Tetrahedron_vertex_list[Tetrahedron_element_connections[3][0]])
-v1 = np.array(Tetrahedron_vertex_list[Tetrahedron_element_connections[3][1]])
-v2 = np.array(Tetrahedron_vertex_list[Tetrahedron_element_connections[3][2]])
+v0 = np.array(Tetrahedron_vertex_list[Tetrahedron_wall_list[3][0]])
+v1 = np.array(Tetrahedron_vertex_list[Tetrahedron_wall_list[3][1]])
+v2 = np.array(Tetrahedron_vertex_list[Tetrahedron_wall_list[3][2]])
 v = [v0, v1, v2] 
 
 a = np.linalg.norm(v1-v0)
