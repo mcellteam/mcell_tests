@@ -5,7 +5,7 @@ MCELL_TESTS_DIR=$2
 
 rm -f log.tmp
 
-export MCELL_DIR=$MCELL_BUILD_DIR; \
+export MCELL_PATH=$MCELL_BUILD_DIR; \
     python $MCELL_BUILD_DIR/utils/mcell4_runner.py \
     $MCELL_TESTS_DIR/tests/utils_tests/mcell4_runner/0000_seeds_w_fail/test.py \
     -s 1:3:1 > log.tmp

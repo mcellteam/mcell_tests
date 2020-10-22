@@ -66,9 +66,9 @@ class TesterPymcell4(TesterBase):
 
 
     def run_pymcell4(self, test_dir:str, test_file='model.py', extra_args=[], seed=1, timeout_sec=MCELL_TIMEOUT) -> int:
-        # we need to set the path to the build using MCELL_DIR system variable
+        # we need to set the path to the build using MCELL_PATH system variable
         # and the command will be executed as shell
-        cmdstr = 'export ' + MCELL_DIR_VARIABLE + '=' + self.tool_paths.mcell_dir_path + ';'
+        cmdstr = 'export ' + MCELL_PATH_VARIABLE + '=' + self.tool_paths.mcell_path + ';'
         cmdstr +=  self.tool_paths.python_binary + ' ' + os.path.join(test_dir, test_file)
         cmd = [ cmdstr, '-seed', str(seed) ]
         cmd += extra_args

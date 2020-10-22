@@ -140,8 +140,8 @@ class TesterBase:
             return True
         elif os.path.exists(os.path.join(self.test_src_path, 'skip_debug')):
             # detection uses the parent directory of mcell
-            mcell_dir = os.path.basename(os.path.dirname(self.tool_paths.mcell_binary))
-            if 'debug' in mcell_dir:
+            mcell_path = os.path.basename(os.path.dirname(self.tool_paths.mcell_binary))
+            if 'debug' in mcell_path:
                 log("SKIP : " + self.test_name)
                 return True
             

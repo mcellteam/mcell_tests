@@ -52,9 +52,9 @@ class TesterNutmegPymcell4(TesterNutmeg):
             fatal_error("Could not find library '" + tool_paths.pymcell4_lib + ".")
 
     def run_pymcell4_for_nutmeg(self, run_info: RunInfo) -> int:
-        # we need to set the path to the build using MCELL_DIR system variable
+        # we need to set the path to the build using MCELL_PATH system variable
         # and the command will be executed as shell
-        cmdstr = 'export ' + MCELL_DIR_VARIABLE + '=' + self.tool_paths.mcell_dir_path + ';'
+        cmdstr = 'export ' + MCELL_PATH_VARIABLE + '=' + self.tool_paths.mcell_path + ';'
         cmdstr +=  self.tool_paths.python_binary + ' ' + os.path.join(self.test_src_path, run_info.py_file)
         cmdstr += str.join(" ", run_info.command_line_options)
         cmd = [ cmdstr ]

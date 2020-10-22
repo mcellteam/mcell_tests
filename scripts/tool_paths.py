@@ -29,13 +29,13 @@ from utils import *
 class ToolPaths:
     def __init__(self, opts): 
         if opts.mcell_build_path_override:
-            self.mcell_dir_path = opts.mcell_build_path_override
+            self.mcell_path = opts.mcell_build_path_override
         else:
-            self.mcell_dir_path = os.path.join(MCELL_TOOLS_DIR, WORK_DIR_NAME, BUILD_DIR_MCELL)
-        self.mcell_binary = os.path.join(self.mcell_dir_path, MCELL_BINARY)
-        self.postprocess_mcell3r_script = os.path.join(self.mcell_dir_path, POSTPROCESS_MCELL3R_SCRIPT)
-        self.pymcell_module = os.path.join(self.mcell_dir_path, PYMCELL_DIR, PYMCELL_MODULE)
-        self.pymcell4_lib = os.path.join(self.mcell_dir_path, PYMCELL4_DIR, PYMCELL4_LIB)
+            self.mcell_path = os.path.join(MCELL_TOOLS_DIR, WORK_DIR_NAME, BUILD_DIR_MCELL)
+        self.mcell_binary = os.path.join(self.mcell_path, MCELL_BINARY)
+        self.postprocess_mcell3r_script = os.path.join(self.mcell_path, POSTPROCESS_MCELL3R_SCRIPT)
+        self.pymcell_module = os.path.join(self.mcell_path, PYMCELL_PATH, PYMCELL_MODULE)
+        self.pymcell4_lib = os.path.join(self.mcell_path, PYMCELL4_DIR, PYMCELL4_LIB)
             
         if opts.cellblender_build_path_override:
             self.cellblender_dir_path = opts.cellblender_build_path_override
@@ -54,10 +54,10 @@ class ToolPaths:
             self.bng2pl_script = ''
             
         self.data_model_to_pymcell_binary = \
-            os.path.join(self.mcell_dir_path, DATA_MODEL_TO_PYMCELL_DIR, DATA_MODEL_TO_PYMCELL_BINARY)
+            os.path.join(self.mcell_path, DATA_MODEL_TO_PYMCELL_PATH, DATA_MODEL_TO_PYMCELL_BINARY)
 
         self.bng_analyzer_binary = \
-            os.path.join(self.mcell_dir_path, BNG_ANALYZER_DIR, BNG_ANALYZER_BINARY)
+            os.path.join(self.mcell_path, BNG_ANALYZER_DIR, BNG_ANALYZER_BINARY)
             
         self.work_path = os.path.join(THIS_DIR, '..', WORK_DIR_NAME)
         
@@ -74,7 +74,7 @@ class ToolPaths:
     def __repr__(self) -> str:
         return \
             "Tool paths:\n" + \
-            "  mcell_dir: " + self.mcell_dir_path + "\n" + \
+            "  mcell_path: " + self.mcell_path + "\n" + \
             "  mcell_binary: " + self.mcell_binary + "\n" + \
             "  cellblender_dir: " + self.cellblender_dir_path + "\n" + \
             "  data_model_to_mdl_script: " + self.data_model_to_mdl_script + "\n" + \

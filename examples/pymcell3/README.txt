@@ -10,9 +10,9 @@ All the source data are present here, those usually are:
 
 Reference output and scripts for testing will be added in the future. 
 
-To run the pymcell tests, a system variable MCELL_DIR must be set e.g. like this:
+To run the pymcell tests, a system variable MCELL_PATH must be set e.g. like this:
 
-export MCELL_DIR=`pwd`/../../../../mcell/build
+export MCELL_PATH=`pwd`/../../../../mcell/build
 
 Also, mcell must be built, for this see - mcell/README.md section "Building MCell Executable from Source",
 for debug build, run this command in the mcell/build directory:
@@ -28,7 +28,7 @@ To verify that the pyMCell model produces the same result as the MDL MCell model
 one can first run mcell directly:
 
 cd 0000_1_molecule_type_diffuse/mdl/
-$MCELL_DIR/mcell -seed 1 Scene.main.mdl
+$MCELL_PATH/mcell -seed 1 Scene.main.mdl
 
 and then 
 
@@ -59,7 +59,7 @@ The next steps can be:
 
 One can also run mcell in the 1000_2_molecule_types_diffuse_in_box_w_plane/mdl directory:
 
-$MCELL_DIR/mcell -seed 1 Scene.main.mdl
+$MCELL_PATH/mcell -seed 1 Scene.main.mdl
 
 The configuration in Scene.rxn_output.mdl sets to capture hits of the plane object and 
 the hits are reported in 1000_2_molecule_types_diffuse_in_box_w_plane/mdl/react_data/seed_00001/a.Plane.hits.dat like this:

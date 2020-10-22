@@ -46,15 +46,15 @@ else:
 
 MCELL_BINARY = 'mcell' + EXE_EXT
 
-DATA_MODEL_TO_PYMCELL_DIR = os.path.join('utils', 'data_model_to_pymcell')
+DATA_MODEL_TO_PYMCELL_PATH = os.path.join('utils', 'data_model_to_pymcell')
 DATA_MODEL_TO_PYMCELL_BINARY = 'data_model_to_pymcell' + EXE_EXT
 
 BNG_ANALYZER_DIR = os.path.join('utils', 'bng_analyzer')
 BNG_ANALYZER_BINARY = 'bng_analyzer' + EXE_EXT
 
-MCELL_DIR_VARIABLE = 'MCELL_DIR'
+MCELL_PATH_VARIABLE = 'MCELL_PATH'
 PYMCELL_MODULE = 'pymcell.py'
-PYMCELL_DIR = 'python' 
+PYMCELL_PATH = 'python' 
 PYMCELL4_LIB = 'mcell' + DLL_EXT
 PYMCELL4_DIR = 'lib'
 

@@ -11,12 +11,12 @@ from pprint import pprint
 #import matplotlib.mlab as mlab
 #import matplotlib.pyplot as plt
 
-MCELL_DIR = os.environ.get('MCELL_DIR', '')
+MCELL_PATH = os.environ.get('MCELL_PATH', '')
 
-if MCELL_DIR:
-    sys.path.append(os.path.join(MCELL_DIR, 'python'))
+if MCELL_PATH:
+    sys.path.append(os.path.join(MCELL_PATH, 'python'))
 else:
-    print("Error: variable MCELL_DIR that allows to find mcell build directory was not set")
+    print("Error: variable MCELL_PATH that allows to find mcell build directory was not set")
 
     
 import pymcell as m

@@ -54,7 +54,7 @@ class TesterExternal(TesterBase):
         cmd = []
         for arg in self.args:
             arg = arg.replace(ARG_MCELL_TESTS_DIR, os.path.join(THIS_DIR, '..'))
-            arg = arg.replace(ARG_MCELL_BUILD_DIR, self.tool_paths.mcell_dir_path)
+            arg = arg.replace(ARG_MCELL_BUILD_DIR, self.tool_paths.mcell_path)
             cmd.append(arg)
         
         ec = run(cmd, shell=True, cwd=self.test_work_path, verbose=True)
