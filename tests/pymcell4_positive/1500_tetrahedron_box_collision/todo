@@ -1,0 +1,3 @@
+The tetrahedron becomes somewhat degenerate
+and there is an assertion: 
+python: ../../src4/geometry.cpp:1036: void MCell::Edge::reinit_edge_constants(const MCell::Partition&): Assertion `!cmp_eq(len2_squared(temp_fb), 0.0, EPS)' failed.
