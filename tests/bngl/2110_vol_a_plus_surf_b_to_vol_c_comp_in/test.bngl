@@ -23,7 +23,7 @@ begin seed species
 end seed species
 
 begin observables
-    Molecules A A
+    Molecules CCP C@CP
 end observables
 
 begin reaction rules
