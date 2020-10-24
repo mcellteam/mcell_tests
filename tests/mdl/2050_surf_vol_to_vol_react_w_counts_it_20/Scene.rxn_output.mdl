@@ -1,0 +1,7 @@
+REACTION_DATA_OUTPUT
+{
+  STEP=1e-6
+  {COUNT[va,Scene.Cube]}=> "./react_data/seed_" & seed & "/va.Cube.dat"
+  {COUNT[vb,Scene.Cube]}=> "./react_data/seed_" & seed & "/vb.Cube.dat"
+}
+
