@@ -1,0 +1,54 @@
+begin model
+
+begin parameters
+	
+	ITERATIONS  10
+    MCELL_DIFFUSION_CONSTANT_2D_A 1e-6
+    MCELL_DIFFUSION_CONSTANT_2D_B 5e-5
+    MCELL_DIFFUSION_CONSTANT_2D_C 7e-5
+    
+end parameters
+begin molecule types
+	A()
+	B()
+	C()
+end molecule types
+
+begin compartments
+    
+    PM3 2 1e-80
+    L3 3 0.25^3 PM3
+    
+    PM2 2 1e-80 L3
+    L2 3 0.125^3 PM2
+    
+    PM1 2 1e-80 L2
+    L1 3 0.0625^3 PM1
+end compartments
+
+begin seed species
+	 A@PM1 10
+	 B@PM2 10
+	 C@PM3 5
+end seed species
+
+begin observables
+    Molecules APM1 A@PM1
+    Molecules BPM1 B@PM1
+    Molecules CPM1 C@PM1
+
+    Molecules APM2 A@PM2
+    Molecules BPM2 B@PM2
+    Molecules CPM2 C@PM2
+
+    Molecules APM3 A@PM3
+    Molecules BPM3 B@PM3
+    Molecules CPM3 C@PM3
+
+end observables
+
+begin reaction rules
+	A + B -> C 1e-6
+end reaction rules
+
+end model
