@@ -18,6 +18,6 @@
 
 [[set]]
   category = 'tests'
-  testSet = 'datamodel_mcellr'
+  testSet = 'data_model_bngl'
   testerClass = 'TesterDataModel'
     
