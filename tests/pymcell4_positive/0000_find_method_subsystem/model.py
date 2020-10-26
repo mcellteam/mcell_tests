@@ -28,7 +28,7 @@ assert r1 != None and r1.name == 'r'
 r2 = model.find_reaction_rule('s')
 assert r2 == None 
 
-sc = m.SurfaceClass('sc', type = m.SurfacePropertyType.TRANSPARENT, affected_species = a)
+sc = m.SurfaceClass('sc', type = m.SurfacePropertyType.TRANSPARENT, affected_complex_pattern = a)
 model.add_surface_class(sc)
 sc1 = model.find_surface_class('sc')
 assert sc1 != None and sc1.name == 'sc'
