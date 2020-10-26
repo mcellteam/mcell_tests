@@ -1,0 +1,2 @@
+Based on tests/data_model_bngl/0000_ab_mem_mema_transport_cp2ec,
+identical result as with MCell3R with MCELL4_SORT_RXN_PRODUCTS_BY_NAME.

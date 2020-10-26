@@ -1,0 +1,2 @@
+MCell3R instantiates molecules A in the whole object EC
+even though the release sould release A@EC (i.e. without CP) 

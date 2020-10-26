@@ -1,0 +1,3 @@
+MCell3R instantiates molecules A on the wrong side:
+
+A@EC+Mem@PM -> A@CP+Mem@PM

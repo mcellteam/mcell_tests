@@ -1,0 +1,9 @@
+Based on 0003_ab_mem_transport_ec2cp_direct
+
+MCell3R instantiates molecules A on the wrong side:
+
+A@EC+Mem@PM -> A@CP+Mem@PM
+
+(however test 0003_ab_mem_transport_ec2cp_direct passes)
+
+Validated visually and with react_output.

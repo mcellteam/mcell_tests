@@ -1,0 +1,4 @@
+Based on 0003_ab_mem_transport_ec2cp_direct,
+tests that release of A@EC correctly overrides the release region EC.
+
+This does not work in MCell3.
