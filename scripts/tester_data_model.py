@@ -145,6 +145,13 @@ class TesterDataModel(TesterBase):
         else:
             return False
 
+    def should_be_skipped_for_mcell3_test(self) -> bool:
+        if os.path.exists(os.path.join(self.test_src_path, 'skip_mcell3')):
+            log("SKIP MCELL3: " + self.test_name)
+            return True
+        else:
+            return False
+        
     def test(self) -> int:
         if self.should_be_skipped_for_datamodel_mdl_test():
             return SKIPPED
@@ -152,6 +159,9 @@ class TesterDataModel(TesterBase):
         if self.should_be_skipped():
             return SKIPPED
             
+        if not self.mcell4_testing and self.should_be_skipped_for_mcell3_test():   
+            return SKIPPED
+        
         if self.is_known_fail():
             return KNOWN_FAIL
         
