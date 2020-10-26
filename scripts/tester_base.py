@@ -223,15 +223,17 @@ class TesterBase:
         if res != PASSED:
             return res
 
-        res = self.check_reference(
-            '', REF_DYN_GEOM_DATA_DIR, DYN_GEOM_DATA_DIR, True, "Dynamic geometry data diff failed.", fdiff_args)
-        if res != PASSED:
-            return res
+        if not self.mcell4_testing:
+            res = self.check_reference(
+                '', REF_DYN_GEOM_DATA_DIR, DYN_GEOM_DATA_DIR, True, "Dynamic geometry data diff failed.", fdiff_args)
+            if res != PASSED:
+                return res
 
-        res = self.check_reference(
-            '', REF_MCELLR_GDAT_DATA_DIR, MCELLR_GDAT_DATA_DIR, True, "MCellR gdat data diff failed.", fdiff_args)
-        if res != PASSED:
-            return res
+        if not self.mcell4_testing:
+            res = self.check_reference(
+                '', REF_MCELLR_GDAT_DATA_DIR, MCELLR_GDAT_DATA_DIR, True, "MCellR gdat data diff failed.", fdiff_args)
+            if res != PASSED:
+                return res
      
         if res == PASSED:
             log_test_success(self.test_name, self.tester_name)
