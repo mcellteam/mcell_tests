@@ -1,0 +1,6 @@
+Originally: 
+assert(false && "Recovery from too many failures during surf mol release is not implemented yet");
+
+Now fails with a better error
+
+this is handled in MCell3
