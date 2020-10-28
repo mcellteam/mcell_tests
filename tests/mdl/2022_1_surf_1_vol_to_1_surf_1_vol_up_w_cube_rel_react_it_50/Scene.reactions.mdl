@@ -1,0 +1,5 @@
+DEFINE_REACTIONS
+{
+  va,+sb' -> sc'+vd' [1e8]
+}
+
