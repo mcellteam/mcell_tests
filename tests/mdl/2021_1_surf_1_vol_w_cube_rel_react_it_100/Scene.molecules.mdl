@@ -1,0 +1,16 @@
+DEFINE_MOLECULES
+{
+  va
+  {
+    DIFFUSION_CONSTANT_3D = 1e-6
+  }
+  sb
+  {
+    DIFFUSION_CONSTANT_2D = 5e-5
+  }
+  sc
+  {
+    DIFFUSION_CONSTANT_2D = 1e-6
+  }
+}
+

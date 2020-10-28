@@ -1,0 +1,5 @@
+Based on 0920_vol_a_plus_surf_b_to_surf_c only uses @IN.
+This made it originally to have different reaction rate, 
+fixed by setting orientation up for the surface reactant, noted in Redmine #29. 
+
+Validated against MDL variant mdl/2021_1_surf_1_vol_w_cube_rel_react_it_100.
