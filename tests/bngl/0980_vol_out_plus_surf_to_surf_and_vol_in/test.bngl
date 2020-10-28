@@ -1,0 +1,33 @@
+begin model
+
+begin parameters
+	ITERATIONS 50
+    MCELL_DIFFUSION_CONSTANT_3D_va 1e-6
+    MCELL_DIFFUSION_CONSTANT_2D_sb 5e-5
+    MCELL_DIFFUSION_CONSTANT_2D_sc 1e-6	
+    MCELL_DIFFUSION_CONSTANT_3D_vd 1e-6
+    
+end parameters
+begin molecule types
+	va()
+	sb()
+	sc()
+end molecule types
+
+begin compartments
+    EC 3 0.5^3
+    PM 2 1e-80 EC
+    CP 3 0.25^3 PM  
+end compartments
+
+begin seed species
+	 va@EC  400
+	 sb@PM  200
+end seed species
+
+begin reaction rules
+	va@OUT + sb -> sc + vd@IN 1e8
+	# converted to: va' + sb' -> sc' + vd, 1e8
+end reaction rules
+
+end model
