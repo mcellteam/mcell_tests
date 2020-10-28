@@ -31,7 +31,7 @@ begin observables
 end observables
 
 begin reaction rules
-	# on which side should be the 
+	# vol rxn, should be valid
 	A + B@CP -> C 			1E9
 end reaction rules
 
