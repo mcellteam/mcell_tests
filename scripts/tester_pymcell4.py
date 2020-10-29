@@ -25,7 +25,6 @@ in the future.
 import os
 import sys
 import shutil
-import glob
 from typing import List, Dict
 
 from test_settings import *
@@ -81,20 +80,6 @@ class TesterPymcell4(TesterBase):
             return FAILED_MCELL
         else:
             return PASSED
-
-
-    def copy_all_bngl_files_to_work_dir(self):
-        for file in glob.glob(os.path.join(self.test_src_path, '*.bngl')):
-            shutil.copy(
-                file,
-                self.test_work_path 
-            )
-        # TODO: copy all files or make a list of files to be copied
-        for file in glob.glob(os.path.join(self.test_src_path, '*.species')):
-            shutil.copy(
-                file,
-                self.test_work_path 
-            )
         
     def test(self) -> int:
             

@@ -73,7 +73,7 @@ class TesterNutmegPymcell4(TesterNutmeg):
         ferr.close()
         
         return exit_code
-
+    
     def test(self) -> int:
         if self.should_be_skipped():
             return SKIPPED
@@ -82,6 +82,8 @@ class TesterNutmegPymcell4(TesterNutmeg):
             return SKIPPED
         
         self.clean_and_create_work_dir()
+        
+        self.copy_all_bngl_files_to_work_dir()
         
         # transform the result ito something more readable or keep as dictionary?
         parser = TestDescriptionParser(self.test_src_path)

@@ -1,0 +1,33 @@
+begin model
+
+begin parameters
+	ITERATIONS  10
+    MCELL_DIFFUSION_CONSTANT_3D_V1 1e-6
+    MCELL_DIFFUSION_CONSTANT_3D_V2 1e-6  
+    MCELL_DIFFUSION_CONSTANT_2D_S 5e-4
+end parameters
+begin molecule types
+	V1(b)
+    V2(b)
+	S(v)
+end molecule types
+
+begin compartments
+    EC 3 1
+    PM 2 1e-80 EC
+    CP 3 0.125^3 PM  
+end compartments
+
+begin seed species
+	 V1(b)@CP  100
+	 S(v)@PM  100
+end seed species
+
+begin reaction rules
+	V1(b) + S(v) <-> S(v!1).V1(b!1) 1e8,1e4
+end reaction rules
+
+end model
+
+generate_network({overwrite=>1})
+simulate({method=>"ode",t_end=>1e-3,n_steps=>1000})

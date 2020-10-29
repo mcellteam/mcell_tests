@@ -26,6 +26,7 @@ import sys
 import shutil
 import toml
 import re
+import glob
 from typing import List, Dict
 
 import data_output_diff
@@ -178,6 +179,19 @@ class TesterBase:
         os.chdir(self.test_work_path)
         assert self.test_work_path == os.getcwd()
 
+    def copy_all_bngl_files_to_work_dir(self):
+        for file in glob.glob(os.path.join(self.test_src_path, '*.bngl')):
+            shutil.copy(
+                file,
+                self.test_work_path 
+            )
+        # TODO: copy all files or make a list of files to be copied
+        for file in glob.glob(os.path.join(self.test_src_path, '*.species')):
+            shutil.copy(
+                file,
+                self.test_work_path 
+            )
+            
     def check_reference(self, 
                         seed_dir: str, ref_dir_name: str, test_dir_name: str, exact_diff: bool, msg: str,
                         fdiff_args, required=False,
