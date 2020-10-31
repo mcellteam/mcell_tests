@@ -1,0 +1,10 @@
+0.64
+
+Marker needs_viz_output_each_time_step is required,
+for details see Redmine #30.
+
+24 runs:
+
+Lyn(SH2,U!1).Rec(a,b~Y!1,g~Y) : 0.630% (MCell4: 952.1250, BNG: -1.0000, MCell3: 946.1667)
+Lyn(SH2,U)                    : 0.321% (MCell4: 1847.8750, BNG: 2800.0000, MCell3: 1853.8333)
+Rec(a,b~Y,g~Y)                : 0.195% (MCell4: 3047.8750, BNG: 4000.0000, MCell3: 3053.8333)
