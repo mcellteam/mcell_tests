@@ -1,0 +1,3 @@
+# this seed value caused unimol RXN to be blocked and this was 
+# originally not handled in MCell4 
+seed = 56362

@@ -1,0 +1,94 @@
+begin model
+begin parameters
+  # Conversion factors
+  NA_um3 6.022e8
+  
+  rate_mult 100
+  
+  vol_rxn  rate_mult #
+  surf_rxn rate_mult # Tag used for unit conversion in CellBlender import
+  
+  # Geometric factors
+  rxn_layer_t  0.01
+  vol_EC  39 # Should figure out what concentration of ligand this corresponds to
+  vol_PM  0.6*rxn_layer_t # Area*thickness
+  vol_CP  1  # about 1/500 full cell volume
+  
+  # Initial counts
+  Lig_tot  1000 #6000    # Default: 6.0e3
+  Rec_tot   400    # Default: 4.0e2
+  Syk_tot   400    # Default: 4e2
+  Lyn_tot   280    # Default 2.8e2
+  
+  # Rate constants
+  kp1  vol_rxn*1e5/NA_um3 # 1/M 1/s conversion to -> um^3/s #volume reaction
+  km1  0.00 #reverse binding is zero so binding is irreversible
+  kp2  surf_rxn*1e5/NA_um3 # 1/M 1/s -> um^3/s (conversion to um^2/s happens upon division by V_PM
+  km2  0.00
+  kpL  surf_rxn*1e7/NA_um3 #lim tyrosine kinase
+  kmL  20 * rate_mult
+  kpLs surf_rxn*1e7/NA_um3 #another mode by which kinase associates with ligand receptor
+  kmLs  0.12
+  pLb  30
+  pLbs  100
+  pLg  1
+  pLgs 3
+  kpS  vol_rxn*1e7/NA_um3
+  kmS  0.13
+  pLS  30
+  pLSs  100
+  pSS  100
+  pSSs  200
+  dc  0.1
+  dm  0.1
+  
+   # MCELL parameters
+  MCELL_REDEFINE_vol_rxn  rate_mult*NA_um3 #takes from microcubed to molar per second since this is what mcell likes
+  #MCELL_REDEFINE_surf_rxn 1/rxn_layer_t # ???
+  #MCELL_REDEFINE_vol_PM 1e-80  # does not work for MCell3 with compartment sizes 
+  MCELL_TIME_STEP 1e-4
+  ITERATIONS 100
+  MCELL_DIFFUSION_CONSTANT_2D_Lyn  1.7e-7
+  MCELL_DIFFUSION_CONSTANT_2D_Rec  1.7e-7
+  MCELL_DIFFUSION_CONSTANT_3D_Lig  8.51e-7
+  MCELL_DIFFUSION_CONSTANT_3D_Syk  8.51e-7
+  
+  MCELL_NO_COMPARTMENT_SIZE 3.5    
+      
+end parameters
+begin molecule types
+  Lig(l,l)
+  Lyn(SH2,U)
+  Syk(a~Y~pY,l~Y~pY,tSH2)
+  Rec(a,b~Y~pY,g~Y~pY)
+end molecule types
+
+begin compartments
+
+  EC 3 vol_EC
+  #PM 2 vol_PM EC
+  PM 2 1e-30 EC
+  CP 3 vol_CP PM
+
+end compartments
+
+begin seed species
+   @PM:Lyn(SH2,U)  Lyn_tot*10
+   @PM:Rec(a,b~Y,g~Y)  Rec_tot*10
+end seed species
+
+begin observables
+    Species LynSH2U Lyn(SH2,U)
+    Species RecabYgY Rec(a,b~Y,g~Y)
+end observables
+
+begin reaction rules
+
+  Lyn(SH2,U)@PM + Rec(b~Y)@PM <-> Lyn(SH2,U!1)@PM.Rec(b~Y!1)@PM kpL,kmL
+
+end reaction rules
+end model
+
+# ignored
+generate_network({overwrite=>1})
+simulate({method=>"ode",t_end=>600,n_steps=>100,print_functions=>1})

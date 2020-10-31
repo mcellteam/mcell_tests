@@ -17,3 +17,9 @@ In MCell4, the default orientation is 'any', so the rates are not multiplied.
       if ( ((orient0 + orient1) * (orient0 - orient1) == 0) && (orient0 * orient1 != 0) ) {
         pb_factor *= 2.0;
       }         
+      
+      
+In MCell3R it seems that in Rec(a) + Lig(l,l) -> ..
+
+Rec@PM has some default orientation 1 (UP) and Lig@EC comes from the top so its orientation is UP as well.
+So the MCell3R implemeentation seems correct although there's maybe too much of implicit assumptions.  
