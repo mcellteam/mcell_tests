@@ -46,6 +46,7 @@ ARGS_FILE = 'args.toml'
 
 MCELL_ARGS_KEY = 'mcell'
 FDIFF_ARGS_KEY = 'fdiff'
+SEED_ARGS_KEY = 'seed'
 FDIFF_DATAMODEL_CONVERTER_ARGS_KEY = 'fdiff_datamodel_converter'
 
 
@@ -53,6 +54,7 @@ class ExtraArgs:
     def __init__(self, test_src_path: str):
         self.mcell_args = []
         self.fdiff_args = []
+        self.custom_seed_arg = None
         # only for cases when the tester is TesterDatamodelConverter
         # rework needed if there will be more such cases, 
         # i.e. to make the argument system more general 
@@ -68,6 +70,9 @@ class ExtraArgs:
             if FDIFF_ARGS_KEY in top_dict:
                 args_str =  top_dict[FDIFF_ARGS_KEY]
                 self.fdiff_args = args_str.split(' ')
+            if SEED_ARGS_KEY in top_dict:
+                seed_str =  top_dict[SEED_ARGS_KEY]
+                self.custom_seed_arg = int(seed_str)
             if FDIFF_DATAMODEL_CONVERTER_ARGS_KEY in top_dict:
                 fdiff_datamodel_converter_args =  top_dict[FDIFF_DATAMODEL_CONVERTER_ARGS_KEY]
                 self.fdiff_datamodel_converter_args = fdiff_datamodel_converter_args.split(' ')
@@ -258,8 +263,12 @@ class TesterBase:
     def run_mcell(self, mcell_args: List[str], main_mdl_file: str, seed=1, timeout_sec=MCELL_TIMEOUT) -> int:
         cmd = [ self.tool_paths.mcell_binary ]
         cmd += mcell_args
-        if seed != 1:
-            cmd += ['-seed', str(seed)]
+        if self.extra_args.custom_seed_arg or seed != 1:
+            # seed set as argument to this method has higher priority
+            if seed != 1:
+                cmd += ['-seed', str(seed)]
+            else:
+                cmd += ['-seed', str(self.extra_args.custom_seed_arg)]
         cmd += [ main_mdl_file ]
         cmd += self.extra_args.mcell_args
 
@@ -287,6 +296,10 @@ class TesterBase:
     
     
     def postrocess_mcell3r(self, seed=1):
+        # seed set as argument to this method has higher priority
+        if seed == 1 and self.extra_args.custom_seed_arg:
+            seed = self.extra_args.custom_seed_arg
+            
         cmd = [ self.tool_paths.python_binary, self.tool_paths.postprocess_mcell3r_script, str(seed), MAIN_MDLR_RULES_FILE ]
         log_name = self.test_name + '.postprocess_mcell3r.log'
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)

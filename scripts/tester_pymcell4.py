@@ -68,8 +68,18 @@ class TesterPymcell4(TesterBase):
         # we need to set the path to the build using MCELL_PATH system variable
         # and the command will be executed as shell
         cmdstr = 'export ' + MCELL_PATH_VARIABLE + '=' + self.tool_paths.mcell_path + ';'
-        cmdstr +=  self.tool_paths.python_binary + ' ' + os.path.join(test_dir, test_file)
-        cmd = [ cmdstr, '-seed', str(seed) ]
+        cmdstr +=  self.tool_paths.python_binary + ' ' + os.path.join(test_dir, test_file) + ' '
+        
+        # seed set as argument to this method has higher priority
+        if seed != 1:
+            cmdstr += '-seed ' + str(seed) + ' ' 
+        elif self.extra_args.custom_seed_arg:
+            cmdstr += '-seed ' + str(self.extra_args.custom_seed_arg) + ' '
+        else:
+            cmdstr += '-seed 1 '
+
+        # mixing string and list arguments but it does not matter because all will be converted to a string
+        cmd = [cmdstr]
         cmd += extra_args
         
         log_name = self.test_name + '_' + str(seed).zfill(5) + '.pymcell4.log'
