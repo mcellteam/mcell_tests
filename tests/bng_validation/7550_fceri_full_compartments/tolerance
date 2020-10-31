@@ -1,0 +1,42 @@
+5.48
+
+Validated with 1024 runs.
+
+24 runs with marker 'needs_viz_output_each_time_step':
+
+Lig(l!1,l!2).Rec(a!1,b~Y,g~Y).Rec(a!2,b~Y,g~Y):  -- (both<1)% (MCell4: 0.0417, BNG: -1.0000, MCell3: -1.0000)
+Lig(l!1,l).Lyn(SH2,U!2).Rec(a!1,b~Y!2,g~Y):  -- (both<1)% (MCell4: 0.0417, BNG: -1.0000, MCell3: 0.0417)
+Lig(l!1,l).Rec(a!1,b~Y,g~Y)   : 1.351% (MCell4: 3.0417, BNG: -1.0000, MCell3: 3.0833)
+Lig(l,l)                      : 0.000% (MCell4: 996.8750, BNG: -1.0000, MCell3: 996.8750)
+Lyn(SH2,U!1).Rec(a,b~Y!1,g~Y) : 5.479% (MCell4: 14.3750, BNG: -1.0000, MCell3: 15.2083)
+Lyn(SH2,U)                    : 0.315% (MCell4: 265.5833, BNG: -1.0000, MCell3: 264.7500)
+Rec(a,b~Y,g~Y)                : 0.207% (MCell4: 382.4583, BNG: -1.0000, MCell3: 381.6667)
+Syk(a~Y,l~Y,tSH2)             : 0.000% (MCell4: 400.0000, BNG: -1.0000, MCell3: 400.0000)
+
+
+256 runs with marker 'needs_viz_output_each_time_step':
+
+--- Validation results MCell4 vs MCell3R ---
+Lig(l!1,l!2).Rec(a!1,b~Y,g~Y).Rec(a!2,b~Y,g~Y):  -- (both<1)% (MCell4: 0.0078, BNG: -1.0000, MCell3: -1.0000)
+Lig(l!1,l).Lyn(SH2,U!2).Rec(a!1,b~Y!2,g~Y):  -- (both<1)% (MCell4: 0.1484, BNG: -1.0000, MCell3: 0.1250)
+Lig(l!1,l).Rec(a!1,b~Y,g~Y)   : 3.066% (MCell4: 3.2109, BNG: -1.0000, MCell3: 3.3125)
+Lig(l,l)                      : 0.009% (MCell4: 996.6328, BNG: -1.0000, MCell3: 996.5469)
+Lyn(SH2,U!1).Rec(a,b~Y!1,g~Y) : 4.764% (MCell4: 14.0547, BNG: -1.0000, MCell3: 14.7578)
+Lyn(SH2,U)                    : 0.256% (MCell4: 265.7969, BNG: -1.0000, MCell3: 265.1172)
+Rec(a,b~Y,g~Y)                : 0.209% (MCell4: 382.5703, BNG: -1.0000, MCell3: 381.7734)
+Syk(a~Y,l~Y,tSH2)             : 0.000% (MCell4: 400.0000, BNG: -1.0000, MCell3: 400.0000)
+--------------------------
+
+
+1024 runs with MCELL3_NEXT_BARRIER_IS_THE_NEXT_TIMESTEP defined:
+
+--- Validation results MCell4 vs MCell3R ---
+Lig(l!1,l!2).Rec(a!1,b~Y,g~Y).Rec(a!2,b~Y,g~Y):  -- (both<1)% (MCell4: 0.0059, BNG: -1.0000, MCell3: 0.0244)
+Lig(l!1,l!2).Rec(a!2,b~pY,g~Y).Rec(a!1,b~Y,g~Y):  -- (both<1)% (MCell4: 0.0010, BNG: -1.0000, MCell3: 0.0020)
+Lig(l!1,l).Lyn(SH2,U!2).Rec(a!1,b~Y!2,g~Y):  -- (both<1)% (MCell4: 0.1357, BNG: -1.0000, MCell3: 0.1338)
+Lig(l!1,l).Rec(a!1,b~Y,g~Y)   : 1.821% (MCell4: 3.3164, BNG: -1.0000, MCell3: 3.3779)
+Lig(l,l)                      : 0.008% (MCell4: 996.5410, BNG: -1.0000, MCell3: 996.4648)
+Lyn(SH2,U!1).Rec(a,b~Y!1,g~Y) : 1.546% (MCell4: 13.9922, BNG: -1.0000, MCell3: 14.2119)
+Lyn(SH2,U)                    : 0.083% (MCell4: 265.8721, BNG: -1.0000, MCell3: 265.6523)
+Rec(a,b~Y,g~Y)                : 0.084% (MCell4: 382.5420, BNG: -1.0000, MCell3: 382.2197)
+Syk(a~Y,l~Y,tSH2)             : 0.000% (MCell4: 400.0000, BNG: -1.0000, MCell3: 400.0000)
