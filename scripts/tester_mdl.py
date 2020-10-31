@@ -36,7 +36,6 @@ from utils import run, log, fatal_error
 UPDATE_REFERENCE=False
 
 MCELL_BASE_ARGS = ['-seed', '1']
-SEED_DIR = 'seed_00001'
 
 
 class TesterMdl(TesterBase):
@@ -48,8 +47,10 @@ class TesterMdl(TesterBase):
         TesterBase.check_prerequisites(tool_paths)        
         
     def update_reference(self) -> None:
-        reference = os.path.join('..', self.test_src_path, REF_VIZ_OUTPUT_DIR, SEED_DIR)
-        new_res = os.path.join(VIZ_OUTPUT_DIR, SEED_DIR)
+        seed_dir = self.get_seed_dir()
+                
+        reference = os.path.join('..', self.test_src_path, REF_VIZ_OUTPUT_DIR, seed_dir)
+        new_res = os.path.join(VIZ_OUTPUT_DIR, seed_dir)
 
         log("Updating reference " + reference + " with data from " + new_res + " (cwd:" + os.getcwd() + ")")
         
@@ -82,7 +83,7 @@ class TesterMdl(TesterBase):
             return res
         
         if not UPDATE_REFERENCE:
-            res = self.check_reference_data(SEED_DIR, viz_ref_required=True)
+            res = self.check_reference_data(viz_ref_required=True)
         else:
             self.update_reference()
         

@@ -39,9 +39,6 @@ sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
 from utils import run, log, fatal_error
 
 
-SEED_DIR = 'seed_00001'
-
-
 class TesterNutmegPymcell4(TesterNutmeg):
     def __init___(self, test_dir: str, args: List[str], tool_paths: ToolPaths):
         super(TesterMdl, self).__init__(test_dir, args, tool_paths)

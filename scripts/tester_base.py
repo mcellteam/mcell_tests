@@ -15,6 +15,7 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 For the complete terms of the GNU General Public License, please see this URL:
 http://www.gnu.org/licenses/gpl-2.0.html
 """
+from numpy.random.mtrand import seed
 
 """
 This module contains definition of a bbase class used to run tests.
@@ -129,6 +130,8 @@ class TesterBase:
 
         self.extra_args = ExtraArgs(self.test_src_path)
         
+        self.used_seed = None # set in run_* methods
+        
     @staticmethod
     def check_prerequisites(tool_paths: ToolPaths) -> None:
         if not os.path.exists(tool_paths.mcell_binary):
@@ -174,6 +177,10 @@ class TesterBase:
             return True
         else:
             return False
+    
+    def get_seed_dir(self):
+        assert self.used_seed
+        return 'seed_' + str(self.used_seed).zfill(5)
     
     def clean_and_create_work_dir(self) -> None:
         if os.path.exists(self.test_work_path):
@@ -225,7 +232,10 @@ class TesterBase:
             log_test_error(self.test_name, self.tester_name, msg)
         return res
 
-    def check_reference_data(self, seed_dir: str, viz_ref_required=False, fdiff_args_override=None) -> int:
+    def check_reference_data(self, viz_ref_required=False, fdiff_args_override=None) -> int:
+        
+        assert self.used_seed
+        seed_dir = self.get_seed_dir()
         
         if fdiff_args_override:
             fdiff_args = fdiff_args_override
@@ -263,12 +273,17 @@ class TesterBase:
     def run_mcell(self, mcell_args: List[str], main_mdl_file: str, seed=1, timeout_sec=MCELL_TIMEOUT) -> int:
         cmd = [ self.tool_paths.mcell_binary ]
         cmd += mcell_args
+        
         if self.extra_args.custom_seed_arg or seed != 1:
             # seed set as argument to this method has higher priority
             if seed != 1:
-                cmd += ['-seed', str(seed)]
+                self.used_seed = seed
             else:
-                cmd += ['-seed', str(self.extra_args.custom_seed_arg)]
+                self.used_seed = self.extra_args.custom_seed_arg
+        else:
+            self.used_seed = 1
+        cmd += ['-seed', str(self.used_seed)]
+                
         cmd += [ main_mdl_file ]
         cmd += self.extra_args.mcell_args
 
@@ -295,12 +310,16 @@ class TesterBase:
             return PASSED
     
     
-    def postrocess_mcell3r(self, seed=1):
-        # seed set as argument to this method has higher priority
-        if seed == 1 and self.extra_args.custom_seed_arg:
-            seed = self.extra_args.custom_seed_arg
+    def postrocess_mcell3r(self, seed=None):
+        # seed argument has higher priority (used from validation scripts)
+        # otherwise we will use the value used to run MCell 
+        if seed:
+            seed_to_convert = seed
+        else:
+            assert self.used_seed
+            seed_to_convert = self.used_seed 
             
-        cmd = [ self.tool_paths.python_binary, self.tool_paths.postprocess_mcell3r_script, str(seed), MAIN_MDLR_RULES_FILE ]
+        cmd = [ self.tool_paths.python_binary, self.tool_paths.postprocess_mcell3r_script, str(seed_to_convert), MAIN_MDLR_RULES_FILE ]
         log_name = self.test_name + '.postprocess_mcell3r.log'
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         if (exit_code):

@@ -37,7 +37,6 @@ from test_utils import log_test_error
 UPDATE_REFERENCE=False
 
 MCELL_BASE_ARGS = ['-seed', '1']
-SEED_DIR = 'seed_00001'
 
 
 class TesterBnglMcell3R(TesterBase):
@@ -83,5 +82,5 @@ class TesterBnglMcell3R(TesterBase):
         if res != PASSED:
             return res
         
-        res = self.check_reference_data(SEED_DIR, viz_ref_required=True)
+        res = self.check_reference_data(viz_ref_required=True)
         return res

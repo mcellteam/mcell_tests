@@ -38,8 +38,6 @@ from utils import run, log, fatal_error
 
 UPDATE_REFERENCE=False
 
-SEED_DIR = 'seed_00001'
-
 
 class TesterPymcell4(TesterBase):
     def __init___(self, test_dir: str, args: List[str], tool_paths: ToolPaths):
@@ -51,8 +49,9 @@ class TesterPymcell4(TesterBase):
             fatal_error("Could not find library '" + tool_paths.pymcell4_lib + ".")
         
     def update_reference(self) -> None:
-        reference = os.path.join('..', self.test_src_path, REF_VIZ_OUTPUT_DIR, SEED_DIR)
-        new_res = os.path.join(VIZ_OUTPUT_DIR, SEED_DIR)
+        seed_dir = self.get_seed_dir()
+        reference = os.path.join('..', self.test_src_path, REF_VIZ_OUTPUT_DIR, seed_dir)
+        new_res = os.path.join(VIZ_OUTPUT_DIR, seed_dir)
 
         log("Updating reference " + reference + " with data from " + new_res + " (cwd:" + os.getcwd() + ")")
         
@@ -72,11 +71,13 @@ class TesterPymcell4(TesterBase):
         
         # seed set as argument to this method has higher priority
         if seed != 1:
-            cmdstr += '-seed ' + str(seed) + ' ' 
+            self.used_seed = seed
         elif self.extra_args.custom_seed_arg:
-            cmdstr += '-seed ' + str(self.extra_args.custom_seed_arg) + ' '
+            self.used_seed = self.extra_args.custom_seed_arg
         else:
-            cmdstr += '-seed 1 '
+            self.used_seed = 1
+
+        cmdstr += '-seed ' + str(self.used_seed) + ' ' 
 
         # mixing string and list arguments but it does not matter because all will be converted to a string
         cmd = [cmdstr]
@@ -112,7 +113,7 @@ class TesterPymcell4(TesterBase):
             return res
     
         if not UPDATE_REFERENCE:
-            res = self.check_reference_data(SEED_DIR)
+            res = self.check_reference_data()
         else:
             self.update_reference()
         

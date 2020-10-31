@@ -39,7 +39,6 @@ from utils import run, log, fatal_error
 UPDATE_REFERENCE = False
 
 MCELL_BASE_ARGS = ['-seed', '1']
-SEED_DIR = 'seed_00001'
 
 
 class TesterDataModelPymcell4(TesterPymcell4):
@@ -122,5 +121,5 @@ class TesterDataModelPymcell4(TesterPymcell4):
         if res != PASSED and not self.expected_wrong_ec() and not self.is_todo_test():
             return res
         
-        res = self.check_reference_data(SEED_DIR, viz_ref_required=False, fdiff_args_override=self.extra_args.fdiff_datamodel_converter_args)
+        res = self.check_reference_data(viz_ref_required=False, fdiff_args_override=self.extra_args.fdiff_datamodel_converter_args)
         return res

@@ -35,11 +35,6 @@ THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
 from utils import run, log, fatal_error
 
-UPDATE_REFERENCE = False
-
-MCELL_BASE_ARGS = ['-seed', '1']
-SEED_DIR = 'seed_00001'
-
 
 class TesterPython(TesterBase):
     def __init___(self, test_src_path: str, args: List[str], tool_paths: ToolPaths):

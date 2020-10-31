@@ -37,8 +37,6 @@ from utils import run, log, fatal_error
 UPDATE_REFERENCE = False
 
 MCELL_BASE_ARGS = ['-seed', '1']
-SEED_DIR = 'seed_00001'
-
 
 class TesterDataModel(TesterBase):
     def __init___(self, test_src_path: str, args: List[str], tool_paths: ToolPaths):
@@ -52,8 +50,9 @@ class TesterDataModel(TesterBase):
         TesterBase.check_prerequisites(tool_paths)
 
     def update_reference(self) -> None:
-        viz_reference = os.path.join(self.test_src_path, get_ref_viz_data_dir(self.mcell4_testing), SEED_DIR)
-        viz_res = os.path.join(self.test_work_path, get_viz_data_dir(self.mcell4_testing), SEED_DIR)
+        seed_dir = self.get_seed_dir()
+        viz_reference = os.path.join(self.test_src_path, get_ref_viz_data_dir(self.mcell4_testing), seed_dir)
+        viz_res = os.path.join(self.test_work_path, get_viz_data_dir(self.mcell4_testing), seed_dir)
 
         if os.path.exists(viz_res):
             # remove whole directory
@@ -79,8 +78,8 @@ class TesterDataModel(TesterBase):
             shutil.copyfile(os.path.join(viz_res, files[-1]), os.path.join(viz_reference, files[-1]))
             
         # copy the whole react data files 
-        react_reference = os.path.join(self.test_src_path, get_ref_react_data_dir(self.mcell4_testing), SEED_DIR)
-        react_res = os.path.join(self.test_work_path, get_react_data_dir(self.mcell4_testing), SEED_DIR)
+        react_reference = os.path.join(self.test_src_path, get_ref_react_data_dir(self.mcell4_testing), seed_dir)
+        react_res = os.path.join(self.test_work_path, get_react_data_dir(self.mcell4_testing), seed_dir)
         
         if os.path.exists(react_res):
             # remove whole directory
@@ -186,7 +185,7 @@ class TesterDataModel(TesterBase):
             return res
         
         if not UPDATE_REFERENCE:
-            res = self.check_reference_data(SEED_DIR, viz_ref_required=False)
+            res = self.check_reference_data(viz_ref_required=False)
         else:
             self.update_reference()
         

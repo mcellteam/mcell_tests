@@ -35,7 +35,6 @@ from utils import run, log, fatal_error
 
 
 MCELL_BASE_ARGS = ['-seed', '1']
-SEED_DIR = 'seed_00001'
 
 
 class TesterBnglPymcell4(TesterPymcell4):
@@ -78,6 +77,6 @@ class TesterBnglPymcell4(TesterPymcell4):
         if res != PASSED and not self.expected_wrong_ec():
             return res
     
-        res = self.check_reference_data(SEED_DIR, viz_ref_required=True)
+        res = self.check_reference_data(viz_ref_required=True)
         
         return res

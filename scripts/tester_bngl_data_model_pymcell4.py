@@ -34,7 +34,6 @@ sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
 from utils import run, log, fatal_error
 
 EXPORT_SCRIPT = 'export_to_data_model.py'
-SEED_DIR = 'seed_00001'
 
 class TesterBnglDataModelPymcell4(TesterDataModelPymcell4):
     def __init___(self, test_dir: str, args: List[str], tool_paths: ToolPaths):
@@ -95,6 +94,6 @@ class TesterBnglDataModelPymcell4(TesterDataModelPymcell4):
         if res != PASSED and not self.expected_wrong_ec():
             return res
     
-        res = self.check_reference_data(SEED_DIR, viz_ref_required=True)
+        res = self.check_reference_data(viz_ref_required=True)
         
         return res

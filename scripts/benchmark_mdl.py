@@ -38,8 +38,6 @@ from utils import run, log, fatal_error
 UPDATE_REFERENCE=False
 
 MCELL_BASE_ARGS = ['-seed', '1']
-SEED_DIR = 'seed_00001'
-
 
 class BenchmarkMdl(TesterBase):
     def __init___(self, test_dir: str, args: List[str], tool_paths: ToolPaths):

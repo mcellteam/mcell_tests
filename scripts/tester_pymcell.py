@@ -36,8 +36,6 @@ from utils import run, log, fatal_error
 
 UPDATE_REFERENCE=False
 
-SEED_DIR = 'seed_0001'
-
 
 class TesterPymcell(TesterBase):
     def __init___(self, test_dir: str, args: List[str], tool_paths: ToolPaths):
@@ -49,8 +47,9 @@ class TesterPymcell(TesterBase):
             fatal_error("Could not find module '" + tool_paths.pymcell_module + ".")
         
     def update_reference(self) -> None:
-        reference = os.path.join('..', self.test_src_path, REF_VIZ_OUTPUT_DIR, SEED_DIR)
-        new_res = os.path.join(VIZ_OUTPUT_DIR, SEED_DIR)
+        seed_dir = self.get_seed_dir()
+        reference = os.path.join('..', self.test_src_path, REF_VIZ_OUTPUT_DIR, seed_dir)
+        new_res = os.path.join(VIZ_OUTPUT_DIR, seed_dir)
 
         log("Updating reference " + reference + " with data from " + new_res + " (cwd:" + os.getcwd() + ")")
         
@@ -94,7 +93,7 @@ class TesterPymcell(TesterBase):
             return res
     
         if not UPDATE_REFERENCE:
-            res = self.check_reference_data(SEED_DIR)
+            res = self.check_reference_data()
         else:
             self.update_reference()
         
