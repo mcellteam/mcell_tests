@@ -17,11 +17,17 @@ params = m.bngl_utils.load_bngl_parameters('test.bngl')
 
 ITERATIONS = int(params['ITERATIONS'])
 
-if len(sys.argv) == 3 and sys.argv[1] == '-seed':
+if len(sys.argv) >= 3 and sys.argv[1] == '-seed':
     # overwrite value SEED defined in module parameters
     SEED = int(sys.argv[2])
 else:
     SEED = 1
+
+if len(sys.argv) >= 4 and sys.argv[3] == '-viz-each-time-step':
+    # overwrite value SEED defined in module parameters
+    viz_every_n_timesteps = 1
+else:
+    viz_every_n_timesteps = ITERATIONS
     
 if 'MCELL_TIME_STEP' in params:
     TIME_STEP = float(params['MCELL_TIME_STEP'])
@@ -51,7 +57,7 @@ viz_output = m.VizOutput(
     mode = m.VizMode.ASCII,
     output_files_prefix = './viz_data4/seed_' + str(SEED).zfill(5) + '/Scene',
     all_species = True,
-    every_n_timesteps = ITERATIONS
+    every_n_timesteps = viz_every_n_timesteps
 )
 model.add_viz_output(viz_output)
 

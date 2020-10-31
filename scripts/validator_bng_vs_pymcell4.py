@@ -48,6 +48,7 @@ TEST_GDAT = 'test.gdat'
 class ValidatorBngVsPymcell4(TesterBnglPymcell4):
     def __init___(self, test_dir: str, args: List[str], tool_paths: ToolPaths):
         super(TesterMdl, self).__init__(test_dir, args, tool_paths)
+        needs_viz_output_each_time_step = False
     
     
     @staticmethod
@@ -102,8 +103,10 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         res = self.run_pymcell4(
             test_dir=self.test_work_path, 
             test_file='validation_model.py', 
+            extra_args = ['-viz-each-time-step'] if self.needs_viz_output_each_time_step else [],
             seed=seed, 
-            timeout_sec=VALIDATION_TIMEOUT)
+            timeout_sec=VALIDATION_TIMEOUT
+            )
         
         return res
     
@@ -474,6 +477,14 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
                 print('Overriding default tolerance to ' + str(tolerance) + '%')
         return tolerance
         
+        
+    def check_needs_viz_output_each_time_step(self):
+        # special handling for MCell3R because it does not create simulation barrier
+        # for BNGL observables 
+        fname = os.path.join(self.test_src_path, 'needs_viz_output_each_time_step')
+        return os.path.exists(fname)
+    
+        
     def test(self) -> int:
         if self.should_be_skipped():
             return SKIPPED
@@ -491,6 +502,9 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
             self.test_work_path 
         )
         
+        self.needs_viz_output_each_time_step = self.check_needs_viz_output_each_time_step()
+            
+        
         num_runs = self.tool_paths.opts.validation_runs
         seeds = self.generate_seeds(num_runs)
 
@@ -499,7 +513,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
             mcell3r_counts_per_run = {}
             if not ONLY_MCELL4_AND_BNG:
                 # run mcell3r
-                res = self.convert_bngl_to_mdl(only_last_viz_output=True)
+                res = self.convert_bngl_to_mdl(only_last_viz_output=not self.needs_viz_output_each_time_step)
                 if res != PASSED:
                     return res
                 
