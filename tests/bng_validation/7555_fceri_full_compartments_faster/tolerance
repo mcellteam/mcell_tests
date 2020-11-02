@@ -1,0 +1,125 @@
+0
+
+
+Single iteration (observables values for seed species + 1 it):
+
+MCell3R:
+LigRecDim                      0.0000
+LigRecMon                      0.0000
+LynFree                        1387.0000
+RecPbeta                       0.0000
+RecPgamma                      0.0000
+RecRecLigLynUg                 0.0000
+RecSyk                         0.0000
+RecSykPS                       0.0000
+
+MCell4:
+LigRecDim                      0.0000
+LigRecMon                      1.0000
+LynFree                        1385.0000
+RecPbeta                       0.0000
+RecPgamma                      0.0000
+RecRecLigLynUg                 0.0000
+RecSyk                         0.0000
+RecSykPS                       0.0000
+
+
+How come is there more LynFree than before?
+
+1024 runs w MCELL3_NEXT_BARRIER_IS_THE_NEXT_TIMESTEP:
+
+--- Validation results MCell4 vs MCell3R ---
+LigRecDim                     : 15.035% (MCell4: 159.0898, BNG: 1939.1484, MCell3: 187.2422)
+LigRecMon                     : 48.783% (MCell4: 1840.8740, BNG: 0.0292, MCell3: 3594.2383)
+LynFree                       : 72.289% (MCell4: 917.9746, BNG: 1.2192, MCell3: 3312.7051)
+RecPbeta                      : 8.790% (MCell4: 159.0615, BNG: 1893.8553, MCell3: 174.3906)
+RecPgamma                     : 5.714% (MCell4: 159.0381, BNG: 1888.9594, MCell3: 168.6768)
+RecRecLigLynUg                :  -- (both<1)% (MCell4: 0.0039, BNG: 0.7314, MCell3: 0.7236)
+RecSyk                        : 5.653% (MCell4: 158.9209, BNG: 1510.9898, MCell3: 168.4424)
+RecSykPS                      : 4.891% (MCell4: 158.7178, BNG: 1443.0720, MCell3: 166.8799)
+
+
+
+Prev results (different model):
+Lig(l!1,l!2).Lyn(SH2!3,U).Lyn(SH2!4,U).Rec(a!1,b~pY!3,g~Y).Rec(a!2,b~pY!4,g~Y):  -- (both<1)% (MCell4: 0.0283, BNG: -1.0000, MCell3: 0.0459)
+Lig(l!1,l!2).Lyn(SH2!3,U).Lyn(SH2!4,U).Rec(a!1,b~pY!3,g~pY!5).Rec(a!2,b~pY!4,g~Y).Syk(a~Y,l~Y,tSH2!5):  -- (both<1)% (MCell4: 0.0059, BNG: -1.0000, MCell3: 0.0039)
+Lig(l!1,l!2).Lyn(SH2!3,U).Lyn(SH2!4,U).Rec(a!1,b~pY!3,g~pY!5).Rec(a!2,b~pY!4,g~Y).Syk(a~Y,l~pY,tSH2!5):  -- (both<1)% (MCell4: 0.2314, BNG: -1.0000, MCell3: 0.3447)
+Lig(l!1,l!2).Lyn(SH2!3,U).Lyn(SH2!4,U).Rec(a!1,b~pY!3,g~pY!5).Rec(a!2,b~pY!4,g~Y).Syk(a~pY,l~pY,tSH2!5):  -- (both<1)% (MCell4: 0.0029, BNG: -1.0000, MCell3: 0.0010)
+Lig(l!1,l!2).Lyn(SH2!3,U).Lyn(SH2!4,U).Rec(a!1,b~pY!3,g~pY!5).Rec(a!2,b~pY!4,g~pY!6).Syk(a~Y,l~pY,tSH2!5).Syk(a~Y,l~Y,tSH2!6):  -- (both<1)% (MCell4: 0.0020, BNG: -1.0000, MCell3: -1.0000)
+Lig(l!1,l!2).Lyn(SH2!3,U).Lyn(SH2!4,U).Rec(a!1,b~pY!3,g~pY!5).Rec(a!2,b~pY!4,g~pY!6).Syk(a~Y,l~pY,tSH2!5).Syk(a~Y,l~pY,tSH2!6):  -- (both<1)% (MCell4: 0.0020, BNG: -1.0000, MCell3: 0.0029)
+Lig(l!1,l!2).Lyn(SH2!3,U).Lyn(SH2!4,U).Rec(a!1,b~pY!3,g~pY!5).Rec(a!2,b~pY!4,g~pY!6).Syk(a~pY,l~Y,tSH2!6).Syk(a~Y,l~pY,tSH2!5):  -- (both<1)% (MCell4: 0.0010, BNG: -1.0000, MCell3: 0.0029)
+Lig(l!1,l!2).Lyn(SH2!3,U).Lyn(SH2!4,U).Rec(a!1,b~pY!3,g~pY!5).Rec(a!2,b~pY!4,g~pY!6).Syk(a~pY,l~pY,tSH2!5).Syk(a~Y,l~Y,tSH2!6):  -- (both<1)% (MCell4: 0.0039, BNG: -1.0000, MCell3: 0.0020)
+Lig(l!1,l!2).Lyn(SH2!3,U).Lyn(SH2!4,U).Rec(a!1,b~pY!3,g~pY!5).Rec(a!2,b~pY!4,g~pY!6).Syk(a~pY,l~pY,tSH2!5).Syk(a~pY,l~Y,tSH2!6):  -- (both<1)% (MCell4: 0.0137, BNG: -1.0000, MCell3: 0.0215)
+Lig(l!1,l!2).Lyn(SH2!3,U).Lyn(SH2!4,U).Rec(a!1,b~pY!3,g~pY!5).Rec(a!2,b~pY!4,g~pY!6).Syk(a~pY,l~pY,tSH2!5).Syk(a~pY,l~pY,tSH2!6): 15.572% (MCell4: 3.2773, BNG: -1.0000, MCell3: 3.8818)
+Lig(l!1,l!2).Lyn(SH2!3,U).Lyn(SH2!4,U).Rec(a!1,b~pY!3,g~pY!5).Rec(a!2,b~pY!4,g~pY!6).Syk(a~pY,l~pY,tSH2!6).Syk(a~Y,l~pY,tSH2!5):  -- (both<1)% (MCell4: 0.0107, BNG: -1.0000, MCell3: 0.0127)
+Lig(l!1,l!2).Lyn(SH2!3,U).Lyn(SH2!4,U).Rec(a!1,b~pY!3,g~pY!5).Rec(a!2,b~pY!4,g~pY).Syk(a~Y,l~Y,tSH2!5):  -- (both<1)% (MCell4: 0.0020, BNG: -1.0000, MCell3: -1.0000)
+Lig(l!1,l!2).Lyn(SH2!3,U).Lyn(SH2!4,U).Rec(a!1,b~pY!3,g~pY!5).Rec(a!2,b~pY!4,g~pY).Syk(a~Y,l~pY,tSH2!5):  -- (both<1)% (MCell4: 0.0205, BNG: -1.0000, MCell3: 0.0215)
+Lig(l!1,l!2).Lyn(SH2!3,U).Lyn(SH2!4,U).Rec(a!1,b~pY!3,g~pY!5).Rec(a!2,b~pY!4,g~pY).Syk(a~pY,l~pY,tSH2!5):  -- (both<1)% (MCell4: 0.0244, BNG: -1.0000, MCell3: 0.0186)
+Lig(l!1,l!2).Lyn(SH2!3,U).Lyn(SH2!4,U).Rec(a!2,b~pY!4,g~pY).Rec(a!1,b~pY!3,g~Y):  -- (both<1)% (MCell4: 0.0049, BNG: -1.0000, MCell3: 0.0059)
+Lig(l!1,l!2).Lyn(SH2!3,U).Lyn(SH2,U!4).Rec(a!1,b~Y!4,g~pY!5).Rec(a!2,b~pY!3,g~Y).Syk(a~Y,l~pY,tSH2!5):  -- (both<1)% (MCell4: 0.0010, BNG: -1.0000, MCell3: -1.0000)
+Lig(l!1,l!2).Lyn(SH2!3,U).Lyn(SH2,U!4).Rec(a!1,b~pY!3,g~Y).Rec(a!2,b~Y!4,g~Y):  -- (both<1)% (MCell4: 0.0107, BNG: -1.0000, MCell3: 0.0039)
+Lig(l!1,l!2).Lyn(SH2!3,U).Lyn(SH2,U!4).Rec(a!2,b~pY!3,g~pY!5).Rec(a!1,b~Y!4,g~pY!6).Syk(a~pY,l~pY,tSH2!6).Syk(a~pY,l~pY,tSH2!5):  -- (both<1)% (MCell4: 0.0010, BNG: -1.0000, MCell3: -1.0000)
+Lig(l!1,l!2).Lyn(SH2!3,U).Rec(a!1,b~pY!3,g~Y).Rec(a!2,b~Y,g~Y):  -- (both<1)% (MCell4: 0.0059, BNG: -1.0000, MCell3: 0.0068)
+Lig(l!1,l!2).Lyn(SH2!3,U).Rec(a!1,b~pY!3,g~Y).Rec(a!2,b~pY,g~Y):  -- (both<1)% (MCell4: 0.2021, BNG: -1.0000, MCell3: 0.2148)
+Lig(l!1,l!2).Lyn(SH2!3,U).Rec(a!1,b~pY!3,g~Y).Rec(a!2,b~pY,g~pY):  -- (both<1)% (MCell4: 0.0156, BNG: -1.0000, MCell3: 0.0127)
+Lig(l!1,l!2).Lyn(SH2!3,U).Rec(a!1,b~pY!3,g~pY!4).Rec(a!2,b~Y,g~Y).Syk(a~Y,l~Y,tSH2!4):  -- (both<1)% (MCell4: 0.0020, BNG: -1.0000, MCell3: -1.0000)
+Lig(l!1,l!2).Lyn(SH2!3,U).Rec(a!1,b~pY!3,g~pY!4).Rec(a!2,b~Y,g~Y).Syk(a~Y,l~pY,tSH2!4):  -- (both<1)% (MCell4: 0.0029, BNG: -1.0000, MCell3: -1.0000)
+Lig(l!1,l!2).Lyn(SH2!3,U).Rec(a!1,b~pY!3,g~pY!4).Rec(a!2,b~pY,g~Y).Syk(a~Y,l~Y,tSH2!4):  -- (both<1)% (MCell4: 0.0107, BNG: -1.0000, MCell3: 0.0186)
+Lig(l!1,l!2).Lyn(SH2!3,U).Rec(a!1,b~pY!3,g~pY!4).Rec(a!2,b~pY,g~Y).Syk(a~Y,l~pY,tSH2!4):  -- (both<1)% (MCell4: 0.0361, BNG: -1.0000, MCell3: 0.0283)
+Lig(l!1,l!2).Lyn(SH2!3,U).Rec(a!1,b~pY!3,g~pY!4).Rec(a!2,b~pY,g~Y).Syk(a~pY,l~pY,tSH2!4):  -- (both<1)% (MCell4: 0.0010, BNG: -1.0000, MCell3: -1.0000)
+Lig(l!1,l!2).Lyn(SH2!3,U).Rec(a!1,b~pY!3,g~pY!4).Rec(a!2,b~pY,g~pY!5).Syk(a~pY,l~pY,tSH2!4).Syk(a~pY,l~Y,tSH2!5):  -- (both<1)% (MCell4: 0.0039, BNG: -1.0000, MCell3: 0.0010)
+Lig(l!1,l!2).Lyn(SH2!3,U).Rec(a!1,b~pY!3,g~pY!4).Rec(a!2,b~pY,g~pY).Syk(a~Y,l~pY,tSH2!4):  -- (both<1)% (MCell4: 0.0020, BNG: -1.0000, MCell3: 0.0029)
+Lig(l!1,l!2).Lyn(SH2!3,U).Rec(a!1,b~pY!3,g~pY!4).Rec(a!2,b~pY,g~pY).Syk(a~pY,l~pY,tSH2!4):  -- (both<1)% (MCell4: 0.0039, BNG: -1.0000, MCell3: 0.0029)
+Lig(l!1,l!2).Lyn(SH2!3,U).Rec(a!2,b~pY!3,g~Y).Rec(a!1,b~Y,g~pY!4).Syk(a~Y,l~pY,tSH2!4):  -- (both<1)% (MCell4: 0.0010, BNG: -1.0000, MCell3: 0.0010)
+Lig(l!1,l!2).Lyn(SH2!3,U).Rec(a!2,b~pY!3,g~Y).Rec(a!1,b~pY,g~pY!4).Syk(a~Y,l~Y,tSH2!4):  -- (both<1)% (MCell4: 0.0166, BNG: -1.0000, MCell3: 0.0068)
+Lig(l!1,l!2).Lyn(SH2!3,U).Rec(a!2,b~pY!3,g~Y).Rec(a!1,b~pY,g~pY!4).Syk(a~Y,l~pY,tSH2!4):  -- (both<1)% (MCell4: 0.5430, BNG: -1.0000, MCell3: 0.6299)
+Lig(l!1,l!2).Lyn(SH2!3,U).Rec(a!2,b~pY!3,g~Y).Rec(a!1,b~pY,g~pY!4).Syk(a~pY,l~pY,tSH2!4):  -- (both<1)% (MCell4: 0.0039, BNG: -1.0000, MCell3: -1.0000)
+Lig(l!1,l!2).Lyn(SH2!3,U).Rec(a!2,b~pY!3,g~pY!4).Rec(a!1,b~pY,g~pY!5).Syk(a~Y,l~pY,tSH2!5).Syk(a~Y,l~pY,tSH2!4):  -- (both<1)% (MCell4: 0.0010, BNG: -1.0000, MCell3: 0.0010)
+Lig(l!1,l!2).Lyn(SH2!3,U).Rec(a!2,b~pY!3,g~pY!4).Rec(a!1,b~pY,g~pY!5).Syk(a~pY,l~Y,tSH2!4).Syk(a~Y,l~pY,tSH2!5):  -- (both<1)% (MCell4: 0.0010, BNG: -1.0000, MCell3: -1.0000)
+Lig(l!1,l!2).Lyn(SH2!3,U).Rec(a!2,b~pY!3,g~pY!4).Rec(a!1,b~pY,g~pY!5).Syk(a~pY,l~pY,tSH2!5).Syk(a~Y,l~Y,tSH2!4):  -- (both<1)% (MCell4: 0.0010, BNG: -1.0000, MCell3: 0.0010)
+Lig(l!1,l!2).Lyn(SH2!3,U).Rec(a!2,b~pY!3,g~pY!4).Rec(a!1,b~pY,g~pY!5).Syk(a~pY,l~pY,tSH2!5).Syk(a~pY,l~Y,tSH2!4):  -- (both<1)% (MCell4: 0.1152, BNG: -1.0000, MCell3: 0.1250)
+Lig(l!1,l!2).Lyn(SH2!3,U).Rec(a!2,b~pY!3,g~pY!4).Rec(a!1,b~pY,g~pY!5).Syk(a~pY,l~pY,tSH2!5).Syk(a~pY,l~pY,tSH2!4):  -- (both<1)% (MCell4: 0.5693, BNG: -1.0000, MCell3: 0.6025)
+Lig(l!1,l!2).Lyn(SH2!3,U).Rec(a!2,b~pY!3,g~pY).Rec(a!1,b~pY,g~pY!4).Syk(a~pY,l~pY,tSH2!4):  -- (both<1)% (MCell4: 0.0039, BNG: -1.0000, MCell3: 0.0039)
+Lig(l!1,l!2).Lyn(SH2,U!3).Rec(a!1,b~Y!3,g~Y).Rec(a!2,b~Y,g~Y):  -- (both<1)% (MCell4: 0.0488, BNG: -1.0000, MCell3: 0.0420)
+Lig(l!1,l!2).Lyn(SH2,U!3).Rec(a!1,b~Y!3,g~Y).Rec(a!2,b~Y,g~pY):  -- (both<1)% (MCell4: 0.0010, BNG: -1.0000, MCell3: -1.0000)
+Lig(l!1,l!2).Lyn(SH2,U!3).Rec(a!1,b~Y!3,g~Y).Rec(a!2,b~pY,g~Y):  -- (both<1)% (MCell4: 0.1514, BNG: -1.0000, MCell3: 0.0898)
+Lig(l!1,l!2).Lyn(SH2,U!3).Rec(a!1,b~Y!3,g~Y).Rec(a!2,b~pY,g~pY):  -- (both<1)% (MCell4: 0.0029, BNG: -1.0000, MCell3: 0.0029)
+Lig(l!1,l!2).Lyn(SH2,U!3).Rec(a!1,b~Y!3,g~pY!4).Rec(a!2,b~Y,g~Y).Syk(a~Y,l~pY,tSH2!4):  -- (both<1)% (MCell4: 0.0010, BNG: -1.0000, MCell3: -1.0000)
+Lig(l!1,l!2).Lyn(SH2,U!3).Rec(a!1,b~Y!3,g~pY!4).Rec(a!2,b~pY,g~Y).Syk(a~Y,l~Y,tSH2!4):  -- (both<1)% (MCell4: 0.0020, BNG: -1.0000, MCell3: -1.0000)
+Lig(l!1,l!2).Lyn(SH2,U!3).Rec(a!1,b~Y!3,g~pY!4).Rec(a!2,b~pY,g~Y).Syk(a~Y,l~pY,tSH2!4):  -- (both<1)% (MCell4: 0.0020, BNG: -1.0000, MCell3: 0.0020)
+Lig(l!1,l!2).Lyn(SH2,U!3).Rec(a!2,b~Y!3,g~Y).Rec(a!1,b~Y,g~pY!4).Syk(a~Y,l~Y,tSH2!4):  -- (both<1)% (MCell4: 0.0020, BNG: -1.0000, MCell3: -1.0000)
+Lig(l!1,l!2).Lyn(SH2,U!3).Rec(a!2,b~Y!3,g~Y).Rec(a!1,b~pY,g~pY!4).Syk(a~Y,l~Y,tSH2!4):  -- (both<1)% (MCell4: 0.0059, BNG: -1.0000, MCell3: 0.0020)
+Lig(l!1,l!2).Lyn(SH2,U!3).Rec(a!2,b~Y!3,g~Y).Rec(a!1,b~pY,g~pY!4).Syk(a~Y,l~pY,tSH2!4):  -- (both<1)% (MCell4: 0.0234, BNG: -1.0000, MCell3: 0.0098)
+Lig(l!1,l!2).Lyn(SH2,U!3).Rec(a!2,b~Y!3,g~pY!4).Rec(a!1,b~pY,g~pY!5).Syk(a~pY,l~Y,tSH2!5).Syk(a~pY,l~Y,tSH2!4):  -- (both<1)% (MCell4: 0.0010, BNG: -1.0000, MCell3: -1.0000)
+Lig(l!1,l!2).Rec(a!1,b~Y,g~Y).Rec(a!2,b~Y,g~Y):  -- (both<1)% (MCell4: 0.9150, BNG: 0.1267, MCell3: 0.8613)
+Lig(l!1,l!2).Rec(a!1,b~Y,g~pY!3).Rec(a!2,b~Y,g~Y).Syk(a~Y,l~Y,tSH2!3):  -- (both<1)% (MCell4: 0.0107, BNG: -1.0000, MCell3: 0.0098)
+Lig(l!1,l!2).Rec(a!1,b~Y,g~pY!3).Rec(a!2,b~Y,g~Y).Syk(a~Y,l~pY,tSH2!3):  -- (both<1)% (MCell4: 0.0127, BNG: -1.0000, MCell3: 0.0088)
+Lig(l!1,l!2).Rec(a!1,b~Y,g~pY!3).Rec(a!2,b~Y,g~Y).Syk(a~pY,l~Y,tSH2!3):  -- (both<1)% (MCell4: 0.0010, BNG: -1.0000, MCell3: -1.0000)
+Lig(l!1,l!2).Rec(a!1,b~Y,g~pY).Rec(a!2,b~Y,g~Y):  -- (both<1)% (MCell4: 0.0010, BNG: -1.0000, MCell3: -1.0000)
+Lig(l!1,l!2).Rec(a!1,b~pY,g~Y).Rec(a!2,b~pY,g~Y):  -- (both<1)% (MCell4: 0.0059, BNG: -1.0000, MCell3: 0.0146)
+Lig(l!1,l!2).Rec(a!1,b~pY,g~pY!3).Rec(a!2,b~Y,g~Y).Syk(a~Y,l~Y,tSH2!3):  -- (both<1)% (MCell4: 0.0820, BNG: -1.0000, MCell3: 0.0459)
+Lig(l!1,l!2).Rec(a!1,b~pY,g~pY!3).Rec(a!2,b~Y,g~Y).Syk(a~Y,l~pY,tSH2!3):  -- (both<1)% (MCell4: 0.1641, BNG: -1.0000, MCell3: 0.0615)
+Lig(l!1,l!2).Rec(a!1,b~pY,g~pY!3).Rec(a!2,b~Y,g~Y).Syk(a~pY,l~Y,tSH2!3):  -- (both<1)% (MCell4: 0.0010, BNG: -1.0000, MCell3: -1.0000)
+Lig(l!1,l!2).Rec(a!1,b~pY,g~pY!3).Rec(a!2,b~Y,g~Y).Syk(a~pY,l~pY,tSH2!3):  -- (both<1)% (MCell4: 0.0020, BNG: -1.0000, MCell3: -1.0000)
+Lig(l!1,l!2).Rec(a!1,b~pY,g~pY!3).Rec(a!2,b~Y,g~pY!4).Syk(a~pY,l~pY,tSH2!3).Syk(a~pY,l~Y,tSH2!4):  -- (both<1)% (MCell4: 0.0020, BNG: -1.0000, MCell3: 0.0020)
+Lig(l!1,l!2).Rec(a!1,b~pY,g~pY!3).Rec(a!2,b~pY,g~Y).Syk(a~Y,l~Y,tSH2!3):  -- (both<1)% (MCell4: 0.0029, BNG: -1.0000, MCell3: 0.0088)
+Lig(l!1,l!2).Rec(a!1,b~pY,g~pY!3).Rec(a!2,b~pY,g~Y).Syk(a~Y,l~pY,tSH2!3):  -- (both<1)% (MCell4: 0.0312, BNG: -1.0000, MCell3: 0.0205)
+Lig(l!1,l!2).Rec(a!1,b~pY,g~pY!3).Rec(a!2,b~pY,g~pY!4).Syk(a~pY,l~Y,tSH2!3).Syk(a~pY,l~Y,tSH2!4):  -- (both<1)% (MCell4: 0.0029, BNG: -1.0000, MCell3: -1.0000)
+Lig(l!1,l!2).Rec(a!1,b~pY,g~pY!3).Rec(a!2,b~pY,g~pY!4).Syk(a~pY,l~pY,tSH2!3).Syk(a~pY,l~Y,tSH2!4):  -- (both<1)% (MCell4: 0.0039, BNG: -1.0000, MCell3: 0.0088)
+Lig(l!1,l!2).Rec(a!1,b~pY,g~pY!3).Rec(a!2,b~pY,g~pY!4).Syk(a~pY,l~pY,tSH2!3).Syk(a~pY,l~pY,tSH2!4):  -- (both<1)% (MCell4: 0.0234, BNG: -1.0000, MCell3: 0.0283)
+Lig(l!1,l!2).Rec(a!1,b~pY,g~pY).Rec(a!2,b~Y,g~Y):  -- (both<1)% (MCell4: 0.0010, BNG: -1.0000, MCell3: -1.0000)
+Lig(l!1,l!2).Rec(a!2,b~pY,g~Y).Rec(a!1,b~Y,g~Y): 71.615% (MCell4: 1.4111, BNG: -1.0000, MCell3: 0.8223)
+Lig(l!1,l!2).Rec(a!2,b~pY,g~Y).Rec(a!1,b~Y,g~pY!3).Syk(a~Y,l~Y,tSH2!3):  -- (both<1)% (MCell4: 0.0273, BNG: -1.0000, MCell3: 0.0098)
+Lig(l!1,l!2).Rec(a!2,b~pY,g~Y).Rec(a!1,b~Y,g~pY!3).Syk(a~Y,l~pY,tSH2!3):  -- (both<1)% (MCell4: 0.0137, BNG: -1.0000, MCell3: 0.0029)
+Lig(l!1,l!2).Rec(a!2,b~pY,g~pY!3).Rec(a!1,b~Y,g~pY!4).Syk(a~pY,l~Y,tSH2!4).Syk(a~pY,l~Y,tSH2!3):  -- (both<1)% (MCell4: 0.0010, BNG: -1.0000, MCell3: -1.0000)
+Lig(l!1,l!2).Rec(a!2,b~pY,g~pY!3).Rec(a!1,b~Y,g~pY!4).Syk(a~pY,l~pY,tSH2!4).Syk(a~pY,l~pY,tSH2!3):  -- (both<1)% (MCell4: 0.0078, BNG: -1.0000, MCell3: 0.0039)
+Lig(l!1,l).Lyn(SH2,U!2).Rec(a!1,b~Y!2,g~Y): 0.056% (MCell4: 5.2656, BNG: 0.0016, MCell3: 5.2627)
+Lig(l!1,l).Rec(a!1,b~Y,g~Y)   : 0.866% (MCell4: 95.0254, BNG: 0.0952, MCell3: 94.2100)
+Lig(l,l)                      : 0.097% (MCell4: 891.5586, BNG: 806.6067, MCell3: 892.4238)
+Lyn(SH2,U!1).Rec(a,b~Y!1,g~Y) : 0.249% (MCell4: 14.9434, BNG: 0.2206, MCell3: 14.9062)
+Lyn(SH2,U)                    : 0.584% (MCell4: 250.7207, BNG: 1.2179, MCell3: 249.2656)
+Rec(a,b~Y,g~Y)                : 0.352% (MCell4: 268.4648, BNG: 13.0897, MCell3: 269.4141)
+Syk(a~Y,l~Y,tSH2)             : 0.445% (MCell4: 387.4238, BNG: 48.3338, MCell3: 385.7090)
+Syk(a~Y,l~pY,tSH2)            :  -- (both<1)% (MCell4: 0.7480, BNG: -1.0000, MCell3: 0.8721)
+Syk(a~pY,l~Y,tSH2)            :  -- (both<1)% (MCell4: 0.4307, BNG: -1.0000, MCell3: 0.4600)
+Syk(a~pY,l~pY,tSH2)           : 11.986% (MCell4: 2.0078, BNG: -1.0000, MCell3: 2.2812)

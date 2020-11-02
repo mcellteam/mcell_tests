@@ -256,7 +256,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
             # use observables from react_output
             counts = self.get_molecule_counts(seeds, res_codes, suffix)
         else:
-            # use molecule counts
+            # use molecule counts from viz output
             counts = self.get_species_counts(seeds, res_codes, suffix)
 
     
