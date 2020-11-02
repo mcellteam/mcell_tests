@@ -37,8 +37,7 @@ begin parameters
   dc  0.1 * unimol_rxn
   dm  0.1 * unimol_rxn
   
-  ITERATIONS 10000
-  #ITERATIONS 1
+  ITERATIONS 8000
   
    # MCELL parameters
   MCELL_REDEFINE_vol_rxn  NA_um3 #takes from microcubed to molar per second since this is what mcell likes
@@ -71,10 +70,10 @@ begin compartments
   CP 3 vol_CP PM
 end compartments
 begin seed species
-   @EC:Lig(l,l)  Lig_tot * 5 # release sites, bascially
-   @PM:Lyn(SH2,U)  Lyn_tot * 5 
-   @CP:Syk(a~Y,l~Y,tSH2)  Syk_tot * 5 
-   @PM:Rec(a,b~Y,g~Y)  Rec_tot * 5
+   @EC:Lig(l,l)  Lig_tot # release sites, bascially
+   @PM:Lyn(SH2,U)  Lyn_tot 
+   @CP:Syk(a~Y,l~Y,tSH2)  Syk_tot 
+   @PM:Rec(a,b~Y,g~Y)  Rec_tot
 end seed species
 begin observables
   Molecules LigRecMon Lig(l!1,l).Rec(a!1)                                      # Should be: "COUNT[Rec(a!1).Lig(l!1,l), WORLD]"
