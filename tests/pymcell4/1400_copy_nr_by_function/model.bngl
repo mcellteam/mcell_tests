@@ -1,0 +1,13 @@
+
+begin parameters
+    # this way one can specify diffusion constant
+    MCELL_DIFFUSION_CONSTANT_3D_A 1e-6
+end parameters
+
+begin molecule types
+    A
+end molecule types    
+
+begin observables
+    Molecules A A
+end observables
