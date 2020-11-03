@@ -36,6 +36,7 @@ import re
 import argparse
 import shutil
 import time
+import psutil
 from threading import Timer
 from typing import List, Dict
 import toml
@@ -217,6 +218,12 @@ def run_single_test(test_info: TestInfo, tool_paths: ToolPaths) -> int:
     start = time.time()
 
     test_obj = test_info.tester_class(test_info.test_path, test_info.test_dir_suffix, test_info.args, tool_paths)
+    
+    # do not run certain tests if one has less than ~8BG of RAM
+    if os.path.exists(os.path.join(test_obj.test_src_path, 'skip_mem')) and psutil.virtual_memory().total < 8000000000:
+        print("Test " + test_obj.test_src_path + " skipped due to its memory requirements.")
+        return SKIPPED
+    
     res = test_obj.test()
     
     end = time.time()
