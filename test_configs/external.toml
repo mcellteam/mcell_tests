@@ -25,7 +25,7 @@
   testerClass = 'TesterExternal'
   args = [
     'export MCELL_PATH=$MCELL_BUILD_DIR;',
-    'python', 
+    'python3', 
     '$MCELL_BUILD_DIR/utils/mcell4_runner.py', 
     '$MCELL_TESTS_DIR/tests/utils_tests/mcell4_runner/0001_args_file/test.py', 
     '-a', '$MCELL_TESTS_DIR/tests/utils_tests/mcell4_runner/0001_args_file/test_args.txt'
