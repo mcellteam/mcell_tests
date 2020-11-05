@@ -14,7 +14,7 @@ keywords = ["error messages"]
 
 [[checks]]
   dataFile = "err_%d.0.log"
-  matchPattern = "Error: Combination of similarly oriented CLAMP_CONCENTRATION reaction and regular reaction for molecule 'a' on the same surface class 'sc' is not allowed."
+  matchPattern = "Error: Combination of similarly oriented CLAMP reaction and regular reaction for molecule 'a' on the same surface class 'sc' is not allowed."
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"
 
