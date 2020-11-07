@@ -311,7 +311,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         # run in work dir
         exit_code = run(cmd, shell=True, cwd=dir, verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         
-        if (exit_code):
+        if exit_code != 0:
             log_test_error(self.test_name, self.tester_name, "BNG2.pl failed, see '" + os.path.join(dir, log_name) + "'.")
             return FAILED_BNG2PL
         else:
