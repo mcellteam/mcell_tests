@@ -1,0 +1,492 @@
+{
+ "mcell": {
+  "cellblender_version": "0.1.54",
+  "geometrical_objects": {
+   "object_list": [
+    {
+     "vertex_list": [
+      [
+       -0.25,
+       -0.25,
+       -0.25
+      ],
+      [
+       -0.25,
+       -0.25,
+       0.25
+      ],
+      [
+       -0.25,
+       0.25,
+       -0.25
+      ],
+      [
+       -0.25,
+       0.25,
+       0.25
+      ],
+      [
+       0.25,
+       -0.25,
+       -0.25
+      ],
+      [
+       0.25,
+       -0.25,
+       0.25
+      ],
+      [
+       0.25,
+       0.25,
+       -0.25
+      ],
+      [
+       0.25,
+       0.25,
+       0.25
+      ]
+     ],
+     "name": "Cube",
+     "element_connections": [
+      [
+       1,
+       2,
+       0
+      ],
+      [
+       3,
+       6,
+       2
+      ],
+      [
+       7,
+       4,
+       6
+      ],
+      [
+       5,
+       0,
+       4
+      ],
+      [
+       6,
+       0,
+       2
+      ],
+      [
+       3,
+       5,
+       7
+      ],
+      [
+       1,
+       3,
+       2
+      ],
+      [
+       3,
+       7,
+       6
+      ],
+      [
+       7,
+       5,
+       4
+      ],
+      [
+       5,
+       1,
+       0
+      ],
+      [
+       6,
+       4,
+       0
+      ],
+      [
+       3,
+       1,
+       5
+      ]
+     ],
+     "define_surface_regions": [
+      {
+       "name": "left_side",
+       "include_elements": [
+        3,
+        9
+       ]
+      },
+      {
+       "name": "right_side",
+       "include_elements": [
+        1,
+        7
+       ]
+      }
+     ],
+     "material_names": [
+      "Cube_mat"
+     ],
+     "location": [
+      0,
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  "define_molecules": {
+   "molecule_list": [
+    {
+     "mol_bngl_label": "",
+     "description": "",
+     "export_viz": false,
+     "bngl_component_list": [],
+     "custom_space_step": "",
+     "target_only": false,
+     "mol_type": "3D",
+     "maximum_step_length": "",
+     "mol_name": "a",
+     "data_model_version": "DM_2018_10_16_1632",
+     "spatial_structure": "None",
+     "custom_time_step": "",
+     "diffusion_constant": "1e-6",
+     "display": {
+      "glyph": "Sphere_1",
+      "scale": 1.0,
+      "emit": 0.0,
+      "color": [
+       1.0,
+       0.0,
+       0.0
+      ]
+     }
+    }
+   ],
+   "data_model_version": "DM_2014_10_24_1638",
+   "molmaker": {
+    "print_debug": false,
+    "molcomp_list": [],
+    "skip_fixed_comp_index": -1,
+    "skip_rotation": false,
+    "dynamic_rotation": false,
+    "molecule_definition": "",
+    "comp_loc_text_name": "",
+    "cellblender_colors": true,
+    "bending_rotation": true,
+    "axial_rotation": true,
+    "show_key_planes": true,
+    "make_materials": true,
+    "skip_var_comp_index": -1,
+    "data_model_version": "DM_2020_01_10_1930",
+    "molecule_text_name": "",
+    "average_coincident": false,
+    "show_text_interface": false
+   }
+  },
+  "initialization": {
+   "center_molecules_on_grid": false,
+   "time_step": "1e-6",
+   "radial_directions": "",
+   "iterations": "10000",
+   "time_step_max": "",
+   "partitions": {
+    "y_end": "1",
+    "y_start": "-1",
+    "x_start": "-1",
+    "y_step": "0.05",
+    "x_step": "0.05",
+    "z_step": "0.05",
+    "z_end": "1",
+    "z_start": "-1",
+    "recursion_flag": false,
+    "data_model_version": "DM_2016_04_15_1600",
+    "include": false,
+    "x_end": "1"
+   },
+   "vacancy_search_distance": "",
+   "interaction_radius": "",
+   "surface_grid_density": "10000",
+   "space_step": "",
+   "radial_subdivisions": "",
+   "microscopic_reversibility": "OFF",
+   "command_options": "",
+   "warnings": {
+    "lifetime_too_short": "WARNING",
+    "negative_reaction_rate": "WARNING",
+    "missed_reactions": "WARNING",
+    "degenerate_polygons": "WARNING",
+    "missed_reaction_threshold": "0.001",
+    "lifetime_threshold": "50",
+    "negative_diffusion_constant": "WARNING",
+    "high_reaction_probability": "IGNORED",
+    "all_warnings": "INDIVIDUAL",
+    "missing_surface_orientation": "ERROR",
+    "useless_volume_orientation": "WARNING",
+    "high_probability_threshold": "1",
+    "large_molecular_displacement": "WARNING"
+   },
+   "data_model_version": "DM_2017_11_18_0130",
+   "notifications": {
+    "final_summary": true,
+    "probability_report_threshold": "0",
+    "partition_location_report": false,
+    "diffusion_constant_report": "BRIEF",
+    "iteration_report": true,
+    "molecule_collision_report": false,
+    "progress_report": true,
+    "varying_probability_report": true,
+    "file_output_report": false,
+    "box_triangulation_report": false,
+    "all_notifications": "INDIVIDUAL",
+    "release_event_report": true,
+    "probability_report": "ON"
+   },
+   "accurate_3d_reactions": true,
+   "export_all_ascii": false
+  },
+  "materials": {
+   "material_dict": {
+    "Cube_mat": {
+     "diffuse_color": {
+      "r": 0.800000011920929,
+      "g": 0.800000011920929,
+      "a": 0.18683654069900513,
+      "b": 0.800000011920929
+     }
+    }
+   }
+  },
+  "cellblender_source_sha1": "5b1ff14ccb50f58ebc244d7d4d9d84e6d20dff7e",
+  "mol_viz": {
+   "file_num": 2293,
+   "active_seed_index": 0,
+   "viz_enable": true,
+   "file_stop_index": 2292,
+   "manual_select_viz_dir": false,
+   "file_start_index": 0,
+   "viz_list": [
+    "mol_a"
+   ],
+   "render_and_save": false,
+   "file_step_index": 1,
+   "file_index": 930,
+   "file_name": "Scene.ascii.00928.dat",
+   "color_index": 0,
+   "seed_list": [
+    "seed_00001"
+   ],
+   "color_list": [
+    [
+     0.800000011920929,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.800000011920929,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.800000011920929
+    ],
+    [
+     0.0,
+     0.800000011920929,
+     0.800000011920929
+    ],
+    [
+     0.800000011920929,
+     0.0,
+     0.800000011920929
+    ],
+    [
+     0.800000011920929,
+     0.800000011920929,
+     0.0
+    ],
+    [
+     1.0,
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0
+    ]
+   ],
+   "file_dir": "surf_clamp_files/mcell/output_data/viz_data/seed_00001",
+   "data_model_version": "DM_2015_04_13_1700"
+  },
+  "data_model_version": "DM_2017_06_23_1300",
+  "reaction_data_output": {
+   "rxn_step": "",
+   "plot_legend": "0",
+   "mol_colors": false,
+   "always_generate": true,
+   "combine_seeds": true,
+   "data_model_version": "DM_2016_03_15_1800",
+   "output_buf_size": "",
+   "reaction_output_list": [],
+   "plot_layout": " plot "
+  },
+  "periodic_boundary_conditions": {
+   "y_end": "0",
+   "peri_y": true,
+   "y_start": "0",
+   "peri_x": true,
+   "x_start": "0",
+   "periodic_traditional": true,
+   "z_end": "0",
+   "z_start": "0",
+   "data_model_version": "DM_2020_02_21_1900",
+   "peri_z": true,
+   "include": false,
+   "x_end": "0"
+  },
+  "viz_output": {
+   "all_iterations": true,
+   "end": "1",
+   "step": "1",
+   "data_model_version": "DM_2014_10_24_1638",
+   "start": "0",
+   "export_all": true
+  },
+  "define_release_patterns": {
+   "data_model_version": "DM_2014_10_24_1638",
+   "release_pattern_list": []
+  },
+  "scripting": {
+   "scripting_list": [],
+   "force_property_update": true,
+   "data_model_version": "DM_2017_11_30_1830",
+   "dm_external_file_name": "",
+   "dm_internal_file_name": "",
+   "script_texts": {},
+   "ignore_cellblender_data": false
+  },
+  "api_version": 0,
+  "parameter_system": {
+   "model_parameters": [],
+   "_extras": {
+    "ordered_id_names": []
+   }
+  },
+  "release_sites": {
+   "data_model_version": "DM_2014_10_24_1638",
+   "release_site_list": []
+  },
+  "define_surface_classes": {
+   "data_model_version": "DM_2014_10_24_1638",
+   "surface_class_list": [
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "name": "cclamp_left",
+     "surface_class_prop_list": [
+      {
+       "molecule": "a",
+       "clamp_value": "1e-5",
+       "affected_mols": "SINGLE",
+       "name": "Molec.: a   Orient.: Bottom/Back   Type: Clamp Concentration",
+       "data_model_version": "DM_2015_11_08_1756",
+       "surf_class_type": "CLAMP_CONCENTRATION",
+       "surf_class_orient": ","
+      }
+     ],
+     "description": ""
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "name": "cclamp_right",
+     "surface_class_prop_list": [
+      {
+       "molecule": "a",
+       "clamp_value": "1e-7",
+       "affected_mols": "SINGLE",
+       "name": "Molec.: a   Orient.: Bottom/Back   Type: Clamp Concentration",
+       "data_model_version": "DM_2015_11_08_1756",
+       "surf_class_type": "CLAMP_CONCENTRATION",
+       "surf_class_orient": ","
+      }
+     ],
+     "description": ""
+    }
+   ]
+  },
+  "simulation_control": {
+   "end_seed": "1",
+   "name": "",
+   "run_limit": "12",
+   "data_model_version": "DM_2017_11_22_1617",
+   "sim_engines": [],
+   "export_format": "mcell_mdl_modular",
+   "start_seed": "1",
+   "processes_list": [
+    {
+     "data_model_version": "DM_2015_04_23_1753",
+     "name": "PID: 23593, Seed: 1, 59%"
+    },
+    {
+     "data_model_version": "DM_2015_04_23_1753",
+     "name": "PID: 23626, Seed: 1, 100%"
+    },
+    {
+     "data_model_version": "DM_2015_04_23_1753",
+     "name": "PID: 23641, Seed: 1, 100%"
+    }
+   ]
+  },
+  "blender_version": [
+   2,
+   79,
+   0
+  ],
+  "modify_surface_regions": {
+   "data_model_version": "DM_2014_10_24_1638",
+   "modify_surface_regions_list": [
+    {
+     "surf_class_name": "cclamp_left",
+     "region_selection": "SEL",
+     "name": "Surface Class: cclamp_left   Object: Cube   Region: left_side",
+     "object_name": "Cube",
+     "data_model_version": "DM_2018_01_11_1330",
+     "region_name": "left_side",
+     "description": ""
+    },
+    {
+     "surf_class_name": "cclamp_right",
+     "region_selection": "SEL",
+     "name": "Surface Class: cclamp_right   Object: Cube   Region: right_side",
+     "object_name": "Cube",
+     "data_model_version": "DM_2018_01_11_1330",
+     "region_name": "right_side",
+     "description": ""
+    }
+   ]
+  },
+  "define_reactions": {
+   "data_model_version": "DM_2014_10_24_1638",
+   "reaction_list": []
+  },
+  "model_objects": {
+   "data_model_version": "DM_2018_01_11_1330",
+   "model_object_list": [
+    {
+     "object_source": "blender",
+     "parent_object": "",
+     "dynamic_display_source": "script",
+     "name": "Cube",
+     "script_name": "",
+     "dynamic": false,
+     "membrane_name": "",
+     "description": ""
+    }
+   ]
+  },
+  "model_language": "mcell3r"
+ }
+}

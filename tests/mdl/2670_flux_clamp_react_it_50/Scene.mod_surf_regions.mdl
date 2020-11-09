@@ -1,0 +1,8 @@
+MODIFY_SURFACE_REGIONS
+{
+  Plane[ALL]
+  {
+    SURFACE_CLASS = clamp_sc
+  }
+}
+
