@@ -1,0 +1,10 @@
+begin parameters
+end parameters
+
+begin molecule types
+    a
+end molecule types
+
+begin reaction rules
+end reaction rules
+
