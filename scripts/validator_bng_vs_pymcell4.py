@@ -301,23 +301,29 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         res = {observables[i]: float(counts[i]) for i in range(len(observables))} 
         return res
         
+    
+    def ignore_bng_fail(self):
+        # special handling for MCell3R because it does not create simulation barrier
+        # for BNGL observables 
+        fname = os.path.join(self.test_src_path, 'ignore_bng_fail')
+        return os.path.exists(fname)
+        
         
     def run_validation_bng(self, dir):
         
         cmd = [ self.tool_paths.bng2pl_script, TEST_BNGL ]
         
+        log_name = self.test_name+'_'+dir+'.bng2pl.log'
         dir = os.path.join(self.test_work_path, dir)
-        log_name = self.test_name+'.bng2pl.log'
         # run in work dir
         exit_code = run(cmd, shell=True, cwd=dir, verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         
-        if exit_code != 0:
+        if exit_code != 0 and not self.ignore_bng_fail():
             log_test_error(self.test_name, self.tester_name, "BNG2.pl failed, see '" + os.path.join(dir, log_name) + "'.")
             return FAILED_BNG2PL
         else:
             return PASSED
 
-    
     def run_bng_and_get_counts(self, seeds):
         
         # nfsim or ode?
@@ -484,6 +490,11 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         fname = os.path.join(self.test_src_path, 'needs_viz_output_each_time_step')
         return os.path.exists(fname)
     
+    def check_only_bng(self):
+        # special handling for MCell3R because it does not create simulation barrier
+        # for BNGL observables 
+        fname = os.path.join(self.test_src_path, 'only_bng')
+        return os.path.exists(fname)
         
     def test(self) -> int:
         if self.should_be_skipped():
@@ -507,6 +518,8 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         
         num_runs = self.tool_paths.opts.validation_runs
         seeds = self.generate_seeds(num_runs)
+        
+        ONLY_BNG = self.check_only_bng()
 
         if not ONLY_BNG:
             
