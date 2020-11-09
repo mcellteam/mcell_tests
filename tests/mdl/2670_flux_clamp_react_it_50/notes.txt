@@ -1,0 +1,4 @@
+Validated against MCell3R with  
+
+#define MCELL3_SORTED_MOLS_ON_RUN_TIMESTEP
+#define MCELL3_SORTED_VIZ_OUTPUT
