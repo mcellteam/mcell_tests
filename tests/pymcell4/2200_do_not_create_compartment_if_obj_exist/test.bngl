@@ -1,0 +1,17 @@
+begin parameters
+    MCELL_DIFFUSION_CONSTANT_3D_A 1e-6
+end parameters
+
+begin molecule types
+	A
+end molecule types
+
+begin compartments
+    Compartment 3 1
+end compartments
+    
+
+begin seed species
+	@Compartment:A  10
+end seed species
+
