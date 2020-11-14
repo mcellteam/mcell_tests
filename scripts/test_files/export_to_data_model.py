@@ -27,15 +27,16 @@ else:
 
 model = m.Model()
 
-if 'MCELL_NO_COMPARTMENT_SIZE' in params:
-    MCELL_NO_COMPARTMENT_SIZE = params['MCELL_NO_COMPARTMENT_SIZE']
-    box_no_compartment = m.geometry_utils.create_box(
-        'box_no_compartment', MCELL_NO_COMPARTMENT_SIZE
+if 'MCELL_DEFAULT_COMPARTMENT_VOLUME' in params:
+    MCELL_DEFAULT_COMPARTMENT_VOLUME = params['MCELL_DEFAULT_COMPARTMENT_VOLUME']
+    MCELL_DEFAULT_COMPARTMENT_EDGE_LENGTH = MCELL_DEFAULT_COMPARTMENT_VOLUME**(1.0/3.0) 
+    default_compartment = m.geometry_utils.create_box(
+        'default_compartment', MCELL_DEFAULT_COMPARTMENT_EDGE_LENGTH
     )
-    model.add_geometry_object(box_no_compartment)
+    model.add_geometry_object(default_compartment)
 else:
-    MCELL_NO_COMPARTMENT_SIZE = 1
-    box_no_compartment = None
+    MCELL_DEFAULT_COMPARTMENT_EDGE_LENGTH = 1
+    default_compartment = None
     
 viz_output = m.VizOutput(
     mode = m.VizMode.ASCII,
@@ -45,7 +46,7 @@ viz_output = m.VizOutput(
 )
 model.add_viz_output(viz_output)
 
-model.load_bngl('test.bngl', './react_data/seed_' + str(SEED).zfill(5) + '/', box_no_compartment)
+model.load_bngl('test.bngl', './react_data/seed_' + str(SEED).zfill(5) + '/', default_compartment)
 
 
 
@@ -55,8 +56,8 @@ model.config.time_step = TIME_STEP
 model.config.seed = SEED
 model.config.total_iterations_hint = ITERATIONS 
 
-model.config.partition_dimension = MCELL_NO_COMPARTMENT_SIZE
-model.config.subpartition_dimension = MCELL_NO_COMPARTMENT_SIZE 
+model.config.partition_dimension = MCELL_DEFAULT_COMPARTMENT_EDGE_LENGTH
+model.config.subpartition_dimension = MCELL_DEFAULT_COMPARTMENT_EDGE_LENGTH 
 
 model.initialize()
 

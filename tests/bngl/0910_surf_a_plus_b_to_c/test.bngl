@@ -9,7 +9,7 @@ begin parameters
     MCELL_DIFFUSION_CONSTANT_2D_B 5e-6
     MCELL_DIFFUSION_CONSTANT_2D_C 7e-6	
     
-    MCELL_NO_COMPARTMENT_SIZE 0.0625
+    MCELL_DEFAULT_COMPARTMENT_VOLUME 0.0625^3
 end parameters
 begin molecule types
 	A()

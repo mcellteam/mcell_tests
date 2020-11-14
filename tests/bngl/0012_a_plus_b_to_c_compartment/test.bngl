@@ -1,7 +1,6 @@
 begin model
 
 begin parameters
-	#TIME_STEP  1e-6
 	VACANCY_SEARCH_DISTANCE  10
 	
 	ITERATIONS  10
@@ -9,8 +8,8 @@ begin parameters
     MCELL_DIFFUSION_CONSTANT_3D_B 5e-5
     MCELL_DIFFUSION_CONSTANT_3D_C 7e-5	
     
-    #MCELL_NO_COMPARTMENT_SIZE 0.0625 # ignored
 end parameters
+
 begin molecule types
 	A()
 	B()
