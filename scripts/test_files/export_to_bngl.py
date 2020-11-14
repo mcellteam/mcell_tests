@@ -13,28 +13,14 @@ else:
 import mcell as m
 
 
-if len(sys.argv) == 3 and sys.argv[1] == '-seed':
-    # overwrite value SEED defined in module parameters
-    SEED = int(sys.argv[2])
-else:
-    SEED = 1
-
-if len(sys.argv) == 5 and sys.argv[3] == '-bngl':
-    # overwrite value SEED defined in module parameters
-    bngl_file = sys.argv[4]
-else:
-    bngl_file = 'test.bngl'
-
-params = m.bngl_utils.load_bngl_parameters(bngl_file)
+params = m.bngl_utils.load_bngl_parameters('test.bngl')
 
 ITERATIONS = int(params['ITERATIONS'])
-    
+SEED = 1
 if 'MCELL_TIME_STEP' in params:
     TIME_STEP = float(params['MCELL_TIME_STEP'])
 else:
     TIME_STEP = 1e-6 
-DUMP = True
-EXPORT_DATA_MODEL = True
 
 
 # ---- load bngl file ----
@@ -59,7 +45,7 @@ viz_output = m.VizOutput(
 )
 model.add_viz_output(viz_output)
 
-model.load_bngl(bngl_file, './react_data/seed_' + str(SEED).zfill(5) + '/', box_no_compartment)
+model.load_bngl('test.bngl', './react_data/seed_' + str(SEED).zfill(5) + '/', box_no_compartment)
 
 
 
@@ -72,14 +58,6 @@ model.config.total_iterations_hint = ITERATIONS
 model.config.partition_dimension = MCELL_NO_COMPARTMENT_SIZE
 model.config.subpartition_dimension = MCELL_NO_COMPARTMENT_SIZE 
 
-
 model.initialize()
 
-if DUMP:
-    model.dump_internal_state()
-
-if EXPORT_DATA_MODEL and model.viz_outputs:
-    model.export_data_model()
-
-model.run_iterations(ITERATIONS)
-model.end_simulation()
+model.export_to_bngl('exported.bngl')

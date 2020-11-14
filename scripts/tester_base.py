@@ -15,7 +15,6 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 For the complete terms of the GNU General Public License, please see this URL:
 http://www.gnu.org/licenses/gpl-2.0.html
 """
-from numpy.random.mtrand import seed
 
 """
 This module contains definition of a bbase class used to run tests.
@@ -204,6 +203,8 @@ class TesterBase:
                 self.test_work_path 
             )
             
+    # fdiff args are commandline arguments passed to fdiff, a single string representing a 
+    # floating point value specifies tolerance
     def check_reference(self, 
                         seed_dir: str, ref_dir_name: str, test_dir_name: str, exact_diff: bool, msg: str,
                         fdiff_args, required=False,

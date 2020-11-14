@@ -22,6 +22,12 @@
   args = ['mcell4']
         
 [[set]]
+  category = '../mcell_tests_private/tests'
+  testSet = 'pymcell4_positive'
+  testerClass = 'TesterPymcell4'
+  args = ['mcell4']
+            
+[[set]]
   category = '../mcell_tests_private/models/hebrew_univ_jerusalem'
   testSet = 'pymcell4'
   testerClass = 'TesterPymcell4'
