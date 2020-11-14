@@ -1,0 +1,29 @@
+begin model
+
+begin parameters
+	ITERATIONS  10
+    MCELL_DIFFUSION_CONSTANT_3D_A 1e-6
+    MCELL_DIFFUSION_CONSTANT_3D_B 1e-6
+    MCELL_DIFFUSION_CONSTANT_3D_C 1e-6	
+    
+    MCELL_DEFAULT_COMPARTMENT_VOLUME 1/32^3
+    
+    kp1 1e10
+end parameters
+
+begin molecule types
+	A()
+	B()
+	C()
+end molecule types
+
+begin seed species
+	 A  1000
+	 B  1000
+end seed species
+
+begin reaction rules
+	A + B -> C kp1
+end reaction rules
+
+end model
