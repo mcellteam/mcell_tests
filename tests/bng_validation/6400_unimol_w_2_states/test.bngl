@@ -6,7 +6,7 @@ begin parameters
 	ITERATIONS  1000
     MCELL_DIFFUSION_CONSTANT_3D_X 1e-7 # unimol rxns - D is not important
     MCELL_DIFFUSION_CONSTANT_3D_Y 1e-7
-    MCELL_NO_COMPARTMENT_SIZE 1
+    MCELL_DEFAULT_COMPARTMENT_VOLUME 1
 end parameters
 
 begin molecule types 

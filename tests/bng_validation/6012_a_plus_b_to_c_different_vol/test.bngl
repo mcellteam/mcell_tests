@@ -14,7 +14,7 @@ begin parameters
     V 1.41e-15 #litres
     Na 6.02e23     
     
-    MCELL_NO_COMPARTMENT_SIZE 1.12134617045 # 1 side, um
+    MCELL_DEFAULT_COMPARTMENT_VOLUME 1.12134617045^3
     
     NA_vol Na * V
     VOL_RXN 1

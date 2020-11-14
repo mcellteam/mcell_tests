@@ -56,7 +56,7 @@ begin parameters
   MCELL_DIFFUSION_CONSTANT_3D_Lig  8.51e-7
   MCELL_DIFFUSION_CONSTANT_3D_Syk  8.51e-7
   
-  MCELL_NO_COMPARTMENT_SIZE 1/8    
+  MCELL_DEFAULT_COMPARTMENT_VOLUME (1/8)^3    
       
 end parameters
 begin molecule types
