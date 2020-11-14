@@ -1,2 +1,2 @@
 # there is a precision difference for BNGL export
-fdiff = "1e-8"
+fdiff = "1e-5"
