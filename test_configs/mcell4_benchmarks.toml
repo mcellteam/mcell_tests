@@ -1,7 +1,7 @@
 [[set]]
   category = '../mcell_tests_private/benchmarks'
   testSet = 'mdl'
-  testerClass = 'BenchmarkMdl'
+  testerClass = 'BenchmarkMdlDataModelPymcell4'
   args = ['mcell4']
 
 [[set]]

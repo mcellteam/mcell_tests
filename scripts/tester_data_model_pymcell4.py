@@ -52,17 +52,6 @@ class TesterDataModelPymcell4(TesterPymcell4):
             
         TesterBase.check_prerequisites(tool_paths)
 
-    def run_dm_to_pymcell_conversion(self, data_model_file: str, extra_args=[]):
-        cmd = [ self.tool_paths.data_model_to_pymcell_binary, data_model_file ]
-        cmd += extra_args
-        
-        log_name = self.test_name+'.mcell_dm_to_pymcell.log'
-        exit_code = run(cmd, cwd=self.test_work_path, verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
-        if (exit_code):
-            log_test_error(self.test_name, self.tester_name, "Data model to pymcell4 conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
-            return FAILED_MCELL
-        else:
-            return PASSED
 
     def should_be_skipped_for_datamodel_test(self) -> bool:
         if os.path.exists(os.path.join(self.test_src_path, 'skip_datamodel')):

@@ -361,7 +361,36 @@ class TesterBase:
             return FAILED_DM_TO_MDL_CONVERSION
         else:
             return PASSED
+
+
+    def run_mdl_to_dm_conversion(self, mcell_args: List[str], main_mdl_file: str):
+        cmd = [ self.tool_paths.mcell_binary ]
+        cmd += mcell_args
+        cmd += [ main_mdl_file ]
+        cmd += self.extra_args.mcell_args
+        cmd += [ '-mdl2datamodel4' ]
         
+        log_name = self.test_name+'.mcell_mdl_to_dm.log'
+        exit_code = run(cmd, cwd=self.test_work_path, verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
+        if (exit_code):
+            log_test_error(self.test_name, self.tester_name, "MCell state to data model conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
+            return FAILED_MCELL
+        else:
+            return PASSED
+        
+        
+    def run_dm_to_pymcell_conversion(self, data_model_file: str, extra_args=[]):
+        cmd = [ self.tool_paths.data_model_to_pymcell_binary, data_model_file ]
+        cmd += extra_args
+        
+        log_name = self.test_name+'.mcell_dm_to_pymcell.log'
+        exit_code = run(cmd, cwd=self.test_work_path, verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
+        if (exit_code):
+            log_test_error(self.test_name, self.tester_name, "Data model to pymcell4 conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
+            return FAILED_MCELL
+        else:
+            return PASSED
+                
     def convert_bngl_to_mdl(self, only_last_viz_output=False):
         res = self.run_bngl_to_dm_conversion(os.path.join(self.test_src_path, 'test.bngl'))
         if res != PASSED:

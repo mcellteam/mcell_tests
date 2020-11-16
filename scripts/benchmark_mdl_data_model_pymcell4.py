@@ -1,5 +1,5 @@
 """
-Copyright (C) 2020 by
+Copyright (C) 2019 by
 The Salk Institute for Biological Studies and
 Pittsburgh Supercomputing Center, Carnegie Mellon University
 
@@ -27,7 +27,7 @@ import re
 from typing import List, Dict
 
 from test_settings import *
-from benchmark_mdl import BenchmarkMdl
+from benchmark_bngl import BenchmarkBngl
 from test_utils import log_test_error
 from tool_paths import ToolPaths
 
@@ -35,40 +35,19 @@ THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(THIS_DIR, '..', 'mcell_tools', 'scripts'))
 from utils import run, log, fatal_error
 
+UPDATE_REFERENCE=False
 
-class BenchmarkBngl(BenchmarkMdl):
+MCELL_BASE_ARGS = ['-seed', '1']
+
+class BenchmarkMdlDataModelPymcell4(BenchmarkBngl):
     def __init___(self, test_dir: str, args: List[str], tool_paths: ToolPaths):
         super(TesterMdl, self).__init__(test_dir, args, tool_paths)
     
     @staticmethod
     def check_prerequisites(tool_paths: ToolPaths) -> None:
-        BenchmarkMdl.check_prerequisites(tool_paths)        
+        BenchmarkBngl.check_prerequisites(tool_paths)        
         
-    def run_pymcell_w_stats(self, model_file, log_name: str) -> int:
-
-        cmdstr = 'export ' + MCELL_PATH_VARIABLE + '=' + self.tool_paths.mcell_path + '; '
-        cmdstr += 'perf stat -e instructions:u '
-        cmdstr +=  self.tool_paths.python_binary + ' ' + os.path.join(self.test_work_path, model_file)
-        cmd = [cmdstr]
-        
-        exit_code = run(cmd, shell=True, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
-        if (exit_code):
-            log_test_error(self.test_name, self.tester_name, "Pymcell4 failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
-            return FAILED_MCELL
-        else:
-            return PASSED
-        
-    def copy_pymcell4_benchmark_runner_and_test(self):
-        shutil.copy(
-            os.path.join(THIS_DIR, TEST_FILES_DIR, 'benchmark.py'),
-            self.test_work_path 
-        )
-        
-        shutil.copy(
-            os.path.join(self.test_src_path, 'test.bngl'),
-            self.test_work_path 
-        )
-                
+   
     def test(self) -> int:
         if self.should_be_skipped():
             return SKIPPED
@@ -78,10 +57,23 @@ class BenchmarkBngl(BenchmarkMdl):
         
         self.clean_and_create_work_dir()
         
-        self.copy_pymcell4_benchmark_runner_and_test()
-        
+        extra_args = []
+        if ARG_CONVERT_W_BNGL in self.args:
+            extra_args = ['-b']   
+            
+        res = self.run_mdl_to_dm_conversion(MCELL_BASE_ARGS, os.path.join(self.test_src_path, MAIN_MDL_FILE))
+        if res != PASSED:
+            return res
+            
+        res = self.run_dm_to_pymcell_conversion(
+            os.path.join(self.test_work_path, 'data_model.json'), 
+            extra_args=extra_args)    
+        if res != PASSED:
+            return res
+                    
         log_name = self.test_name+'.pymcell4.log'
-        res = self.run_pymcell_w_stats('benchmark.py', log_name)
+        res = self.run_pymcell_w_stats('model.py', log_name)
+        print("Log: " + os.path.join(self.test_work_path, log_name))
 
         if self.is_todo_test():
             return TODO_TEST
