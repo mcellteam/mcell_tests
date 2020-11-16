@@ -3,3 +3,10 @@
   testSet = 'mdl'
   testerClass = 'BenchmarkMdl'
   args = ['mcell4']
+
+[[set]]
+  category = '../mcell_tests_private/benchmarks'
+  testSet = 'bngl'
+  testerClass = 'BenchmarkBngl'
+  args = ['mcell4']
+  

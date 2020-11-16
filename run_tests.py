@@ -66,6 +66,7 @@ from tester_bngl_pymcell4_export import TesterBnglPymcell4Export
 from tester_bngl_data_model_pymcell4 import TesterBnglDataModelPymcell4
 from tester_external import TesterExternal
 from benchmark_mdl import BenchmarkMdl
+from benchmark_bngl import BenchmarkBngl
 from validator_bng_vs_pymcell4 import ValidatorBngVsPymcell4
 from validator_mdl_mcell3_vs_mcell4 import ValidatorMcell3VsMcell4Mdl
 
@@ -283,6 +284,8 @@ def load_test_config(config_path: str) -> List[TestSetInfo]:
                 tester_class = TesterExternal
             elif class_name == 'BenchmarkMdl':
                 tester_class = BenchmarkMdl
+            elif class_name == 'BenchmarkBngl':
+                tester_class = BenchmarkBngl
             elif class_name == 'ValidatorBngVsPymcell4':
                 tester_class = ValidatorBngVsPymcell4
             elif class_name == 'ValidatorMcell3VsMcell4Mdl':
