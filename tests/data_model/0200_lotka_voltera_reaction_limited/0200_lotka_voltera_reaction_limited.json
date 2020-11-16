@@ -225,11 +225,11 @@
     "y_start": "-0.25",
     "include": true,
     "x_start": "-0.25",
-    "y_step": "0.02",
-    "x_step": "0.02",
+    "y_step": "0.03",
+    "x_step": "0.03",
     "z_start": "-0.0075",
     "x_end": "0.25",
-    "z_step": "0.015"
+    "z_step": "0.03"
    },
    "notifications": {
     "progress_report": true,
