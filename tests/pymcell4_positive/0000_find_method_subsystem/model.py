@@ -17,21 +17,21 @@ model = m.Model()
 a = m.Species('a', diffusion_constant_3d = 1e-6)
 model.add_species(a)
 s1 = model.find_species('a')
-assert s1 != None and s1.name == 'a'
+assert s1 is not None and s1.name == 'a'
 s2 = model.find_species('b')
-assert s2 == None 
+assert s2 is None 
 
 r = m.ReactionRule('r', [a.inst()], [], 0)
 model.add_reaction_rule(r)
 r1 = model.find_reaction_rule('r')
-assert r1 != None and r1.name == 'r'
+assert r1 is not None and r1.name == 'r'
 r2 = model.find_reaction_rule('s')
-assert r2 == None 
+assert r2 is None 
 
 sc = m.SurfaceClass('sc', type = m.SurfacePropertyType.TRANSPARENT, affected_complex_pattern = a)
 model.add_surface_class(sc)
 sc1 = model.find_surface_class('sc')
-assert sc1 != None and sc1.name == 'sc'
+assert sc1 is not None and sc1.name == 'sc'
 sc2 = model.find_surface_class('scx')
-assert sc2 == None
+assert sc2 is None
  
