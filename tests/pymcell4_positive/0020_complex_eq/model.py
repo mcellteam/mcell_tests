@@ -50,3 +50,8 @@ assert g1 == g2
 h1 = m.Complex('A(b)', orientation = m.Orientation.UP)
 h2 = m.Complex('A(b)', orientation = m.Orientation.DOWN)
 assert h1 != h2 
+
+# same components but in different order
+i1 = m.Complex('A(q~1,b!1).B(a!1)')
+i2 = m.Complex('B(a!2).A(b!2,q~1)')
+assert i1 == i2 
