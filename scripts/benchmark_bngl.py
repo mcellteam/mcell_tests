@@ -78,10 +78,18 @@ class BenchmarkBngl(BenchmarkMdl):
         
         self.clean_and_create_work_dir()
         
-        self.copy_pymcell4_benchmark_runner_and_test()
+        if self.mcell4_testing:
+            self.copy_pymcell4_benchmark_runner_and_test()
+            
         
-        log_name = self.test_name+'.pymcell4.log'
-        res = self.run_pymcell_w_stats('benchmark.py', log_name)
+            log_name = self.test_name+'.pymcell4.log'
+            res = self.run_pymcell_w_stats('benchmark.py', log_name)
+        else:
+            # TODO: no partitioning is generated
+            res = self.convert_bngl_to_mdl()
+            if res != PASSED:
+                return res               
+            res = self.run_mcell([], os.path.join('..', self.test_work_path, MAIN_MDL_FILE))
 
         if self.is_todo_test():
             return TODO_TEST

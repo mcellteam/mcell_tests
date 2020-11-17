@@ -1,0 +1,11 @@
+[[set]]
+  category = '../mcell_tests_private/benchmarks'
+  testSet = 'mdl'
+  testerClass = 'BenchmarkMdl'
+  testDirSuffix = '_mcell3'
+  
+[[set]]
+  category = '../mcell_tests_private/benchmarks'
+  testSet = 'bngl'
+  testerClass = 'BenchmarkBngl'
+  testDirSuffix = '_mcell3'
