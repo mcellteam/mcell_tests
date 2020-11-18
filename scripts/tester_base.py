@@ -362,7 +362,7 @@ class TesterBase:
         else:
             return PASSED
 
-
+    # erases the the react_data directory
     def run_mdl_to_dm_conversion(self, mcell_args: List[str], main_mdl_file: str):
         cmd = [ self.tool_paths.mcell_binary ]
         cmd += mcell_args
@@ -376,6 +376,9 @@ class TesterBase:
             log_test_error(self.test_name, self.tester_name, "MCell state to data model conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
             return FAILED_MCELL
         else:
+            # this might create file in the react_output directory, erase it
+            # checks in comparisons
+            shutil.rmtree(os.path.join(self.test_work_path, 'react_data'), ignore_errors=True)
             return PASSED
         
         

@@ -98,12 +98,13 @@ def compare_data_output_files(fname_ref, fname_new, exact, fdiff_args):
                 
                 
 def compare_data_output_directory(dir_ref, dir_new, exact=False, fdiff_args=[]):
-    ref_dir = os.path.abspath(dir_ref)
-    if not os.path.exists(ref_dir):
-        log('Directory ' + ref_dir + ' does not exist')
+    dir_ref = os.path.abspath(dir_ref)
+    dir_new = os.path.abspath(dir_new)
+    if not os.path.exists(dir_ref):
+        log('Directory ' + dir_ref + ' does not exist')
         return FAILED_REF_DATA_NOT_FOUND
         
-    files_ref = os.listdir(ref_dir)
+    files_ref = os.listdir(dir_ref)
     
     for fname in files_ref:
         # FIXME: these error messages do not appear in the difff log
@@ -113,15 +114,24 @@ def compare_data_output_directory(dir_ref, dir_new, exact=False, fdiff_args=[]):
             log('File ' + fname_ref + ' does not exist')
             return FAILED_DIFF
         fname_new = os.path.join(dir_new, fname)
+        
+        name_ext = os.path.splitext(fname_new)
+        
         if not os.path.exists(fname_new):
-            # if this is a .dat file, there might be a '_MDLString' suffix
-            ext = os.path.splitext(fname_new)[1]
-            fname_new_mdlstring = os.path.splitext(fname_new)[0] + '_MDLString' + ext
-            if ext == '.dat' and os.path.exists(fname_new_mdlstring):
-                fname_new = fname_new_mdlstring
+            if name_ext[1] == '.dat':
+                # if this is a .dat file, there might be a '_MDLString' suffix
+                fname_new_mdlstring = name_ext[0] + '_MDLString' + name_ext[1]
+                # we might also need to replace '.' with '_'
+                fname_new_no_dots = name_ext[0].replace('.', '_') + name_ext[1]
+                if os.path.exists(fname_new_mdlstring):
+                    fname_new = fname_new_mdlstring
+                elif os.path.exists(fname_new_no_dots):
+                    fname_new = fname_new_no_dots
+                else:
+                    log('File ' + fname_new_mdlstring + ' does not exist (also tried variants )' + 
+                        os.path.basename(fname_new_mdlstring) + ' and ' + os.path.basename(fname_new_no_dots) + '.')
+                    return FAILED_DIFF
             else:
-                if ext == '.dat': 
-                    log('File ' + fname_new_mdlstring + ' does not exist (added _MDLString)')
                 log('File ' + fname_new + ' does not exist')
                 return FAILED_DIFF
         
