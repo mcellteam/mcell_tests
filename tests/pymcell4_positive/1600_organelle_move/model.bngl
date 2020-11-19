@@ -1,0 +1,27 @@
+begin parameters
+    k_ab 1e9
+
+end parameters
+
+begin molecule types
+    a
+    b
+    c
+    d
+    t1
+    t2
+end molecule types
+
+begin reaction rules
+    a + b -> c k_ab
+    a@OUT + t1 -> a@IN + t1 3e8
+    c@OUT + t2 -> d@IN + t2 3e9
+    c@IN + t1 -> c@OUT + t1 3e8
+end reaction rules
+
+begin observables
+    Species a_World a
+    Species b_World b
+    Species c_World c
+    Species d_World d
+end observables
