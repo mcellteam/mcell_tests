@@ -1,0 +1,17 @@
+
+begin molecule types
+    X(y,p~0~1,q~A~B)
+    Y(x) 
+end molecule types
+
+begin reaction rules
+    X(p~0,q~A,y!1).Y(x!1)  <->  Y(x) + X(y,p~0,q~A) 123, 555
+    
+    X(y,q~B,p~0) + Y(x) -> Y(x!2).X(y!2,q~B,p~0) 456
+  
+    Y(x) + Y(x) -> Null 456
+    
+    Y(x) -> Null 111
+    
+    Y(x) -> Null 222
+end reaction rules
