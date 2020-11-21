@@ -499,9 +499,13 @@ class TesterNutmeg(TesterBase):
         data_file_path = os.path.join(self.test_work_path, check.data_file)
         try:   
             with open(data_file_path, "r") as fin:
-                matcher = re.compile(check.match_pattern)
+                
+                fixed_pattern = check.match_pattern.replace('(', '\(').replace(')', '\)')
+                
+                matcher = re.compile(fixed_pattern)
                 for line in fin:
                     found = matcher.search(line)
+                    
                     if bool(found) == expected:
                         return PASSED
 

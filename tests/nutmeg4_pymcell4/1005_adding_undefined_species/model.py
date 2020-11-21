@@ -21,10 +21,16 @@ for o,c in [(subsystem,'s'), (model,'m')]:
     # will be defined before initialization
     o.add_species(m.Species('B'+c+'(a,b)'))
     
-    # should not give a warning (not checked),
-    # we do not care about adding declarations, after initialization they will be 
-    # ignored 
-    o.add_species(m.Species('B'+c+'(b,a)'))
+    # in theory this should not give a warning or error 
+    # but for consistency, we are reporting an error as well
+    try:
+        o.add_species(m.Species('B'+c+'(b,a)'))
+        assert False
+    except ValueError as err:
+        print(err)
+
+    # this is ok    
+    o.add_species(m.Species('C'+c+'(b,a)'))
 
 # also check that initialization fails
 # because we don't know the diffusion constant 
@@ -32,4 +38,4 @@ try:
     model.initialize()
     assert False
 except ValueError as err:
-    assert "was set" in str(err)
+    print(err)

@@ -58,6 +58,13 @@ p1 = m.ElementaryMoleculeType('M')
 p2 = m.ElementaryMoleculeType('N')
 assert p1 != p2
 
+zd = m.ComponentType('d', ['X', 'Y'])
+ze = m.ComponentType('e', ['0', '1'])
+
+zmt1 = m.ElementaryMoleculeType('A', [ze,zd], diffusion_constant_3d=1e-6)
+zmt2 = m.ElementaryMoleculeType('A', [zd,ze], diffusion_constant_3d=1e-6)
+assert zmt1 == zmt2
+
 # ordering of component instances doesn't matter
 q1 = n1.inst([b1.inst(0), b2.inst('Z')])
 q2 = n1.inst([b2.inst('Z'), b1.inst(0)])

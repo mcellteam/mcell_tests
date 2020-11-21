@@ -16,15 +16,20 @@ import mcell as m
 subsystem = m.Subsystem()
 model = m.Model()
 
-for o,c in [(subsystem,'s'), (model,'m')]:
-    o.add_species(m.Species('A'+c, diffusion_constant_3d=1e-6))
-    
-    # should give a warning
-    o.add_species(m.Species('A'+c, diffusion_constant_3d=1e-6))
+d = m.ComponentType('d', ['X', 'Y'])
+e = m.ComponentType('e', ['0', '1'])
 
+for o,c in [(subsystem,'s'), (model,'m')]:
+    mt1 = m.ElementaryMoleculeType('A' + c, [e,d], diffusion_constant_3d=1e-6)
+    o.add_elementary_molecule_type(mt1)
+    
+    # must give a warning
+    mt2 = m.ElementaryMoleculeType('A' + c, [d,e], diffusion_constant_3d=1e-6)
+    o.add_elementary_molecule_type(mt2)
+    
     try:
-        o.add_species(m.Species('A'+c, diffusion_constant_3d=1e-7))
+        o.add_elementary_molecule_type(
+            m.ElementaryMoleculeType('A' + c, [e,d], diffusion_constant_3d=1e-5))
         assert False
     except ValueError as err:
         print(err)
-

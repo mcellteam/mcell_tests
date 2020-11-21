@@ -1,0 +1,32 @@
+includes = ["exit_code_1"]
+
+[[checks]]
+  matchPattern = "ElementaryMoleculeType with name 'As' caused an error" 
+  dataFile = "run_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = "ElementaryMoleculeType with name 'Am' caused an error" 
+  dataFile = "run_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = "ElementaryMoleculeType with name 'As' is ignored" 
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = "ElementaryMoleculeType with name 'Am' is ignored" 
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 0
+  
+[run]
+  pyfile = "model.py"

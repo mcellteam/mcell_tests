@@ -1,11 +1,23 @@
 includes = ["exit_code_1"]
 
 [[checks]]
-  matchPattern = "arning" # no warning message 
-  dataFile = "err_%d.0.log"
+  matchPattern = "Species with name 'Bs(b,a)' caused an error" 
+  dataFile = "run_%d.0.log"
   numMatches = 1
-  testType = "FILE_NO_MATCH_PATTERN"
+  testType = "FILE_MATCH_PATTERN"
 
+[[checks]]
+  matchPattern = "Species with name 'Bm(b,a)' caused an error" 
+  dataFile = "run_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = "Neither diffusion_constant_2d nor diffusion_constant_3d was set for Species Bm" 
+  dataFile = "run_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+  
 [[checks]]
   testType = "CHECK_EXIT_CODE"
   exitCode = 0
