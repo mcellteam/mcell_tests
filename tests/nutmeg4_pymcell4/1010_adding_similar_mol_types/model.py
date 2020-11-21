@@ -23,7 +23,7 @@ for o,c in [(subsystem,'s'), (model,'m')]:
     mt1 = m.ElementaryMoleculeType('A' + c, [e,d], diffusion_constant_3d=1e-6)
     o.add_elementary_molecule_type(mt1)
     
-    # must give a warning
+    # must be siletnly ignored
     mt2 = m.ElementaryMoleculeType('A' + c, [d,e], diffusion_constant_3d=1e-6)
     o.add_elementary_molecule_type(mt2)
     assert len(o.elementary_molecule_types) == 1

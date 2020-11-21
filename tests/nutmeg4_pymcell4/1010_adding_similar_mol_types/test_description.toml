@@ -15,13 +15,13 @@ includes = ["exit_code_1"]
 [[checks]]
   matchPattern = "'As(d~X~Y,e~0~1)' is ignored" 
   dataFile = "err_%d.0.log"
-  numMatches = 1
+  numMatches = 0
   testType = "FILE_MATCH_PATTERN"
 
 [[checks]]
   matchPattern = "'Am(d~X~Y,e~0~1)' is ignored" 
   dataFile = "err_%d.0.log"
-  numMatches = 1
+  numMatches = 0
   testType = "FILE_MATCH_PATTERN"
 
 [[checks]]

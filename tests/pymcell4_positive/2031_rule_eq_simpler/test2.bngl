@@ -1,0 +1,11 @@
+
+begin molecule types
+    X(y,p~0~1,q~A~B)
+    Y(x)
+    W()
+    Z()  
+end molecule types
+
+begin reaction rules
+    X(y,p~0,q~B) + Y(x) -> X(y!2,p~0,q~B).Y(x!2) 456
+end reaction rules

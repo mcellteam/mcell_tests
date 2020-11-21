@@ -1,27 +1,33 @@
 includes = ["exit_code_1"]
 
 [[checks]]
-  matchPattern = "ElementaryMoleculeType with name 'As' caused an error" 
+  matchPattern = "'Z -> Null' caused an error" 
   dataFile = "run_%d.0.log"
-  numMatches = 1
+  numMatches = 3
   testType = "FILE_MATCH_PATTERN"
 
 [[checks]]
-  matchPattern = "ElementaryMoleculeType with name 'Am' caused an error" 
-  dataFile = "run_%d.0.log"
-  numMatches = 1
-  testType = "FILE_MATCH_PATTERN"
-
-[[checks]]
-  matchPattern = "ElementaryMoleculeType with name 'As' is ignored" 
+  matchPattern = "'X(p~0,q~A,y!1).Y(x!1) -> X(p~0,q~A,y) + Y(x)' is ignored" 
   dataFile = "err_%d.0.log"
-  numMatches = 1
+  numMatches = 3
   testType = "FILE_MATCH_PATTERN"
 
 [[checks]]
-  matchPattern = "ElementaryMoleculeType with name 'Am' is ignored" 
+  matchPattern = "'X(p~0,q~A,y) + Y(x) -> X(p~0,q~A,y!1).Y(x!1)' is ignored" 
   dataFile = "err_%d.0.log"
-  numMatches = 1
+  numMatches = 3
+  testType = "FILE_MATCH_PATTERN"
+  
+[[checks]]
+  matchPattern = "'X(p~0,q~B,y) + Y(x) -> X(p~0,q~B,y!1).Y(x!1)' is ignored" 
+  dataFile = "err_%d.0.log"
+  numMatches = 3
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = "'W -> Null' is ignored" 
+  dataFile = "err_%d.0.log"
+  numMatches = 3
   testType = "FILE_MATCH_PATTERN"
 
 [[checks]]
