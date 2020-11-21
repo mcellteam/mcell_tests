@@ -112,6 +112,7 @@ TEST_TYPE_CHECK_NONEMPTY_FILES = 30
 TEST_TYPE_CHECK_EMPTY_FILES = 31
 
 TEST_TYPE_FILE_MATCH_PATTERN = 40
+TEST_TYPE_FILE_NO_MATCH_PATTERN = 41
 
 
 TEST_TYPE_UPDATE_REFERENCE = 50
@@ -134,6 +135,7 @@ TEST_TYPE_ID_TO_NAME = {
     TEST_TYPE_CHECK_EMPTY_FILES: 'CHECK_EMPTY_FILES',
 
     TEST_TYPE_FILE_MATCH_PATTERN: 'FILE_MATCH_PATTERN',
+    TEST_TYPE_FILE_NO_MATCH_PATTERN: 'FILE_NO_MATCH_PATTERN',
     
     TEST_TYPE_UPDATE_REFERENCE: 'COUNT_CONSTRAINTS'
 }
@@ -298,13 +300,14 @@ class TestDescriptionParser:
             #if KEY_HAVE_HEADER in check_dict:
             #    self.parse_warning("Key " + KEY_HAVE_HEADER + " is ignored")
                 
-        elif res.test_type == TEST_TYPE_FILE_MATCH_PATTERN:
+        elif res.test_type == TEST_TYPE_FILE_MATCH_PATTERN or \
+                res.test_type == TEST_TYPE_FILE_NO_MATCH_PATTERN:
             res.data_file = self.get_data_file_name(check_dict)
             
             res.match_pattern = self.get_dict_value(check_dict, KEY_MATCH_PATTERN)
             if KEY_NUM_MATCHES in check_dict:
                 num_matches = self.get_dict_value(check_dict, KEY_NUM_MATCHES)
-                if num_matches != 1:
+                if num_matches != 1 and res.test_type == TEST_TYPE_FILE_MATCH_PATTERN:
                     self.parse_error("Value for " + KEY_NUM_MATCHES + " must be only 1.")
                     return None
                 
@@ -492,14 +495,18 @@ class TesterNutmeg(TesterBase):
 
         return PASSED
 
-    def check_match_pattern(self, check: CheckInfo) -> int:
+    def check_match_pattern(self, check: CheckInfo, expected) -> int:
         data_file_path = os.path.join(self.test_work_path, check.data_file)
         try:   
             with open(data_file_path, "r") as fin:
                 matcher = re.compile(check.match_pattern)
                 for line in fin:
-                    if matcher.search(line):
+                    found = matcher.search(line)
+                    if bool(found) == expected:
                         return PASSED
+
+            if not expected:
+                return PASSED
                 
         except Exception as e:
             self.nutmeg_log(
@@ -527,21 +534,24 @@ class TesterNutmeg(TesterBase):
                 
         elif check.test_type == TEST_TYPE_CHECK_SUCCESS:
             if mcell_ec == 0:
-                self.nutmeg_log("Mcell exit code is 0 as expected.", check.test_type)
+                self.nutmeg_log("MCell exit code is 0 as expected.", check.test_type)
                 res = PASSED
             else:
                 self.nutmeg_log("Expected exit code 0 but mcell returned " + str(mcell_ec), check.test_type)
 
         elif check.test_type == TEST_TYPE_CHECK_EXIT_CODE:
             if mcell_ec == check.exit_code:
-                self.nutmeg_log("Mcell exit code is " + str(check.exit_code) + " as expected.", check.test_type)
+                self.nutmeg_log("MCell exit code is " + str(check.exit_code) + " as expected.", check.test_type)
                 res = PASSED
             else:
                 self.nutmeg_log("Expected exit code " + str(check.exit_code) + " but mcell returned " + str(mcell_ec), check.test_type)
 
-        elif check.test_type == TEST_TYPE_FILE_MATCH_PATTERN:
-            res = self.check_match_pattern(check)
-            self.nutmeg_log("Finding pattern " + check.match_pattern + " in " + check.data_file + "': " + RESULT_NAMES[res], check.test_type)
+        elif check.test_type == TEST_TYPE_FILE_MATCH_PATTERN or \
+                check.test_type == TEST_TYPE_FILE_NO_MATCH_PATTERN:
+            expected = check.test_type == TEST_TYPE_FILE_MATCH_PATTERN
+            res = self.check_match_pattern(check, expected)
+            self.nutmeg_log("Checking " + ("presence" if expected else "absence") + 
+                            " of pattern '" + check.match_pattern + "' in " + check.data_file + ": " + RESULT_NAMES[res], check.test_type)
 
         elif check.test_type == TEST_TYPE_UPDATE_REFERENCE:
             ref_dir = os.path.join(self.test_src_path, REF_NUTMEG_DATA_DIR)
