@@ -11,7 +11,7 @@ begin reaction rules
   
     Y(x) + Y(x) -> Null 456
     
-    Y(x) -> Null 111
+    W() -> Null 111
     
-    Y(x) -> Null 222
+    Z() -> Null 222
 end reaction rules

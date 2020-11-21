@@ -1,13 +1,13 @@
 includes = ["exit_code_1"]
 
 [[checks]]
-  matchPattern = "Species with name 'Bs(b,a)' caused an error" 
+  matchPattern = "'Bs(a,b)' caused an error" 
   dataFile = "run_%d.0.log"
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"
 
 [[checks]]
-  matchPattern = "Species with name 'Bm(b,a)' caused an error" 
+  matchPattern = "'Bm(a,b)' caused an error" 
   dataFile = "run_%d.0.log"
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"

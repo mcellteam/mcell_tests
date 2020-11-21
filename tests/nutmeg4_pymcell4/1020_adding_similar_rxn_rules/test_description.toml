@@ -1,25 +1,25 @@
 includes = ["exit_code_1"]
 
 [[checks]]
-  matchPattern = "'As(d~X~Y,e~0~1)' caused an error" 
+  matchPattern = "ElementaryMoleculeType with name 'As' caused an error" 
   dataFile = "run_%d.0.log"
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"
 
 [[checks]]
-  matchPattern = "'Am(d~X~Y,e~0~1)' caused an error" 
+  matchPattern = "ElementaryMoleculeType with name 'Am' caused an error" 
   dataFile = "run_%d.0.log"
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"
 
 [[checks]]
-  matchPattern = "'As(d~X~Y,e~0~1)' is ignored" 
+  matchPattern = "ElementaryMoleculeType with name 'As' is ignored" 
   dataFile = "err_%d.0.log"
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"
 
 [[checks]]
-  matchPattern = "'Am(d~X~Y,e~0~1)' is ignored" 
+  matchPattern = "ElementaryMoleculeType with name 'Am' is ignored" 
   dataFile = "err_%d.0.log"
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"

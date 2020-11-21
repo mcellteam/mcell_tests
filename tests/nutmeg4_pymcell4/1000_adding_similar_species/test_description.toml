@@ -1,25 +1,25 @@
 includes = ["exit_code_1"]
 
 [[checks]]
-  matchPattern = "Species with name 'As' caused an error" 
+  matchPattern = "'As' caused an error" 
   dataFile = "run_%d.0.log"
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"
 
 [[checks]]
-  matchPattern = "Species with name 'Am' caused an error" 
+  matchPattern = "'Am' caused an error" 
   dataFile = "run_%d.0.log"
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"
 
 [[checks]]
-  matchPattern = "Species with name 'As' is ignored" 
+  matchPattern = "'As' is ignored" 
   dataFile = "err_%d.0.log"
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"
 
 [[checks]]
-  matchPattern = "Species with name 'Am' is ignored" 
+  matchPattern = "'Am' is ignored" 
   dataFile = "err_%d.0.log"
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"

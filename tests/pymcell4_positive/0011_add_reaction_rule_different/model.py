@@ -24,7 +24,7 @@ b = m.Species('b', diffusion_constant_3d = 1e-6)
 r2 = m.ReactionRule('r', [b.inst()], [], 0)
 
 try:
-    model.add_reaction_rule(r2) # must throw exception
+    model.add_reaction_rule(r2) # must throw exception - rules have the same name but different contents
     assert False
 except ValueError: 
     pass # ok

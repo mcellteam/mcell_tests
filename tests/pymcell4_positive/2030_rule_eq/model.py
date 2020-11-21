@@ -16,6 +16,9 @@ s1.load_bngl_molecule_types_and_reaction_rules('test1.bngl')
 s2 = m.Subsystem()
 s2.load_bngl_molecule_types_and_reaction_rules('test2.bngl')
 
+assert len(s1.reaction_rules) == 6
+assert len(s2.reaction_rules) == 6
+
 # 1st rule and its reversed version
 assert s1.reaction_rules[0] == s2.reaction_rules[0]
 assert s1.reaction_rules[0] != s2.reaction_rules[1] 
