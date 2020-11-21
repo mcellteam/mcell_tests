@@ -1,0 +1,14 @@
+includes = ["exit_code_1"]
+
+[[checks]]
+  matchPattern = "arning" # no warning message 
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_NO_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 0
+  
+[run]
+  pyfile = "model.py"
