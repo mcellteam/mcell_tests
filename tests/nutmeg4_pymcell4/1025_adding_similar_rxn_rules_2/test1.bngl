@@ -1,0 +1,13 @@
+
+begin compartments
+    EC 3 1^3
+    PM 2 1e-80 EC
+    CP 3 0.0625^3 PM
+end compartments
+
+begin reaction rules
+    A@CP + B@PM -> C@CP + D@EC 1e8
+    
+    # different compartments
+    B@EC + A@EC -> D@EC + C@CP 1e8
+end reaction rules
