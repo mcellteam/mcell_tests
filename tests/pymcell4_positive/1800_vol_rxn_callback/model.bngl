@@ -1,0 +1,25 @@
+begin parameters
+    MCELL_DIFFUSION_CONSTANT_3D_a 1e-6
+    MCELL_DIFFUSION_CONSTANT_3D_b 1e-6
+    MCELL_DIFFUSION_CONSTANT_3D_c 1e-6
+end parameters
+
+#begin molecule types
+#    a
+#    b
+#    c
+#end molecule types    
+
+
+begin compartments
+    Cube 3 0.125^3
+end compartments
+
+begin seed species
+    a@Cube 100
+    b@Cube 100
+end seed species  
+
+begin reaction rules
+    a_plus_b: a + b -> c 1e8
+end reaction rules  
