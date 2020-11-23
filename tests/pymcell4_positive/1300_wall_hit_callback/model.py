@@ -56,30 +56,66 @@ if EXPORT_DATA_MODEL and model.viz_outputs:
 class HitCount():
     def __init__(self):
         self.count = 0
+        self.current_it = 0 
+
+
+def check_time(time, it):
+    # cannot start before iteration start
+    #print("---")
+    #print(time)
+    #print(it)
+    #print(it * TIME_STEP)
+    assert time >= it * TIME_STEP
+    # we are running iterations one by one therefore
+    # the max time is the end of this iteration 
+    assert time <= (it + 1) * TIME_STEP
+
+def check_pos(pos3d):
+    EPS = 1e-9
+    # min and max coordinates from Tetrahedron_vertex_list
+    assert pos3d.x >= -0.01 - EPS and pos3d.x <= 0.02 + EPS
+    assert pos3d.y >= -0.02 - EPS and pos3d.y <= 0.02 + EPS
+    #print(pos3d.z)
+    assert pos3d.z >= -0.01 - EPS and pos3d.z <= 0.02 + EPS
+        
+        
+tetrahedron_object = model.find_geometry_object('Tetrahedron')
+assert tetrahedron_object
+
 
 def wall_hit_callback(wall_hit_info, context):
     #print("Wall hit callback called")
     #print(wall_hit_info)
     context.count += 1
     
+    assert wall_hit_info.geometry_object is tetrahedron_object
+    assert wall_hit_info.wall_index < len(tetrahedron_object.wall_list)
+    
+    #print("-t")
+    check_time(wall_hit_info.time, context.current_it)
+    #print("-t-before")
+    check_time(wall_hit_info.time_before_hit, context.current_it)
+    assert wall_hit_info.time_before_hit <= wall_hit_info.time
+    
+    check_pos(wall_hit_info.pos3d)
+    check_pos(wall_hit_info.pos3d_before_hit)
+    
 
-tetrahedron_object = model.find_geometry_object('Tetrahedron')
-assert tetrahedron_object
 
 vm_species = model.find_species('vm')
 assert vm_species
-assert vm_species == subsystem. vm
+assert vm_species is subsystem.vm
 
 context = HitCount()
 
 # the object and species are optional, this simple test contains single
 # object and species anyway 
 model.register_mol_wall_hit_callback(
-    wall_hit_callback, context
-    #, tetrahedron_object, vm_species 
+    wall_hit_callback, context 
 )
 
 for i in range(ITERATIONS + 1):
+    context.current_it = i
     model.run_iterations(1)
 
 model.end_simulation()
