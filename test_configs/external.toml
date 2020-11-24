@@ -2,8 +2,26 @@
   category = 'utils_tests'
   testSet = 'bng_analyzer'
   testerClass = 'TesterExternal'
-  args = ['$MCELL_TESTS_DIR/tests/utils_tests/bng_analyzer/test.sh', '$MCELL_BUILD_DIR/utils/bng_analyzer/bng_analyzer', '$MCELL_TESTS_DIR/tests/utils_tests/bng_analyzer/', '$MCELL_TESTS_DIR/work/bng_analyzer']
+  args = [
+    '$MCELL_TESTS_DIR/tests/utils_tests/bng_analyzer/test.sh', 
+    '$MCELL_BUILD_DIR/utils/bng_analyzer/bng_analyzer', 
+    '$MCELL_TESTS_DIR/tests/utils_tests/bng_analyzer/', 
+    '$MCELL_TESTS_DIR/work/bng_analyzer'
+  ]
     
+[[set]]
+  category = 'utils_tests'
+  testSet = 'bng_analyzer_py'
+  testerClass = 'TesterExternal'
+  args = [
+    'export MCELL_PATH=$MCELL_BUILD_DIR;',
+    '$MCELL_TESTS_DIR/tests/utils_tests/bng_analyzer_py/test.sh', 
+    '$MCELL_BUILD_DIR/utils/bng_analysis_example.py', 
+    '$MCELL_TESTS_DIR/tests/utils_tests/bng_analyzer_py/', 
+    '$MCELL_TESTS_DIR/work/bng_analyzer_py'
+  ]
+    
+        
 [[set]]
   category = 'external'
   testSet = 'bng_test'
