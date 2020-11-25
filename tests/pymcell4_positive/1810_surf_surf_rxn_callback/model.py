@@ -72,11 +72,6 @@ def uv2xyz(geometry_object, wall_index, pos2d):
     
     return m.Vec3(pos2d.u) * unit_u + m.Vec3(pos2d.v) * unit_v + wall.vertices[0]
     
-def check_eq(v1, v2):
-    EPS = 1e-9
-    assert abs(v1.x - v2.x) < EPS
-    assert abs(v1.y - v2.y) < EPS
-    assert abs(v1.z - v2.z) < EPS 
 
 def check_time(time, it):
     # cannot start before iteration start
@@ -85,21 +80,32 @@ def check_time(time, it):
     # the max time is the end of this iteration 
     assert time <= (it + 1) * TIME_STEP
 
+
+def check_eq(v1, v2):
+    EPS = 1e-9
+    assert abs(v1.x - v2.x) < EPS
+    assert abs(v1.y - v2.y) < EPS
+    assert abs(v1.z - v2.z) < EPS 
+
 def check_pos3d(pos3d):
     EPS = 1e-9
-    print(pos3d)
+    #print(pos3d)
     # min and max coordinates from Cube
     assert pos3d.x >= -0.0625 - EPS and pos3d.x <= 0.0625 + EPS
     assert pos3d.y >= -0.0625 - EPS and pos3d.y <= 0.0625 + EPS
     #print(pos3d.z)
     assert pos3d.z >= -0.0625 - EPS and pos3d.z <= 0.0625 + EPS
     
-
+        
 def check_pos2d_eq_pos3d(rxn_info):
     
     xyz = uv2xyz(rxn_info.geometry_object, rxn_info.wall_index, rxn_info.pos2d)
     check_eq(xyz, rxn_info.pos3d)
+
+def check_pos2d_reac2(rxn_info):
     
+    xyz = uv2xyz(rxn_info.geometry_object_surf_reac2, rxn_info.wall_index_surf_reac2, rxn_info.pos2d_surf_reac2)
+    check_pos3d(xyz)
         
 rxn = model.find_reaction_rule('sa_plus_sb')
 assert rxn
@@ -109,11 +115,12 @@ assert cube
 def rxn_callback(rxn_info, context):
     context.count += 1
     
-    #print(rxn_info.reactant_ids);
-    assert len(rxn_info.reactant_ids) == 1
+    #print(rxn_info.reactant_ids)
+    assert len(rxn_info.reactant_ids) == 2
     
     # we are starting with 20 molecules and not creating any new 'a' and 'b'
     assert rxn_info.reactant_ids[0] >= 0 and rxn_info.reactant_ids[0] < 200
+    assert rxn_info.reactant_ids[1] >= 0 and rxn_info.reactant_ids[1] < 200
     
     assert rxn_info.reaction_rule is rxn
     assert rxn_info.geometry_object is cube
@@ -123,6 +130,8 @@ def rxn_callback(rxn_info, context):
     
     check_pos3d(rxn_info.pos3d)
     check_pos2d_eq_pos3d(rxn_info)
+    
+    check_pos2d_reac2(rxn_info)
 
 
 context = RxnCallbackContext()
@@ -138,5 +147,5 @@ for i in range(ITERATIONS + 1):
 model.end_simulation()
 
 print("Total number of reactions: " + str(context.count))
-assert context.count == 50
+assert context.count == 82
 
