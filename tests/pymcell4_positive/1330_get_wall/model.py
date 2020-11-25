@@ -63,7 +63,7 @@ for i in range(ITERATIONS + 1):
     
     assert_eq(w.area, area)
     
-    mn = np.array(w.normal.tolist())
+    mn = np.array(w.normal.to_list())
     un_mn = mn / np.linalg.norm(mn)
     for i in range(3):
         assert_eq(un_mn[i], un_np[i])
