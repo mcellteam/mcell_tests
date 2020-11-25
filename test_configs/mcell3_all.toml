@@ -2,7 +2,7 @@
   file = 'mcell3_mdl.toml'
 
 [[include]]
-  file = 'mcell3_dyn_geom.toml'
+  file = 'mcell3_only_mdl.toml'
   
 [[include]]
   file = 'mcell3_nutmeg.toml'
