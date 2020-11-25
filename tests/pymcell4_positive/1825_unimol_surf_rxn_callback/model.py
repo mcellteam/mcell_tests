@@ -67,7 +67,7 @@ def uv2xyz(geometry_object, wall_index, pos2d):
     inv_f1_len = 1 / math.sqrt(f1_len_squared);
 
     unit_u = f1 * m.Vec3(inv_f1_len);
-    v_nparray = np.cross(wall.normal.to_list(), unit_u.to_list())
+    v_nparray = np.cross(wall.unit_normal.to_list(), unit_u.to_list())
     unit_v = m.Vec3(v_nparray[0], v_nparray[1], v_nparray[2])
     
     return m.Vec3(pos2d.u) * unit_u + m.Vec3(pos2d.v) * unit_v + wall.vertices[0]

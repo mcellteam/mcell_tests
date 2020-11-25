@@ -62,12 +62,12 @@ for i in range(ITERATIONS + 1):
         assert_eq(w.vertices[i].z, v[i][2])
     
     assert_eq(w.area, area)
+    assert_eq(np.linalg.norm(w.unit_normal.to_list()), 1)
     
-    mn = np.array(w.normal.to_list())
-    un_mn = mn / np.linalg.norm(mn)
+    un_mn = np.array(w.unit_normal.to_list())
     for i in range(3):
         assert_eq(un_mn[i], un_np[i])
-    
+        
     assert w.is_movable
     
 
