@@ -82,7 +82,7 @@ def check_time(time, it):
 
 def check_pos3d(pos3d):
     EPS = 1e-9
-    #print(pos3d)
+    print(pos3d)
     # min and max coordinates from Cube
     assert pos3d.x >= -0.0625 - EPS and pos3d.x <= 0.0625 + EPS
     assert pos3d.y >= -0.0625 - EPS and pos3d.y <= 0.0625 + EPS
@@ -91,24 +91,12 @@ def check_pos3d(pos3d):
     
         
 def check_pos2d(rxn_info):
-    EPS = 1e-9
-    # Cube's edge is 0.125um long so this is the max
-    # u or v coordinate
-    
-    # POTENTIAL TODO:
-    # in iteration 5, we get 
-    # pos2d == (0.163677, 0.001028)
-    # this doesn't then matcth the triangle lengths, 
-    # not sure what is correct, 
-    # coversion to xyz using code from MCell's 'uv2xyz' works
-    #assert pos2d.x >= 0 - EPS and pos2d.x <= 0.125 + EPS
-    #assert pos2d.y >= 0 - EPS and pos2d.y <= 0.125 + EPS
     
     xyz = uv2xyz(rxn_info.geometry_object, rxn_info.wall_index, rxn_info.pos2d)
     check_pos3d(xyz)
 
     
-rxn = model.find_reaction_rule('a_plus_sb')
+rxn = model.find_reaction_rule('sa_plus_sb')
 assert rxn
 cube = model.find_geometry_object('Cube')
 assert cube
@@ -117,11 +105,10 @@ def rxn_callback(rxn_info, context):
     context.count += 1
     
     #print(rxn_info.reactant_ids);
-    assert len(rxn_info.reactant_ids) == 2
+    assert len(rxn_info.reactant_ids) == 1
     
     # we are starting with 20 molecules and not creating any new 'a' and 'b'
     assert rxn_info.reactant_ids[0] >= 0 and rxn_info.reactant_ids[0] < 200
-    assert rxn_info.reactant_ids[1] >= 0 and rxn_info.reactant_ids[1] < 200
     
     assert rxn_info.reaction_rule is rxn
     assert rxn_info.geometry_object is cube
@@ -146,5 +133,5 @@ for i in range(ITERATIONS + 1):
 model.end_simulation()
 
 print("Total number of reactions: " + str(context.count))
-#assert context.count == 33
+assert context.count == 50
 
