@@ -67,7 +67,7 @@ def rotate_about_normal(normal, displacement):
         axis.z = 0
         
         degrees = math.acos(cos_theta) * 180.0 / math.pi  
-
+    
     # from https://www.kite.com/python/answers/how-to-rotate-a-3d-vector-about-an-axis-in-python
     rotation_radians = np.radians(degrees)
     rotation_vector = rotation_radians * np.array(axis.to_list())

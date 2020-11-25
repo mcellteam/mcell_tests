@@ -1,1 +1,1 @@
-Validated against MCell3 model /home/ahusar/src4_display/mcell_tests/tests/mdl_mcell3/2301_release_triggered_by_vol_rxn_multiple
+Validated against MCell3 model mdl_mcell3/2301_release_triggered_by_vol_rxn_multiple
