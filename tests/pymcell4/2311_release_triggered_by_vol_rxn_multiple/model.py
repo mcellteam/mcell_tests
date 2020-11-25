@@ -47,7 +47,7 @@ model.add_observables(observables.observables)
 
 # ---- initialization and execution ----
 def rxn_callback(rxn_info, model):
-    #print(rxn_info)
+    assert rxn_info.type == m.ReactionType.VOLUME_VOLUME
     
     # release molecules
     rel_a = m.ReleaseSite(
