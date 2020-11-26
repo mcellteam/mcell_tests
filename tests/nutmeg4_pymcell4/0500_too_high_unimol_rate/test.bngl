@@ -1,0 +1,17 @@
+begin parameters
+  ITERATIONS 1
+  MCELL_DIFFUSION_CONSTANT_3D_A 1e-6
+  MCELL_DIFFUSION_CONSTANT_3D_B 1e-6
+end parameters
+
+begin compartments
+  CP 3 1
+end compartments
+
+begin seed species
+  A@CP 1
+end seed species
+
+begin reaction rules
+  A -> B 1e17
+end reaction rules    
