@@ -1,0 +1,3 @@
+Validated against mdl/2510_variable_rate_unimol_box_it_100
+
+TODO: the reference may not be correct, needs to be validated better 

@@ -1,0 +1,12 @@
+begin parameters
+end parameters
+
+begin molecule types
+    b
+    a
+end molecule types
+
+begin reaction rules
+    a_to_b: a -> b  0 # initial rate
+end reaction rules
+
