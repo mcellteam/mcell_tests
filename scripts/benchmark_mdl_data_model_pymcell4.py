@@ -73,7 +73,7 @@ class BenchmarkMdlDataModelPymcell4(BenchmarkBngl):
                     
         log_name = self.test_name+'.pymcell4.log'
         res = self.run_pymcell_w_stats('model.py', log_name)
-        print("Log: " + os.path.join(self.test_work_path, log_name))
+        #print("Log: " + os.path.join(self.test_work_path, log_name))
 
         if self.is_todo_test():
             return TODO_TEST
