@@ -65,8 +65,11 @@ for i in range(ITERATIONS):
     
     if i < len(var_rate_react_a_plus_b_0):
         assert cmp_eq(var_rate_react_a_plus_b_0[i][0], i * TIME_STEP)
+        
+        # directly update the rate, calls a setter method
         new_rate = var_rate_react_a_plus_b_0[i][1]
-        model.set_reaction_rule_rate(rxn, new_rate)
+        rxn.fwd_rate = new_rate 
+        assert rxn.fwd_rate == new_rate
       
     model.run_iterations(1)
     
