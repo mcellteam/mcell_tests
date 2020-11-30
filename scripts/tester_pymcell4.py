@@ -102,7 +102,7 @@ class TesterPymcell4(TesterBase):
         
         self.clean_and_create_work_dir()
         
-        self.copy_all_bngl_files_to_work_dir()
+        self.copy_all_extra_files_to_work_dir()
         
         res = self.run_pymcell4(test_dir=self.test_src_path)
         

@@ -80,7 +80,7 @@ class TesterNutmegPymcell4(TesterNutmeg):
         
         self.clean_and_create_work_dir()
         
-        self.copy_all_bngl_files_to_work_dir()
+        self.copy_all_extra_files_to_work_dir()
         
         # transform the result ito something more readable or keep as dictionary?
         parser = TestDescriptionParser(self.test_src_path)
