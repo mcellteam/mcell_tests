@@ -31,7 +31,7 @@ assert CaM_inst.to_bngl_str() == 'CaM(C~0,N~1)'
 
 
 cplx_inst = m.Complex(
-    elementary_molecule_instances=[CaM.inst([C.inst(2, 1), N.inst(bond=2)]), CaM.inst([C.inst('Z', 1), N.inst(bond=2)])])
+    elementary_molecules=[CaM.inst([C.inst(2, 1), N.inst(bond=2)]), CaM.inst([C.inst('Z', 1), N.inst(bond=2)])])
 assert cplx_inst.to_bngl_str() == 'CaM(C~2!1,N!2).CaM(C~Z!1,N!2)'
 
 cplx2 = m.Complex('Ca', compartment_name = 'CP')
@@ -40,7 +40,7 @@ assert cplx2.to_bngl_str() == 'Ca@CP'
 cplx3 = m.Complex('A(a!1).B(b!1)', compartment_name = 'CP')
 assert cplx3.to_bngl_str() == '@CP:A(a!1).B(b!1)'
 
-CaMC0N1_species = m.Species(elementary_molecule_instances = [ CaM.inst([C.inst(0), N.inst(1)]) ] )
+CaMC0N1_species = m.Species(elementary_molecules = [ CaM.inst([C.inst(0), N.inst(1)]) ] )
 assert CaMC0N1_species.to_bngl_str() == 'CaM(C~0,N~1)'
 
 
@@ -67,15 +67,15 @@ rxn_rule = m.ReactionRule(
     rev_name = "sixth rxn rev",
     reactants=[
         m.Complex( 
-            elementary_molecule_instances=[ CaMKII.inst( [ l.inst(), r.inst(), Y286.inst('0'), cam.inst(bond=m.BOND_BOUND) ] ) ] 
+            elementary_molecules=[ CaMKII.inst( [ l.inst(), r.inst(), Y286.inst('0'), cam.inst(bond=m.BOND_BOUND) ] ) ] 
         ),
         m.Complex( 
-            elementary_molecule_instances=[ CaMKII.inst( [ l.inst(), r.inst(), cam.inst(bond=m.BOND_BOUND) ] ) ]  
+            elementary_molecules=[ CaMKII.inst( [ l.inst(), r.inst(), cam.inst(bond=m.BOND_BOUND) ] ) ]  
         )
     ], 
     products=[
         m.Complex( 
-            elementary_molecule_instances=[ CaMKII.inst( [ l.inst(1, bond=1), r.inst(), Y286.inst('0'), cam.inst(bond=m.BOND_BOUND) ] ), 
+            elementary_molecules=[ CaMKII.inst( [ l.inst(1, bond=1), r.inst(), Y286.inst('0'), cam.inst(bond=m.BOND_BOUND) ] ), 
               CaMKII.inst( [ l.inst(), r.inst(bond=1), cam.inst(bond=m.BOND_BOUND) ] )
             ]
         )

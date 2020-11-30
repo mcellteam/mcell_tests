@@ -20,6 +20,6 @@ mt1_1 = m.ElementaryMoleculeType('M', [c1_1, b1], diffusion_constant_3d=1e-6)
 mt2   = m.ElementaryMoleculeType('M', [b1, c1_2], diffusion_constant_3d=1e-5)
 
 # different diffusion constant of used mol type
-s5_1 = m.Species(elementary_molecule_instances = [mt1_1.inst([c1_1.inst('0'), b1.inst('Q')])])
-s5_2 = m.Species(elementary_molecule_instances = [mt2.inst([c1_1.inst('0'), b1.inst('Q')])])
+s5_1 = m.Species(elementary_molecules = [mt1_1.inst([c1_1.inst('0'), b1.inst('Q')])])
+s5_2 = m.Species(elementary_molecules = [mt2.inst([c1_1.inst('0'), b1.inst('Q')])])
 assert s5_1 != s5_2

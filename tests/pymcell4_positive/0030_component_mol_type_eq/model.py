@@ -24,7 +24,7 @@ c1 = m.ComponentType('C', ['0', '1', 'Z'])
 c2 = m.ComponentType('C', ['A', 'Z', '1'])
 assert c1 != c2
 
-# ComponentInstance
+# Component
 i1 = a1.inst('0')
 i2 = a2.inst(0)
 assert i1 == i2

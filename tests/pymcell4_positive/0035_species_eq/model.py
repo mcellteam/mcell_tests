@@ -23,21 +23,21 @@ mt2   = m.ElementaryMoleculeType('M', [b1, c1_2], diffusion_constant_3d=1e-5)
 mt4 = m.ElementaryMoleculeType('N', [b1, b1, c1_1])
 mt5 = m.ElementaryMoleculeType('O', [b1, c1_2])
 
-s1_1 = m.Species(elementary_molecule_instances = [mt1_1.inst([c1_1.inst('0'), b1.inst('Q')])])
-s1_2 = m.Species(elementary_molecule_instances = [mt1_1.inst([b1.inst('Q'), c1_1.inst('0')])])
+s1_1 = m.Species(elementary_molecules = [mt1_1.inst([c1_1.inst('0'), b1.inst('Q')])])
+s1_2 = m.Species(elementary_molecules = [mt1_1.inst([b1.inst('Q'), c1_1.inst('0')])])
 assert s1_1 == s1_2
 
-s1_3 = m.Species(elementary_molecule_instances = [mt1_2.inst([b1.inst('Q'), c1_2.inst('0')])])
+s1_3 = m.Species(elementary_molecules = [mt1_2.inst([b1.inst('Q'), c1_2.inst('0')])])
 assert s1_1 == s1_3
 
 
-s2_1 = m.Species(elementary_molecule_instances = 
+s2_1 = m.Species(elementary_molecules = 
                 [
                     mt1_1.inst([c1_1.inst('0'), b1.inst('Q', bond=1)]), 
                     mt4.inst([b1.inst('0'), b1.inst('Q', bond=1), c1_1.inst('0')])
                 ]
 )
-s2_2 = m.Species(elementary_molecule_instances = 
+s2_2 = m.Species(elementary_molecules = 
                 [
                     mt4.inst([b1.inst('0'), b1.inst('Q', bond=1), c1_1.inst('0')]),
                     mt1_2.inst([c1_1.inst('0'), b1.inst('Q', bond=1)]) 
@@ -46,7 +46,7 @@ s2_2 = m.Species(elementary_molecule_instances =
 assert s2_1 == s2_2
 
 # different bonds
-s3 = m.Species(elementary_molecule_instances = 
+s3 = m.Species(elementary_molecules = 
                 [
                     mt4.inst([b1.inst('0'), b1.inst('Q', bond=1), c1_1.inst('0')]),
                     mt1_2.inst([c1_1.inst('0', bond=1), b1.inst('Q')]) 
@@ -55,7 +55,7 @@ s3 = m.Species(elementary_molecule_instances =
 assert s2_1 != s3
 
 # different state
-s4 = m.Species(elementary_molecule_instances = 
+s4 = m.Species(elementary_molecules = 
                 [
                     mt4.inst([b1.inst('Q'), b1.inst('Q', bond=1), c1_1.inst('0')]),
                     mt1_2.inst([c1_1.inst('0', bond=1), b1.inst('Q')]) 
