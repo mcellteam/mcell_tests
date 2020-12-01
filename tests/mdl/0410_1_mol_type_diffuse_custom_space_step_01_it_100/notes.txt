@@ -1,0 +1,5 @@
+MCell3 uses different simulation order but
+otherwise the result matches: 
+
+Total number of diffuse 3d calls: 25
+Average diffusion jump was 4.20 timesteps (105.09/25)

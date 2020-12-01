@@ -7,7 +7,7 @@ DEFINE_MOLECULES
     CUSTOM_SPACE_STEP = 0.1
   }
 
-  c
+  b
   {
     DIFFUSION_CONSTANT_3D = 1e-6
   }
