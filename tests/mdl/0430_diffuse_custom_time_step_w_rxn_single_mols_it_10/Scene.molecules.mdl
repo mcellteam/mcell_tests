@@ -15,7 +15,6 @@ DEFINE_MOLECULES
   c
   {
     DIFFUSION_CONSTANT_3D = 1e-6
-    CUSTOM_TIME_STEP = 2e-6
   }
 }
 
