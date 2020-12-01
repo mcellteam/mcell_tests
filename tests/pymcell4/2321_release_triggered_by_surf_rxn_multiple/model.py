@@ -4,7 +4,7 @@ import sys
 import os
 import numpy as np
 import math
-from scipy.spatial.transform import Rotation
+#from scipy.spatial.transform import Rotation
 
 MCELL_PATH = os.environ.get('MCELL_PATH', '')
 if MCELL_PATH:
@@ -52,8 +52,9 @@ model.add_observables(observables.observables)
 def cmp_eq(a, b):
     return abs(a - b) < 1e-8
     
-    
-def rotate_about_normal(normal, displacement):
+"""
+# implementation that uses scipy.spatial.transform import Rotation
+def rotate_about_normal_scipy(normal, displacement):
     # from MCell3 function reaction_wizardry
     # Set up transform that will translate and then rotate Z axis to align
     # with surface normal 
@@ -75,7 +76,115 @@ def rotate_about_normal(normal, displacement):
     res = rotation.apply(displacement.to_list())
     
     return m.Vec3(res[0], res[1], res[2])  
+"""
 
+# implementation that does not use scipy.spatial.transform 
+def rotate_about_normal(normal, displacement):
+    
+    axis = m.Vec3(1, 0, 0)
+    cos_theta = normal.z
+    if cmp_eq(cos_theta, -1.0):
+        angle = 180.0
+    else:
+        axis.x = -normal.y
+        axis.y = normal.x
+        axis.z = 0
+        
+        angle = math.acos(cos_theta) * 180.0 / math.pi  
+    
+    r1 = np.empty([4, 4])    
+    r2 = np.empty([4, 4])
+    r3 = np.empty([4, 4]) 
+    
+    np_axis = np.array(axis.to_list())
+    np_axis = np_axis/np.linalg.norm(np_axis)
+    a = np_axis[0];
+    b = np_axis[1];
+    c = np_axis[2];
+    v = math.sqrt(b * b + c * c);
+  
+    r1[0][0] = 1;
+    r1[0][1] = 0;
+    r1[0][2] = 0;
+    r1[0][3] = 0;
+    r1[1][0] = 0;
+    r1[1][1] = 1;
+    r1[1][2] = 0;
+    r1[1][3] = 0;
+    r1[2][0] = 0;
+    r1[2][1] = 0;
+    r1[2][2] = 1;
+    r1[2][3] = 0;
+    r1[3][0] = 0;
+    r1[3][1] = 0;
+    r1[3][2] = 0;
+    r1[3][3] = 1;
+    
+    if v != 0.0:
+        r1[1][1] = c / v;
+        r1[1][2] = b / v;
+        r1[2][1] = -b / v;
+        r1[2][2] = c / v;
+  
+    r2[0][0] = v;
+    r2[0][1] = 0;
+    r2[0][2] = a;
+    r2[0][3] = 0;
+    r2[1][0] = 0;
+    r2[1][1] = 1;
+    r2[1][2] = 0;
+    r2[1][3] = 0;
+    r2[2][0] = -a;
+    r2[2][1] = 0;
+    r2[2][2] = v;
+    r2[2][3] = 0;
+    r2[3][0] = 0;
+    r2[3][1] = 0;
+    r2[3][2] = 0;
+    r2[3][3] = 1;
+    
+    rad = math.pi / 180.0;
+    r3[0][0] = math.cos(angle * rad);
+    r3[0][1] = math.sin(angle * rad);
+    r3[0][2] = 0;
+    r3[0][3] = 0;
+    r3[1][0] = -math.sin(angle * rad);
+    r3[1][1] = math.cos(angle * rad);
+    r3[1][2] = 0;
+    r3[1][3] = 0;
+    r3[2][0] = 0;
+    r3[2][1] = 0;
+    r3[2][2] = 1;
+    r3[2][3] = 0;
+    r3[3][0] = 0;
+    r3[3][1] = 0;
+    r3[3][2] = 0;
+    r3[3][3] = 1;
+    
+    #om = r1.dot(r2)
+    om = np.matmul(r1, r2)
+    om = np.matmul(om, r3)
+    
+    r2[0][2] = -a;
+    r2[2][0] = a;
+  
+    if v != 0:
+        r1[1][2] = -b / v;
+        r1[2][1] = b / v;
+    
+    om = np.matmul(om, r2)
+    om = np.matmul(om, r1)
+    
+    l = displacement.to_list()
+    l.append(1.0)
+    #print(l)
+    np_displ = np.array(l)
+    #print(np_displ)
+    res = np.matmul(np_displ, om)
+    
+    return m.Vec3(res[0], res[1], res[2])  
+
+    
 def rxn_callback(rxn_info, model):
     assert rxn_info.type == m.ReactionType.VOLUME_SURFACE
     
@@ -85,6 +194,7 @@ def rxn_callback(rxn_info, model):
     
     # MCell3 (reference model) mdl_mcell3/2310_release_triggered_by_surf_rxn_single
     # computes position like this:
+    
     pos = rxn_info.pos3d + rotate_about_normal(w.unit_normal, m.Vec3(-0.005, -0.005, -0.005))
     
     # it is also possible to move it in the direction of the unit normal
