@@ -14,7 +14,7 @@ keywords = ["parser"]
 
 [[checks]]
   dataFile = "err_%d.0.log"
-  matchPattern = "Requested buffer size of 5e\\+20 lines is invalid.  Suggested range is 100-1000000."
+  matchPattern = "Requested buffer size of 5e+20 lines is invalid.  Suggested range is 100-1000000."
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"
 

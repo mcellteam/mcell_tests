@@ -8,19 +8,19 @@ keywords = ["regression"]
 
 [[checks]]
   dataFile = "run_%d.0.log"
-  matchPattern = "Probability.*set for a\\{0\\} \\+ b\\{0\\} -> c\\{0\\}"
+  matchPattern = "Probability.*set for a\\{0\\} + b\\{0\\} -> c\\{0\\}"
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"
 
 [[checks]]
   dataFile = "run_%d.0.log"
-  matchPattern = "Probability.*set for a\\{0\\} \\+ b\\{0\\} -> d\\{0\\}"
+  matchPattern = "Probability.*set for a\\{0\\} + b\\{0\\} -> d\\{0\\}"
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"
 
 [[checks]]
   dataFile = "run_%d.0.log"
-  matchPattern = "Probability.*set for a\\{0\\} \\+ b\\{0\\} -> e\\{0\\}"
+  matchPattern = "Probability.*set for a\\{0\\} + b\\{0\\} -> e\\{0\\}"
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"
 

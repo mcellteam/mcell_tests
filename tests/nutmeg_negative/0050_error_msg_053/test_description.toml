@@ -14,7 +14,7 @@ keywords = ["parser"]
 
 [[checks]]
   dataFile = "err_%d.0.log"
-  matchPattern = "Incorrect type \\(got string, expected number or array\\): rad"
+  matchPattern = "Incorrect type (got string, expected number or array): rad"
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"
 
