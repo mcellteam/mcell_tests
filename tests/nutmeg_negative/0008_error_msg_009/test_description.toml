@@ -14,7 +14,7 @@ keywords = ["parser"]
 
 [[checks]]
   dataFile = "err_%d.0.log"
-  matchPattern = "Attempt to compute LOG\\(0\\), which is not defined."
+  matchPattern = "Attempt to compute LOG(0), which is not defined."
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"
 

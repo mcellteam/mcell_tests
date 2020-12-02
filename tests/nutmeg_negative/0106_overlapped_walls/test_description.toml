@@ -6,7 +6,7 @@ keywords = ["regression"]
 
 [[checks]]
   dataFile = "err_%d.0.log"
-  matchPattern = "Error: walls are overlapped: wall \\d+ from 'Scene.SpineHead' and wall \\d+ from 'Scene.SpineHead'"
+  matchPattern = "Error: walls are overlapped: wall 39 from 'Scene.SpineHead' and wall 295 from 'Scene.SpineHead'."
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"
 

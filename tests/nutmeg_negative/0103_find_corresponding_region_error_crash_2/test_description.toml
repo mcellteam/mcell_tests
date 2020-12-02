@@ -6,7 +6,7 @@ keywords = ["regression"]
 
 [[checks]]
   dataFile = "err_%d.0.log"
-  matchPattern = "Can't find new region corresponding to foo\\.boxB,ALL for world\\.bar\\.rs \\(copy of foo\\.bar\\.rs\\)"
+  matchPattern = "Can't find new region corresponding to foo\\.boxB,ALL for world\\.bar\\.rs (copy of foo\\.bar\\.rs)"
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"
 
