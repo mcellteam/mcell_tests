@@ -491,9 +491,11 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         return os.path.exists(fname)
     
     def check_only_bng(self):
-        # special handling for MCell3R because it does not create simulation barrier
-        # for BNGL observables 
         fname = os.path.join(self.test_src_path, 'only_bng')
+        return os.path.exists(fname)
+    
+    def check_no_mcell3(self):    
+        fname = os.path.join(self.test_src_path, 'no_mcell3')
         return os.path.exists(fname)
         
     def test(self) -> int:
@@ -520,6 +522,8 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         seeds = self.generate_seeds(num_runs)
         
         ONLY_BNG = self.check_only_bng()
+        
+        ONLY_MCELL4_AND_BNG = self.check_no_mcell3()
 
         if not ONLY_BNG:
             

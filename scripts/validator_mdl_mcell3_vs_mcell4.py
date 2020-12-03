@@ -131,14 +131,19 @@ class ValidatorMcell3VsMcell4Mdl(ValidatorBngVsPymcell4):
         else:
             print("MCell4 runs finished")
         mcell4_counts_per_run = { key:cnt/num_runs for key,cnt in mcell4_counts.items() }
-        
-        mcell3_counts = self.get_molecule_counts_for_multiple_mdl_runs(False, seeds)
-        if not mcell3_counts:
-            print("MCell3 runs failed")
-            return FAILED_MCELL
+
+        NO_MCELL3 = self.check_no_mcell3()
+                
+        if not NO_MCELL3:
+            mcell3_counts = self.get_molecule_counts_for_multiple_mdl_runs(False, seeds)
+            if not mcell3_counts:
+                print("MCell3 runs failed")
+                return FAILED_MCELL
+            else:
+                print("MCell3 runs finished")
+            mcell3_counts_per_run = { key:cnt/num_runs for key,cnt in mcell3_counts.items() }
         else:
-            print("MCell3 runs finished")
-        mcell3_counts_per_run = { key:cnt/num_runs for key,cnt in mcell3_counts.items() }
+            mcell3_counts_per_run = {}
                                     
         tolerance = self.get_tolerance()
         
