@@ -58,6 +58,7 @@ model.config.total_iterations_hint = ITERATIONS
 model.config.partition_dimension = MCELL_DEFAULT_COMPARTMENT_EDGE_LENGTH
 model.config.subpartition_dimension = MCELL_SUBPARTITION_DIMENSION 
 
+model.notifications.rxn_and_species_report = False
 
 model.initialize()
 
