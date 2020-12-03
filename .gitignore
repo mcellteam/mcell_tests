@@ -1,10 +1,12 @@
 **/4.
 **/viz_data
+**/viz_data3
+**/viz_data4
 **/react_data
-**/dump*
 **/dump*
 **/rxn_report_*
 **/species_report_*
+**/warnings_report_*
 **/data_layout.json
 /benchmarks/*/oprofile_data
 /work/
