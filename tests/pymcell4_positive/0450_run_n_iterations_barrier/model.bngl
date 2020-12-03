@@ -1,0 +1,14 @@
+begin parameters
+end parameters
+
+begin molecule types
+    b
+    a
+    c
+end molecule types
+
+begin reaction rules
+    a + b -> c 1e+08
+    c -> a + b 10000
+end reaction rules
+

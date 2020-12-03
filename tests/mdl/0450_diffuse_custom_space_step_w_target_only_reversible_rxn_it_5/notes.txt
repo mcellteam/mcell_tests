@@ -5,4 +5,5 @@ MCELL3_4_SAFE_DIFF_STEP_RETURNS_CONSTANT
 
 The issue was that the simulation barrier was not sewt for the end of the simulation.
 Viz data does not really check whether it behaves correctly because only the initial viz data is printed.
-TODO: add a python test that check the result differently. 
+
+Behavior is tested with pymcell4_positive/0450_run_n_iterations_barrier.

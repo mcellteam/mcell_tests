@@ -1,0 +1,3 @@
+Test based on mdl/0450_diffuse_custom_space_step_w_target_only_reversible_rxn_it_5,
+checks that a simulation barrier is correctly created for the last iteration of run_iterations
+even without counting or viz output events 
