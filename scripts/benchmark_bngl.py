@@ -97,7 +97,6 @@ class BenchmarkBngl(BenchmarkMdl):
         if res != PASSED:
             return res
         
-        insns = self.get_insns_from_log(log_name)
-        res = self.compare_insns_against_reference(insns)
+        res = self.benchmark_report(log_name)
         
         return res

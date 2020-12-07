@@ -73,7 +73,8 @@ class BenchmarkMdl(TesterBase):
                     return int(insn_str)
         return -1
         
-    def compare_insns_against_reference(self, insns: int):
+    def benchmark_report(self, log_name: str):
+        insns = self.get_insns_from_log(log_name)
         ref_insns = -1
         instructions_file = os.path.join(self.test_src_path, 'instructions.txt')
         if os.path.exists(instructions_file):
@@ -85,12 +86,20 @@ class BenchmarkMdl(TesterBase):
             " (" + "{:.3f}".format(100*float(insns)/ref_insns) + "%)"
         )
         
+        if self.tool_paths.opts.extra_reports:
+            with open(log_name, 'r') as f:
+                for line in f:
+                    if 'Simulation CPU time' in line:
+                        print(line)
+        
         if self.tool_paths.opts.update_reference:
             print(self.test_name + ": updating reference in " + instructions_file)
             with open(instructions_file, 'w') as f:
                 f.write(str(insns))
             
         return PASSED
+    
+    
         
     def test(self) -> int:
         if self.should_be_skipped():
@@ -114,7 +123,6 @@ class BenchmarkMdl(TesterBase):
         if res != PASSED:
             return res
         
-        insns = self.get_insns_from_log(log_name)
-        res = self.compare_insns_against_reference(insns)
-        
+        res = self.benchmark_report(log_name)
+                    
         return res
