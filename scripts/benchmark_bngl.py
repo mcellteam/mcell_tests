@@ -46,17 +46,31 @@ class BenchmarkBngl(BenchmarkMdl):
         
     def run_pymcell_w_stats(self, model_file, log_name: str) -> int:
 
-        cmdstr = 'export ' + MCELL_PATH_VARIABLE + '=' + self.tool_paths.mcell_path + '; '
-        cmdstr += 'perf stat -e instructions:u '
-        cmdstr +=  self.tool_paths.python_binary + ' ' + os.path.join(self.test_work_path, model_file)
-        cmd = [cmdstr]
+        export_str = 'export ' + MCELL_PATH_VARIABLE + '=' + self.tool_paths.mcell_path + '; '
+        perf_str = 'perf stat -e instructions:u '
+        mcell_run_str =  self.tool_paths.python_binary + ' ' + os.path.join(self.test_work_path, model_file)
         
-        exit_code = run(cmd, shell=True, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
-        if (exit_code):
-            log_test_error(self.test_name, self.tester_name, "Pymcell4 failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
-            return FAILED_MCELL
-        else:
+        
+        if not self.tool_paths.opts.gen_benchmark_script:
+            cmd = [export_str + perf_str + mcell_run_str]
+            # run twice and use the second result 
+            for i in range(2):
+                exit_code = run(cmd, shell=True, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
+                if exit_code:
+                    log_test_error(self.test_name, self.tester_name, "Pymcell4 failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
+                    return FAILED_MCELL
             return PASSED
+        else:
+            # do not run the benchmark, apped it to a script instead
+            with open(self.tool_paths.benchmark_script, 'a') as f:
+                f.write('echo \*\*\* ' + self.test_name + '\*\*\*\n')
+                f.write('cd ' + os.getcwd() + '\n')  
+                f.write(export_str + mcell_run_str + ' > bench.' + log_name + ' 2>&1\n')
+                f.write(export_str + mcell_run_str + ' > bench.' + log_name + ' 2>&1\n')
+                #f.write('grep "     instructions:u" bench.' + log_name + '\n')
+                f.write('grep "Simulation CPU time" bench.' + log_name + '\n')
+                f.write('echo "----"\n')
+            return SKIPPED
         
     def copy_pymcell4_benchmark_runner_and_test(self):
         shutil.copy(
@@ -68,7 +82,16 @@ class BenchmarkBngl(BenchmarkMdl):
             os.path.join(self.test_src_path, 'test.bngl'),
             self.test_work_path 
         )
-                
+        
+    def copy_customization(self):
+        cust_file = os.path.join(self.test_src_path, 'customization.py')
+        if os.path.exists(cust_file):
+            shutil.copy(
+                cust_file,
+                self.test_work_path 
+            )
+        
+        
     def test(self) -> int:
         if self.should_be_skipped():
             return SKIPPED
@@ -78,9 +101,10 @@ class BenchmarkBngl(BenchmarkMdl):
         
         self.clean_and_create_work_dir()
         
+        self.copy_customization()
+            
         if self.mcell4_testing:
             self.copy_pymcell4_benchmark_runner_and_test()
-            
         
             log_name = self.test_name+'.pymcell4.log'
             res = self.run_pymcell_w_stats('benchmark.py', log_name)

@@ -99,6 +99,7 @@ class TestOptions:
         self.python_binary_override = None    
         self.update_reference = False
         self.extra_reports = False
+        self.gen_benchmark_script = False
         self.validation_runs = DEFAULT_VALIDATION_RUNS
 
     def __repr__(self):
@@ -118,6 +119,7 @@ def create_argparse() -> argparse.ArgumentParser:
     parser.add_argument('-t', '--testing-python-executable', type=str, help='override of the default python used for testing (e.g. to run conversion scripts)')
     parser.add_argument('-u', '--update-reference', action='store_true', help='update reference (works currently only for benchmarks)')
     parser.add_argument('-r', '--extra-reports', action='store_true', help='print extra reports (works currently only for benchmarks)')
+    parser.add_argument('-x', '--benchmark-script', action='store_true', help='for benchmarks, do not run them but instead generate a script to run them instead')
     parser.add_argument('-v', '--validation-runs', type=str, help='number of validation runs, default is ' + str(DEFAULT_VALIDATION_RUNS))
     return parser
 
@@ -156,6 +158,10 @@ def process_opts() -> TestOptions:
 
     if args.extra_reports:
         opts.extra_reports = True
+        
+    if args.benchmark_script:
+        opts.sequential = True
+        opts.gen_benchmark_script = True
         
     if args.validation_runs:
         opts.validation_runs = int(args.validation_runs)
@@ -373,6 +379,10 @@ def collect_and_run_tests(tool_paths: ToolPaths, opts: TestOptions) -> Dict:
     log("Handling tester class prerequisites")
     for tester_class in tester_classes:
         tester_class.check_prerequisites(tool_paths)
+        
+    if opts.gen_benchmark_script:
+        if os.path.exists(tool_paths.benchmark_script):
+            os.remove(tool_paths.benchmark_script)
 
     results = {}
     work_dir = os.getcwd()
@@ -396,6 +406,9 @@ def collect_and_run_tests(tool_paths: ToolPaths, opts: TestOptions) -> Dict:
         results = dict(zip(test_names, result_values))
 
     os.chdir(work_dir)  # just to be sure, let's fix cwd
+
+    if opts.gen_benchmark_script:
+        log("Benchmark run script was generated to: " + tool_paths.benchmark_script)
 
     return results
 

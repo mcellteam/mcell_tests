@@ -56,6 +56,8 @@ class BenchmarkMdlDataModelPymcell4(BenchmarkBngl):
             return SKIPPED
         
         self.clean_and_create_work_dir()
+        self.copy_customization()
+
         
         extra_args = []
         if ARG_CONVERT_W_BNGL in self.args:

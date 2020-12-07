@@ -61,6 +61,8 @@ class ToolPaths:
             
         self.work_path = os.path.join(THIS_DIR, '..', WORK_DIR_NAME)
         
+        self.benchmark_script = os.path.join(self.work_path, 'run_benchmarks.sh')
+        
         if opts.python_binary_override:
             self.python_binary = opts.python_binary_override
             if not os.path.exists(self.python_binary):

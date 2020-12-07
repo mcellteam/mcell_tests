@@ -60,6 +60,12 @@ model.config.subpartition_dimension = MCELL_SUBPARTITION_DIMENSION
 
 model.notifications.rxn_and_species_report = False
 
+
+if os.path.exists('customization.py'):
+    import customization
+    if 'custom_config' in dir(customization):
+        customization.custom_config(model)
+
 model.initialize()
 
 model.run_iterations(ITERATIONS)
