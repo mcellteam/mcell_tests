@@ -66,10 +66,10 @@ class BenchmarkBngl(BenchmarkMdl):
                 f.write('echo \*\*\* ' + self.test_name + '\*\*\*\n')
                 f.write('cd ' + os.getcwd() + '\n')  
                 f.write(export_str + mcell_run_str + ' > bench.' + log_name + ' 2>&1\n')
-                f.write(export_str + mcell_run_str + ' > bench.' + log_name + ' 2>&1\n')
+                #f.write(export_str + mcell_run_str + ' > bench.' + log_name + ' 2>&1\n')
                 #f.write('grep "     instructions:u" bench.' + log_name + '\n')
-                f.write('grep "Simulation CPU time" bench.' + log_name + '\n')
-                f.write('echo "----"\n')
+                f.write('grep "Simulation CPU time without iteration 0" bench.' + log_name + '\n')
+                f.write('echo "----"\n\n')
             return SKIPPED
         
     def copy_pymcell4_benchmark_runner_and_test(self):
@@ -93,7 +93,7 @@ class BenchmarkBngl(BenchmarkMdl):
         
         
     def test(self) -> int:
-        if self.should_be_skipped():
+        if self.should_be_skipped() and not self.tool_paths.opts.gen_benchmark_script:
             return SKIPPED
             
         if self.is_known_fail():
@@ -112,8 +112,9 @@ class BenchmarkBngl(BenchmarkMdl):
             # TODO: no partitioning is generated
             res = self.convert_bngl_to_mdl()
             if res != PASSED:
-                return res               
-            res = self.run_mcell([], os.path.join('..', self.test_work_path, MAIN_MDL_FILE))
+                return res              
+            log_name = self.test_name+'.mcell.log' 
+            res = self.run_mcell_w_stats([], os.path.join('..', self.test_work_path, MAIN_MDL_FILE), log_name)
 
         if self.is_todo_test():
             return TODO_TEST

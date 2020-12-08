@@ -49,7 +49,7 @@ class BenchmarkMdlDataModelPymcell4(BenchmarkBngl):
         
    
     def test(self) -> int:
-        if self.should_be_skipped():
+        if self.should_be_skipped() and not self.tool_paths.opts.gen_benchmark_script:
             return SKIPPED
             
         if self.is_known_fail():

@@ -49,18 +49,35 @@ class BenchmarkMdl(TesterBase):
         
     def run_mcell_w_stats(self, mcell_args: List[str], main_mdl_file: str, log_name: str) -> int:
 
-        cmd = ['perf', 'stat', '-e', 'instructions:u' ]
-        cmd += [ self.tool_paths.mcell_binary ]
-        cmd += mcell_args
-        cmd += [ main_mdl_file ]
-        cmd += self.extra_args.mcell_args
+        perf_cmd = ['perf', 'stat', '-e', 'instructions:u' ]
+        mcell_run_cmd = [ self.tool_paths.mcell_binary ]
+        mcell_run_cmd += mcell_args
+        mcell_run_cmd += [ main_mdl_file ]
+        mcell_run_cmd += self.extra_args.mcell_args
         
-        exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
-        if (exit_code):
-            log_test_error(self.test_name, self.tester_name, "MCell failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
-            return FAILED_MCELL
-        else:
+        mdlr_rules_file = os.path.join(self.test_work_path, MAIN_MDLR_RULES_FILE)
+        if os.path.exists(mdlr_rules_file):
+            mcell_run_cmd += [ '-r', mdlr_rules_file ]
+        
+        if not self.tool_paths.opts.gen_benchmark_script:
+            for i in range(2):
+                cmd = perf_cmd + mcell_run_cmd
+                exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
+                if (exit_code):
+                    log_test_error(self.test_name, self.tester_name, "MCell failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
+                    return FAILED_MCELL
             return PASSED
+        else:
+            mcell_run_str = ' '.join(mcell_run_cmd)
+            with open(self.tool_paths.benchmark_script, 'a') as f:
+                f.write('echo \*\*\* ' + self.test_name + '\*\*\*\n')
+                f.write('cd ' + os.getcwd() + '\n')  
+                f.write(mcell_run_str + ' > bench.' + log_name + ' 2>&1\n')
+                #f.write(mcell_run_str + ' > bench.' + log_name + ' 2>&1\n')
+                #f.write('grep "     instructions:u" bench.' + log_name + '\n')
+                f.write('grep "Simulation CPU time without iteration 0" bench.' + log_name + '\n')
+                f.write('echo "----"\n\n')
+            return SKIPPED
         
     def get_insns_from_log(self, log_name: str):
         pat = re.compile('[ \t]*([0-9,]+)[ \t]*instructions:u')
@@ -102,7 +119,7 @@ class BenchmarkMdl(TesterBase):
     
         
     def test(self) -> int:
-        if self.should_be_skipped():
+        if self.should_be_skipped() and not self.tool_paths.opts.gen_benchmark_script:
             return SKIPPED
             
         if self.is_known_fail():
