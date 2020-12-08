@@ -1,0 +1,23 @@
+This test is to reproduce issue originally encoutered in 
+mcell_tests_private/tests/data_model/3660_neuropil_simplified_cust_timestep_no_counts
+
+RxnClass cleanup removed rxn class with variable rate but this rxn class was still
+referenced but the rxn rule.
+
+==3787== Invalid read of size 8
+==3787==    at 0x6A9ADD0: __normal_iterator (stl_iterator.h:777)
+==3787==    by 0x6A9ADD0: begin (stl_vector.h:549)
+==3787==    by 0x6A9ADD0: BNG::RxnClass::update_rxn_rates_if_needed(double) (rxn_class.cpp:87)
+==3787==    by 0x6AAA542: BNG::RxnRule::update_variable_rxn_rate(double, BNG::RxnClass const*) (rxn_rule.cpp:1906)
+==3787==    by 0x6A9AA90: BNG::RxnClass::update_variable_rxn_rates(double) (rxn_class.cpp:500)
+==3787==    by 0x69FBC59: pick_unimol_rxn_class (rxn_utils.inc:753)
+==3787==    by 0x69FBC59: MCell::DiffuseReactEvent::pick_unimol_rxn_class_and_set_rxn_time(MCell::Partition const&, double, MCell::Molecule&) (diffuse_react_event.cpp:1532)
+==3787==    by 0x6A0DFB0: MCell::DiffuseReactEvent::diffuse_single_molecule(MCell::Partition&, unsigned int, MCell::WallTileIndexPair) (diffuse_react_event.cpp:243)
+==3787==    by 0x6A0E2E3: MCell::DiffuseReactEvent::diffuse_molecules(MCell::Partition&, std::vector<unsigned int, std::allocator<unsigned int> > const&) (diffuse_react_event.cpp:138)
+==3787==    by 0x6A0E47A: MCell::DiffuseReactEvent::step() (diffuse_react_event.cpp:72)
+==3787==    by 0x6A37178: MCell::Scheduler::handle_next_event() (scheduler.cpp:252)
+==3787==    by 0x6A55C64: MCell::World::run_n_iterations(unsigned long, unsigned long, bool) (world.cpp:283)
+
+However, this failed only in release mode.
+
+Output was not validated.
