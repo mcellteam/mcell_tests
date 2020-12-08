@@ -605,6 +605,9 @@ class TesterNutmeg(TesterBase):
 
         if self.is_known_fail():
             return SKIPPED
+                 
+        if self.is_todo_test():
+            return TODO_TEST
         
         self.clean_and_create_work_dir()
         
@@ -615,7 +618,8 @@ class TesterNutmeg(TesterBase):
             return FAILED_NUTMEG_SPEC        
 
         res = self.run_and_validate_test(test_description)
-         
+
+        
         if res == PASSED:
             log_test_success(self.test_name, self.tester_name)
         else:

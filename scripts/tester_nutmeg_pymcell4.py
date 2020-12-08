@@ -77,6 +77,9 @@ class TesterNutmegPymcell4(TesterNutmeg):
 
         if self.is_known_fail():
             return SKIPPED
+
+        if self.is_todo_test():
+            return TODO_TEST
         
         self.clean_and_create_work_dir()
         
@@ -96,7 +99,7 @@ class TesterNutmegPymcell4(TesterNutmeg):
             res = self.run_check(check, mcell_ec)
             if res != PASSED:
                 return res
-
+       
         if res == PASSED:
             log_test_success(self.test_name, self.tester_name)
         else:
