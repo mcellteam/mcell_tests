@@ -1,0 +1,13 @@
+Originally nutmeg4_pymcell4/0200_memory_limit/model.py
+only without the addition of the species.
+
+Asserts with debug on:
+
+python: ../../libs/bng/species.cpp:233: void BNG::Species::update_diffusion_constant(const BNG::BNGData&, const BNG::BNGConfig&): Assertion `D != FLT_INVALID' failed.
+Aborted
+
+and on release:
+Error: Crossing partitions when molecules diffuse is not supported yet. Please enlarge the partition size. Diffused molecule reached position (18437095530227462144.000000, -350763739357638623232.000000, 15533903358549772288.000000).
+
+
+TODO: make a check that species 'a' is defined
