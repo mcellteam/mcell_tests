@@ -63,7 +63,7 @@ Cube3.surface_class = transp
 
 # ---- instantiation data ----
 
-instantiation = m.InstantiationData()
+instantiation = m.Instantiation()
 instantiation.add_geometry_object(Cube1)
 instantiation.add_geometry_object(Cube2)
 instantiation.add_geometry_object(Cube3)

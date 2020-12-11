@@ -30,7 +30,7 @@ box_no_compartment = m.geometry_utils.create_box(
     'box_no_compartment', MCELL_NO_COMPARTMENT_SIZE
 )
 
-instantiation = m.InstantiationData()
+instantiation = m.Instantiation()
 instantiation.load_bngl_seed_species('test.bngl', subsystem, box_no_compartment)
 instantiation.add_geometry_object(box_no_compartment)
 
@@ -58,7 +58,7 @@ model.config.partition_dimension = MCELL_NO_COMPARTMENT_SIZE
 model.config.subpartition_dimension = MCELL_NO_COMPARTMENT_SIZE / 20
 
 model.add_subsystem(subsystem)
-model.add_instantiation_data(instantiation)
+model.add_instantiation(instantiation)
 model.add_observables(observables)
 
 model.initialize()

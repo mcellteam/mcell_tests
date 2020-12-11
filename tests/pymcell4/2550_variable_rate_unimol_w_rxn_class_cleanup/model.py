@@ -47,7 +47,7 @@ if os.path.exists('customization.py'):
 # ---- add components ----
 
 model.add_subsystem(subsystem.subsystem)
-model.add_instantiation_data(instantiation.instantiation)
+model.add_instantiation(instantiation.instantiation)
 model.add_observables(observables.observables)
 
 # ---- initialization and execution ----

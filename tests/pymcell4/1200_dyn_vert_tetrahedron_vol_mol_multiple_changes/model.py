@@ -40,7 +40,7 @@ model.config.vacancy_search_distance = 0.1
 # ---- add components ----
 
 model.add_subsystem(subsystem.subsystem)
-model.add_instantiation_data(instantiation.instantiation)
+model.add_instantiation(instantiation.instantiation)
 model.add_observables(observables.observables)
 
 # ---- initialization and execution ----

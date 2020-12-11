@@ -17,5 +17,5 @@ Cube_right_side.surface_class = cclamp_right
 
 # ---- instantiation data ----
 
-instantiation = m.InstantiationData()
+instantiation = m.Instantiation()
 instantiation.add_geometry_object(Cube)

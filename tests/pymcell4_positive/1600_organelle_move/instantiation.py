@@ -43,7 +43,7 @@ rel_t2 = m.ReleaseSite(
 
 # ---- instantiation data ----
 
-instantiation = m.InstantiationData()
+instantiation = m.Instantiation()
 instantiation.add_geometry_object(Cell)
 instantiation.add_geometry_object(Organelle_2)
 instantiation.add_geometry_object(Organelle_1)

@@ -37,7 +37,7 @@ model.config.subpartition_dimension = 2.5
 # ---- add components ----
 
 model.add_subsystem(subsystem.subsystem)
-model.add_instantiation_data(instantiation.instantiation)
+model.add_instantiation(instantiation.instantiation)
 
 # ---- initialization and execution ----
 

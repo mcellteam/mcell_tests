@@ -25,7 +25,7 @@ if REF_RUN:
 
 # ---- instantiation data ----
 
-instantiation = m.InstantiationData()
+instantiation = m.Instantiation()
 instantiation.add_geometry_object(Cube)
 if REF_RUN:
     instantiation.add_release_site(rel_a)

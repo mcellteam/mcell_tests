@@ -11,4 +11,4 @@ from subsystem import *
 
 # ---- instantiation data ----
 
-instantiation = m.InstantiationData()
+instantiation = m.Instantiation()

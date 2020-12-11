@@ -20,6 +20,6 @@ Tetrahedron_rel = m.ReleaseSite(
 
 # ---- instantiation data ----
 
-instantiation = m.InstantiationData()
+instantiation = m.Instantiation()
 instantiation.add_geometry_object(Tetrahedron)
 instantiation.add_release_site(Tetrahedron_rel)

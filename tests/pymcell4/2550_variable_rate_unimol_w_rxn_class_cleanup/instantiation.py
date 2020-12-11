@@ -34,7 +34,7 @@ rel_a120 = m.ReleaseSite(
 
 # ---- instantiation data ----
 
-instantiation = m.InstantiationData()
+instantiation = m.Instantiation()
 instantiation.add_geometry_object(Cube)
 instantiation.add_release_site(rel_a)
 instantiation.add_release_site(rel_a120)

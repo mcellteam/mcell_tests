@@ -16,7 +16,7 @@ import mcell as m
 box1 = m.geometry_utils.create_box('b1', 1)
 box2 = m.geometry_utils.create_box('b1', 1.1)
 
-i1 = m.InstantiationData()
+i1 = m.Instantiation()
 i1.add_geometry_object(box1)
 # error
 try:
@@ -29,7 +29,7 @@ except ValueError as err:
 box3 = m.geometry_utils.create_box('b2', 1)
 box4 = m.geometry_utils.create_box('b2', 1)
 
-i2 = m.InstantiationData()
+i2 = m.Instantiation()
 i2.add_geometry_object(box3)
 # warning
 i2.add_geometry_object(box4)

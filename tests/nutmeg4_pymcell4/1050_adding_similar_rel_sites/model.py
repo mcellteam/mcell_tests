@@ -29,7 +29,7 @@ rs2 = m.ReleaseSite(
     number_to_release = 10
 )
 
-i1 = m.InstantiationData()
+i1 = m.Instantiation()
 i1.add_release_site(rs1)
 # error
 try:
@@ -55,7 +55,7 @@ rs4 = m.ReleaseSite(
     number_to_release = 10
 )
 
-i2 = m.InstantiationData()
+i2 = m.Instantiation()
 i2.add_release_site(rs3)
 # warning
 i2.add_release_site(rs4)
