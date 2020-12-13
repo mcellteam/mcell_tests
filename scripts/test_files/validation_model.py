@@ -57,7 +57,6 @@ else:
 viz_output = m.VizOutput(
     mode = m.VizMode.ASCII,
     output_files_prefix = './viz_data4/seed_' + str(SEED).zfill(5) + '/Scene',
-    all_species = True,
     every_n_timesteps = viz_every_n_timesteps
 )
 model.add_viz_output(viz_output)

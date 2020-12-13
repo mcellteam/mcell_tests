@@ -38,7 +38,6 @@ instantiation.add_geometry_object(box_no_compartment)
 viz_output = m.VizOutput(
     mode = m.VizMode.ASCII,
     output_files_prefix = './viz_data/seed_' + str(SEED).zfill(5) + '/Scene',
-    all_species = True,
     every_n_timesteps = 1
 )
 

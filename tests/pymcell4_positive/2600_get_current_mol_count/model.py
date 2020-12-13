@@ -60,18 +60,21 @@ if EXPORT_DATA_MODEL and model.viz_outputs:
 def load_dat_file(file_name):
     return pd.read_csv(file_name, sep=' ', names=['t', 'v'])
 
-df_a1 = load_dat_file('a.Cube1.dat')
-df_a2 = load_dat_file('a.Cube2.dat')
-df_a3 = load_dat_file('a.Cube3.dat')
-df_aw = load_dat_file('a.World.dat')
+#df_a1 = load_dat_file('a.Cube1.dat')
+#df_a2 = load_dat_file('a.Cube2.dat')
+#df_a3 = load_dat_file('a.Cube3.dat')
+#df_aw = load_dat_file('a.World.dat')
 
+"""
 count_a_world = model.find_count('a_World')
 assert count_a_world
+"""
 
 for i in range(ITERATIONS):
     
     model.run_iterations(1)
 
+    """
     # the line index in the reference table is i + 1
     it = i + 1
 
@@ -86,6 +89,7 @@ for i in range(ITERATIONS):
     
     cw = count_a_world.get_current_value()
     assert cw == df_aw['v'][it]
+    """
     
     
 model.end_simulation()
