@@ -1,0 +1,9 @@
+This directory contains valgrind suppression file pybind.supp 
+that silcences all pybing-related memory leaks and invalid memory 
+accesses that are reported due to python memory custom allocator. 
+
+New items can be created by using valgrind argument '--gen-suppressions=yes'.
+
+This is how to run valgrind: 
+
+valgrind --leak-check=full --show-leak-kinds=all --suppressions=pybind.supp python model.py

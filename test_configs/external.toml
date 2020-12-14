@@ -58,3 +58,16 @@
     '$MCELL_BUILD_DIR/utils/mcell.pyi'
   ]      
   
+[[set]]
+  category = 'utils_tests'
+  testSet = '../mcell_tests_private/tests/valgrind'
+  testerClass = 'TesterExternal'
+  args = [
+    'bash',
+    '$MCELL_TESTS_DIR/../mcell_tests_private/tests/valgrind/test.sh',
+    '$MCELL_BUILD_DIR', 
+    '$MCELL_TESTS_DIR',
+    '$MCELL_TESTS_DIR/../mcell_tests_private/tests/valgrind/ca_pulse_camkii_holo', 
+    '$MCELL_TESTS_DIR/work/valgrind/ca_pulse_camkii_holo'
+  ]  
+  
