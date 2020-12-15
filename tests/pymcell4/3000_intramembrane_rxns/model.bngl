@@ -1,0 +1,16 @@
+# WARNING: This is an automatically generated file and will be overwritten
+#          by CellBlender on the next model export.
+begin parameters
+end parameters
+
+begin molecule types
+    A
+    B
+    C
+    D
+end molecule types
+
+begin reaction rules
+    A_plus_B: A + B -> C + D 100000  # N^-1*s^-1 - per collision per second
+end reaction rules
+
