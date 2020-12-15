@@ -1,0 +1,2 @@
+This test also checks that python generation from data model with name prefix works correctly
+(the mcell4_prefix file). 

@@ -390,12 +390,23 @@ class TesterBase:
         cmd = [ self.tool_paths.data_model_to_pymcell_binary, data_model_file ]
         cmd += extra_args
         
+        prefix = ''
+        prefix_file = os.path.join(self.test_src_path, 'mcell4_prefix')
+        if os.path.exists(prefix_file):
+            with open(prefix_file, 'r') as fin:
+                prefix = fin.readline().strip()
+                cmd += [ '-o', prefix ]
+        
         log_name = self.test_name+'.mcell_dm_to_pymcell.log'
         exit_code = run(cmd, cwd=self.test_work_path, verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         if (exit_code):
             log_test_error(self.test_name, self.tester_name, "Data model to pymcell4 conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
             return FAILED_MCELL
         else:
+            if prefix:
+                # rename the main file because the rest of the system expects it to be called model.py
+                shutil.move(os.path.join(self.test_work_path, prefix + '_model.py'), os.path.join(self.test_work_path, 'model.py'))
+            
             return PASSED
                 
     def convert_bngl_to_mdl(self, only_last_viz_output=False):
