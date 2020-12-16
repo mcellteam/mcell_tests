@@ -25,6 +25,31 @@
 }
 
 {
+   boost_pool_allocator_that_is_supposed_to_be_never_freed_not_completely_sure2
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_ZnamRKSt9nothrow_t
+   fun:malloc
+   fun:_ZN5boost4poolINS_33default_user_allocator_new_deleteEE18malloc_need_resizeEv
+}
+
+
+{
+   boost_pool_allocator_that_is_supposed_to_be_never_freed_not_completely_sure3
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_ZnamRKSt9nothrow_t
+   fun:malloc
+   fun:malloc_need_resize
+   fun:malloc
+   fun:malloc
+   fun:allocate
+   fun:allocate
+   fun:_M_get_node
+   fun:_M_create_node<const boost::list_edge<long unsigned int, boost::no_property>&>
+}
+
+{
    ENUMS
    Memcheck:Leak
    match-leak-kinds: reachable
@@ -1000,4 +1025,305 @@
    fun:dict_new
    fun:type_call
    fun:PyObject_Call
+}
+
+{
+   LEAK86
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_dl_close_worker
+}
+
+{
+   LEAK87
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:vasprintf
+   fun:asprintf
+   fun:dlerror
+}
+
+
+{
+   LEAK88
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:operator()
+   fun:_ZZN8pybind116detail16type_caster_base*
+}
+
+
+{
+   LEAK89
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:_ZN8pybind116detail13get_internalsEv
+}
+
+
+{
+   LEAK90
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:allocate
+   fun:allocate
+   fun:_M_allocate
+   fun:_M_allocate_and_copy<pybind11::detail::type_info* const*>
+   fun:_M_assign_aux<pybind11::detail::type_info* const*>
+}
+
+{
+   LEAK91
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:allocate
+   fun:allocate
+   fun:_M_allocate
+   fun:_ZNSt6vectorIP7_objectSaIS1_EE19_M_emplace_back_auxIJS1_EEEvDpOT_
+   fun:emplace_back<_object*>
+   fun:push_back
+   fun:loader_life_support
+   fun:_ZN8pybind1112cpp_function10dispatcherEP7_objectS2_S2_
+}
+
+{
+   LEAK92
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:allocate
+   fun:allocate
+   fun:_M_get_node
+   fun:_M_create_node<void (*)(std::__exception_ptr::exception_ptr)>
+   fun:_M_insert_after<void (*)(std::__exception_ptr::exception_ptr)>
+   fun:push_front
+   fun:_ZN8pybind116detail13get_internalsEv
+}
+
+{
+   LEAK93
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:allocate
+   fun:allocate
+   fun:_M_allocate
+   fun:_M_emplace_back_aux<const std::type_info*&, void* (*&)(void*)>
+   fun:emplace_back<const std::type_info*&, void* (*&)(void*)>
+   fun:_ZN8pybind116detail11type_record8add_baseERKSt9type_infoPFPvS5_E
+}
+
+{
+   LEAK94
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:allocate
+   fun:allocate
+   fun:_ZNSt8__detail16_Hashtable_allocISaINS_10_Hash_nodeISt4pairIKPK7_objectSt6vectorIPS3_SaIS8_EEELb0EEEEE19_M_allocate_bucketsEm.isra.968
+   fun:_M_allocate_buckets
+   fun:_M_rehash_aux
+   fun:_M_rehash
+   fun:_M_insert_unique_node
+   fun:operator[]
+   fun:operator[]
+   fun:add_patient
+   fun:_ZN8pybind116detail15keep_alive_implENS_6handleES1_
+}
+
+{
+   LEAK95
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:allocate
+   fun:allocate
+   fun:_M_allocate_node<const std::piecewise_construct_t&, std::tuple<const std::type_index&>, std::tuple<> >
+   fun:_ZNSt8__detail9_Map_baseISt10type_indexSt4pairIKS1_PN8pybind116detail9type_infoEESaIS8_ENS_10_Select1stESt8equal_toIS1_ESt4hashIS1_ENS_18_Mod_range_hashingENS_20_Default_ranged_hashENS_20_Prime_rehash_policyENS_17_Hashtable_traitsILb0ELb0ELb1EEELb1EEixERS3_
+   fun:operator[]
+   fun:_ZN8pybind116detail12generic_type10initializeERKNS0_11type_recordE
+}
+
+{
+   LEAK96
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:allocate
+   fun:allocate
+   fun:_M_allocate_node<void*&, pybind11::detail::instance*&>
+   fun:_M_emplace<void*&, pybind11::detail::instance*&>
+   fun:_M_emplace<void*&, pybind11::detail::instance*&>
+   fun:emplace<void*&, pybind11::detail::instance*&>
+   fun:emplace<void*&, pybind11::detail::instance*&>
+   fun:register_instance_impl
+}
+
+{
+   LEAK97
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:allocate
+   fun:allocate
+   fun:_M_get_node
+   fun:_M_create_node<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >
+   fun:_M_insert_after<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >
+   fun:emplace_front<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >
+   fun:c_str<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >
+   fun:_ZN8pybind116detail20make_new_python_typeERKNS0_11type_recordE
+}
+
+
+{
+   LEAK98
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:allocate
+   fun:allocate
+   fun:_M_allocate_node<const std::piecewise_construct_t&, std::tuple<const std::type_index&>, std::tuple<> >
+   fun:_ZNSt8__detail9_Map_baseISt10type_indexSt4pairIKS1_St6vectorIPFbP7_objectRPvESaISA_EEESaISD_ENS_10_Select1stESt8equal_toIS1_ESt4hashIS1_ENS_18_Mod_range_hashingENS_20_Default_ranged_hashENS_20_Prime_rehash_policyENS_17_Hashtable_traitsILb0ELb0ELb1EEELb1EEixERS3_
+   fun:operator[]
+   fun:_ZN8pybind116detail12generic_type10initializeERKNS0_11type_recordE
+}
+
+
+{
+   LEAK99
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:allocate
+   fun:allocate
+   fun:_M_allocate_node<const std::piecewise_construct_t&, std::tuple<_typeobject*&&>, std::tuple<> >
+   fun:_ZNSt8__detail9_Map_baseIP11_typeobjectSt4pairIKS2_St6vectorIPN8pybind116detail9type_infoESaIS9_EEESaISC_ENS_10_Select1stESt8equal_toIS2_ESt4hashIS2_ENS_18_Mod_range_hashingENS_20_Default_ranged_hashENS_20_Prime_rehash_policyENS_17_Hashtable_traitsILb0ELb0ELb1EEELb1EEixEOS2_
+   fun:operator[]
+   fun:_ZN8pybind116detail12generic_type10initializeERKNS0_11type_recordE
+}
+
+{
+   LEAK100
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:module
+   fun:PyInit_mcell
+   fun:_PyImport_LoadDynamicModuleWithSpec
+}
+
+{
+   LEAK101
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:_ZN8pybind1112cpp_function20make_function_record*
+}
+
+{
+   LEAK102
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:allocate
+   fun:allocate
+   fun:_ZNSt8__detail16_Hashtable_allocISaINS_10_Hash_nodeISt4pairIKPK7_objectSt6vectorIPS3_SaIS8_EEELb0EEEEE19_M_allocate_bucketsEm.isra.968
+   fun:_M_allocate_buckets
+   fun:_M_rehash_aux
+   fun:_M_rehash
+   fun:_M_insert_unique_node
+   fun:_ZNSt8__detail9_Map_baseISt10type_indexSt4pairIKS1_St6vectorIPFbP7_objectRPvESaISA_EEESaISD_ENS_10_Select1stESt8equal_toIS1_ESt4hashIS1_ENS_18_Mod_range_hashingENS_20_Default_ranged_hashENS_20_Prime_rehash_policyENS_17_Hashtable_traitsILb0ELb0ELb1EEELb1EEixERS3_
+   fun:operator[]
+   fun:_ZN8pybind116detail12generic_type10initializeERKNS0_11type_recordE
+}
+
+{
+   LEAK103
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:allocate
+   fun:allocate
+   fun:_ZNSt8__detail16_Hashtable_allocISaINS_10_Hash_nodeISt4pairIKPK7_objectSt6vectorIPS3_SaIS8_EEELb0EEEEE19_M_allocate_bucketsEm.isra.968
+   fun:_M_allocate_buckets
+   fun:_M_rehash_aux
+   fun:_M_rehash
+   fun:_M_insert_unique_node
+   fun:_ZNSt8__detail9_Map_baseISt10type_indexSt4pairIKS1_PN8pybind116detail9type_infoEESaIS8_ENS_10_Select1stESt8equal_toIS1_ESt4hashIS1_ENS_18_Mod_range_hashingENS_20_Default_ranged_hashENS_20_Prime_rehash_policyENS_17_Hashtable_traitsILb0ELb0ELb1EEELb1EEixERS3_
+   fun:operator[]
+   fun:_ZN8pybind116detail12generic_type10initializeERKNS0_11type_recordE
+}
+
+{
+   LEAK104
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:allocate
+   fun:allocate
+   fun:_M_allocate_buckets
+   fun:_M_allocate_buckets
+   fun:_M_rehash_aux
+   fun:_M_rehash
+   fun:_ZNSt10_HashtableIP11_typeobjectSt4pairIKS1_St6vectorIPN8pybind116detail9type_infoESaIS8_EEESaISB_ENSt8__detail10_Select1stESt8equal_toIS1_ESt4hashIS1_ENSD_18_Mod_range_hashingENSD_20_Default_ranged_hashENSD_20_Prime_rehash_policyENSD_17_Hashtable_traitsILb0ELb0ELb1EEEE21_M_insert_unique_nodeEmmPNSD_10_Hash_nodeISB_Lb0EEE
+}
+
+
+{
+   LEAK105
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:allocate
+   fun:allocate
+   fun:_M_allocate_buckets
+   fun:_M_allocate_buckets
+   fun:_M_rehash_aux
+   fun:_M_rehash
+   fun:_M_insert_multi_node
+   fun:_M_emplace<void*&, pybind11::detail::instance*&>
+   fun:_M_emplace<void*&, pybind11::detail::instance*&>
+   fun:emplace<void*&, pybind11::detail::instance*&>
+   fun:emplace<void*&, pybind11::detail::instance*&>
+   fun:register_instance_impl
+   fun:_ZN8pybind116detail17register_instanceEPNS0_8instanceEPvPKNS0_9type_infoE
+}
+
+{
+   LEAK106
+   Memcheck:Cond
+   fun:long_dealloc
+   fun:frame_dealloc
+   fun:PyEval_EvalFrameEx
+}
+
+{
+   LEAK107
+   Memcheck:Value8
+   fun:long_dealloc
+   fun:frame_dealloc
+   fun:PyEval_EvalFrameEx
+}
+
+{
+   LEAK108
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:_PyObject_GC_Resize
+}
+
+{
+   LEAK109
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:new_arena
+   fun:_PyObject_Alloc*
 }
