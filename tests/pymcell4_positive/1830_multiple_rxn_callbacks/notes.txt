@@ -1,0 +1,5 @@
+This test only check that the curent cumber of callbacks was called. 
+
+Validated against viz data output with:
+grep "c" viz_data/seed_00001/Scene.ascii.50.dat | wc -l
+grep "e" viz_data/seed_00001/Scene.ascii.50.dat | wc -l 
