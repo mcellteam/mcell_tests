@@ -73,13 +73,21 @@ if parameters.DUMP:
 if parameters.EXPORT_DATA_MODEL and model.viz_outputs:
     model.export_data_model()
 
-
+# Count is an object that defines an observable in the model, 
+# with this call to find_count, we get a Count object created from 
+# a statement in BNGL's observables section (model.bngl)    
+#  Molecules c c
 count_c = model.find_count('c')
 assert count_c
 
+# here we get the Count object created from 
+#  Molecules e e
 count_e = model.find_count('e')
 assert count_e
 
+# similarly as with the counts above, here we get a ReactionRule object 
+# created from BNGL reaction rule
+#  d_to_e: d -> e 0
 rxn_d_to_e = model.find_reaction_rule('d_to_e')
 assert rxn_d_to_e
 
@@ -87,10 +95,15 @@ for i in range(parameters.ITERATIONS):
     
     model.run_iterations(1)
         
-    c_count = count_c.get_current_value()  # molecules
+    # c_count will contain the nuber of molecules 'c' in the whole world
+    # - defined by the observable Molecules c c
+    c_count = count_c.get_current_value()  
     
-    # we will simply set the unimol rate equal to the
-    # number of molecules  
+    # in this example, we will simply set the unimol rate equal to the
+    # number of molecules
+    # setting the fwd_rate attribute causes an internal update function 
+    # in MCell to be executed and in this case this updates the
+    # times scheduled for unimolecular reactions of all molecules 'd'    
     rxn_d_to_e.fwd_rate = c_count
     
 model.end_simulation()
