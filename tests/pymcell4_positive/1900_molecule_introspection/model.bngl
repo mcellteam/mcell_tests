@@ -1,0 +1,23 @@
+begin parameters
+    MCELL_DIFFUSION_CONSTANT_3D_va 1e-6
+    MCELL_DIFFUSION_CONSTANT_2D_sb 1e-8
+    
+    VOLUME_UM3 = 0.25^3
+end parameters
+
+begin molecule types
+    va
+    sb
+end molecule types
+
+begin compartments
+    PM 2 0
+    CP 3 VOLUME_UM3 PM
+end compartments
+
+begin seed species
+   va@CP 1
+   sb@PM 1
+end seed species
+
+
