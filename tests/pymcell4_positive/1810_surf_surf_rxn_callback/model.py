@@ -104,8 +104,12 @@ def check_pos2d_eq_pos3d(rxn_info):
 
 def check_pos2d_reac2(rxn_info):
     
-    xyz = uv2xyz(rxn_info.geometry_object_surf_reac2, rxn_info.wall_index_surf_reac2, rxn_info.pos2d_surf_reac2)
+    m2 = model.get_molecule(rxn_info.reactant_ids[1])
+    assert m2.type == m.MoleculeType.SURFACE
+    
+    xyz = uv2xyz(m2.geometry_object, m2.wall_index, m2.pos2d)
     check_pos3d(xyz)
+    check_eq(xyz, m2.pos3d)
         
 rxn = model.find_reaction_rule('sa_plus_sb')
 assert rxn
