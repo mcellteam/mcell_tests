@@ -80,7 +80,8 @@ def rxn_callback(rxn_info, context):
     context.count += 1
     
     assert len(rxn_info.reactant_ids) == 1
-    
+    assert len(rxn_info.product_ids) == 1
+
     # we are starting with 20 molecules and not creating any new 'a' and 'b'
     assert rxn_info.reactant_ids[0] >= 0 and rxn_info.reactant_ids[0] < 200
     

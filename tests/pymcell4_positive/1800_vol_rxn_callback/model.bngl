@@ -21,5 +21,5 @@ begin seed species
 end seed species  
 
 begin reaction rules
-    a_plus_b: a + b -> c 1e8
+    a_plus_b: a + b -> a + c 1e8  # reactant a is kept alive
 end reaction rules  
