@@ -95,7 +95,9 @@ def rxn_callback(rxn_info, model):
     rxn_count += 1
     
     # run reaction and change d to e
-    model.run_reaction(rxn_d_to_e, [next_d_id], rxn_info.time)
+    products = model.run_reaction(rxn_d_to_e, [next_d_id], rxn_info.time)
+    assert len(products) == 1
+    assert products[0] > 300
     assert next_d_id < 300
     next_d_id += 1
     
