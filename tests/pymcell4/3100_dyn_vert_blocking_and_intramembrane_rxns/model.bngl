@@ -1,0 +1,50 @@
+
+begin parameters
+    Diff 1e-7
+    MCELL_DIFFUSION_CONSTANT_2D_A Diff
+    MCELL_DIFFUSION_CONSTANT_2D_B Diff
+    MCELL_DIFFUSION_CONSTANT_2D_C 0 # must not diffuse
+    MCELL_DIFFUSION_CONSTANT_2D_D 0
+    MCELL_DIFFUSION_CONSTANT_2D_E Diff
+end parameters
+
+begin molecule types
+    A
+    B
+    C
+    D
+end molecule types
+
+begin compartments
+    # - compartments are only declared here because they are needed 
+    #   to specify locations of products of reaction  A + B -> C + D
+    # - when the BNGL file is loaded, these geometry objects already exist
+    #   so no new geometry objects are created for them
+    # - the second value is volume and it is ignored in this case 
+    
+    PM1 2 0
+    Sphere1 3 1 PM1
+
+    PM2 2 0
+    Sphere2 3 1 PM2
+end compartments
+
+begin reaction rules
+    # we need to specify compartments so that it is clear on which 
+    # membrane they are created
+    A_plus_B: A@PM1 + B@PM2 -> C@PM1 + D@PM2 250000  # N^-1*s^-1 == per collision per second
+    
+    # with unilolecurlar reactions, the location of the product is given uniquely by the reactant,
+    # so compartments are optional here
+    C_to_E: C -> E 20000 # rate of wall dissociation
+    
+    # pair reaction to C -> E executed manually
+    D_to_B: D -> B 0
+    
+    # reaction used to avoid rebinding - in original version, instead of C -> E, there was C -> A,
+    # however, when the reaction was executed it left molecules A + B close to each other and 
+    # this lead to frequent rebinding
+    # to deal with this, we first go through molecule E that is changed to A a bit later 
+    E_to_A: E -> A 40000    
+end reaction rules
+

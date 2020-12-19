@@ -10,7 +10,22 @@ begin molecule types
     D
 end molecule types
 
+begin compartments
+    # - compartments are only declared here because they are needed 
+    #   to specify locations of products of reaction  A + B -> C + D
+    # - when the BNGL file is loaded, these geometry objects already exist
+    #   so no new geometry objects are created for them
+    # - the second value is volume and it is ignored in this case 
+    
+    PM1 2 0
+    Sphere1 3 1 PM1
+
+    PM2 2 0
+    Sphere2 3 1 PM2
+end compartments
+
+
 begin reaction rules
-    A_plus_B: A + B -> C + D 100000  # N^-1*s^-1 - per collision per second
+    A_plus_B: A@PM1 + B@PM2 -> C@PM1 + D@PM2 250000  # N^-1*s^-1 == per collision per second
 end reaction rules
 

@@ -56,6 +56,12 @@ import subsystem
 import instantiation
 import observables
 
+import geometry
+geometry.up.is_bngl_compartment = True 
+geometry.up.surface_compartment_name = 'PM1' 
+geometry.bottom.is_bngl_compartment = True 
+geometry.bottom.surface_compartment_name = 'PM2'
+
 # create main model object
 model = m.Model()
 
