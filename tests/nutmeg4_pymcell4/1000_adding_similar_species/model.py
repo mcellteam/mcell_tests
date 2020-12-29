@@ -21,10 +21,7 @@ for o,c in [(subsystem,'s'), (model,'m')]:
     
     # must give a warning
     o.add_species(m.Species('A'+c, diffusion_constant_3d=1e-6))
-    if o is subsystem:
-        assert len(o.species) == 1
-    else:
-        assert len(o.species) == 4 # +3* ALL_* species
+    assert len(o.species) == 1
 
     try:
         o.add_species(m.Species('A'+c, diffusion_constant_3d=1e-7))
@@ -32,9 +29,6 @@ for o,c in [(subsystem,'s'), (model,'m')]:
     except ValueError as err:
         print(err)
 
-    if o is subsystem:
-        assert len(o.species) == 1
-    else:
-        assert len(o.species) == 4
+    assert len(o.species) == 1
 
     
