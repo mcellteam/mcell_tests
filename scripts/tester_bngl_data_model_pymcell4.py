@@ -82,9 +82,9 @@ class TesterBnglDataModelPymcell4(TesterDataModelPymcell4):
         
         # 2) run data model to python converter w, w/o bngl
         if res == PASSED:
-            extra_args = []
+            extra_args = ['-t']
             if ARG_CONVERT_W_BNGL in self.args:
-                extra_args = ['-b']
+                extra_args += ['-b']
                 
             res = self.run_dm_to_pymcell_conversion(
                 os.path.join(self.test_work_path, 'data_model.json'), 

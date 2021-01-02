@@ -93,9 +93,9 @@ class TesterDataModelPymcell4(TesterPymcell4):
         
         self.clean_and_create_work_dir()
 
-        extra_args = []
+        extra_args = ['-t']
         if ARG_CONVERT_W_BNGL in self.args:
-            extra_args = ['-b']   
+            extra_args += ['-b']   
             
         res = self.run_dm_to_pymcell_conversion(
             os.path.join(self.test_src_path, self.test_name + '.json'), 
