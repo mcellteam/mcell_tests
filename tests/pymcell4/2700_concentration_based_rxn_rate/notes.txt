@@ -17,3 +17,10 @@ python reac_data_analyzer.py
 
 c: 515.357421875
 e: 273.537109375
+
+
+TODO:
+test gives different result when this is set, created test 2701
+
+const uint RXN_CLASS_CLEANUP_PERIODICITY = 50;
+const uint SPECIES_CLEANUP_PERIODICITY = 100; 
