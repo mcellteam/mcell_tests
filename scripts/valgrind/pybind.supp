@@ -1327,3 +1327,13 @@
    fun:new_arena
    fun:_PyObject_Alloc*
 }
+
+{
+   LEAK110
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:new_arena
+   fun:PyObject_Realloc*
+}
+
