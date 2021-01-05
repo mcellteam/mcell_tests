@@ -25,6 +25,11 @@ c = m.Species(
     diffusion_constant_3d = 9.99999999999999955e-07
 )
 
+d = m.Species(
+    name = 'd',
+    diffusion_constant_2d = 1e-7
+)
+
 react_a_and_b = m.ReactionRule(
     name = 'react_a_and_b',
     reactants = [ a.inst(), b.inst() ],
@@ -38,4 +43,5 @@ subsystem = m.Subsystem()
 subsystem.add_species(b)
 subsystem.add_species(a)
 subsystem.add_species(c)
+subsystem.add_species(d)
 subsystem.add_reaction_rule(react_a_and_b)

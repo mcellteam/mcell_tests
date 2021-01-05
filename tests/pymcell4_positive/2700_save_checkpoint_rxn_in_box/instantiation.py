@@ -29,6 +29,12 @@ rel_b = m.ReleaseSite(
     number_to_release = 100
 )
 
+rel_sd = m.ReleaseSite(
+    name = 'rel_sd',
+    complex = d.inst(),
+    region = Cube,
+    number_to_release = 20
+)
 # ---- surface classes assignment ----
 
 # ---- compartments assignment ----
@@ -39,3 +45,4 @@ instantiation = m.Instantiation()
 instantiation.add_geometry_object(Cube)
 instantiation.add_release_site(rel_a)
 instantiation.add_release_site(rel_b)
+instantiation.add_release_site(rel_sd)

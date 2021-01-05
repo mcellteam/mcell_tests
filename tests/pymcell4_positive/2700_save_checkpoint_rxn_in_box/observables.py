@@ -20,7 +20,7 @@ viz_output = m.VizOutput(
 
 
 count_a = m.Count(
-    file_name = 'a.dat',
+    file_name = './react_data/seed_' + str(SEED).zfill(5) + '/a.dat',
     species_pattern = m.Complex('a')
 )
 
