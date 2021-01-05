@@ -58,7 +58,7 @@ model.add_viz_output(viz_output)
 
 model.config.time_step = parameters.TIME_STEP
 model.config.seed = parameters.SEED
-model.config.total_iterations_hint = parameters.ITERATIONS
+model.config.total_iterations = parameters.ITERATIONS
 
 model.notifications.rxn_and_species_report = False
 

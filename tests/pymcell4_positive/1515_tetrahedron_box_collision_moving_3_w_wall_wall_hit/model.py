@@ -49,7 +49,7 @@ Box = m.geometry_utils.create_box(
 )
 model.add_geometry_object(Box)
     
-model.config.total_iterations_hint = ITERATIONS
+model.config.total_iterations = ITERATIONS
     
 model.initialize()
 

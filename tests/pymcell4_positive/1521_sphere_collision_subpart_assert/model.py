@@ -35,7 +35,7 @@ model = m.Model()
 
 model.config.time_step = TIME_STEP
 model.config.seed = SEED
-model.config.total_iterations_hint = ITERATIONS
+model.config.total_iterations = ITERATIONS
 
 model.config.partition_dimension = 10
 model.config.subpartition_dimension = 2.5

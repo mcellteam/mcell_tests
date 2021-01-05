@@ -36,7 +36,7 @@ model.load_bngl('test.bngl', './react_data/seed_' + str(1).zfill(5) + '/', defau
 
 # ---- configuration ----
 
-model.config.total_iterations_hint = ITERATIONS 
+model.config.total_iterations = ITERATIONS 
 
 model.notifications.rxn_and_species_report = True
 

@@ -1337,3 +1337,12 @@
    fun:PyObject_Realloc*
 }
 
+{
+   LEAK111
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_ctypes_alloc_format_string
+   fun:PyCFuncPtrType_new
+}
+
