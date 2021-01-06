@@ -1,0 +1,27 @@
+begin parameters
+    D 1e-6
+    MCELL_DIFFUSION_CONSTANT_3D_a D
+    MCELL_DIFFUSION_CONSTANT_3D_b D
+    MCELL_DIFFUSION_CONSTANT_3D_c D
+    
+    VOLUME_UM3 = 0.0625^3
+end parameters
+
+begin molecule types
+    a
+    b
+    c
+end molecule types
+
+begin compartments
+    CP 3 VOLUME_UM3
+end compartments
+
+begin seed species
+   a@CP 100
+end seed species
+
+begin reaction rules
+    a_to_c: a -> c 0
+end reaction rules
+
