@@ -1,0 +1,31 @@
+
+[[checks]]
+  matchPattern = "checkpoint in iteration 100" 
+  dataFile = "run_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = "checkpoint in iteration 300" 
+  dataFile = "run_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = "checkpoint in iteration 500" 
+  dataFile = "run_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = "Iteration 501, simulation finished successfully" 
+  dataFile = "run_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 0
+  
+[run]
+  pyfile = "model.py"
