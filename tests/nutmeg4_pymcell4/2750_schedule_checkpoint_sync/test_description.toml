@@ -18,7 +18,7 @@
   testType = "FILE_MATCH_PATTERN"
 
 [[checks]]
-  matchPattern = "Iteration 501, simulation finished successfully" 
+  matchPattern = "Iteration 500, simulation finished successfully, terminated with a checkpoint" 
   dataFile = "run_%d.0.log"
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"
