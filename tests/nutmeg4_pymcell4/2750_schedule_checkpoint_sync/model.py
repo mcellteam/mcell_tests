@@ -52,7 +52,7 @@ model.notifications.rxn_and_species_report = False
 
 model.initialize()
 
-model.schedule_checkpoint(100, return_from_run_iterations = False)
+model.schedule_checkpoint(100, continue_simulation = True)
 model.schedule_checkpoint(300)
 
 model.schedule_checkpoint(500)
