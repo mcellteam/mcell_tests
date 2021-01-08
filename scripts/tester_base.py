@@ -17,7 +17,7 @@ http://www.gnu.org/licenses/gpl-2.0.html
 """
 
 """
-This module contains definition of a bbase class used to run tests.
+This module contains definition of a base class used to run tests.
 """
 
 import abc
@@ -444,6 +444,29 @@ class TesterBase:
             'ITERATION_NUMBERS {ALL_DATA @ ALL_ITERATIONS}', 
             'ITERATION_NUMBERS {ALL_DATA @ [[0 TO ' + iters_str + ' STEP ' + iters_str + ']]}'
         )
+        
+    def load_checkpoint_iters(self):
+        iters_file_name = os.path.join(self.test_src_path, 'checkpoint_iters')
+        
+        if not os.path.exists(iters_file_name):
+            return None
+        
+        res = []
+        with open(iters_file_name, 'r') as f:
+            for line in f:
+                if line.strip():
+                    res.append(line.strip())
+        
+        return res
+        
+    def run_finished(self, report_file):
+        # simple grep
+        with open(report_file, 'r') as f:
+            for line in f:
+                if 'all iterations were finished' in line:
+                    return True
+        
+        return False
         
     @abc.abstractmethod        
     def test(self) -> int:

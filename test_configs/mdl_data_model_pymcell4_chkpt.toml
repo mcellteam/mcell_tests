@@ -1,0 +1,6 @@
+[[set]]
+  category = 'tests'
+  testSet = 'mdl'
+  testerClass = 'TesterMdlDataModelPymcell4'
+  testDirSuffix = '_chkpt'
+  args = ['mcell4', 'checkpoints']
