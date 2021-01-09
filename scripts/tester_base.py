@@ -463,7 +463,7 @@ class TesterBase:
         # simple grep
         with open(report_file, 'r') as f:
             for line in f:
-                if 'all iterations were finished' in line:
+                if 'FINISHED' in line:
                     return True
         
         return False

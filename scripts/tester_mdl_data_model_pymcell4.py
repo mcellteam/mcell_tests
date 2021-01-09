@@ -70,7 +70,7 @@ class TesterMdlDataModelPymcell4(TesterDataModelPymcell4):
         if ARG_CHECKPOINTS in self.args:
             iters = self.load_checkpoint_iters()
             if not iters:
-                return SKIPPED
+                return IGNORED
 
         self.clean_and_create_work_dir()
         
