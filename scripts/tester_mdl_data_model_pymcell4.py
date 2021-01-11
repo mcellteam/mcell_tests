@@ -29,7 +29,6 @@ from typing import List, Dict
 from test_settings import *
 from tester_base import TesterBase
 from tester_data_model_pymcell4 import TesterDataModelPymcell4
-from test_utils import log_test_error, replace_in_file
 from tool_paths import ToolPaths
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))

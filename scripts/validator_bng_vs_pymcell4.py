@@ -27,7 +27,7 @@ from typing import List, Dict
 
 from test_settings import *
 from tester_bngl_pymcell4 import TesterBnglPymcell4
-from test_utils import log_test_error, find_in_file, replace_in_file
+from test_utils import replace_in_file
 from tool_paths import ToolPaths
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -151,7 +151,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         log_name = self.test_name+'.bng_analyzer.log'
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         if exit_code != 0:
-            log_test_error(self.test_name, self.tester_name, "Bng analyzer failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
+            self.log_test_error("Bng analyzer failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
             return None
         
         res_counts = {}
@@ -165,7 +165,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         
     def check_res_code(self, seed, res_code, tool):
         if res_code != PASSED:
-            log_test_error(self.test_name, self.tester_name, 
+            self.log_test_error( 
                 "Run of " + tool + " with seed " + str(seed) + " in work dir " + self.test_src_path + 
                 " failed (only first fail is reported). ")
             return False
@@ -183,7 +183,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
                 
             last_file = self.find_last_viz_file('viz_data' + suffix + '/seed_' + str(s).zfill(5))
             if not last_file:
-                log_test_error(self.test_name, self.tester_name, 
+                self.log_test_error(
                     "Run of " + tool + " with seed " + str(s) + " in work dir " + self.test_work_path + 
                     " - did not find output viz data file")
                 return None
@@ -217,7 +217,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
                 
             react_dir = 'react_data' + suffix + '/seed_' + str(s).zfill(5)
             if not os.path.exists(react_dir):
-                log_test_error(self.test_name, self.tester_name, 
+                self.log_test_error(
                     "Run with seed " + str(s) + " in work dir " + self.test_work_path + 
                     " - did not find react_data directory " + react_dir)
                 return None
@@ -319,7 +319,7 @@ class ValidatorBngVsPymcell4(TesterBnglPymcell4):
         exit_code = run(cmd, shell=True, cwd=dir, verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         
         if exit_code != 0 and not self.ignore_bng_fail():
-            log_test_error(self.test_name, self.tester_name, "BNG2.pl failed, see '" + os.path.join(dir, log_name) + "'.")
+            self.log_test_error("BNG2.pl failed, see '" + os.path.join(dir, log_name) + "'.")
             return FAILED_BNG2PL
         else:
             return PASSED

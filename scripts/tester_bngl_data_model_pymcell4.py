@@ -56,7 +56,7 @@ class TesterBnglDataModelPymcell4(TesterDataModelPymcell4):
         
     def should_be_skipped_for_bngl_datamodel_pymcell4_test(self) -> bool:
         if os.path.exists(os.path.join(self.test_src_path, 'skip_bngl_datamodel_pymcell4')):
-            log("SKIP BNGL_DATAMODEL_PYMCELL4: " + self.test_name)
+            self.log_test_skip("SKIP BNGL_DATAMODEL_PYMCELL4")
             return True
         else:
             return False

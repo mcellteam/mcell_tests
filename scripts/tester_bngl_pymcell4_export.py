@@ -52,7 +52,7 @@ class TesterBnglPymcell4Export(TesterBnglPymcell4):
     
     def should_be_skipped_for_bngl_export(self):
         if os.path.exists(os.path.join(self.test_src_path, 'skip_bngl_export')):
-            log("SKIP : " + self.test_name)
+            self.log_test_skip()
             return True
         else:
             return False

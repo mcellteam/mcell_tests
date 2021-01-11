@@ -28,7 +28,6 @@ from typing import List, Dict
 
 from test_settings import *
 from benchmark_mdl import BenchmarkMdl
-from test_utils import log_test_error
 from tool_paths import ToolPaths
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -57,7 +56,7 @@ class BenchmarkBngl(BenchmarkMdl):
             for i in range(2):
                 exit_code = run(cmd, shell=True, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
                 if exit_code:
-                    log_test_error(self.test_name, self.tester_name, "Pymcell4 failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
+                    self.log_test_error("Pymcell4 failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
                     return FAILED_MCELL
             return PASSED
         else:

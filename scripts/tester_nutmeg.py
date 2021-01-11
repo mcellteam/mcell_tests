@@ -32,7 +32,6 @@ from typing import List, Dict
 import data_output_diff
 from test_settings import *
 from tester_base import TesterBase
-from test_utils import replace_in_file, log_test_error, log_test_success
 from tool_paths import ToolPaths
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -621,8 +620,8 @@ class TesterNutmeg(TesterBase):
 
         
         if res == PASSED:
-            log_test_success(self.test_name, self.tester_name)
+            self.log_test_success()
         else:
-            log_test_error(self.test_name, self.tester_name, "Nutmeg testing failed")
+            self.log_test_error("Nutmeg testing failed")
          
         return res

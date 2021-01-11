@@ -31,7 +31,6 @@ from typing import List, Dict
 from test_settings import *
 from tester_base import TesterBase
 from tester_nutmeg import TesterNutmeg, TestDescriptionParser, STDOUT_FILE_NAME, STDERR_FILE_NAME, RunInfo
-from test_utils import log_test_error, log_test_success
 from tool_paths import ToolPaths
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -101,8 +100,8 @@ class TesterNutmegPymcell4(TesterNutmeg):
                 return res
        
         if res == PASSED:
-            log_test_success(self.test_name, self.tester_name)
+            self.log_test_success()
         else:
-            log_test_error(self.test_name, self.tester_name, "Nutmeg testing failed")
+            self.log_test_error("Nutmeg testing failed")
             
         return res
