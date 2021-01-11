@@ -14,6 +14,9 @@
   file = 'mdl_data_model_pymcell4.toml'
 
 [[include]]
+  file = 'mdl_data_model_pymcell4_chkpt.toml'
+
+[[include]]
   file = 'data_model_pymcell4.toml'
   
 [[include]]
