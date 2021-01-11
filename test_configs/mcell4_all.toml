@@ -18,6 +18,9 @@
 
 [[include]]
   file = 'data_model_pymcell4.toml'
+
+[[include]]
+  file = 'data_model_pymcell4_chkpt.toml'
   
 [[include]]
   file = 'pymcell4_api.toml'
