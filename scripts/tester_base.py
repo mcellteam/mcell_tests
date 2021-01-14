@@ -152,6 +152,10 @@ class TesterBase:
             if 'debug' in mcell_path:
                 log("SKIP : " + self.test_name)
                 return True
+        elif os.path.exists(os.path.join(self.test_src_path, 'skip_win')):
+            if os.name == 'nt':
+                log("SKIP WIN: " + self.test_name)
+                return True
             
         return False
             

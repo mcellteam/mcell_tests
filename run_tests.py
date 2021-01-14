@@ -36,7 +36,11 @@ import re
 import argparse
 import shutil
 import time
-import psutil
+
+if os.name != 'nt':
+    # should be working but it is not possible to install it with all python ditributions
+    import psutil
+
 from threading import Timer
 from typing import List, Dict
 import toml
@@ -234,7 +238,8 @@ def run_single_test(test_info: TestInfo, tool_paths: ToolPaths) -> int:
     test_obj = test_info.tester_class(test_info.test_path, test_info.test_dir_suffix, test_info.args, tool_paths)
     
     # do not run certain tests if one has less than ~8BG of RAM
-    if os.path.exists(os.path.join(test_obj.test_src_path, 'skip_mem')) and psutil.virtual_memory().total < 8000000000:
+    if os.path.exists(os.path.join(test_obj.test_src_path, 'skip_mem')) and \
+        (os.name == 'nt' or psutil.virtual_memory().total < 8000000000):
         print("Test " + test_obj.test_src_path + " skipped due to its memory requirements.")
         return SKIPPED
     

@@ -1,0 +1,24 @@
+[[include]]
+  file = 'mcell3_mdl.toml'
+
+[[include]]
+  file = 'mcell3_only_mdl.toml'
+  
+[[include]]
+  file = 'mcell3_nutmeg.toml'
+
+# TODO: reference data for MCell3 are missing
+#[[include]]
+#  file = 'data_model_mcell3.toml'
+  
+# Ignoring MCellR BNGL tests on Windows for now, there is a weird error when converting MCellR model
+#[[set]]
+#  category = 'examples'
+#  testSet = 'datamodel'
+#  testerClass = 'TesterDataModel'
+
+#[[set]]
+#  category = 'tests'
+#  testSet = 'data_model_bngl'
+#  testerClass = 'TesterDataModel'
+    

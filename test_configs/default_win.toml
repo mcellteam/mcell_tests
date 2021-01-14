@@ -1,0 +1,13 @@
+[[include]]
+  file = 'mcell3_all_win.toml'
+  testDirSuffix = '_mcell3'
+  
+[[include]]
+  file = 'mcell4_all.toml'
+  testDirSuffix = '_mcell4'
+
+[[set]]
+  category = 'tests'
+  testSet = 'blender_python'
+  testerClass = 'TesterPython'
+  
