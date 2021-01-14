@@ -53,7 +53,7 @@ model.load_bngl('test.bngl', './react_data/seed_' + str(SEED).zfill(5) + '/', de
 
 model.config.time_step = TIME_STEP
 model.config.seed = SEED
-model.config.total_iterations_hint = ITERATIONS 
+model.config.total_iterations = ITERATIONS 
 
 model.config.partition_dimension = MCELL_DEFAULT_COMPARTMENT_EDGE_LENGTH
 model.config.subpartition_dimension = MCELL_DEFAULT_COMPARTMENT_EDGE_LENGTH 

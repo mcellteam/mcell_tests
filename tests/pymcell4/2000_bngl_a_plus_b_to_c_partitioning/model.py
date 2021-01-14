@@ -51,7 +51,7 @@ model = m.Model()
 
 model.config.time_step = TIME_STEP # TODO, cannot be in 
 model.config.seed = SEED
-model.config.total_iterations_hint = ITERATIONS 
+model.config.total_iterations = ITERATIONS 
 
 model.config.partition_dimension = MCELL_NO_COMPARTMENT_SIZE
 model.config.subpartition_dimension = MCELL_NO_COMPARTMENT_SIZE / 20

@@ -28,7 +28,6 @@ from typing import List, Dict
 
 from test_settings import *
 from benchmark_bngl import BenchmarkBngl
-from test_utils import log_test_error
 from tool_paths import ToolPaths
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))

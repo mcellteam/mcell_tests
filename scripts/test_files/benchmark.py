@@ -53,7 +53,7 @@ for cnt in model.counts:
 
 model.config.time_step = TIME_STEP
 model.config.seed = 1
-model.config.total_iterations_hint = ITERATIONS 
+model.config.total_iterations = ITERATIONS 
 
 model.config.partition_dimension = MCELL_DEFAULT_COMPARTMENT_EDGE_LENGTH
 model.config.subpartition_dimension = MCELL_SUBPARTITION_DIMENSION 

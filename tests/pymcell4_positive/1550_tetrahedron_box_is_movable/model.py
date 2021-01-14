@@ -42,7 +42,7 @@ model.add_release_site(rel)
 
 model.add_geometry_object(Tetrahedron)
     
-model.config.total_iterations_hint = ITERATIONS
+model.config.total_iterations = ITERATIONS
     
 model.initialize()
 

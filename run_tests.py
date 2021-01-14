@@ -236,7 +236,7 @@ def run_single_test(test_info: TestInfo, tool_paths: ToolPaths) -> int:
     start = time.time()
 
     test_obj = test_info.tester_class(test_info.test_path, test_info.test_dir_suffix, test_info.args, tool_paths)
-    
+
     # do not run certain tests if one has less than ~8BG of RAM
     if os.path.exists(os.path.join(test_obj.test_src_path, 'skip_mem')) and \
         (os.name == 'nt' or psutil.virtual_memory().total < 8000000000):
@@ -424,11 +424,14 @@ def report_results(results: Dict) -> int:
     skipped_count = 0
     known_fails_count = 0
     todo_tests_count = 0
+    ignored_tests_count = 0
     failed_tests = []
     for key, value in results.items():
         if not value:
             fatal_error('Invalid result for ' + key)
-        print(RESULT_NAMES[value] + ": " + str(key))
+        if value != IGNORED:
+            print(RESULT_NAMES[value] + ": " + str(key))
+            
         if value == PASSED:
             passed_count += 1
         elif value in FAIL_CODES:
@@ -439,6 +442,8 @@ def report_results(results: Dict) -> int:
             known_fails_count += 1
         elif value == TODO_TEST:
             todo_tests_count += 1
+        elif value == IGNORED:
+            ignored_tests_count += 1
         else:
             fatal_error("Invalid test result value " + str(value))
 
@@ -455,7 +460,8 @@ def report_results(results: Dict) -> int:
         res = 0
 
     log("PASSED: " + str(passed_count) + ", FAILED: " + str(len(failed_tests)) + ", SKIPPED: " + str(skipped_count) + 
-        ", KNOWN FAILS: " + str(known_fails_count) + ", TODO TESTS: " + str(todo_tests_count))
+        ", KNOWN FAILS: " + str(known_fails_count) + ", TODO TESTS: " + str(todo_tests_count) + 
+        ", IGNORED: " + str(ignored_tests_count) )
         
     return res
 

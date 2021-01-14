@@ -1,2 +1,3 @@
-Test requires mcell3 argumen "-with_checks no", 
-we do not want to support this argument (at least initially) in pymcell4. 
+Test requires mcell3 argument "-with_checks no", 
+we do not want to support this argument (at least initially) in pymcell4.
+Neither checkpointing is tested.

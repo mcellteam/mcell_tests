@@ -17,7 +17,7 @@ http://www.gnu.org/licenses/gpl-2.0.html
 """
 
 """
-This module contains definition of a bbase class used to run tests.
+This module contains definition of a base class used to run tests.
 """
 
 import abc
@@ -32,7 +32,7 @@ from typing import List, Dict
 import data_output_diff
 
 from test_settings import *
-from test_utils import log_test_error, log_test_success, replace_in_file, find_in_file
+from test_utils import replace_in_file, find_in_file
 from tool_paths import ToolPaths
 
 
@@ -142,15 +142,38 @@ class TesterBase:
         if not os.path.exists(tool_paths.work_path):
             os.mkdir(tool_paths.work_path)
 
+    def get_args_str(self):
+        args_str = ''
+        if self.args:
+            args_str = ' - ' +  ','.join(self.args)
+        return args_str
+
+    def log_test_error(self, msg) -> None:
+        log("ERROR: " + self.test_name + " [" + self.tester_name + self.get_args_str() + "]" + " - " + msg)
+
+    def log_test_skip(self, custom_skip=None) -> None:
+        skip = "SKIP" if custom_skip is None else custom_skip
+        log(skip + " : " + self.test_name + " [" + self.tester_name + self.get_args_str() + "]")
+
+    def log_test_todo(self, custom_todo=None) -> None:
+        todo = "TODO TEST" if custom_todo is None else custom_todo
+        log(todo + " : " + self.test_name + " [" + self.tester_name + self.get_args_str() + "]")
+    
+    def log_test_success(self) -> None:
+        args_str = ''
+        if self.args:
+            args_str = ' - ' +  ','.join(self.args)
+        log("PASS : " + self.test_name + " [" + self.tester_name + self.get_args_str() + "]")
+        
     def should_be_skipped(self) -> bool:
         if os.path.exists(os.path.join(self.test_src_path, 'skip')):
-            log("SKIP : " + self.test_name)
+            self.log_test_skip()
             return True
         elif os.path.exists(os.path.join(self.test_src_path, 'skip_debug')):
             # detection uses the parent directory of mcell
             mcell_path = os.path.basename(os.path.dirname(self.tool_paths.mcell_binary))
             if 'debug' in mcell_path:
-                log("SKIP : " + self.test_name)
+                self.log_test_skip()
                 return True
         elif os.path.exists(os.path.join(self.test_src_path, 'skip_win')):
             if os.name == 'nt':
@@ -176,7 +199,7 @@ class TesterBase:
 
     def is_todo_test(self) -> bool:
         if os.path.exists(os.path.join(self.test_src_path, 'todo')):
-            log("TODO TEST : " + self.test_name)
+            self.log_test_todo()
             return True
         else:
             return False
@@ -238,9 +261,9 @@ class TesterBase:
             fdiff_args)
         
         if res != PASSED:
-            log_test_error(self.test_name, self.tester_name, msg)
+            self.log_test_error(msg)
         return res
-
+        
     def check_reference_data(self, viz_ref_required=False, fdiff_args_override=None) -> int:
         
         assert self.used_seed
@@ -274,7 +297,7 @@ class TesterBase:
                 return res
      
         if res == PASSED:
-            log_test_success(self.test_name, self.tester_name)
+            self.log_test_success()
         
         return res           
 
@@ -313,7 +336,7 @@ class TesterBase:
             
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=timeout_sec)
         if exit_code != 0:
-            log_test_error(self.test_name, self.tester_name, "MCell failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
+            self.log_test_error("MCell failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
             return FAILED_MCELL
         else:
             return PASSED
@@ -332,7 +355,7 @@ class TesterBase:
         log_name = self.test_name + '.postprocess_mcell3r.log'
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         if (exit_code):
-            log_test_error(self.test_name, self.tester_name, "MCell3r postprocess failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
+            self.log_test_error("MCell3r postprocess failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
             return FAILED_MCELL
         else:
             return PASSED
@@ -349,7 +372,7 @@ class TesterBase:
         log_name = self.test_name+'.dm_to_mdl.log'
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name)
         if exit_code != 0:
-            log_test_error(self.test_name, self.tester_name, "Data model to mdl conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
+            self.log_test_error("Data model to mdl conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
             return FAILED_DM_TO_MDL_CONVERSION
         else:
             return PASSED
@@ -365,7 +388,7 @@ class TesterBase:
         log_name = self.test_name+'.bngl_to_dm.log'
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name)
         if exit_code != 0:
-            log_test_error(self.test_name, self.tester_name, "BGNL to mdl conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
+            self.log_test_error("BGNL to mdl conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
             return FAILED_DM_TO_MDL_CONVERSION
         else:
             return PASSED
@@ -381,7 +404,7 @@ class TesterBase:
         log_name = self.test_name+'.mcell_mdl_to_dm.log'
         exit_code = run(cmd, cwd=self.test_work_path, verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         if (exit_code):
-            log_test_error(self.test_name, self.tester_name, "MCell state to data model conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
+            self.log_test_error("MCell state to data model conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
             return FAILED_MCELL
         else:
             # this might create file in the react_output directory, erase it
@@ -394,12 +417,23 @@ class TesterBase:
         cmd = [ self.tool_paths.data_model_to_pymcell_binary, data_model_file ]
         cmd += extra_args
         
+        prefix = ''
+        prefix_file = os.path.join(self.test_src_path, 'mcell4_prefix')
+        if os.path.exists(prefix_file):
+            with open(prefix_file, 'r') as fin:
+                prefix = fin.readline().strip()
+                cmd += [ '-o', prefix ]
+        
         log_name = self.test_name+'.mcell_dm_to_pymcell.log'
         exit_code = run(cmd, cwd=self.test_work_path, verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         if (exit_code):
-            log_test_error(self.test_name, self.tester_name, "Data model to pymcell4 conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
+            self.log_test_error("Data model to pymcell4 conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
             return FAILED_MCELL
         else:
+            if prefix:
+                # rename the main file because the rest of the system expects it to be called model.py
+                shutil.move(os.path.join(self.test_work_path, prefix + '_model.py'), os.path.join(self.test_work_path, 'model.py'))
+            
             return PASSED
                 
     def convert_bngl_to_mdl(self, only_last_viz_output=False):
@@ -437,6 +471,29 @@ class TesterBase:
             'ITERATION_NUMBERS {ALL_DATA @ ALL_ITERATIONS}', 
             'ITERATION_NUMBERS {ALL_DATA @ [[0 TO ' + iters_str + ' STEP ' + iters_str + ']]}'
         )
+        
+    def load_checkpoint_iters(self):
+        iters_file_name = os.path.join(self.test_src_path, 'checkpoint_iters')
+        
+        if not os.path.exists(iters_file_name):
+            return None
+        
+        res = []
+        with open(iters_file_name, 'r') as f:
+            for line in f:
+                if line.strip():
+                    res.append(line.strip())
+        
+        return res
+        
+    def run_finished(self, report_file):
+        # simple grep
+        with open(report_file, 'r') as f:
+            for line in f:
+                if 'FINISHED' in line:
+                    return True
+        
+        return False
         
     @abc.abstractmethod        
     def test(self) -> int:

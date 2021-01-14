@@ -54,14 +54,29 @@ class TesterBnglDataModelPymcell4(TesterDataModelPymcell4):
             self.test_work_path 
         )
         
+    def should_be_skipped_for_bngl_datamodel_pymcell4_test(self) -> bool:
+        if os.path.exists(os.path.join(self.test_src_path, 'skip_bngl_datamodel_pymcell4')):
+            self.log_test_skip("SKIP BNGL_DATAMODEL_PYMCELL4")
+            return True
+        else:
+            return False
+        
     
     def test(self) -> int:
+            
+        if self.should_be_skipped_for_bngl_datamodel_pymcell4_test():
+            return SKIPPED
             
         if self.should_be_skipped():
             return SKIPPED
 
         if self.is_known_fail():
             return SKIPPED
+        
+        if ARG_CHECKPOINTS in self.args:
+            iters = self.load_checkpoint_iters()
+            if not iters:
+                return IGNORED        
         
         self.clean_and_create_work_dir()
         
@@ -72,9 +87,11 @@ class TesterBnglDataModelPymcell4(TesterDataModelPymcell4):
         
         # 2) run data model to python converter w, w/o bngl
         if res == PASSED:
-            extra_args = []
+            extra_args = ['-t']
             if ARG_CONVERT_W_BNGL in self.args:
-                extra_args = ['-b']
+                extra_args += ['-b']
+            if ARG_CHECKPOINTS in self.args:
+                extra_args += ['-k', ','.join(iters)]                  
                 
             res = self.run_dm_to_pymcell_conversion(
                 os.path.join(self.test_work_path, 'data_model.json'), 
@@ -86,7 +103,17 @@ class TesterBnglDataModelPymcell4(TesterDataModelPymcell4):
              
         # 3) run test (model.py)
         if res == PASSED:
-            res = self.run_pymcell4(test_dir=self.test_work_path)
+            if ARG_CHECKPOINTS not in self.args:
+                # single run
+                res = self.run_pymcell4(test_dir=self.test_work_path)
+            else:
+                # run with checkpoints, run until run has finished
+                # TODO: use seed argument 
+                res = self.run_pymcell4(test_dir=self.test_work_path)
+                while res == PASSED and \
+                    not self.run_finished(os.path.join(self.test_work_path, 'reports/run_report_00001.txt')):
+                    
+                    res = self.run_pymcell4(test_dir=self.test_work_path)
         
         if self.is_todo_test():
             return TODO_TEST

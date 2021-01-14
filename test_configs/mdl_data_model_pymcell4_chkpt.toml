@@ -1,0 +1,27 @@
+[[set]]
+  category = 'tests'
+  testSet = 'mdl'
+  testerClass = 'TesterMdlDataModelPymcell4'
+  testDirSuffix = '_chkpt'
+  args = ['mcell4', 'checkpoints']
+  
+[[set]]
+  category = '../mcell_tests_private/tests'
+  testSet = 'mdl'
+  testerClass = 'TesterMdlDataModelPymcell4'
+  testDirSuffix = '_chkpt'
+  args = ['mcell4', 'checkpoints']
+  
+[[set]]
+  category = 'tests'
+  testSet = 'mdl'
+  testerClass = 'TesterMdlDataModelPymcell4'
+  testDirSuffix = '_w_bngl_chkpt'
+  args = ['mcell4', 'convert_w_bngl', 'checkpoints']
+  
+[[set]]
+  category = '../mcell_tests_private/tests'
+  testSet = 'mdl'
+  testerClass = 'TesterMdlDataModelPymcell4'
+  testDirSuffix = '_w_bngl_chkpt'
+  args = ['mcell4', 'convert_w_bngl', 'checkpoints']

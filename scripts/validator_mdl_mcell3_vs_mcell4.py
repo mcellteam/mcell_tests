@@ -27,7 +27,6 @@ from typing import List, Dict
 from test_settings import *
 from tester_base import TesterBase
 from validator_bng_vs_pymcell4 import ValidatorBngVsPymcell4
-from test_utils import log_test_error, find_in_file, replace_in_file
 from tool_paths import ToolPaths
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))

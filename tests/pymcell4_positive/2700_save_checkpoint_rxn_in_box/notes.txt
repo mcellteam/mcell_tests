@@ -1,0 +1,4 @@
+This is a base test for checkpointing
+
+Runs simulation and then again a checkpoint for iterations 5-10,
+compares result afterwards.

@@ -1,0 +1,9 @@
+Test for reactant classes,
+used to assert with debug mode in iteration ~34000
+
+Skipped for testing variants
+bngl_data_model_pymcell4_w_bngl
+and
+bngl_data_model_pymcell4
+testing variants give different result because some minor changes in precision, 
+they can be seen already around iteration 10000. 

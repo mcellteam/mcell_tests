@@ -25,7 +25,7 @@ model = m.Model()
 
 model.config.time_step = TIME_STEP
 model.config.seed = SEED
-model.config.total_iterations_hint = ITERATIONS
+model.config.total_iterations = ITERATIONS
 
 model.config.partition_dimension = 10
 model.config.subpartition_dimension = 2.5
@@ -81,6 +81,7 @@ def rxn_callback(rxn_info, context):
     
     print(rxn_info.reactant_ids);
     assert len(rxn_info.reactant_ids) == 2
+    assert len(rxn_info.product_ids) == 2
     
     # we are starting with 20 molecules and not creating any new 'a' and 'b'
     assert rxn_info.reactant_ids[0] >= 0 and rxn_info.reactant_ids[0] < 200
@@ -110,5 +111,5 @@ for i in range(ITERATIONS + 1):
 model.end_simulation()
 
 print("Total number of reactions: " + str(context.count))
-assert context.count == 34
+assert context.count == 32 # checked against viz output
 

@@ -29,7 +29,6 @@ from typing import List, Dict
 from test_settings import *
 from tester_base import TesterBase
 from tester_data_model_pymcell4 import TesterDataModelPymcell4
-from test_utils import log_test_error, replace_in_file
 from tool_paths import ToolPaths
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -67,21 +66,38 @@ class TesterMdlDataModelPymcell4(TesterDataModelPymcell4):
         if self.is_known_fail():
             return KNOWN_FAIL
         
+        if ARG_CHECKPOINTS in self.args:
+            iters = self.load_checkpoint_iters()
+            if not iters:
+                return IGNORED
+
         self.clean_and_create_work_dir()
         
         res = self.run_mdl_to_dm_conversion(MCELL_BASE_ARGS, os.path.join(self.test_src_path, MAIN_MDL_FILE))
 
         if res == PASSED: 
-            extra_args = []
+            extra_args = ['-t']
             if ARG_CONVERT_W_BNGL in self.args:
-                extra_args = ['-b']   
+                extra_args += ['-b']   
+            if ARG_CHECKPOINTS in self.args:
+                extra_args += ['-k', ','.join(iters)]   
                 
             res = self.run_dm_to_pymcell_conversion(
                 os.path.join(self.test_work_path, 'data_model.json'), 
                 extra_args=extra_args)
             
         if res == PASSED:
-            res = self.run_pymcell4(test_dir=self.test_work_path)
+            if ARG_CHECKPOINTS not in self.args:
+                # single run
+                res = self.run_pymcell4(test_dir=self.test_work_path)
+            else:
+                # run with checkpoints, run until run has finished
+                # TODO: use seed argument 
+                res = self.run_pymcell4(test_dir=self.test_work_path)
+                while res == PASSED and \
+                    not self.run_finished(os.path.join(self.test_work_path, 'reports/run_report_00001.txt')):
+                    
+                    res = self.run_pymcell4(test_dir=self.test_work_path)
         
         if self.is_todo_test() or self.is_todo_for_datamodel_test():
             return TODO_TEST

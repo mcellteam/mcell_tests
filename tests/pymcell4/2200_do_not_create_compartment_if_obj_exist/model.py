@@ -28,7 +28,7 @@ model.add_geometry_object(Compartment)
 # molecules in test.bngl are released into 'Compartment'
 model.load_bngl('test.bngl')
     
-model.config.total_iterations_hint = ITERATIONS
+model.config.total_iterations = ITERATIONS
     
 model.initialize()
     

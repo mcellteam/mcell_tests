@@ -30,7 +30,7 @@ model.load_bngl('test.bngl')
 
 # ---- configuration ----
 
-model.config.total_iterations_hint = ITERATIONS 
+model.config.total_iterations = ITERATIONS 
 
 
 model.initialize()

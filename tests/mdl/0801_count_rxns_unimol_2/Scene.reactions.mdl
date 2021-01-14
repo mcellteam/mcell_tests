@@ -1,0 +1,6 @@
+DEFINE_REACTIONS
+{
+  a -> NULL [2e5] : react_a_null
+  b -> NULL [1e5] : react_b_null
+}
+

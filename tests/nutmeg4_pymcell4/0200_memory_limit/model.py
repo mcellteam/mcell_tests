@@ -35,7 +35,7 @@ rel_a = m.ReleaseSite(
 
 # ---- configuration ----
 
-model.config.total_iterations_hint = ITERATIONS 
+model.config.total_iterations = ITERATIONS 
 model.add_species(a)
 
 model.config.memory_limit_gb = 1

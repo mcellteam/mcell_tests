@@ -1,0 +1,27 @@
+begin parameters
+    MCELL_DIFFUSION_CONSTANT_3D_a 1e-6
+    MCELL_DIFFUSION_CONSTANT_3D_b 1e-6
+    MCELL_DIFFUSION_CONSTANT_3D_c 1e-6
+    MCELL_DIFFUSION_CONSTANT_3D_d 1e-6
+    MCELL_DIFFUSION_CONSTANT_3D_e 1e-6
+end parameters
+
+begin compartments
+    Cube 3 0.125^3
+end compartments
+
+begin seed species
+    a@Cube 100
+    b@Cube 100
+    d@Cube 100
+end seed species  
+
+begin observables
+    Molecules c c
+    Molecules e e
+end observables
+
+begin reaction rules
+    a_plus_b: a + b -> a + c 1e8  # reactant a is kept alive
+    d_to_e: d -> e 0 # executed manually   
+end reaction rules  
