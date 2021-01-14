@@ -64,9 +64,16 @@ class TesterPymcell4(TesterBase):
 
 
     def run_pymcell4(self, test_dir:str, test_file='model.py', extra_args=[], seed=1, timeout_sec=MCELL_TIMEOUT) -> int:
-        # we need to set the path to the build using MCELL_PATH system variable
-        # and the command will be executed as shell
-        cmdstr = 'export ' + MCELL_PATH_VARIABLE + '=' + self.tool_paths.mcell_path + ';'
+        # we need to set the path to the build using MCELL_PATH system variable 
+        # and the command will be executed as shell (on Linux and MacOS)
+        # keep it separate like this so it is possibly just to copy the command on Linux and Mac
+        if os.name != 'nt':
+            cmdstr = 'export ' + MCELL_PATH_VARIABLE + '=' + self.tool_paths.mcell_path + ';'
+            env = {}
+        else:
+            cmdstr = ''
+            env = {MCELL_PATH_VARIABLE: self.tool_paths.mcell_path}
+            
         cmdstr +=  self.tool_paths.python_binary + ' ' + os.path.join(test_dir, test_file) + ' '
         
         # seed set as argument to this method has higher priority
@@ -84,8 +91,8 @@ class TesterPymcell4(TesterBase):
         cmd += extra_args
         
         log_name = self.test_name + '_' + str(seed).zfill(5) + '.pymcell4.log'
-        # run in wrk d
-        exit_code = run(cmd, shell=True, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=timeout_sec)
+        # run in work directory
+        exit_code = run(cmd, shell=True, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=timeout_sec, extra_env=env)
         if (exit_code):
             log_test_error(self.test_name, self.tester_name, "Pymcell4 failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
             return FAILED_MCELL
