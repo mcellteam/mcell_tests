@@ -70,6 +70,30 @@ class TesterNutmegPymcell4(TesterNutmeg):
         
         return exit_code
     
+    
+    def run_dm_to_pymcell_conversion_for_nutmeg(self, run_info: RunInfo) -> int:
+        assert run_info.json_file
+        cmd = [ self.tool_paths.data_model_to_pymcell_binary, os.path.join(self.test_src_path, run_info.json_file) ]
+        
+        # run_info.command_line_options - not supported yet
+        cmdstr = ' '.join(cmd) 
+        
+        log_name = self.test_name+'.dm_to_pymcell.log'
+        fout = open(os.path.join(self.test_work_path, STDOUT_FILE_NAME), "w")
+        ferr = open(os.path.join(self.test_work_path, STDERR_FILE_NAME), "w")
+        flog = open(os.path.join(self.test_work_path, log_name), "w")
+                
+        flog.write(cmdstr + ")\ncwd: " + self.test_work_path + "\n")
+        
+        run_res = subprocess.run(cmd, stdout=fout, stderr=ferr, cwd=self.test_work_path, timeout=MCELL_TIMEOUT)
+        exit_code = run_res.returncode
+        
+        fout.close()
+        ferr.close()
+        
+        return exit_code
+    
+    
     def test(self) -> int:
         if self.should_be_skipped():
             return SKIPPED
@@ -90,12 +114,20 @@ class TesterNutmegPymcell4(TesterNutmeg):
         if test_description is None:
             return FAILED_NUTMEG_SPEC        
 
-        # run pymcell4
-        mcell_ec = self.run_pymcell4_for_nutmeg(test_description.run_info)
+        dm_to_pymcell_ec = 0
+        if test_description.run_info.json_file:
+            # if the data model test fails during conversion, the checks are for the conversion
+            dm_to_pymcell_ec = self.run_dm_to_pymcell_conversion_for_nutmeg(test_description.run_info)
+            test_description.run_info.py_file = os.path.join(self.test_work_path, 'model.py')
+            
+        # run pymcell4 if data model conversion passed
+        if dm_to_pymcell_ec == 0:
+            mcell_ec = self.run_pymcell4_for_nutmeg(test_description.run_info)
 
         # run all checks
         for check in test_description.check_infos:
-            res = self.run_check(check, mcell_ec)
+            ec = dm_to_pymcell_ec if dm_to_pymcell_ec != 0 else mcell_ec 
+            res = self.run_check(check, ec)
             if res != PASSED:
                 return res
        
