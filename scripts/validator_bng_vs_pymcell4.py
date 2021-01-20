@@ -27,7 +27,7 @@ from typing import List, Dict
 
 from test_settings import *
 from tester_bngl_pymcell4 import TesterBnglPymcell4
-from test_utils import replace_in_file
+from test_utils import replace_in_file, find_in_file
 from tool_paths import ToolPaths
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
