@@ -38,7 +38,7 @@ else:
     EXE_EXT = ''
     
 if 'Windows' in platform.system():
-    DLL_EXT = '.dll'
+    DLL_EXT = '.pyd'
 elif 'Darwin' == platform.system():
     DLL_EXT = '.so' # mcell.so is used on MacOS as well, python does not find it otherwise
 else:
