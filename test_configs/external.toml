@@ -1,4 +1,14 @@
-   
+[[set]]
+  category = 'utils_tests'
+  testSet = 'bng_analyzer'
+  testerClass = 'TesterExternal'
+  args = [
+    '$MCELL_TESTS_DIR/tests/utils_tests/bng_analyzer/test.sh', 
+    '$MCELL_BUILD_DIR/utils/bng_analyzer/bng_analyzer', 
+    '$MCELL_TESTS_DIR/tests/utils_tests/bng_analyzer/', 
+    '$MCELL_TESTS_DIR/work/bng_analyzer'
+  ]
+    
 [[set]]
   category = 'utils_tests'
   testSet = 'bng_analyzer_py'
