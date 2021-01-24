@@ -1,0 +1,2 @@
+# Windows MCell3 build result differs from Linux reference
+fdiff = "1e-9"
