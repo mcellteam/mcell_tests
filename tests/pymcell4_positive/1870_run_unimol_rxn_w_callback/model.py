@@ -15,10 +15,10 @@ MCELL_PATH = os.environ.get('MCELL_PATH', '')
 if MCELL_PATH:
     lib_path = os.path.join(MCELL_PATH, 'lib')
     if os.path.exists(os.path.join(lib_path, 'mcell.so')) or \
-        os.path.exists(os.path.join(lib_path, 'mcell.dll')):
+        os.path.exists(os.path.join(lib_path, 'mcell.pyd')):
         sys.path.append(lib_path)
     else:
-        print("Error: Python module mcell.so or mcell.dll was not found in "
+        print("Error: Python module mcell.so or mcell.pyd was not found in "
               "directory '" + lib_path + "' constructed from system variable "
               "MCELL_PATH.")
         sys.exit(1)

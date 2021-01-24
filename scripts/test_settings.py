@@ -39,17 +39,15 @@ else:
     
 if 'Windows' in platform.system():
     DLL_EXT = '.pyd'
-elif 'Darwin' == platform.system():
-    DLL_EXT = '.so' # mcell.so is used on MacOS as well, python does not find it otherwise
 else:
     DLL_EXT = '.so'
 
 MCELL_BINARY = 'mcell' + EXE_EXT
 
-DATA_MODEL_TO_PYMCELL_PATH = os.path.join('utils', 'data_model_to_pymcell')
+DATA_MODEL_TO_PYMCELL_PATH = 'bin'
 DATA_MODEL_TO_PYMCELL_BINARY = 'data_model_to_pymcell' + EXE_EXT
 
-BNG_ANALYZER_DIR = os.path.join('utils', 'bng_analyzer')
+BNG_ANALYZER_DIR = 'bin'
 BNG_ANALYZER_BINARY = 'bng_analyzer' + EXE_EXT
 
 MCELL_PATH_VARIABLE = 'MCELL_PATH'
