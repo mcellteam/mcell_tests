@@ -37,6 +37,7 @@ UPDATE_REFERENCE=False
 
 ARG_MCELL_TESTS_DIR = '$MCELL_TESTS_DIR'
 ARG_MCELL_BUILD_DIR = '$MCELL_BUILD_DIR'
+ARG_EXE_EXT = '$EXE_EXT' # usually not needed
 
 
 class TesterExternal(TesterBase):
@@ -55,9 +56,11 @@ class TesterExternal(TesterBase):
         for arg in self.args:
             arg = arg.replace(ARG_MCELL_TESTS_DIR, os.path.join(THIS_DIR, '..'))
             arg = arg.replace(ARG_MCELL_BUILD_DIR, self.tool_paths.mcell_path)
+            arg = arg.replace(ARG_EXE_EXT, EXE_EXT)
             cmd.append(arg)
-        
-        ec = run(cmd, shell=True, cwd=self.test_work_path, verbose=True)
+            
+        env = {MCELL_PATH_VARIABLE: self.tool_paths.mcell_path}
+        ec = run(cmd, shell=True, cwd=self.test_work_path, verbose=True, extra_env=env)
         if ec == 0:
             return PASSED
         else:
