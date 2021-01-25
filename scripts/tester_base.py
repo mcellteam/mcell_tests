@@ -301,6 +301,19 @@ class TesterBase:
         
         return res           
 
+    def get_log_name(self, extension, seed = 1):
+        if not seed or seed == 1:
+            log_name = os.path.join(self.test_work_path, self.test_name+extension)  
+        else:
+            log_name = os.path.join(self.test_work_path, self.test_name + '_' + str(seed).zfill(5) + extension)  
+        
+        if os.name == 'nt': 
+            if len(log_name) > MAX_WIN_PATH_LENGTH:
+                log_name = os.path.join(self.test_work_path, 'l' + '.dm_to_mdl.log')
+            if len(log_name) > MAX_WIN_PATH_LENGTH:
+                print("Warning, path length is too long and will probably fail, error for " + log_name) 
+        return log_name
+        
     # main_mdl_file - full path needst to be provided
     def run_mcell(self, mcell_args: List[str], main_mdl_file: str, seed=1, timeout_sec=MCELL_TIMEOUT) -> int:
         cmd = [ self.tool_paths.mcell_binary ]
@@ -325,14 +338,11 @@ class TesterBase:
             cmd += [ '-r', mdlr_rules_file ]
         
         if '-mcell4' in cmd:
-            log_suffix = '.mcell4.log'
+            extension = '.mcell4.log'
         else:
-            log_suffix = '.mcell3.log'
+            extension = '.mcell3.log'
         
-        if seed == 1:
-            log_name = self.test_name + '.' + log_suffix 
-        else:
-            log_name = self.test_name + '_' + str(seed).zfill(5) + log_suffix 
+        log_name = self.get_log_name(extension, seed)
             
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=timeout_sec)
         if exit_code != 0:
@@ -352,7 +362,8 @@ class TesterBase:
             seed_to_convert = self.used_seed 
             
         cmd = [ self.tool_paths.python_binary, self.tool_paths.postprocess_mcell3r_script, str(seed_to_convert), MAIN_MDLR_RULES_FILE ]
-        log_name = self.test_name + '.postprocess_mcell3r.log'
+        log_name = self.get_log_name('.postprocess_mcell3r.log', seed)
+        
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         if (exit_code):
             self.log_test_error("MCell3r postprocess failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
@@ -368,8 +379,9 @@ class TesterBase:
             self.tool_paths.python_binary, self.tool_paths.data_model_to_mdl_script, 
             json_file_name, MAIN_MDL_FILE, '-fail-on-error' ]
         if extra_arg:
-            cmd.append(extra_arg)    
-        log_name = self.test_name+'.dm_to_mdl.log'
+            cmd.append(extra_arg)
+        log_name = self.get_log_name('.dm_to_mdl.log')
+            
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name)
         if exit_code != 0:
             self.log_test_error("Data model to mdl conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
@@ -384,8 +396,10 @@ class TesterBase:
             self.tool_paths.python_binary, self.tool_paths.bngl_to_data_model_script, 
             bngl_file_name, 'data_model.json']
         if extra_arg:
-            cmd.append(extra_arg)    
-        log_name = self.test_name+'.bngl_to_dm.log'
+            cmd.append(extra_arg)
+            
+        log_name = self.get_log_name('.bngl_to_dm.log')
+                
         exit_code = run(cmd, cwd=os.getcwd(), verbose=False, fout_name=log_name)
         if exit_code != 0:
             self.log_test_error("BGNL to mdl conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
@@ -401,7 +415,8 @@ class TesterBase:
         cmd += self.extra_args.mcell_args
         cmd += [ '-mdl2datamodel4' ]
         
-        log_name = self.test_name+'.mcell_mdl_to_dm.log'
+        log_name = self.get_log_name('.mcell_mdl_to_dm.log')
+        
         exit_code = run(cmd, cwd=self.test_work_path, verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         if (exit_code):
             self.log_test_error("MCell state to data model conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
@@ -424,7 +439,8 @@ class TesterBase:
                 prefix = fin.readline().strip()
                 cmd += [ '-o', prefix ]
         
-        log_name = self.test_name+'.mcell_dm_to_pymcell.log'
+        log_name = self.get_log_name('.mcell_dm_to_pymcell.log')
+        
         exit_code = run(cmd, cwd=self.test_work_path, verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         if (exit_code):
             self.log_test_error("Data model to pymcell4 conversion failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")

@@ -25,6 +25,8 @@ import platform
 
 WORK_DIR_NAME = 'work'
 
+MAX_WIN_PATH_LENGTH = 255
+
 TEST_MCELL4 = False
 
 BUILD_OPTS_USE_LTO = False  # higher performnce but slower build
