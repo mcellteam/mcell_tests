@@ -54,24 +54,24 @@ class TesterNutmegPymcell4(TesterNutmeg):
         extended_env = os.environ.copy()
         if os.name != 'nt':
             shell=True
-            cmdstr = 'export ' + MCELL_PATH_VARIABLE + '=' + self.tool_paths.mcell_path + ';'
+            cmd = ['export ', MCELL_PATH_VARIABLE + '=' + self.tool_paths.mcell_path, ';']
         else:
-            cmdstr = ''
+            cmd = []
             shell=False
             extended_env[MCELL_PATH_VARIABLE] = self.tool_paths.mcell_path
         
-        cmd = [ self.tool_paths.python_binary, os.path.join(self.test_src_path, run_info.py_file) ]
+        cmd += [ self.tool_paths.python_binary, os.path.join(self.test_src_path, run_info.py_file) ]
         cmd += run_info.command_line_options
-        
-        if shell:
-            cmd = ' '.join(cmd)
         
         log_name = self.test_name+'.pymcell4.log'
         fout = open(os.path.join(self.test_work_path, STDOUT_FILE_NAME), "w")
         ferr = open(os.path.join(self.test_work_path, STDERR_FILE_NAME), "w")
         flog = open(os.path.join(self.test_work_path, log_name), "w")
                 
-        flog.write(cmdstr + "\ncwd: " + self.test_work_path + "\n")
+        flog.write(' '.join(cmd) + "\ncwd: " + self.test_work_path + "\n")
+        
+        if shell:
+            cmd = ' '.join(cmd)
         
         run_res = subprocess.run(
             cmd, shell=shell, stdout=fout, stderr=ferr, cwd=self.test_work_path, timeout=MCELL_TIMEOUT, 
