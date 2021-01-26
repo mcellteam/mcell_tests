@@ -1459,3 +1459,15 @@
    fun:operator[]
    fun:_ZN8pybind116detail12generic_type10initializeERKNS0_11type_recordE
 }
+
+{
+   LEAK119
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_mutateEmmPKcm
+   fun:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_appendEPKcm
+   fun:append
+   fun:_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_
+   fun:_ZN8pybind116detail20make_new_python_typeERKNS0_11type_recordE
+}
