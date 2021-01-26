@@ -1,8 +1,10 @@
 includes = ["exit_code_1"]
 
 [[checks]]
-  matchPattern = "TODO" 
-  dataFile = "run_%d.0.log"
+  # order of the printouts seems pretty random, 
+  # behavior obtained by modification of pybind11.h - dispatcher - see MCell comment
+  matchPattern = "element_connections=\\[\\[0, 1, 2\\], \\[1, 3, 4\\], \\[5, 0, 6\\], \\[7, 5, 8\\], ..."   
+  dataFile = "err_%d.0.log"
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"
 
