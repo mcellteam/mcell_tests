@@ -13,7 +13,7 @@ includes = ["exit_code_1"]
   testType = "FILE_MATCH_PATTERN"
 
 [[checks]]
-  matchPattern = "Molecule type 'Bm' does not have its diffusion constant specified" 
+  matchPattern = "Diffusion constant for ElementaryMoleculeType 'Bm' was not set" 
   dataFile = "err_%d.0.log"
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"

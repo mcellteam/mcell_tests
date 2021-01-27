@@ -1,8 +1,8 @@
 includes = ["exit_code_1"]
 
 [[checks]]
-  matchPattern = "TODO" 
-  dataFile = "run_%d.0.log"
+  matchPattern = "Molecule type 'a' does not have its diffusion constant specified" 
+  dataFile = "err_%d.0.log"
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"
 
