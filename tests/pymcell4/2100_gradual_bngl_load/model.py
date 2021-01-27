@@ -32,7 +32,7 @@ box_no_compartment = m.geometry_utils.create_box(
 )
 
 instantiation = m.Instantiation()
-instantiation.load_bngl_seed_species('test.bngl', subsystem, box_no_compartment)
+instantiation.load_bngl_seed_species('test.bngl', box_no_compartment)
 instantiation.add_geometry_object(box_no_compartment)
 
 assert(len(instantiation.release_sites) == 2)
@@ -44,7 +44,7 @@ viz_output = m.VizOutput(
 )
 
 observables = m.Observables()
-observables.load_bngl_observables('test.bngl', subsystem, './react_data/seed_' + str(SEED).zfill(5) + '/')
+observables.load_bngl_observables('test.bngl', './react_data/seed_' + str(SEED).zfill(5) + '/')
 observables.add_viz_output(viz_output)
 
 assert(len(observables.counts) == 6)

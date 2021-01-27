@@ -49,4 +49,4 @@ observables.add_count(count_a_Cube2)
 observables.add_count(count_a_Cube3)
 
 # load observables information from bngl file
-observables.load_bngl_observables('model.bngl', subsystem, './react_data/seed_' + str(get_seed()).zfill(5) + '/')
+observables.load_bngl_observables('model.bngl', './react_data/seed_' + str(get_seed()).zfill(5) + '/')

@@ -18,4 +18,4 @@ observables = m.Observables()
 observables.add_viz_output(viz_output)
 
 # load observables information from bngl file
-observables.load_bngl_observables('model.bngl', subsystem, './react_data/seed_' + str(get_seed()).zfill(5) + '/')
+observables.load_bngl_observables('model.bngl', './react_data/seed_' + str(get_seed()).zfill(5) + '/')
