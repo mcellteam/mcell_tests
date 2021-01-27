@@ -1,0 +1,30 @@
+
+begin parameters
+    MCELL_DIFFUSION_CONSTANT_2D_a 0
+    MCELL_DIFFUSION_CONSTANT_2D_b 1e-6
+    
+    VOLUME_UM3 = 0.25^3
+end parameters
+
+begin molecule types
+    a
+    b
+end molecule types
+
+begin compartments
+    PM 2 0
+    CP 3 VOLUME_UM3 PM
+end compartments
+
+begin seed species
+   a@PM 100
+end seed species
+
+begin observables
+   Molecules a a
+   Molecules b b
+end observables
+
+begin reaction rules
+    a_to_a_b: a -> a + b 0 # initial rate is 0
+end reaction rules
