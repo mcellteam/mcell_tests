@@ -1,0 +1,5 @@
+Run report, 2021-01-28 11:15:05
+
+Simulation started at iteration 0 and time 2021-01-28 11:15:05.
+Simulation ended at iteration 1 and time 2021-01-28 11:15:05, all iterations were finished.
+FINISHED

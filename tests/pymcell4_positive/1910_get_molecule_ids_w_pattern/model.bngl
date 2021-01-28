@@ -1,0 +1,33 @@
+begin parameters
+    MCELL_DIFFUSION_CONSTANT_3D_A 1e-6
+    MCELL_DIFFUSION_CONSTANT_3D_B 1e-8
+    
+    VOLUME_UM3 = 0.25^3
+    
+    num_AR 10
+    num_AS 15
+    num_BT 20
+    num_BU 25
+    num_ASBT 3
+    num_ARBU 2
+end parameters
+
+begin molecule types
+    A(a~R~S,b)
+    B(b~T~U,a)
+end molecule types
+
+begin compartments
+    CP 3 VOLUME_UM3
+end compartments
+
+begin seed species
+   @CP:A(a~R,b) num_AR
+   @CP:A(a~S,b) num_AS
+   @CP:B(b~T,a) num_BT
+   @CP:B(b~U,a) num_BU
+   @CP:A(a~S,b!1).B(b~T,a!1) num_ASBT
+   @CP:A(a~R,b!1).B(b~U,a!1) num_ARBU
+end seed species
+
+
