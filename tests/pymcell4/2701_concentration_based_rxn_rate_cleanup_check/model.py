@@ -65,8 +65,8 @@ model.notifications.rxn_and_species_report = False
 model.config.partition_dimension = 2
 model.config.subpartition_dimension = 0.2
 
-# TODO - must give the same result as 2700 
-model.config.rxn_class_cleanup_periodicity = 50
+# must give the same result as 2700 with this sett 
+model.config.reaction_class_cleanup_periodicity = 50
 model.config.species_cleanup_periodicity = 100
 
 model.initialize()
