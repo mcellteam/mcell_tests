@@ -105,6 +105,7 @@ class TestOptions:
         self.extra_reports = False
         self.gen_benchmark_script = False
         self.validation_runs = DEFAULT_VALIDATION_RUNS
+        self.erase_after_pass = False
 
     def __repr__(self):
         attrs = vars(self)
@@ -125,6 +126,7 @@ def create_argparse() -> argparse.ArgumentParser:
     parser.add_argument('-r', '--extra-reports', action='store_true', help='print extra reports (works currently only for benchmarks)')
     parser.add_argument('-x', '--benchmark-script', action='store_true', help='for benchmarks, do not run them but instead generate a script to run them instead')
     parser.add_argument('-v', '--validation-runs', type=str, help='number of validation runs, default is ' + str(DEFAULT_VALIDATION_RUNS))
+    parser.add_argument('-e', '--erase-after-pass', action='store_true', help='erase test data after test passed, useful when testing on a machine with limited disk space, default is False')
     return parser
 
 # FIXME: insert into TestOptions class       
@@ -169,6 +171,9 @@ def process_opts() -> TestOptions:
         
     if args.validation_runs:
         opts.validation_runs = int(args.validation_runs)
+        
+    if args.erase_after_pass:
+        opts.erase_after_pass = True
         
     return opts
 
@@ -233,7 +238,7 @@ def get_test_dirs(test_set_info: TestSetInfo) -> List[TestInfo]:
    
     
 def run_single_test(test_info: TestInfo, tool_paths: ToolPaths) -> int:
-    start = time.time()
+    #start = time.time()
 
     test_obj = test_info.tester_class(test_info.test_path, test_info.test_dir_suffix, test_info.args, tool_paths)
 
@@ -245,7 +250,11 @@ def run_single_test(test_info: TestInfo, tool_paths: ToolPaths) -> int:
     
     res = test_obj.test()
     
-    end = time.time()
+    if tool_paths.opts.erase_after_pass and res == PASSED:
+        if os.path.exists(test_obj.test_work_path):
+            shutil.rmtree(test_obj.test_work_path)
+    
+    #end = time.time()
     #log("FINISHED: " + test_info.get_full_name() + " in " + str(round(end - start, 2)) + " s")
     return res
     
