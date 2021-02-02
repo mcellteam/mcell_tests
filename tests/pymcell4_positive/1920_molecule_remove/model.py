@@ -20,7 +20,7 @@ model.add_species(a)
 rs = m.ReleaseSite(
     'rel_a', a, 
     shape = m.Shape.SPHERICAL,
-    location = m.Vec3(0, 0, 0), 
+    location = (0, 0, 0), 
     number_to_release = 10
 )
 model.add_release_site(rs)

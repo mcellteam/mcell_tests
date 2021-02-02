@@ -55,7 +55,7 @@ def rxn_callback(rxn_info, model):
         complex = subsystem.c.inst(),
         shape = m.Shape.SPHERICAL,
         # MCell3 uses the location as offset
-        location = rxn_info.pos3d + m.Vec3(0.005, 0, 0),
+        location = (rxn_info.pos3d + m.Vec3(0.005, 0, 0)).to_list(),
         site_diameter = 0,
         number_to_release = 10,
         release_time = rxn_info.time

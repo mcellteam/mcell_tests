@@ -205,7 +205,7 @@ def rxn_callback(rxn_info, model):
         name = 'rel_c',
         complex = subsystem.c.inst(),
         shape = m.Shape.SPHERICAL,
-        location = pos,
+        location = pos.to_list(),
         site_diameter = 0,
         number_to_release = 10,
         release_time = rxn_info.time

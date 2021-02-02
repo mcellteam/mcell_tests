@@ -33,14 +33,14 @@ rel = m.ReleaseSite(
     name = 'rel',
     complex = a,
     shape = m.Shape.SPHERICAL,
-    location = m.Vec3(0, 0, 0),
+    location = (0, 0, 0),
     site_diameter = 0,
     number_to_release = 1
 )
 model.add_release_site(rel)
 
 
-Tetrahedron.translate(m.Vec3(-0.2, 0, 0))
+Tetrahedron.translate((-0.2, 0, 0))
 
 model.add_geometry_object(Tetrahedron)
 

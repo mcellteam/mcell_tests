@@ -33,14 +33,14 @@ rel = m.ReleaseSite(
     name = 'rel',
     complex = a,
     shape = m.Shape.SPHERICAL,
-    location = m.Vec3(0, 0, 0),
+    location = (0, 0, 0),
     site_diameter = 0,
     number_to_release = 1
 )
 model.add_release_site(rel)
 
 
-Tetrahedron.translate(m.Vec3(-0.2, 0, 0))
+Tetrahedron.translate((-0.2, 0, 0))
 
 model.add_geometry_object(Tetrahedron)
 
@@ -62,7 +62,7 @@ for i in range(ITERATIONS + 1):
     model.export_viz_data_model()
             
     for k in range(len(Tetrahedron_vertex_list) - 1): # not moving with the last vertex
-        model.add_vertex_move(Tetrahedron, k, m.Vec3(0.02, 0, 0))
+        model.add_vertex_move(Tetrahedron, k, (0.02, 0, 0))
         
     wall_wall_hits = model.apply_vertex_moves(True)
     print_wall_hit_info(wall_wall_hits)

@@ -12,7 +12,7 @@ rel_a1 = m.ReleaseSite(
     name = 'rel_a1',
     complex = m.Complex('a'),
     shape = m.Shape.SPHERICAL,
-    location = m.Vec3(0, 0, 0),
+    location = (0, 0, 0),
     site_diameter = 0,
     number_to_release = 20
 )
@@ -21,7 +21,7 @@ rel_a2 = m.ReleaseSite(
     name = 'rel_a2',
     complex = m.Complex('a'),
     shape = m.Shape.SPHERICAL,
-    location = m.Vec3(0.14999999999999999, 0, 0),
+    location = (0.14999999999999999, 0, 0),
     site_diameter = 0,
     number_to_release = 20
 )
@@ -30,7 +30,7 @@ rel_a3 = m.ReleaseSite(
     name = 'rel_a3',
     complex = m.Complex('a'),
     shape = m.Shape.SPHERICAL,
-    location = m.Vec3(0.25, 0, 0),
+    location = (0.25, 0, 0),
     site_diameter = 0,
     number_to_release = 20
 )
@@ -39,7 +39,7 @@ rel_a4 = m.ReleaseSite(
     name = 'rel_a4',
     complex = m.Complex('a'),
     shape = m.Shape.SPHERICAL,
-    location = m.Vec3(0.35000000000000003, 0, 0),
+    location = (0.35000000000000003, 0, 0),
     site_diameter = 0,
     number_to_release = 20
 )
@@ -48,7 +48,7 @@ rel_b2 = m.ReleaseSite(
     name = 'rel_b2',
     complex = m.Complex('b'),
     shape = m.Shape.SPHERICAL,
-    location = m.Vec3(0, 0, 0),
+    location = (0, 0, 0),
     site_diameter = 0.20000000000000001,
     number_to_release = 60
 )

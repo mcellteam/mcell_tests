@@ -55,7 +55,7 @@ rel = m.ReleaseSite(
     name = 'rel',
     complex = a,
     shape = m.Shape.SPHERICAL,
-    location = m.Vec3(0, 0, 0),
+    location = (0, 0, 0),
     site_diameter = 0,
     number_to_release = 1
 )
@@ -83,7 +83,7 @@ for i in range(ITERATIONS):
     model.export_viz_data_model()
             
     for k in range(len(Sphere1_vertex_list)):
-        model.add_vertex_move(Sphere1, k, m.Vec3(0.01))
+        model.add_vertex_move(Sphere1, k, (0.01, 0.01, 0.01))
 
     model.apply_vertex_moves()
             

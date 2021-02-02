@@ -13,7 +13,7 @@ if REF_RUN:
         name = 'rel_a',
         complex = a.inst(),
         shape = m.Shape.SPHERICAL,
-        location = m.Vec3(0, 0, 0),
+        location = (0, 0, 0),
         site_diameter = 0,
         number_to_release = 9
     )

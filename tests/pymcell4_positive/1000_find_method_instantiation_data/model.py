@@ -16,7 +16,7 @@ model = m.Model()
 
 a = m.Species('a', diffusion_constant_3d = 1e-6)
 
-rs = m.ReleaseSite('rel_a', a, location = m.Vec3(0, 0, 0), number_to_release = 1)
+rs = m.ReleaseSite('rel_a', a, location = (0, 0, 0), number_to_release = 1)
 model.add_release_site(rs)
 s1 = model.find_release_site('rel_a')
 assert s1 is not None and s1.name == 'rel_a'

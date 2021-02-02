@@ -20,7 +20,7 @@ from geometry import *
 
 model = m.Model()
 
-Tetrahedron.translate(m.Vec3(0.1, 0.1, 0.1))
+Tetrahedron.translate((0.1, 0.1, 0.1))
 
 model.add_geometry_object(Tetrahedron)
 

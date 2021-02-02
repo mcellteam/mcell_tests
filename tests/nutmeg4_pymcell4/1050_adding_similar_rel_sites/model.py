@@ -17,7 +17,7 @@ rs1 = m.ReleaseSite(
     'rel1', 
     complex = m.Complex('X(y!1).Y(x!1)'),
     shape = m.Shape.SPHERICAL,
-    location = m.Vec3(1),
+    location = (1, 1, 1),
     number_to_release = 10
 )
 
@@ -25,7 +25,7 @@ rs2 = m.ReleaseSite(
     'rel1', 
     complex = m.Complex('X(y!1).Y(x!1)'),
     shape = m.Shape.SPHERICAL,
-    location = m.Vec3(0.1),
+    location = (0.1, 0.1, 0.1),
     number_to_release = 10
 )
 
@@ -42,7 +42,7 @@ rs3 = m.ReleaseSite(
     'rel2', 
     complex = m.Complex('X(y!1).Y(x!1)'),
     shape = m.Shape.SPHERICAL,
-    location = m.Vec3(1),
+    location = (1, 1, 1),
     number_to_release = 10
 )
 
@@ -51,7 +51,7 @@ rs4 = m.ReleaseSite(
     'rel2', 
     complex = m.Complex('Y(x!1).X(y!1)'),
     shape = m.Shape.SPHERICAL,
-    location = m.Vec3(1),
+    location = (1, 1, 1),
     number_to_release = 10
 )
 

@@ -310,7 +310,7 @@ for i in range(ITERATIONS):
             dir = 0            
         else:
             dir = -0.5
-        model.add_vertex_move(Sphere1, k, m.Vec3(0, dir * 0.01, 0))
+        model.add_vertex_move(Sphere1, k, (0, dir * 0.01, 0))
 
     model.apply_vertex_moves()
             

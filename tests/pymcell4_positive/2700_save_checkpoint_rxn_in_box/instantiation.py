@@ -15,7 +15,7 @@ rel_a = m.ReleaseSite(
     name = 'rel_a',
     complex = a.inst(),
     shape = m.Shape.SPHERICAL,
-    location = m.Vec3(0, 0, 0),
+    location = (0, 0, 0),
     site_diameter = 0,
     number_to_release = 100
 )
@@ -24,7 +24,7 @@ rel_b = m.ReleaseSite(
     name = 'rel_b',
     complex = b.inst(),
     shape = m.Shape.SPHERICAL,
-    location = m.Vec3(5.0000000000000001e-03, 0, 0),
+    location = (5.0000000000000001e-03, 0, 0),
     site_diameter = 0,
     number_to_release = 100
 )

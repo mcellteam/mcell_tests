@@ -33,7 +33,7 @@ rel = m.ReleaseSite(
     name = 'rel',
     complex = a,
     shape = m.Shape.SPHERICAL,
-    location = m.Vec3(0, 0, 0),
+    location = (0, 0, 0),
     site_diameter = 0,
     number_to_release = 1
 )
@@ -61,7 +61,7 @@ for i in range(ITERATIONS + 1):
         w.is_movable = not w.is_movable 
             
     for k in range(len(Tetrahedron_vertex_list)):
-        model.add_vertex_move(Tetrahedron, k, m.Vec3(0.2, 0.2, 0.2))
+        model.add_vertex_move(Tetrahedron, k, (0.2, 0.2, 0.2))
     
     #print("XXX " + str(i))
     #print(w.vertices)

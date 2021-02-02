@@ -18,7 +18,7 @@ a = m.Species('a', diffusion_constant_3d = 1e-6)
 
 model.add_species(a)
 
-rs = m.ReleaseSite('rel_a', a, location = m.Vec3(0, 0, 0), number_to_release = 1)
+rs = m.ReleaseSite('rel_a', a, location = (0, 0, 0), number_to_release = 1)
 model.add_release_site(rs)
 
 model.initialize() 
