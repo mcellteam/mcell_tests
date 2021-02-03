@@ -179,8 +179,12 @@ class TesterBase:
             if os.name == 'nt':
                 log("SKIP WIN: " + self.test_name)
                 return True
-            
-        return False
+        elif os.path.exists(os.path.join(self.test_src_path, 'skip_centos6')):
+            if 'centos-6' in platform.platform():
+                log("SKIP CENTOS6: " + self.test_name)
+                return True
+        else:
+            return False
             
     def is_known_fail(self) -> bool:
         # TODO: report this in a better way, should be reported as error when it starts to wok
