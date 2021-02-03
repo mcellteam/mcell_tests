@@ -252,7 +252,11 @@ def run_single_test(test_info: TestInfo, tool_paths: ToolPaths) -> int:
     
     if tool_paths.opts.erase_after_pass and res == PASSED:
         if os.path.exists(test_obj.test_work_path):
-            shutil.rmtree(test_obj.test_work_path)
+            try:
+            	os.chdir(THIS_DIR)
+            	shutil.rmtree(test_obj.test_work_path)
+            except:
+            	log("Warning: Could not remove " + test_obj.test_work_path + ", continuing")
     
     #end = time.time()
     #log("FINISHED: " + test_info.get_full_name() + " in " + str(round(end - start, 2)) + " s")
