@@ -4,7 +4,7 @@
 # $2 - test dir
 # $3 - work dir
 
-if [ "`uname`" != "MSYS_NT-10.0-19042" ]; then 
+if [ "`uname`" == "MSYS_NT-10.0-19042" ]; then 
     echo "TODO - Windows, skipped for now"
     exit 0
 fi
