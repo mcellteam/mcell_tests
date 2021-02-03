@@ -4,6 +4,12 @@
 # $2 - test dir
 # $3 - work dir
 
+if [ "`uname`" != "MSYS_NT-10.0-19042" ]; then 
+    echo "TODO - Windows, skipped for now"
+    exit 0
+fi
+
+
 mkdir -p $3
 cd $3
 python3 $1 $2/test_input.dat > test_output.txt || exit 1
