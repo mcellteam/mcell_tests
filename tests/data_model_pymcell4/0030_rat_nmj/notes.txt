@@ -1,0 +1,6 @@
+Uses MCell4 customization, same as the CellBlender example, 
+only run for 500 iterations.
+Validated against the original example by comparing output plots and 
+by checking that releases are identical.
+
+Also uses different import not Scene_parameters but parameters.
