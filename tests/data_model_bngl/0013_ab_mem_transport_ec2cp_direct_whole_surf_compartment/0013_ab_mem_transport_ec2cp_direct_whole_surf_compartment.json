@@ -88,7 +88,7 @@
    },
    "surface_grid_density": "10000",
    "time_step_max": "",
-   "export_all_ascii": false,
+   "export_all_ascii": true,
    "microscopic_reversibility": "OFF"
   },
   "reaction_data_output": {

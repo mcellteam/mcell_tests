@@ -544,7 +544,7 @@
    },
    "command_options": "-d 1000",
    "vacancy_search_distance": "100",
-   "export_all_ascii": false,
+   "export_all_ascii": true,
    "radial_directions": "",
    "radial_subdivisions": ""
   },

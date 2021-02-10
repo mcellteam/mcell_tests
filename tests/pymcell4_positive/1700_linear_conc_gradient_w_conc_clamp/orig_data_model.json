@@ -244,7 +244,7 @@
     "probability_report": "ON"
    },
    "accurate_3d_reactions": true,
-   "export_all_ascii": false
+   "export_all_ascii": true
   },
   "materials": {
    "material_dict": {

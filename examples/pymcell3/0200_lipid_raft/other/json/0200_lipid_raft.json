@@ -527,7 +527,7 @@
    "time_step": "1e-5",
    "time_step_max": "",
    "data_model_version": "DM_2017_11_18_0130",
-   "export_all_ascii": false,
+   "export_all_ascii": true,
    "warnings": {
     "all_warnings": "INDIVIDUAL",
     "large_molecular_displacement": "WARNING",

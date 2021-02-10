@@ -22944,7 +22944,7 @@
     "lifetime_too_short": "WARNING"
    },
    "iterations": "1000",
-   "export_all_ascii": false,
+   "export_all_ascii": true,
    "notifications": {
     "diffusion_constant_report": "BRIEF",
     "file_output_report": false,

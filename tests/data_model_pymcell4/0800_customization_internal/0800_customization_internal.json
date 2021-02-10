@@ -567,7 +567,7 @@
     "include": false,
     "z_end": "1"
    },
-   "export_all_ascii": false,
+   "export_all_ascii": true,
    "accurate_3d_reactions": true,
    "surface_grid_density": "10000",
    "center_molecules_on_grid": false,

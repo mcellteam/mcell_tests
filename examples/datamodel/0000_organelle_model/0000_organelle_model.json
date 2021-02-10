@@ -22180,7 +22180,7 @@
     "box_triangulation_report": false
    },
    "accurate_3d_reactions": true,
-   "export_all_ascii": false,
+   "export_all_ascii": true,
    "time_step_max": "",
    "warnings": {
     "missed_reactions": "WARNING",

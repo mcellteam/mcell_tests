@@ -1,0 +1,5 @@
+The reaction is specified like this:
+v'+s, -> s,+r,
+
+MCell3 produces r on the outside which is a bit weird.
+Not sure why.

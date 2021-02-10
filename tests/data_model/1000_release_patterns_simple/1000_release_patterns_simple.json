@@ -179,7 +179,7 @@
    "modify_surface_regions_list": []
   },
   "initialization": {
-   "export_all_ascii": false,
+   "export_all_ascii": true,
    "interaction_radius": "",
    "warnings": {
     "degenerate_polygons": "WARNING",

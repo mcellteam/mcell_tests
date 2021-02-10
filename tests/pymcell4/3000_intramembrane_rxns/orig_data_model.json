@@ -505,7 +505,7 @@
    "microscopic_reversibility": "OFF",
    "center_molecules_on_grid": false,
    "command_options": "",
-   "export_all_ascii": false,
+   "export_all_ascii": true,
    "interaction_radius": "",
    "vacancy_search_distance": "",
    "warnings": {

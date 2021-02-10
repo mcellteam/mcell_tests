@@ -9778,7 +9778,7 @@
    },
    "command_options": "",
    "vacancy_search_distance": "0.08",
-   "export_all_ascii": false,
+   "export_all_ascii": true,
    "radial_directions": "",
    "radial_subdivisions": ""
   },

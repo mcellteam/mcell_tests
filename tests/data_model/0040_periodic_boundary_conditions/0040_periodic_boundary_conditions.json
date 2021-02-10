@@ -282,7 +282,7 @@
    },
    "command_options": "",
    "vacancy_search_distance": "",
-   "export_all_ascii": false,
+   "export_all_ascii": true,
    "radial_directions": "",
    "radial_subdivisions": ""
   },

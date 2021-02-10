@@ -378,7 +378,7 @@
    "interaction_radius": "",
    "microscopic_reversibility": "OFF",
    "surface_grid_density": "10000",
-   "export_all_ascii": false,
+   "export_all_ascii": true,
    "partitions": {
     "recursion_flag": false,
     "x_start": "-1",
