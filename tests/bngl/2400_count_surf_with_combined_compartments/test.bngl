@@ -1,0 +1,39 @@
+begin model
+
+begin parameters
+	
+	ITERATIONS  10
+    MCELL_DIFFUSION_CONSTANT_3D_V 1e-6
+    MCELL_DIFFUSION_CONSTANT_2D_S 5e-5
+    
+end parameters
+begin molecule types
+	V(s)
+	S(v)
+end molecule types
+
+begin compartments
+    EC 3 1^3
+    PM 2 1e-80 EC
+    CP 3 0.0625^3 PM
+end compartments
+
+begin seed species
+	 V(s!1)@CP.S(v!1)@PM 10
+	 V(s)@CP 5
+end seed species
+
+begin observables
+  Molecules VSPM @PM:V(s!1).S(v!1)  # 10 according to BNG
+  Molecules VSCP @CP:V(s!1).S(v!1)  # 0 according to BNG
+  Molecules VCP @CP:V  # 5 according to BNG
+end observables
+
+begin reaction rules
+  V(s) -> 0 0
+end reaction rules
+
+end model
+
+generate_network({overwrite=>1})
+simulate({method=>"ode",t_end=>1e-5,n_steps=>10})
