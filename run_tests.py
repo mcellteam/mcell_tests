@@ -211,7 +211,7 @@ class TestInfo(TestSetInfo):
         self.test_path = test_path  # full path to the test's directory
         
         self.test_name_for_filtering = \
-            self.category + ' ' + self.test_set_name + ' ' + \
+            self.test_path + self.category + ' ' + self.test_set_name + ' ' + \
             get_tester_name(self.tester_class) + ' ' + self.test_dir_suffix + ' ' + \
             ' '.join(self.args)
          
