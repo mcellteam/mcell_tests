@@ -96,6 +96,7 @@ class TestOptions:
         self.sequential = False
         self.config = DEFAULT_CONFIG_PATH
         self.pattern = None
+        self.ignore_pattern = None
         self.max_cores = None
         self.mcell_build_path_override = None
         self.cellblender_build_path_override = None
@@ -117,6 +118,7 @@ def create_argparse() -> argparse.ArgumentParser:
     parser.add_argument('-s', '--sequential', action='store_true', help='run testing sequentially (default is parallel)')
     parser.add_argument('-c', '--config', type=str, help='load testing config from a specified file (default is test_configs/default.toml')
     parser.add_argument('-p', '--pattern', type=str, help='regex pattern to filter tests to be run, the pattern is matched against the test path')
+    parser.add_argument('-i', '--ignore-pattern', type=str, help='regex pattern to filter-out tests to be run, the pattern is matched against the test path')
     parser.add_argument('-j', '--max-cores', type=str, help='sets maximum number of cores for testing, default all if -s is not used')
     parser.add_argument('-m', '--mcell-build-path', type=str, help='override of the default mcell build path')
     parser.add_argument('-b', '--cellblender-build-path', type=str, help='override of the default cellblender build path')
@@ -143,6 +145,8 @@ def process_opts() -> TestOptions:
         opts.config = args.config
     if args.pattern:
         opts.pattern = args.pattern
+    if args.ignore_pattern:
+        opts.ignore_pattern = args.ignore_pattern
 
     if args.max_cores:
         opts.max_cores = int(args.max_cores)
@@ -200,14 +204,20 @@ class TestSetInfo:
 # we are only adding the specific test directory
 class TestInfo(TestSetInfo):
     def __init__(self, test_set_info: TestSetInfo, test_path: str):
-        self.test_path = test_path  # full path to the test directory
         super(TestInfo, self).__init__(
             test_set_info.category, test_set_info.test_set_name, test_set_info.tester_class, 
             test_set_info.test_dir_suffix, test_set_info.args)
 
+        self.test_path = test_path  # full path to the test's directory
+        
+        self.test_name_for_filtering = \
+            self.category + ' ' + self.test_set_name + ' ' + \
+            get_tester_name(self.tester_class) + ' ' + self.test_dir_suffix + ' ' + \
+            ' '.join(self.args)
+         
+
     def __repr__(self):
         return os.path.join(self.test_path) + ' [' + get_tester_name(self.tester_class) + ']'
-        #return '[' + str(self.tester_class) + ']:' + os.path.join(self.test_path)
 
     def get_full_name(self):
         # not using os.path.join because the name must be identical on every system
@@ -383,10 +393,23 @@ def collect_and_run_tests(tool_paths: ToolPaths, opts: TestOptions) -> Dict:
         else:
             test_infos.append(TestInfo(test_set, test_set.test_set_name))
             
-    filtered_test_infos = []
-    for info in test_infos:
-        if not opts.pattern or re.search(opts.pattern, info.test_path):
-            filtered_test_infos.append(info)
+    # include by pattern
+    if not opts.pattern:
+        included_test_infos = test_infos
+    else:
+        included_test_infos = []
+        for info in test_infos:
+            if re.search(opts.pattern, info.test_name_for_filtering):
+                included_test_infos.append(info)
+
+    # remove by pattern
+    if not opts.ignore_pattern:
+        filtered_test_infos = included_test_infos
+    else:
+        filtered_test_infos = []
+        for info in included_test_infos:
+            if not re.search(opts.ignore_pattern, info.test_name_for_filtering):
+                filtered_test_infos.append(info)
 
     filtered_test_infos.sort(key=lambda x: x.get_full_name_for_sorting())
 
