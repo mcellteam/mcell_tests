@@ -104,7 +104,8 @@ def rxn_callback(rxn_info, model):
     # check species name
     m = model.get_molecule(products[0])
     species_name = model.get_species_name(m.species_id)
-    assert species_name == 'e'
+    print(species_name)
+    assert species_name == 'e@Cube'
     
 count_c = model.find_count('c')
 assert count_c

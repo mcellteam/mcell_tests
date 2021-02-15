@@ -7,6 +7,7 @@
 **/dump*
 **/rxn_report_*
 **/species_report_*
+**/run_report_*
 **/warnings_report_*
 **/data_layout.json
 /benchmarks/*/oprofile_data
