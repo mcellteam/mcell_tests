@@ -40,6 +40,9 @@ assert cplx2.to_bngl_str() == 'Ca@CP'
 cplx3 = m.Complex('A(a!1).B(b!1)', compartment_name = 'CP')
 assert cplx3.to_bngl_str() == '@CP:A(a!1).B(b!1)'
 
+cplx4 = m.Complex('A(a!1)@IN.B(b!1)')
+assert cplx4.to_bngl_str() == 'A(a!1)@IN.B(b!1)'
+
 CaMC0N1_species = m.Species(elementary_molecules = [ CaM.inst([C.inst(0), N.inst(1)]) ] )
 assert CaMC0N1_species.to_bngl_str() == 'CaM(C~0,N~1)'
 
