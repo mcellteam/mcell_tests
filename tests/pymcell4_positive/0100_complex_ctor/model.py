@@ -35,4 +35,5 @@ comp_type0 = comp0.component_type
 assert comp_type0.name == 'b'
 
 assert c.orientation == m.Orientation.DEFAULT
-assert c.compartment_name == 'C1'
+assert c.elementary_molecules[0].compartment_name == 'C1'
+assert c.elementary_molecules[1].compartment_name == 'C1'
