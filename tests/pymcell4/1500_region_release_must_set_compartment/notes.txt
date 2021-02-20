@@ -1,0 +1,6 @@
+Originally not all Syk(a~Y,l~Y,tSH2) got CP compartment even though they were released into that region.
+The reason later was that they were released into region CP not compartment CP and
+the default_compartment did not show up. Renamed default_compartment to DEFAULT.
+Kept it as a simple test afterwards.   
+
+Based on bngl->data model->pymcell4 conversion of test bngl/1555_fceri_full_compartments_faster_seed_59086.
