@@ -1,0 +1,6 @@
+Based on reactions in test data_model_bngl/0012_ab_mem_transport_cp2ec_direct_whole_surf_compartment
+
+Validated against MCell3R with 
+#define MCELL4_DO_NOT_REUSE_REACTANT
+#define MCELL4_SORT_RXN_PRODUCTS_BY_NAME
+
