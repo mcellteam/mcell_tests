@@ -7,3 +7,5 @@ A@EC+Mem@PM -> A@CP+Mem@PM
 (however test 0003_ab_mem_transport_ec2cp_direct passes)
 
 Validated visually and with react_output.
+
+Practically identical to data_model_bngl/0012_ab_mem_transport_cp2ec_direct_whole_surf_compartment.
