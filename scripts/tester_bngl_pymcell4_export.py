@@ -76,7 +76,10 @@ class TesterBnglPymcell4Export(TesterBnglPymcell4):
         # 1) export
         res = self.run_pymcell4(test_dir=self.test_work_path, test_file=BNGL_EXPORT_SCRIPT)
         if res != PASSED:
-            return res
+            if self.is_todo_test():
+                return TODO_TEST
+            else:
+                return res
         
         # 2) run
         res = self.run_pymcell4(test_dir=self.test_work_path, extra_args=['-bngl', 'exported.bngl'])
