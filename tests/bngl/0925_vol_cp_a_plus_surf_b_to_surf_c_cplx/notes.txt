@@ -1,0 +1,3 @@
+Based on 0960_vol_in_a_plus_surf_b_to_surf_c only uses complexes instead of simple molecules.  
+
+MCell3R produces exactly the same output.
