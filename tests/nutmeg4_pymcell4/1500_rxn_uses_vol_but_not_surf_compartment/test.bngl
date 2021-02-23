@@ -1,0 +1,41 @@
+begin model
+
+begin parameters
+	ITERATIONS  100
+  MCELL_DIFFUSION_CONSTANT_3D_va 1e-6
+  MCELL_DIFFUSION_CONSTANT_2D_sb 5e-5
+  MCELL_DIFFUSION_CONSTANT_2D_sc 1e-6	
+  MCELL_DIFFUSION_CONSTANT_3D_vx 1e-6
+  MCELL_DIFFUSION_CONSTANT_2D_sy 1e-6
+  MCELL_DIFFUSION_CONSTANT_2D_sz 1e-6
+    
+end parameters
+begin molecule types
+	va(a)
+	sb(b)
+	sc(c)
+	vx(x)
+	sy(y)
+	sz(y)
+end molecule types
+
+begin compartments
+    PM 2 1e-80     
+    CP 3 0.25^3 PM  
+end compartments
+
+begin seed species
+	 @CP:va(a!1).vx(x!1)  100
+	 @PM:sb(b!1).sy(y!1)  100
+end seed species
+
+begin observables
+  Molecules va va
+end observables
+
+begin reaction rules
+	va(a!1).vx(x!1)@CP + sb(b!1).sy(y!1) -> sc(c!1).sz(y!1) 1e8
+	# converted to: va.vx, + sb.sy' -> sc.sy' 1e8
+end reaction rules
+
+end model
