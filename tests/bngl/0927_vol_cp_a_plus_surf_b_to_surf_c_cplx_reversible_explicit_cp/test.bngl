@@ -34,8 +34,8 @@ begin observables
 end observables
 
 begin reaction rules
-	va(a!1).vx(x!1)@CP + sb(b!1).sy(y!1)@PM -> sc(c!1).sz(y!1)@PM 1e8
-	# converted to: va.vx, + sb.sy' -> sc.sy' 1e8
+	va(a!1)@CP.vx(x!1)@CP + sb(b!1).sy(y!1)@PM <-> sc(c!1).sz(y!1)@PM 1e8,1e5  
+	# converted to: va.vx, + sb.sy' -> sc.sy' 5e8
 end reaction rules
 
 end model

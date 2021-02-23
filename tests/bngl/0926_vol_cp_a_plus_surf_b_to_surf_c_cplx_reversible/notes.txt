@@ -1,0 +1,20 @@
+Based on 0925_vol_cp_a_plus_surf_b_to_surf_c_cplx only uses reversible rxn.  
+
+MCell3R creates a surface molecule even though both va and vx are volume molecules and 
+calls rng to place the products, there seems to be no reason why va shoudl get comparment @PM:
+
+  va(a!1).vx(x!1)@CP + sb(b!1).sy(y!1)@PM <-> sc(c!1).sz(y!1)@PM 1e8,1e5
+ 
+  created sm:it: 5, id: 201, species: sb(b!1)@PM.sy(y!1)@PM, pos: (16.8434, 9.95635), orient: 1, wall side: 0, grid index: 55, flags: TYPE_SURF, , time: 5.2372
+  created sm:it: 5, id: 202, species: va(a!1)@PM.vx(x!1)@CP, pos: (16.2045, 10.312), orient: 1, wall side: 0, grid index: 54, flags: TYPE_SURF, , time: 5.2372
+
+This is the dump of MCell4 with 
+#define MCELL4_SORT_RXN_PRODUCTS_BY_NAME
+
+  created sm:it: 5, id: 201, species: @PM:sb(b!1).sy(y!1), pos: (15.7202, 9.99143), orient: 1, wall side: 0, grid index: 54, flags: MOLECULE_FLAG_SURF, , time: 5.2372
+  created vm:it: 5, id: 202, species: @CP:va(a!1).vx(x!1), pos: (-12.5, -8.44918, -5.68084), flags: MOLECULE_FLAG_VOL, , time: 5.2372
+
+Otherwise the bimol rxn is validated in 0925_vol_cp_a_plus_surf_b_to_surf_c_cplx,
+unimol rxn occurs at the same time. 
+
+Tried also to validate with 0927_vol_cp_a_plus_surf_b_to_surf_c_cplx_reversible_explicit_cp but there is a different bug in MCell3R.

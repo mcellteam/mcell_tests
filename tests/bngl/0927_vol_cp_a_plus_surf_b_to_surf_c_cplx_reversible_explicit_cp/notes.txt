@@ -1,0 +1,33 @@
+Based on 0926_vol_cp_a_plus_surf_b_to_surf_c_cplx_reversible only explicitly specifies compartment for va(a!1)@CP.vx(x!1)@CP.  
+
+MCell3R creates a volume molecule on the wrong side, 
+the compartment CP has coordinates from -12.5 to 12.5.
+
+  created sm:it: 5, id: 201, species: sb(b!1)@PM.sy(y!1)@PM, pos: (15.7202, 9.99143), orient: 1, wall side: 0, grid index: 54, flags: TYPE_SURF, , time: 5.2372
+  created vm:it: 5, id: 202, species: va(a!1)@CP.vx(x!1)@CP, pos: (-12.5, -8.44918, -5.68084), flags: TYPE_VOL, IN_VOLUME, , time: 5.2372
+...
+Diffusing vm:it: 5, id: 202, species: va(a!1)@CP.vx(x!1)@CP, pos: (-12.5, -8.44918, -5.68084), flags: TYPE_VOL, IN_VOLUME, , time: 5.2372
+  displacement:(-0.885266, -1.17679, -1.16566)
+t_steps: 0.762804
+- Final vm position:it: 5, id: 202, species: va(a!1)@CP.vx(x!1)@CP, pos: (-13.3853, -9.62597, -6.8465), flags: TYPE_VOL, IN_VOLUME, , time: 0
+
+
+This is the dump of MCell4 with 
+
+  created sm:it: 5, id: 201, species: @PM:sb(b!1).sy(y!1), pos: (15.7202, 9.99143), orient: 1, wall side: 0, grid index: 54, flags: MOLECULE_FLAG_SURF, , time: 5.2372
+  created vm:it: 5, id: 202, species: @CP:va(a!1).vx(x!1), pos: (-12.5, -8.44918, -5.68084), flags: MOLECULE_FLAG_VOL, , time: 5.2372
+...
+Diffusing vm:it: 5, id: 202, species: @CP:va(a!1).vx(x!1), pos: (-12.5, -8.44918, -5.68084), flags: MOLECULE_FLAG_VOL, , time: 5.2372
+  rng_gaussrandcnt:331, aa:2071542200, bb:309900831, cc:7
+  randcnt:331, aa:2071542200, bb:309900831, cc:7
+  rng_gaussrandcnt:330, aa:2071542200, bb:309900831, cc:7
+  randcnt:330, aa:2071542200, bb:309900831, cc:7
+  rng_gaussrandcnt:329, aa:2071542200, bb:309900831, cc:7
+  randcnt:329, aa:2071542200, bb:309900831, cc:7
+  displacement:(-0.885266, -1.17679, -1.16566)
+t_steps: 0.762804
+  wall collision 0: obj name: CP, wall side: 0, time: 4.51882e-12, pos: (-12.5, -8.44918, -5.68084)
+- Final vm position:it: 5, id: 202, species: @CP:va(a!1).vx(x!1), pos: (-11.6147, -9.62597, -6.8465), flags: MOLECULE_FLAG_VOL, , time: 0
+  
+  
+MCell4 gives the same result as for test 0926_vol_cp_a_plus_surf_b_to_surf_c_cplx_reversible.
