@@ -1,0 +1,2 @@
+Based on 0925_vol_cp_a_plus_surf_b_to_surf_c_cplx only uses @IN and less compartments. 
+Validated against 0925_vol_cp_a_plus_surf_b_to_surf_c_cplx - gives the same results.
