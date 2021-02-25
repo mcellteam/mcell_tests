@@ -1,0 +1,2 @@
+Based on 0926_vol_cp_a_plus_surf_b_to_surf_c_cplx_reversible only uses @IN and less compartments. 
+Validated against 0926_vol_cp_a_plus_surf_b_to_surf_c_cplx_reversible - gives the same results.
