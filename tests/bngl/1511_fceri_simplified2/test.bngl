@@ -45,7 +45,7 @@ begin parameters
   #MCELL_REDEFINE_vol_PM 1e-80  # does not work for MCell3 with compartment sizes
    
   MCELL_TIME_STEP 1e-4
-  ITERATIONS 1000
+  ITERATIONS 50
   
   #MCELL_DEFAULT_DIFFUSION_CONSTANT_2D  1.7e-7
   #MCELL_DEFAULT_DIFFUSION_CONSTANT_3D  8.51e-7
