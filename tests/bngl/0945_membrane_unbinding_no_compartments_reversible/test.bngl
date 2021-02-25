@@ -1,0 +1,33 @@
+begin model
+
+begin parameters
+	ITERATIONS  10
+  MCELL_DIFFUSION_CONSTANT_3D_V 1e-6
+  MCELL_DIFFUSION_CONSTANT_2D_S 5e-8
+end parameters
+
+begin molecule types
+	V(s)
+	S(v)
+end molecule types
+
+begin compartments
+  EC 3 0.5^3
+  PM 2 0.01 EC     
+  CP 3 0.125^3 PM  
+end compartments
+
+begin seed species
+	V(s)@CP 100
+	S(v)@PM 100
+end seed species
+
+begin observables
+  Molecules V V
+end observables
+
+begin reaction rules
+	V(s) + S(v) <-> V(s!1).S(v!1) 1e8,1e5
+end reaction rules
+
+end model
