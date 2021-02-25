@@ -1,0 +1,4 @@
+Validated against MCell3R with bng_validation/7519_fceri_full.
+Increased rates so that there is more interesting behavior, these changes are marked with TEST:.
+The model with increased rates running 100000 iterations fails with MCell3R so it was not possible to validate exactly the same model.
+

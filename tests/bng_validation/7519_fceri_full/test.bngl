@@ -39,7 +39,7 @@ begin parameters
   MCELL_REDEFINE_vol_rxn  NA_um3 #takes from microcubed to molar per second since this is what mcell likes
   #MCELL_REDEFINE_surf_rxn 1/rxn_layer_t
   MCELL_TIME_STEP 1e-4
-  MCELL_ITERATIONS 100 #10/MCELL_TIME_STEP
+  ITERATIONS 100000 #10/MCELL_TIME_STEP
   MCELL_VACANCY_SEARCH_DISTANCE  10
   MCELL_DEFAULT_DIFFUSION_CONSTANT_2D  1.7e-7
   MCELL_DEFAULT_DIFFUSION_CONSTANT_3D  8.51e-7
@@ -59,7 +59,7 @@ begin molecule types
 end molecule types
 begin compartments
   EC 3 vol_EC
-  PM 2 vol_PM EC
+  PM 2 1e-90 EC
   CP 3 vol_CP PM
 end compartments
 begin seed species
@@ -78,10 +78,10 @@ begin observables
   Molecules RecSyk Syk(tSH2!1).Rec(g~pY!1)                                  # Should be: "COUNT[Rec(g~pY!1).Syk(tSH2!1), WORLD]"
   Molecules RecSykPS Syk(a~pY,tSH2!1).Rec(g~pY!1)                           # Should be: "COUNT[Rec(g~pY!1).Syk(tSH2!1,a~pY), WORLD]"
 end observables
-begin functions
-  RboundTot() LigRecMon + LigRecDim
+#begin functions
+#  RboundTot() LigRecMon + LigRecDim
   #count number of bound molecules #useful to know fraction of, for example phosphrylated molecs overall
-end functions
+#end functions
 begin reaction rules
   Rec(a) + Lig(l,l) <-> Lig(l,l!1).Rec(a!1) kp1,km1 #free ligand binding to receptor
   Rec(a) + Lig(l,l!1).Rec(a!1) <-> Rec(a!2).Lig(l!2,l!1).Rec(a!1) kp2,km2 # surface reaction/cross linking reaction, reaction on m binds to ligand molecule which
@@ -109,5 +109,5 @@ end model
 setConcentration("@EC:Lig(l,l)",0)
 simulate({method=>"ode",suffix=>"equil",t_end=>600,n_steps=>100,print_functions=>1})
 # Add ligand and simulate
-setConcentration("@EC:Lig(l,l)","Lig_tot")
-simulate({method=>"ode",t_end=>600,n_steps=>100,print_functions=>1})
+#setConcentration("@EC:Lig(l,l)","Lig_tot")
+#simulate({method=>"ode",t_end=>600,n_steps=>100,print_functions=>1})

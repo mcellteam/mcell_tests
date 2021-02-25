@@ -1,0 +1,27 @@
+3.8
+
+128 runs:
+--- Validation results MCell4 vs MCell3R ---
+LigRecDim                     : 2.913% (MCell4: 3.3125, MCell3: 3.2188)
+LigRecMon                     : 5.884% (MCell4: 30.3672, MCell3: 32.2656)
+LynFree                       : 0.100% (MCell4: 264.3672, MCell3: 264.6328)
+RecPbeta                      : 0.352% (MCell4: 2.2109, MCell3: 2.2188)
+RecPgamma                     : 1.456% (MCell4: 1.6328, MCell3: 1.6094)
+RecRecLigLynUg                :  -- (both<1)% (MCell4: 0.0312, MCell3: 0.0547)
+RecSyk                        : 3.061% (MCell4: 1.5781, MCell3: 1.5312)
+RecSykPS                      : 7.285% (MCell4: 1.2656, MCell3: 1.1797)
+--------------------------
+
+
+512 runs:
+
+--- Validation results MCell4 vs MCell3R ---
+LigRecDim                     : 1.752% (MCell4: 3.2852, MCell3: 3.3438)
+LigRecMon                     : 1.496% (MCell4: 31.1152, MCell3: 31.5879)
+LynFree                       : 0.124% (MCell4: 264.8203, MCell3: 264.4922)
+RecPbeta                      : 2.205% (MCell4: 2.2520, MCell3: 2.3027)
+RecPgamma                     : 3.765% (MCell4: 1.5977, MCell3: 1.6602)
+RecRecLigLynUg                :  -- (both<1)% (MCell4: 0.0254, MCell3: 0.0430)
+RecSyk                        : 1.256% (MCell4: 1.5352, MCell3: 1.5547)
+RecSykPS                      : 0.320% (MCell4: 1.2168, MCell3: 1.2207)
+--------------------------
