@@ -1,0 +1,27 @@
+begin model
+
+begin parameters
+	ITERATIONS  20
+  MCELL_DIFFUSION_CONSTANT_3D_A 1e-6
+end parameters
+
+begin molecule types
+	A()
+end molecule types
+
+begin compartments
+    EC 3 1^3
+    PM 2 1e-80 EC
+    CP 3 0.125^3 PM
+end compartments
+
+begin seed species
+	 A@CP 10
+end seed species
+
+begin observables
+  Molecules ACP A@CP
+  Molecules AEC A@EC
+end observables
+
+end model
