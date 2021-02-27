@@ -1,0 +1,7 @@
+Based on previous direct transport example, modified products side.
+MCell4 did not handle correctly the rxn v' + s, -> s' + r -> since reactant s is reused, it did not change its oprientation.
+
+Got identical output as MCell3 with 
+#define MCELL3_SORTED_VIZ_OUTPUT
+
+(and possibly others, uncommented //#define MCELL3_IDENTICAL)
