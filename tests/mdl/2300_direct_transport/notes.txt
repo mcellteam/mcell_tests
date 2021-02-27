@@ -1,0 +1,8 @@
+Based on previous direct transport example. 
+MCell4 did not handle correctly the rxn v' + s, -> s, + r, and created the product inside.
+
+
+Got identical output as MCell3 with 
+#define MCELL3_SORTED_VIZ_OUTPUT
+
+(anbd possibly others, uncommented //#define MCELL3_IDENTICAL)

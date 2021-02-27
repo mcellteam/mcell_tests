@@ -242,18 +242,18 @@
    },
    "iterations": "100",
    "partitions": {
-    "y_end": "1",
+    "y_end": "5",
     "recursion_flag": false,
-    "z_end": "1",
+    "z_end": "5",
     "data_model_version": "DM_2016_04_15_1600",
-    "y_start": "-1",
+    "y_start": "-5",
     "include": false,
-    "x_start": "-1",
-    "y_step": "0.05",
-    "x_step": "0.05",
-    "z_start": "-1",
-    "x_end": "1",
-    "z_step": "0.05"
+    "x_start": "-5",
+    "y_step": "0.5",
+    "x_step": "0.5",
+    "z_start": "-5",
+    "x_end": "5",
+    "z_step": "0.5"
    },
    "notifications": {
     "progress_report": true,
