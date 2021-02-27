@@ -238,7 +238,7 @@ class TestInfo(TestSetInfo):
 def get_test_dirs(test_set_info: TestSetInfo) -> List[TestInfo]:
     res = []
     test_set_full_path = os.path.join(THIS_DIR, test_set_info.category, test_set_info.test_set_name)
-    print("Looking for tests in " + test_set_full_path)
+    #print("Looking for tests in " + test_set_full_path)
     files = os.listdir(test_set_full_path)
     for name in files:
         name_w_dir = os.path.join(test_set_full_path, name)
