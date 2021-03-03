@@ -1,0 +1,29 @@
+begin model
+
+begin parameters
+    a 0.6
+    b -4.5
+    
+    sqrt_a sqrt(a)
+    exp_a exp(a)
+    log_a ln(a)
+    log10_a log10(a)
+    sin_a sin(a)
+    cos_a cos(a)
+    tan_a tan(a)
+    asin_a asin(a)
+    acos_a acos(a)
+    atan_a atan(a)
+    
+    abs_a abs(a)
+    abs_b abs(b)
+    ceil_a ceil(a)
+    ceil_b ceil(b)
+    floor_a floor(a)
+    floor_b floor(b)
+    
+    max_ab max(a,b)
+    min_ab min(a,b)
+end parameters
+
+end model
