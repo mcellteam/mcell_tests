@@ -1,0 +1,6 @@
+MCell3 gives the same result as MCell4 with
+
+//#define MCELL3_IDENTICAL
+ 
+ 
+Test created because of issues in initial iterations, additional test added because issue ocurred in iteration 167. 
