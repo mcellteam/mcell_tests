@@ -1,0 +1,8 @@
+MCell3 gives the same result as MCell4 with
+
+//#define MCELL3_IDENTICAL
+ 
+ 
+Tested with 1000 iterations, this test uses only 500.
+
+Originally there were issues at iterations 1, 167, and 419

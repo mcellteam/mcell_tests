@@ -813,7 +813,7 @@
    "center_molecules_on_grid": false,
    "radial_subdivisions": "",
    "space_step": "",
-   "iterations": "100",
+   "iterations": "500",
    "partitions": {
     "data_model_version": "DM_2016_04_15_1600",
     "z_end": "0.025",
