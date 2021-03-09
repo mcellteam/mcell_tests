@@ -1,0 +1,2 @@
+Data model created by importing tests/bngl/1519_fceri_full_higher_rates/test.bngl
+This test is to mainly check data model -> pymcell4 conversion.

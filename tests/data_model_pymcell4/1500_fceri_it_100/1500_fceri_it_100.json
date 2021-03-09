@@ -1,0 +1,2255 @@
+{
+ "mcell": {
+  "define_reactions": {
+   "data_model_version": "DM_2014_10_24_1638",
+   "reaction_list": [
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "variable_rate_valid": false,
+     "rxn_type": "reversible",
+     "variable_rate_switch": false,
+     "variable_rate_text": "",
+     "bkwd_rate": "km1",
+     "rxn_name": "",
+     "description": "",
+     "name": "Rec(a)+Lig(l,l) <-> Lig(l,l!1).Rec(a!1)",
+     "variable_rate": "",
+     "reactants": "Rec(a)+Lig(l,l)",
+     "fwd_rate": "kp1",
+     "products": "Lig(l,l!1).Rec(a!1)"
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "variable_rate_valid": false,
+     "rxn_type": "reversible",
+     "variable_rate_switch": false,
+     "variable_rate_text": "",
+     "bkwd_rate": "km2",
+     "rxn_name": "",
+     "description": "",
+     "name": "Rec(a)+Lig(l,l!1).Rec(a!1) <-> Rec(a!1).Lig(l!1,l!2).Rec(a!2)",
+     "variable_rate": "",
+     "reactants": "Rec(a)+Lig(l,l!1).Rec(a!1)",
+     "fwd_rate": "kp2",
+     "products": "Rec(a!1).Lig(l!1,l!2).Rec(a!2)"
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "variable_rate_valid": false,
+     "rxn_type": "reversible",
+     "variable_rate_switch": false,
+     "variable_rate_text": "",
+     "bkwd_rate": "kmL",
+     "rxn_name": "",
+     "description": "",
+     "name": "Rec(b~Y)+Lyn(SH2,U) <-> Lyn(SH2,U!1).Rec(b~Y!1)",
+     "variable_rate": "",
+     "reactants": "Rec(b~Y)+Lyn(SH2,U)",
+     "fwd_rate": "kpL",
+     "products": "Lyn(SH2,U!1).Rec(b~Y!1)"
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "variable_rate_valid": false,
+     "rxn_type": "irreversible",
+     "variable_rate_switch": false,
+     "variable_rate_text": "",
+     "bkwd_rate": "",
+     "rxn_name": "",
+     "description": "",
+     "name": "Rec(a!1,b~Y).Lig(l!1,l!2).Rec(a!2,b~Y!3).Lyn(SH2,U!3) -> Rec(a!1,b~pY).Lig(l!1,l!2).Rec(a!2,b~Y!3).Lyn(SH2,U!3)",
+     "variable_rate": "",
+     "reactants": "Rec(a!1,b~Y).Lig(l!1,l!2).Rec(a!2,b~Y!3).Lyn(SH2,U!3)",
+     "fwd_rate": "pLb",
+     "products": "Rec(a!1,b~pY).Lig(l!1,l!2).Rec(a!2,b~Y!3).Lyn(SH2,U!3)"
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "variable_rate_valid": false,
+     "rxn_type": "irreversible",
+     "variable_rate_switch": false,
+     "variable_rate_text": "",
+     "bkwd_rate": "",
+     "rxn_name": "",
+     "description": "",
+     "name": "Rec(a!1,g~Y).Lig(l!1,l!2).Rec(a!2,b~Y!3).Lyn(SH2,U!3) -> Rec(a!1,g~pY).Lig(l!1,l!2).Rec(a!2,b~Y!3).Lyn(SH2,U!3)",
+     "variable_rate": "",
+     "reactants": "Rec(a!1,g~Y).Lig(l!1,l!2).Rec(a!2,b~Y!3).Lyn(SH2,U!3)",
+     "fwd_rate": "pLg",
+     "products": "Rec(a!1,g~pY).Lig(l!1,l!2).Rec(a!2,b~Y!3).Lyn(SH2,U!3)"
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "variable_rate_valid": false,
+     "rxn_type": "reversible",
+     "variable_rate_switch": false,
+     "variable_rate_text": "",
+     "bkwd_rate": "kmLs",
+     "rxn_name": "",
+     "description": "",
+     "name": "Rec(b~pY)+Lyn(SH2,U) <-> Lyn(SH2!1,U).Rec(b~pY!1)",
+     "variable_rate": "",
+     "reactants": "Rec(b~pY)+Lyn(SH2,U)",
+     "fwd_rate": "kpLs",
+     "products": "Lyn(SH2!1,U).Rec(b~pY!1)"
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "variable_rate_valid": false,
+     "rxn_type": "irreversible",
+     "variable_rate_switch": false,
+     "variable_rate_text": "",
+     "bkwd_rate": "",
+     "rxn_name": "",
+     "description": "",
+     "name": "Rec(a!1,b~Y).Lig(l!1,l!2).Rec(a!2,b~pY!3).Lyn(SH2!3,U) -> Rec(a!1,b~pY).Lig(l!1,l!2).Rec(a!2,b~pY!3).Lyn(SH2!3,U)",
+     "variable_rate": "",
+     "reactants": "Rec(a!1,b~Y).Lig(l!1,l!2).Rec(a!2,b~pY!3).Lyn(SH2!3,U)",
+     "fwd_rate": "pLbs",
+     "products": "Rec(a!1,b~pY).Lig(l!1,l!2).Rec(a!2,b~pY!3).Lyn(SH2!3,U)"
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "variable_rate_valid": false,
+     "rxn_type": "irreversible",
+     "variable_rate_switch": false,
+     "variable_rate_text": "",
+     "bkwd_rate": "",
+     "rxn_name": "",
+     "description": "",
+     "name": "Rec(a!1,g~Y).Lig(l!1,l!2).Rec(a!2,b~pY!3).Lyn(SH2!3,U) -> Rec(a!1,g~pY).Lig(l!1,l!2).Rec(a!2,b~pY!3).Lyn(SH2!3,U)",
+     "variable_rate": "",
+     "reactants": "Rec(a!1,g~Y).Lig(l!1,l!2).Rec(a!2,b~pY!3).Lyn(SH2!3,U)",
+     "fwd_rate": "pLgs",
+     "products": "Rec(a!1,g~pY).Lig(l!1,l!2).Rec(a!2,b~pY!3).Lyn(SH2!3,U)"
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "variable_rate_valid": false,
+     "rxn_type": "reversible",
+     "variable_rate_switch": false,
+     "variable_rate_text": "",
+     "bkwd_rate": "kmS",
+     "rxn_name": "",
+     "description": "",
+     "name": "Rec(g~pY)+Syk(tSH2) <-> Syk(tSH2!1).Rec(g~pY!1)",
+     "variable_rate": "",
+     "reactants": "Rec(g~pY)+Syk(tSH2)",
+     "fwd_rate": "kpS",
+     "products": "Syk(tSH2!1).Rec(g~pY!1)"
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "variable_rate_valid": false,
+     "rxn_type": "irreversible",
+     "variable_rate_switch": false,
+     "variable_rate_text": "",
+     "bkwd_rate": "",
+     "rxn_name": "",
+     "description": "",
+     "name": "Rec(a!1,g~pY!2).Lig(l!1,l!3).Rec(a!3,b~Y!4).Lyn(SH2,U!4).Syk(l~Y,tSH2!2) -> Rec(a!1,g~pY!2).Lig(l!1,l!3).Rec(a!3,b~Y!4).Lyn(SH2,U!4).Syk(l~pY,tSH2!2)",
+     "variable_rate": "",
+     "reactants": "Rec(a!1,g~pY!2).Lig(l!1,l!3).Rec(a!3,b~Y!4).Lyn(SH2,U!4).Syk(l~Y,tSH2!2)",
+     "fwd_rate": "pLS",
+     "products": "Rec(a!1,g~pY!2).Lig(l!1,l!3).Rec(a!3,b~Y!4).Lyn(SH2,U!4).Syk(l~pY,tSH2!2)"
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "variable_rate_valid": false,
+     "rxn_type": "irreversible",
+     "variable_rate_switch": false,
+     "variable_rate_text": "",
+     "bkwd_rate": "",
+     "rxn_name": "",
+     "description": "",
+     "name": "Rec(a!1,g~pY!2).Lig(l!1,l!3).Rec(a!3,b~pY!4).Lyn(SH2!4,U).Syk(l~Y,tSH2!2) -> Rec(a!1,g~pY!2).Lig(l!1,l!3).Rec(a!3,b~pY!4).Lyn(SH2!4,U).Syk(l~pY,tSH2!2)",
+     "variable_rate": "",
+     "reactants": "Rec(a!1,g~pY!2).Lig(l!1,l!3).Rec(a!3,b~pY!4).Lyn(SH2!4,U).Syk(l~Y,tSH2!2)",
+     "fwd_rate": "pLSs",
+     "products": "Rec(a!1,g~pY!2).Lig(l!1,l!3).Rec(a!3,b~pY!4).Lyn(SH2!4,U).Syk(l~pY,tSH2!2)"
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "variable_rate_valid": false,
+     "rxn_type": "irreversible",
+     "variable_rate_switch": false,
+     "variable_rate_text": "",
+     "bkwd_rate": "",
+     "rxn_name": "",
+     "description": "",
+     "name": "Rec(a!1,g~pY!2).Lig(l!1,l!3).Rec(a!3,g~pY!4).Syk(a~Y,tSH2!4).Syk(a~Y,tSH2!2) -> Rec(a!1,g~pY!2).Lig(l!1,l!3).Rec(a!3,g~pY!4).Syk(a~Y,tSH2!4).Syk(a~pY,tSH2!2)",
+     "variable_rate": "",
+     "reactants": "Rec(a!1,g~pY!2).Lig(l!1,l!3).Rec(a!3,g~pY!4).Syk(a~Y,tSH2!4).Syk(a~Y,tSH2!2)",
+     "fwd_rate": "pSS",
+     "products": "Rec(a!1,g~pY!2).Lig(l!1,l!3).Rec(a!3,g~pY!4).Syk(a~Y,tSH2!4).Syk(a~pY,tSH2!2)"
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "variable_rate_valid": false,
+     "rxn_type": "irreversible",
+     "variable_rate_switch": false,
+     "variable_rate_text": "",
+     "bkwd_rate": "",
+     "rxn_name": "",
+     "description": "",
+     "name": "Rec(a!1,g~pY!2).Lig(l!1,l!3).Rec(a!3,g~pY!4).Syk(a~pY,tSH2!4).Syk(a~Y,tSH2!2) -> Rec(a!1,g~pY!2).Lig(l!1,l!3).Rec(a!3,g~pY!4).Syk(a~pY,tSH2!4).Syk(a~pY,tSH2!2)",
+     "variable_rate": "",
+     "reactants": "Rec(a!1,g~pY!2).Lig(l!1,l!3).Rec(a!3,g~pY!4).Syk(a~pY,tSH2!4).Syk(a~Y,tSH2!2)",
+     "fwd_rate": "pSSs",
+     "products": "Rec(a!1,g~pY!2).Lig(l!1,l!3).Rec(a!3,g~pY!4).Syk(a~pY,tSH2!4).Syk(a~pY,tSH2!2)"
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "variable_rate_valid": false,
+     "rxn_type": "irreversible",
+     "variable_rate_switch": false,
+     "variable_rate_text": "",
+     "bkwd_rate": "",
+     "rxn_name": "",
+     "description": "",
+     "name": "Rec(b~pY) -> Rec(b~Y)",
+     "variable_rate": "",
+     "reactants": "Rec(b~pY)",
+     "fwd_rate": "dm",
+     "products": "Rec(b~Y)"
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "variable_rate_valid": false,
+     "rxn_type": "irreversible",
+     "variable_rate_switch": false,
+     "variable_rate_text": "",
+     "bkwd_rate": "",
+     "rxn_name": "",
+     "description": "",
+     "name": "Rec(g~pY) -> Rec(g~Y)",
+     "variable_rate": "",
+     "reactants": "Rec(g~pY)",
+     "fwd_rate": "dm",
+     "products": "Rec(g~Y)"
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "variable_rate_valid": false,
+     "rxn_type": "irreversible",
+     "variable_rate_switch": false,
+     "variable_rate_text": "",
+     "bkwd_rate": "",
+     "rxn_name": "",
+     "description": "",
+     "name": "Syk(l~pY,tSH2!+) -> Syk(l~Y,tSH2!+)",
+     "variable_rate": "",
+     "reactants": "Syk(l~pY,tSH2!+)",
+     "fwd_rate": "dm",
+     "products": "Syk(l~Y,tSH2!+)"
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "variable_rate_valid": false,
+     "rxn_type": "irreversible",
+     "variable_rate_switch": false,
+     "variable_rate_text": "",
+     "bkwd_rate": "",
+     "rxn_name": "",
+     "description": "",
+     "name": "Syk(a~pY,tSH2!+) -> Syk(a~Y,tSH2!+)",
+     "variable_rate": "",
+     "reactants": "Syk(a~pY,tSH2!+)",
+     "fwd_rate": "dm",
+     "products": "Syk(a~Y,tSH2!+)"
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "variable_rate_valid": false,
+     "rxn_type": "irreversible",
+     "variable_rate_switch": false,
+     "variable_rate_text": "",
+     "bkwd_rate": "",
+     "rxn_name": "",
+     "description": "",
+     "name": "Syk(l~pY,tSH2) -> Syk(l~Y,tSH2)",
+     "variable_rate": "",
+     "reactants": "Syk(l~pY,tSH2)",
+     "fwd_rate": "dc",
+     "products": "Syk(l~Y,tSH2)"
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "variable_rate_valid": false,
+     "rxn_type": "irreversible",
+     "variable_rate_switch": false,
+     "variable_rate_text": "",
+     "bkwd_rate": "",
+     "rxn_name": "",
+     "description": "",
+     "name": "Syk(a~pY,tSH2) -> Syk(a~Y,tSH2)",
+     "variable_rate": "",
+     "reactants": "Syk(a~pY,tSH2)",
+     "fwd_rate": "dc",
+     "products": "Syk(a~Y,tSH2)"
+    }
+   ]
+  },
+  "data_model_version": "DM_2017_06_23_1300",
+  "mol_viz": {
+   "viz_list": [],
+   "data_model_version": "DM_2015_04_13_1700",
+   "file_num": 0,
+   "file_stop_index": 0,
+   "active_seed_index": 0,
+   "file_name": "",
+   "viz_enable": true,
+   "file_start_index": 0,
+   "seed_list": [],
+   "color_index": 0,
+   "file_dir": "../../../../../home/ahusar",
+   "render_and_save": false,
+   "manual_select_viz_dir": false,
+   "file_index": 0,
+   "color_list": [],
+   "file_step_index": 1
+  },
+  "reaction_data_output": {
+   "output_buf_size": "",
+   "data_model_version": "DM_2016_03_15_1800",
+   "plot_legend": "0",
+   "plot_layout": " plot ",
+   "mol_colors": false,
+   "rxn_step": "",
+   "reaction_output_list": [
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "data_file_name": "",
+     "reaction_name": "",
+     "object_name": "",
+     "rxn_or_mol": "MDLString",
+     "plotting_enabled": true,
+     "mdl_file_prefix": "LigRecMon",
+     "mdl_string": "COUNT[Lig(l!1,l).Rec(a!1),WORLD]",
+     "molecule_name": "",
+     "count_location": "World",
+     "description": "",
+     "name": "MDL: COUNT[Lig(l!1,l).Rec(a!1),WORLD]",
+     "region_name": ""
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "data_file_name": "",
+     "reaction_name": "",
+     "object_name": "",
+     "rxn_or_mol": "MDLString",
+     "plotting_enabled": true,
+     "mdl_file_prefix": "LigRecDim",
+     "mdl_string": "COUNT[Lig(l!1,l!2).Rec(a!1).Rec(a!2),WORLD]",
+     "molecule_name": "",
+     "count_location": "World",
+     "description": "",
+     "name": "MDL: COUNT[Lig(l!1,l!2).Rec(a!1).Rec(a!2),WORLD]",
+     "region_name": ""
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "data_file_name": "",
+     "reaction_name": "",
+     "object_name": "",
+     "rxn_or_mol": "MDLString",
+     "plotting_enabled": true,
+     "mdl_file_prefix": "LynFree",
+     "mdl_string": "COUNT[Lyn(SH2,U),WORLD]",
+     "molecule_name": "",
+     "count_location": "World",
+     "description": "",
+     "name": "MDL: COUNT[Lyn(SH2,U),WORLD]",
+     "region_name": ""
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "data_file_name": "",
+     "reaction_name": "",
+     "object_name": "",
+     "rxn_or_mol": "MDLString",
+     "plotting_enabled": true,
+     "mdl_file_prefix": "RecRecLigLynUg",
+     "mdl_string": "COUNT[Rec(a!1,b).Lig(l!1,l!2).Rec(a!2,b!3).Lyn(SH2,U!3),WORLD]",
+     "molecule_name": "",
+     "count_location": "World",
+     "description": "",
+     "name": "MDL: COUNT[Rec(a!1,b).Lig(l!1,l!2).Rec(a!2,b!3).Lyn(SH2,U!3),WORLD]",
+     "region_name": ""
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "data_file_name": "",
+     "reaction_name": "",
+     "object_name": "",
+     "rxn_or_mol": "MDLString",
+     "plotting_enabled": true,
+     "mdl_file_prefix": "RecPbeta",
+     "mdl_string": "COUNT[Rec(b~pY!?),WORLD]",
+     "molecule_name": "",
+     "count_location": "World",
+     "description": "",
+     "name": "MDL: COUNT[Rec(b~pY!?),WORLD]",
+     "region_name": ""
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "data_file_name": "",
+     "reaction_name": "",
+     "object_name": "",
+     "rxn_or_mol": "MDLString",
+     "plotting_enabled": true,
+     "mdl_file_prefix": "RecPgamma",
+     "mdl_string": "COUNT[Rec(g~pY!?),WORLD]",
+     "molecule_name": "",
+     "count_location": "World",
+     "description": "",
+     "name": "MDL: COUNT[Rec(g~pY!?),WORLD]",
+     "region_name": ""
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "data_file_name": "",
+     "reaction_name": "",
+     "object_name": "",
+     "rxn_or_mol": "MDLString",
+     "plotting_enabled": true,
+     "mdl_file_prefix": "RecSyk",
+     "mdl_string": "COUNT[Syk(tSH2!1).Rec(g~pY!1),WORLD]",
+     "molecule_name": "",
+     "count_location": "World",
+     "description": "",
+     "name": "MDL: COUNT[Syk(tSH2!1).Rec(g~pY!1),WORLD]",
+     "region_name": ""
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "data_file_name": "",
+     "reaction_name": "",
+     "object_name": "",
+     "rxn_or_mol": "MDLString",
+     "plotting_enabled": true,
+     "mdl_file_prefix": "RecSykPS",
+     "mdl_string": "COUNT[Syk(a~pY,tSH2!1).Rec(g~pY!1),WORLD]",
+     "molecule_name": "",
+     "count_location": "World",
+     "description": "",
+     "name": "MDL: COUNT[Syk(a~pY,tSH2!1).Rec(g~pY!1),WORLD]",
+     "region_name": ""
+    }
+   ],
+   "always_generate": true,
+   "combine_seeds": true
+  },
+  "scripting": {
+   "data_model_version": "DM_2017_11_30_1830",
+   "dm_internal_file_name": "",
+   "mcell4_scripting_list": [],
+   "scripting_list": [],
+   "ignore_cellblender_data": false,
+   "dm_external_file_name": "",
+   "force_property_update": true,
+   "script_texts": {}
+  },
+  "model_objects": {
+   "data_model_version": "DM_2018_01_11_1330",
+   "model_object_list": [
+    {
+     "description": "",
+     "script_name": "",
+     "name": "CP",
+     "membrane_name": "PM",
+     "parent_object": "EC",
+     "object_source": "blender",
+     "dynamic_display_source": "script",
+     "dynamic": false
+    },
+    {
+     "description": "",
+     "script_name": "",
+     "name": "EC",
+     "membrane_name": "",
+     "parent_object": "",
+     "object_source": "blender",
+     "dynamic_display_source": "script",
+     "dynamic": false
+    }
+   ]
+  },
+  "define_surface_classes": {
+   "data_model_version": "DM_2014_10_24_1638",
+   "surface_class_list": [
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "surface_class_prop_list": [
+      {
+       "affected_mols": "ALL_MOLECULES",
+       "data_model_version": "DM_2015_11_08_1756",
+       "surf_class_orient": ";",
+       "name": "Molec.: ALL_MOLECULES   Orient.: Ignore   Type: Reflective",
+       "clamp_value": "0",
+       "surf_class_type": "REFLECTIVE",
+       "molecule": ""
+      }
+     ],
+     "description": "",
+     "name": "reflect"
+    }
+   ]
+  },
+  "api_version": 0,
+  "materials": {
+   "material_dict": {
+    "CP_mat_2": {
+     "diffuse_color": {
+      "a": 0.10000000149011612,
+      "b": 0.0,
+      "r": 0.0,
+      "g": 2.0
+     }
+    },
+    "EC_mat_1": {
+     "diffuse_color": {
+      "a": 0.10000000149011612,
+      "b": 0.0,
+      "r": 1.0,
+      "g": 0.0
+     }
+    }
+   }
+  },
+  "blender_version": [
+   2,
+   79,
+   0
+  ],
+  "cellblender_version": "0.1.54",
+  "cellblender_source_sha1": "bbd6126a24cf384e21a0c6f8414cfd4f9aeca8f4",
+  "modify_surface_regions": {
+   "modify_surface_regions_list": [
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "description": "",
+     "name": "Surface Class: reflect   Object: EC   ALL",
+     "region_selection": "ALL",
+     "object_name": "EC",
+     "surf_class_name": "reflect",
+     "region_name": ""
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "description": "",
+     "name": "Surface Class: reflect   Object: EC   Region: EC_outer_wall",
+     "region_selection": "SEL",
+     "object_name": "EC",
+     "surf_class_name": "reflect",
+     "region_name": "EC_outer_wall"
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "description": "",
+     "name": "Surface Class: reflect   Object: CP   ALL",
+     "region_selection": "ALL",
+     "object_name": "CP",
+     "surf_class_name": "reflect",
+     "region_name": ""
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "description": "",
+     "name": "Surface Class: reflect   Object: CP   Region: PM",
+     "region_selection": "SEL",
+     "object_name": "CP",
+     "surf_class_name": "reflect",
+     "region_name": "PM"
+    }
+   ],
+   "data_model_version": "DM_2014_10_24_1638"
+  },
+  "parameter_system": {
+   "model_parameters": [
+    {
+     "par_units": "",
+     "par_expression": "100.0",
+     "par_description": "",
+     "par_name": "UNIMOL_MULT",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g1",
+      "par_value": 100.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "602200000.0",
+     "par_description": "",
+     "par_name": "NA_um3",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g2",
+      "par_value": 602200000.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "NA_um3*100",
+     "par_description": "",
+     "par_name": "vol_rxn",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g3",
+      "par_value": 60220000000.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "1*20",
+     "par_description": "",
+     "par_name": "surf_rxn",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g4",
+      "par_value": 20.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "100.0",
+     "par_description": "",
+     "par_name": "surf_rxn2",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g5",
+      "par_value": 100.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "0.01",
+     "par_description": "",
+     "par_name": "rxn_layer_t",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g6",
+      "par_value": 0.01
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "39.0",
+     "par_description": "",
+     "par_name": "vol_EC",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g7",
+      "par_value": 39.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "0.6*rxn_layer_t",
+     "par_description": "",
+     "par_name": "vol_PM",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g8",
+      "par_value": 0.006
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "1.0",
+     "par_description": "",
+     "par_name": "vol_CP",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g9",
+      "par_value": 1.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "1000.0",
+     "par_description": "",
+     "par_name": "Lig_tot",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g10",
+      "par_value": 1000.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "400.0",
+     "par_description": "",
+     "par_name": "Rec_tot",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g11",
+      "par_value": 400.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "400.0",
+     "par_description": "",
+     "par_name": "Syk_tot",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g12",
+      "par_value": 400.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "280.0",
+     "par_description": "",
+     "par_name": "Lyn_tot",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g13",
+      "par_value": 280.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "(vol_rxn*1e5)/NA_um3",
+     "par_description": "",
+     "par_name": "kp1",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g14",
+      "par_value": 10000000.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "0.0",
+     "par_description": "",
+     "par_name": "km1",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g15",
+      "par_value": 0.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "(surf_rxn2*1e5)/NA_um3",
+     "par_description": "",
+     "par_name": "kp2",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g16",
+      "par_value": 0.016605778811026237
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "0.0",
+     "par_description": "",
+     "par_name": "km2",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g17",
+      "par_value": 0.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "(surf_rxn*1e7)/NA_um3",
+     "par_description": "",
+     "par_name": "kpL",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g18",
+      "par_value": 0.33211557622052473
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "20*UNIMOL_MULT",
+     "par_description": "",
+     "par_name": "kmL",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g19",
+      "par_value": 2000.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "(surf_rxn*1e7)/NA_um3",
+     "par_description": "",
+     "par_name": "kpLs",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g20",
+      "par_value": 0.33211557622052473
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "0.12*UNIMOL_MULT",
+     "par_description": "",
+     "par_name": "kmLs",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g21",
+      "par_value": 12.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "30*UNIMOL_MULT",
+     "par_description": "",
+     "par_name": "pLb",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g22",
+      "par_value": 3000.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "100*UNIMOL_MULT",
+     "par_description": "",
+     "par_name": "pLbs",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g23",
+      "par_value": 10000.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "1*UNIMOL_MULT",
+     "par_description": "",
+     "par_name": "pLg",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g24",
+      "par_value": 100.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "3*UNIMOL_MULT",
+     "par_description": "",
+     "par_name": "pLgs",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g25",
+      "par_value": 300.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "((vol_rxn*1e7)/NA_um3)/100",
+     "par_description": "",
+     "par_name": "kpS",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g26",
+      "par_value": 10000000.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "0.13*UNIMOL_MULT",
+     "par_description": "",
+     "par_name": "kmS",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g27",
+      "par_value": 13.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "30*UNIMOL_MULT",
+     "par_description": "",
+     "par_name": "pLS",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g28",
+      "par_value": 3000.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "100*UNIMOL_MULT",
+     "par_description": "",
+     "par_name": "pLSs",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g29",
+      "par_value": 10000.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "100*UNIMOL_MULT",
+     "par_description": "",
+     "par_name": "pSS",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g30",
+      "par_value": 10000.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "200*UNIMOL_MULT",
+     "par_description": "",
+     "par_name": "pSSs",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g31",
+      "par_value": 20000.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "0.1*UNIMOL_MULT",
+     "par_description": "",
+     "par_name": "dc",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g32",
+      "par_value": 10.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "0.1*UNIMOL_MULT",
+     "par_description": "",
+     "par_name": "dm",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g33",
+      "par_value": 10.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "NA_um3*100",
+     "par_description": "",
+     "par_name": "MCELL_REDEFINE_vol_rxn",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g34",
+      "par_value": 60220000000.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "0.0001",
+     "par_description": "",
+     "par_name": "MCELL_TIME_STEP",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g35",
+      "par_value": 0.0001
+     }
+    },
+    {
+     "par_expression": "100",
+     "sweep_enabled": false,
+     "par_units": "",
+     "par_description": "",
+     "par_name": "ITERATIONS",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g36",
+      "par_value": 100.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "10.0",
+     "par_description": "",
+     "par_name": "MCELL_VACANCY_SEARCH_DISTANCE",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g37",
+      "par_value": 10.0
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "1.7e-07",
+     "par_description": "",
+     "par_name": "MCELL_DEFAULT_DIFFUSION_CONSTANT_2D",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g38",
+      "par_value": 1.7e-07
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "8.51e-07",
+     "par_description": "",
+     "par_name": "MCELL_DEFAULT_DIFFUSION_CONSTANT_3D",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g39",
+      "par_value": 8.51e-07
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "1.7e-07",
+     "par_description": "",
+     "par_name": "MCELL_DIFFUSION_CONSTANT_2D_Lyn",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g40",
+      "par_value": 1.7e-07
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "1.7e-07",
+     "par_description": "",
+     "par_name": "MCELL_DIFFUSION_CONSTANT_2D_Rec",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g41",
+      "par_value": 1.7e-07
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "8.51e-07",
+     "par_description": "",
+     "par_name": "MCELL_DIFFUSION_CONSTANT_3D_Lig",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g42",
+      "par_value": 8.51e-07
+     }
+    },
+    {
+     "par_units": "",
+     "par_expression": "8.51e-07",
+     "par_description": "",
+     "par_name": "MCELL_DIFFUSION_CONSTANT_3D_Syk",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g43",
+      "par_value": 8.51e-07
+     }
+    },
+    {
+     "par_expression": "(1/8)^3",
+     "sweep_enabled": false,
+     "par_units": "",
+     "par_description": "",
+     "par_name": "MCELL_DEFAULT_COMPARTMENT_VOLUME",
+     "_extras": {
+      "par_valid": true,
+      "par_id_name": "g44",
+      "par_value": 0.001953125
+     }
+    }
+   ],
+   "_extras": {
+    "ordered_id_names": [
+     "g43",
+     "g42",
+     "g40",
+     "g4",
+     "g39",
+     "g13",
+     "g11",
+     "g17",
+     "g2",
+     "g38",
+     "g10",
+     "g9",
+     "g6",
+     "g7",
+     "g15",
+     "g35",
+     "g1",
+     "g20",
+     "g12",
+     "g37",
+     "g34",
+     "g3",
+     "g41",
+     "g44",
+     "g31",
+     "g25",
+     "g36",
+     "g5",
+     "g24",
+     "g29",
+     "g22",
+     "g18",
+     "g33",
+     "g27",
+     "g26",
+     "g23",
+     "g14",
+     "g8",
+     "g28",
+     "g30",
+     "g19",
+     "g16",
+     "g21",
+     "g32"
+    ]
+   }
+  },
+  "geometrical_objects": {
+   "object_list": [
+    {
+     "material_names": [
+      "CP_mat_2"
+     ],
+     "element_connections": [
+      [
+       1,
+       2,
+       0
+      ],
+      [
+       3,
+       6,
+       2
+      ],
+      [
+       7,
+       4,
+       6
+      ],
+      [
+       5,
+       0,
+       4
+      ],
+      [
+       6,
+       0,
+       2
+      ],
+      [
+       3,
+       5,
+       7
+      ],
+      [
+       1,
+       3,
+       2
+      ],
+      [
+       3,
+       7,
+       6
+      ],
+      [
+       7,
+       5,
+       4
+      ],
+      [
+       5,
+       1,
+       0
+      ],
+      [
+       6,
+       4,
+       0
+      ],
+      [
+       3,
+       1,
+       5
+      ]
+     ],
+     "vertex_list": [
+      [
+       -0.5,
+       -0.5,
+       -0.5
+      ],
+      [
+       -0.5,
+       -0.5,
+       0.5
+      ],
+      [
+       -0.5,
+       0.5,
+       -0.5
+      ],
+      [
+       -0.5,
+       0.5,
+       0.5
+      ],
+      [
+       0.5,
+       -0.5,
+       -0.5
+      ],
+      [
+       0.5,
+       -0.5,
+       0.5
+      ],
+      [
+       0.5,
+       0.5,
+       -0.5
+      ],
+      [
+       0.5,
+       0.5,
+       0.5
+      ]
+     ],
+     "define_surface_regions": [
+      {
+       "name": "PM",
+       "include_elements": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+       ]
+      }
+     ],
+     "location": [
+      0,
+      0,
+      0
+     ],
+     "name": "CP"
+    },
+    {
+     "material_names": [
+      "EC_mat_1"
+     ],
+     "element_connections": [
+      [
+       1,
+       2,
+       0
+      ],
+      [
+       3,
+       6,
+       2
+      ],
+      [
+       7,
+       4,
+       6
+      ],
+      [
+       5,
+       0,
+       4
+      ],
+      [
+       6,
+       0,
+       2
+      ],
+      [
+       3,
+       5,
+       7
+      ],
+      [
+       1,
+       3,
+       2
+      ],
+      [
+       3,
+       7,
+       6
+      ],
+      [
+       7,
+       5,
+       4
+      ],
+      [
+       5,
+       1,
+       0
+      ],
+      [
+       6,
+       4,
+       0
+      ],
+      [
+       3,
+       1,
+       5
+      ]
+     ],
+     "vertex_list": [
+      [
+       -1.695605754852295,
+       -1.695605754852295,
+       -1.695605754852295
+      ],
+      [
+       -1.695605754852295,
+       -1.695605754852295,
+       1.695605754852295
+      ],
+      [
+       -1.695605754852295,
+       1.695605754852295,
+       -1.695605754852295
+      ],
+      [
+       -1.695605754852295,
+       1.695605754852295,
+       1.695605754852295
+      ],
+      [
+       1.695605754852295,
+       -1.695605754852295,
+       -1.695605754852295
+      ],
+      [
+       1.695605754852295,
+       -1.695605754852295,
+       1.695605754852295
+      ],
+      [
+       1.695605754852295,
+       1.695605754852295,
+       -1.695605754852295
+      ],
+      [
+       1.695605754852295,
+       1.695605754852295,
+       1.695605754852295
+      ]
+     ],
+     "define_surface_regions": [
+      {
+       "name": "EC_outer_wall",
+       "include_elements": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+       ]
+      }
+     ],
+     "location": [
+      0,
+      0,
+      0
+     ],
+     "name": "EC"
+    }
+   ]
+  },
+  "define_molecules": {
+   "data_model_version": "DM_2014_10_24_1638",
+   "molmaker": {
+    "molcomp_list": [],
+    "data_model_version": "DM_2020_01_10_1930",
+    "average_coincident": false,
+    "bending_rotation": true,
+    "molecule_definition": "",
+    "comp_loc_text_name": "",
+    "print_debug": false,
+    "molecule_text_name": "",
+    "show_key_planes": true,
+    "dynamic_rotation": false,
+    "axial_rotation": true,
+    "skip_var_comp_index": -1,
+    "skip_rotation": false,
+    "show_text_interface": false,
+    "make_materials": true,
+    "skip_fixed_comp_index": -1,
+    "cellblender_colors": true
+   },
+   "molecule_list": [
+    {
+     "data_model_version": "DM_2018_10_16_1632",
+     "custom_time_step": "",
+     "mol_type": "3D",
+     "mol_name": "Lig",
+     "export_viz": false,
+     "spatial_structure": "None",
+     "diffusion_constant": "8.51e-07",
+     "bngl_component_list": [
+      {
+       "loc_z": "0",
+       "loc_y": "0",
+       "is_key": false,
+       "rot_ang": "0",
+       "rot_x": "0",
+       "loc_x": "0",
+       "cname": "l",
+       "rot_y": "0",
+       "rot_z": "0",
+       "rot_index": 0,
+       "cstates": []
+      },
+      {
+       "loc_z": "0",
+       "loc_y": "0",
+       "is_key": false,
+       "rot_ang": "0",
+       "rot_x": "0",
+       "loc_x": "0",
+       "cname": "l",
+       "rot_y": "0",
+       "rot_z": "0",
+       "rot_index": 0,
+       "cstates": []
+      }
+     ],
+     "display": {
+      "emit": 0.0,
+      "color": [
+       1.0,
+       0.0,
+       0.0
+      ],
+      "scale": 1.0,
+      "glyph": "Icosahedron"
+     },
+     "description": "",
+     "custom_space_step": "",
+     "mol_bngl_label": "",
+     "maximum_step_length": "",
+     "target_only": false
+    },
+    {
+     "data_model_version": "DM_2018_10_16_1632",
+     "custom_time_step": "",
+     "mol_type": "2D",
+     "mol_name": "Lyn",
+     "export_viz": false,
+     "spatial_structure": "None",
+     "diffusion_constant": "1.7e-07",
+     "bngl_component_list": [
+      {
+       "loc_z": "0",
+       "loc_y": "0",
+       "is_key": false,
+       "rot_ang": "0",
+       "rot_x": "0",
+       "loc_x": "0",
+       "cname": "SH2",
+       "rot_y": "0",
+       "rot_z": "0",
+       "rot_index": 0,
+       "cstates": []
+      },
+      {
+       "loc_z": "0",
+       "loc_y": "0",
+       "is_key": false,
+       "rot_ang": "0",
+       "rot_x": "0",
+       "loc_x": "0",
+       "cname": "U",
+       "rot_y": "0",
+       "rot_z": "0",
+       "rot_index": 0,
+       "cstates": []
+      }
+     ],
+     "display": {
+      "emit": 0.0,
+      "color": [
+       0.0,
+       2.0,
+       0.0
+      ],
+      "scale": 1.0,
+      "glyph": "Torus"
+     },
+     "description": "",
+     "custom_space_step": "",
+     "mol_bngl_label": "",
+     "maximum_step_length": "",
+     "target_only": false
+    },
+    {
+     "data_model_version": "DM_2018_10_16_1632",
+     "custom_time_step": "",
+     "mol_type": "2D",
+     "mol_name": "Rec",
+     "export_viz": false,
+     "spatial_structure": "None",
+     "diffusion_constant": "1.7e-07",
+     "bngl_component_list": [
+      {
+       "loc_z": "0",
+       "loc_y": "0",
+       "is_key": false,
+       "rot_ang": "0",
+       "rot_x": "0",
+       "loc_x": "0",
+       "cname": "a",
+       "rot_y": "0",
+       "rot_z": "0",
+       "rot_index": 0,
+       "cstates": []
+      },
+      {
+       "loc_z": "0",
+       "loc_y": "0",
+       "is_key": false,
+       "rot_ang": "0",
+       "rot_x": "0",
+       "loc_x": "0",
+       "cname": "b",
+       "rot_y": "0",
+       "rot_z": "0",
+       "rot_index": 0,
+       "cstates": [
+        "Y",
+        "pY"
+       ]
+      },
+      {
+       "loc_z": "0",
+       "loc_y": "0",
+       "is_key": false,
+       "rot_ang": "0",
+       "rot_x": "0",
+       "loc_x": "0",
+       "cname": "g",
+       "rot_y": "0",
+       "rot_z": "0",
+       "rot_index": 0,
+       "cstates": [
+        "Y",
+        "pY"
+       ]
+      }
+     ],
+     "display": {
+      "emit": 0.0,
+      "color": [
+       1.0,
+       2.0,
+       0.0
+      ],
+      "scale": 1.0,
+      "glyph": "Cone"
+     },
+     "description": "",
+     "custom_space_step": "",
+     "mol_bngl_label": "",
+     "maximum_step_length": "",
+     "target_only": false
+    },
+    {
+     "data_model_version": "DM_2018_10_16_1632",
+     "custom_time_step": "",
+     "mol_type": "3D",
+     "mol_name": "Syk",
+     "export_viz": false,
+     "spatial_structure": "None",
+     "diffusion_constant": "8.51e-07",
+     "bngl_component_list": [
+      {
+       "loc_z": "0",
+       "loc_y": "0",
+       "is_key": false,
+       "rot_ang": "0",
+       "rot_x": "0",
+       "loc_x": "0",
+       "cname": "a",
+       "rot_y": "0",
+       "rot_z": "0",
+       "rot_index": 0,
+       "cstates": [
+        "Y",
+        "pY"
+       ]
+      },
+      {
+       "loc_z": "0",
+       "loc_y": "0",
+       "is_key": false,
+       "rot_ang": "0",
+       "rot_x": "0",
+       "loc_x": "0",
+       "cname": "l",
+       "rot_y": "0",
+       "rot_z": "0",
+       "rot_index": 0,
+       "cstates": [
+        "Y",
+        "pY"
+       ]
+      },
+      {
+       "loc_z": "0",
+       "loc_y": "0",
+       "is_key": false,
+       "rot_ang": "0",
+       "rot_x": "0",
+       "loc_x": "0",
+       "cname": "tSH2",
+       "rot_y": "0",
+       "rot_z": "0",
+       "rot_index": 0,
+       "cstates": []
+      }
+     ],
+     "display": {
+      "emit": 0.0,
+      "color": [
+       0.0,
+       0.0,
+       4.0
+      ],
+      "scale": 1.0,
+      "glyph": "Sphere_1"
+     },
+     "description": "",
+     "custom_space_step": "",
+     "mol_bngl_label": "",
+     "maximum_step_length": "",
+     "target_only": false
+    }
+   ]
+  },
+  "model_language": "mcell4",
+  "release_sites": {
+   "data_model_version": "DM_2014_10_24_1638",
+   "release_site_list": [
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "points_list": [],
+     "location_y": "0",
+     "quantity_type": "NUMBER_TO_RELEASE",
+     "orient": "'",
+     "molecule": "Lig(l,l)@EC",
+     "quantity": "Lig_tot",
+     "pattern": "",
+     "object_expr": "EC[ALL] - CP[ALL]",
+     "description": "",
+     "release_probability": "1",
+     "name": "Rel_Site_1",
+     "stddev": "0",
+     "site_diameter": "0",
+     "location_x": "0",
+     "shape": "OBJECT",
+     "location_z": "0"
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "points_list": [],
+     "location_y": "0",
+     "quantity_type": "NUMBER_TO_RELEASE",
+     "orient": "'",
+     "molecule": "Lyn(SH2,U)@PM",
+     "quantity": "Lyn_tot",
+     "pattern": "",
+     "object_expr": "CP[PM]",
+     "description": "",
+     "release_probability": "1",
+     "name": "Rel_Site_2",
+     "stddev": "0",
+     "site_diameter": "0",
+     "location_x": "0",
+     "shape": "OBJECT",
+     "location_z": "0"
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "points_list": [],
+     "location_y": "0",
+     "quantity_type": "NUMBER_TO_RELEASE",
+     "orient": "'",
+     "molecule": "Syk(a~Y,l~Y,tSH2)@CP",
+     "quantity": "Syk_tot",
+     "pattern": "",
+     "object_expr": "CP[ALL]",
+     "description": "",
+     "release_probability": "1",
+     "name": "Rel_Site_3",
+     "stddev": "0",
+     "site_diameter": "0",
+     "location_x": "0",
+     "shape": "OBJECT",
+     "location_z": "0"
+    },
+    {
+     "data_model_version": "DM_2018_01_11_1330",
+     "points_list": [],
+     "location_y": "0",
+     "quantity_type": "NUMBER_TO_RELEASE",
+     "orient": "'",
+     "molecule": "Rec(a,b~Y,g~Y)@PM",
+     "quantity": "Rec_tot",
+     "pattern": "",
+     "object_expr": "CP[PM]",
+     "description": "",
+     "release_probability": "1",
+     "name": "Rel_Site_4",
+     "stddev": "0",
+     "site_diameter": "0",
+     "location_x": "0",
+     "shape": "OBJECT",
+     "location_z": "0"
+    }
+   ]
+  },
+  "simulation_control": {
+   "data_model_version": "DM_2017_11_22_1617",
+   "sim_engines": [
+    {
+     "parameter_layout": [
+      [
+       "Shared Path"
+      ],
+      [
+       "MCellR Path"
+      ],
+      [
+       "MCellRlib Path"
+      ],
+      [
+       "BioNetGen Path"
+      ],
+      [
+       "Output Detail (0-100)"
+      ],
+      [
+       "Print Information",
+       "Postprocess",
+       "Reset"
+      ]
+     ],
+     "plug_name": "MCell Rules",
+     "plug_active": true,
+     "parameter_dictionary": {
+      "BioNetGen Path": {
+       "as": "filename",
+       "desc": "BioNetGen Path",
+       "icon": "OUTLINER_DATA_MESH",
+       "val": "bng2/BNG2.pl"
+      },
+      "Output Detail (0-100)": {
+       "desc": "Amount of Information to Print (0-100)",
+       "icon": "INFO",
+       "val": 20
+      },
+      "MCellR Path": {
+       "as": "filename",
+       "desc": "MCellR Path",
+       "icon": "FORCE_LENNARDJONES",
+       "val": "mcell"
+      },
+      "MCellRlib Path": {
+       "as": "filename",
+       "desc": "MCellR Library Path",
+       "icon": "FORCE_LENNARDJONES",
+       "val": "lib/"
+      },
+      "Shared Path": {
+       "as": "filename",
+       "desc": "Shared Path",
+       "icon": "FORCE_LENNARDJONES",
+       "val": "/home/ahusar/mcell4_release/mcell_tools/work/bundle_install/Blender-2.79-CellBlender/2.79/scripts/addons/cellblender/extensions"
+      }
+     },
+     "plug_code": "MCELLR"
+    },
+    {
+     "parameter_layout": [
+      [
+       "Python Command"
+      ],
+      [
+       "Output Detail (0-100)"
+      ],
+      [
+       "Reaction Factor"
+      ],
+      [
+       "Blender's Python",
+       "Print Information",
+       "Reset"
+      ]
+     ],
+     "plug_name": "Prototype Python Simulation",
+     "plug_active": true,
+     "parameter_dictionary": {
+      "Output Detail (0-100)": {
+       "desc": "Amount of Information to Print (0-100)",
+       "icon": "INFO",
+       "val": 20
+      },
+      "Python Command": {
+       "as": "filename",
+       "desc": "Command to run Python (default is python)",
+       "icon": "SCRIPTWIN",
+       "val": ""
+      },
+      "Reaction Factor": {
+       "desc": "Decay Rate Multiplier",
+       "icon": "ARROW_LEFTRIGHT",
+       "val": 1.0
+      }
+     },
+     "plug_code": "LIM_PYTHON"
+    },
+    {
+     "parameter_layout": [
+      [
+       "Shared Path"
+      ],
+      [
+       "BioNetGen Path"
+      ],
+      [
+       "ODE",
+       "NFSIM",
+       "SSA",
+       "PLA"
+      ],
+      [
+       "Output Detail (0-100)"
+      ],
+      [
+       "Postprocess",
+       "MDLString"
+      ],
+      [
+       "Print Information",
+       "Reset"
+      ]
+     ],
+     "plug_name": "cBNGL",
+     "plug_active": true,
+     "parameter_dictionary": {
+      "BioNetGen Path": {
+       "as": "filename",
+       "desc": "BioNetGen Path",
+       "icon": "OUTLINER_DATA_MESH",
+       "val": "bionetgen/BNG2.pl"
+      },
+      "Output Detail (0-100)": {
+       "desc": "Amount of Information to Print (0-100)",
+       "icon": "INFO",
+       "val": 20
+      },
+      "SSA": {
+       "desc": "Simulate using Gillespie Stochastic Simulation Algorithm",
+       "val": false
+      },
+      "NFSIM": {
+       "desc": "Simulate using Network-free Simulation Method",
+       "val": false
+      },
+      "ODE": {
+       "desc": "Simulate using Ordinary Differential Equation Solver",
+       "val": true
+      },
+      "MDLString": {
+       "desc": "Use '_MDLString' as part of file name",
+       "val": true
+      },
+      "Shared Path": {
+       "as": "filename",
+       "desc": "Shared Path",
+       "icon": "FORCE_LENNARDJONES",
+       "val": "/home/ahusar/mcell4_release/mcell_tools/work/bundle_install/Blender-2.79-CellBlender/2.79/scripts/addons/cellblender/sim_engines/cBNGL"
+      },
+      "PLA": {
+       "desc": "Simulate using Partitioned tau-Leaping Algorithm",
+       "val": false
+      }
+     },
+     "plug_code": "cBNGL"
+    },
+    {
+     "parameter_layout": [
+      [
+       "MCell Path"
+      ],
+      [
+       "Log File",
+       "Error File"
+      ],
+      [
+       "Version",
+       "Full Version",
+       "Help",
+       "Reset"
+      ]
+     ],
+     "plug_name": "MCell 3 via Data Model",
+     "plug_active": true,
+     "parameter_dictionary": {
+      "Output Detail (0-100)": {
+       "desc": "Output Detail",
+       "val": 20
+      },
+      "Log File": {
+       "as": "filename",
+       "desc": "Log File name",
+       "icon": "EXPORT",
+       "val": ""
+      },
+      "Error File": {
+       "as": "filename",
+       "desc": "Error File name",
+       "icon": "EXPORT",
+       "val": ""
+      },
+      "MCell Path": {
+       "as": "filename",
+       "desc": "MCell Path",
+       "icon": "SCRIPTWIN",
+       "val": ""
+      }
+     },
+     "plug_code": "MCELL3DM"
+    },
+    {
+     "parameter_layout": [
+      [
+       "MCell Path"
+      ],
+      [
+       "Version",
+       "Full Version",
+       "Help",
+       "Reset"
+      ],
+      [
+       "Log File",
+       "Error File"
+      ]
+     ],
+     "plug_name": "MCell 3 with Dynamic Geometry",
+     "plug_active": true,
+     "parameter_dictionary": {
+      "Output Detail (0-100)": {
+       "desc": "Output Detail",
+       "val": 20
+      },
+      "Log File": {
+       "as": "filename",
+       "desc": "Log File name",
+       "icon": "EXPORT",
+       "val": ""
+      },
+      "Error File": {
+       "as": "filename",
+       "desc": "Error File name",
+       "icon": "EXPORT",
+       "val": ""
+      },
+      "MCell Path": {
+       "as": "filename",
+       "desc": "MCell Path",
+       "icon": "SCRIPTWIN",
+       "val": ""
+      }
+     },
+     "plug_code": "MCELL3"
+    },
+    {
+     "parameter_layout": [
+      [
+       "Output Detail (0-100)"
+      ],
+      [
+       "Print Information",
+       "Reset"
+      ]
+     ],
+     "plug_name": "Prototype C++ Simulation",
+     "plug_active": true,
+     "parameter_dictionary": {
+      "Output Detail (0-100)": {
+       "desc": "Amount of Information to Print (0-100)",
+       "icon": "INFO",
+       "val": 20
+      },
+      "C++ Path": {
+       "as": "filename",
+       "desc": "Optional Path",
+       "icon": "SCRIPTWIN",
+       "val": ""
+      },
+      "Decay Factor": {
+       "desc": "Decay Rate Multiplier",
+       "icon": "ARROW_LEFTRIGHT",
+       "val": 1.0
+      }
+     },
+     "plug_code": "LIM_CPP"
+    },
+    {
+     "parameter_layout": [
+      [
+       "Smoldyn Path"
+      ],
+      [
+       "Auto Boundaries",
+       "Set Cube Boundaries:",
+       "bounding_cube_size"
+      ],
+      [
+       "x_bound_min",
+       "y_bound_min",
+       "z_bound_min"
+      ],
+      [
+       "x_bound_max",
+       "y_bound_max",
+       "z_bound_max"
+      ],
+      [
+       "Graphics",
+       "Command Line"
+      ],
+      [
+       "Output Detail (0-100)"
+      ],
+      [
+       "Postprocess",
+       "Reset"
+      ]
+     ],
+     "plug_name": "Prototype Smoldyn 2.48 Simulation",
+     "plug_active": true,
+     "parameter_dictionary": {
+      "y_bound_min": {
+       "desc": "y boundary (minimum)",
+       "val": -1.0
+      },
+      "z_bound_min": {
+       "desc": "z boundary (minimum)",
+       "val": -1.0
+      },
+      "z_bound_max": {
+       "desc": "z boundary (maximum)",
+       "val": 1.0
+      },
+      "Output Detail (0-100)": {
+       "desc": "Amount of Information to Print (0-100)",
+       "icon": "INFO",
+       "val": 20
+      },
+      "Smoldyn Path": {
+       "as": "filename",
+       "desc": "Optional Path",
+       "icon": "SCRIPTWIN",
+       "val": "//../../../../../smoldyn/smoldyn-2.51/cmake/smoldyn"
+      },
+      "y_bound_max": {
+       "desc": "y boundary (maximum)",
+       "val": 1.0
+      },
+      "x_bound_min": {
+       "desc": "x boundary (minimum)",
+       "val": -1.0
+      },
+      "x_bound_max": {
+       "desc": "x boundary (maximum)",
+       "val": 1.0
+      },
+      "Graphics": {
+       "desc": "Show Smoldyn Graphics",
+       "val": false
+      },
+      "Auto Boundaries": {
+       "desc": "Compute boundaries from all geometric points",
+       "val": true
+      },
+      "bounding_cube_size": {
+       "desc": "Cube Boundary Size",
+       "val": 2
+      },
+      "Command Line": {
+       "desc": "Additional Command Line Parameters",
+       "val": ""
+      }
+     },
+     "plug_code": "SMOLDYN248"
+    },
+    {
+     "parameter_layout": [
+      [
+       "Electric Species"
+      ],
+      [
+       "Python Command"
+      ],
+      [
+       "Output Detail (0-100)"
+      ],
+      [
+       "Reaction Factor"
+      ],
+      [
+       "Print Information",
+       "Reset"
+      ]
+     ],
+     "plug_name": "Prototype Andreas 1",
+     "plug_active": true,
+     "parameter_dictionary": {
+      "Output Detail (0-100)": {
+       "desc": "Amount of Information to Print (0-100)",
+       "icon": "INFO",
+       "val": 20
+      },
+      "Python Command": {
+       "as": "filename",
+       "desc": "Command to run Python (default is python)",
+       "icon": "SCRIPTWIN",
+       "val": ""
+      },
+      "Reaction Factor": {
+       "desc": "Decay Rate Multiplier",
+       "icon": "ARROW_LEFTRIGHT",
+       "val": 1.0
+      },
+      "Electric Species": {
+       "desc": "Names of Electric Field Species (comma separated)",
+       "val": ""
+      }
+     },
+     "plug_code": "PROTO_ANDREAS_1"
+    }
+   ],
+   "name": "",
+   "processes_list": [
+    {
+     "data_model_version": "DM_2015_04_23_1753",
+     "name": "PID: 24179, Seed: 1, 100%"
+    }
+   ],
+   "export_format": "mcell_mdl_modular",
+   "run_limit": "12",
+   "start_seed": "1",
+   "end_seed": "1"
+  },
+  "viz_output": {
+   "data_model_version": "DM_2014_10_24_1638",
+   "step": "5",
+   "all_iterations": true,
+   "start": "0",
+   "export_all": true,
+   "end": "1000"
+  },
+  "define_release_patterns": {
+   "release_pattern_list": [],
+   "data_model_version": "DM_2014_10_24_1638"
+  },
+  "initialization": {
+   "iterations": "ITERATIONS",
+   "data_model_version": "DM_2017_11_18_0130",
+   "radial_subdivisions": "",
+   "warnings": {
+    "missing_surface_orientation": "ERROR",
+    "useless_volume_orientation": "WARNING",
+    "all_warnings": "INDIVIDUAL",
+    "degenerate_polygons": "WARNING",
+    "large_molecular_displacement": "WARNING",
+    "missed_reactions": "WARNING",
+    "negative_diffusion_constant": "WARNING",
+    "lifetime_threshold": "50",
+    "high_probability_threshold": "1",
+    "missed_reaction_threshold": "0.001",
+    "high_reaction_probability": "IGNORED",
+    "lifetime_too_short": "WARNING",
+    "negative_reaction_rate": "WARNING"
+   },
+   "time_step_max": "",
+   "interaction_radius": "",
+   "partitions": {
+    "z_end": "1",
+    "data_model_version": "DM_2016_04_15_1600",
+    "recursion_flag": false,
+    "x_step": "0.02",
+    "z_start": "-1",
+    "y_step": "0.02",
+    "x_start": "-1",
+    "include": false,
+    "z_step": "0.02",
+    "x_end": "1",
+    "y_start": "-1",
+    "y_end": "1"
+   },
+   "time_step": "MCELL_TIME_STEP",
+   "vacancy_search_distance": "MCELL_VACANCY_SEARCH_DISTANCE",
+   "surface_grid_density": "10000",
+   "accurate_3d_reactions": true,
+   "space_step": "",
+   "command_options": "",
+   "center_molecules_on_grid": false,
+   "microscopic_reversibility": "OFF",
+   "notifications": {
+    "final_summary": true,
+    "file_output_report": false,
+    "progress_report": true,
+    "varying_probability_report": true,
+    "release_event_report": true,
+    "probability_report": "ON",
+    "molecule_collision_report": false,
+    "probability_report_threshold": "0",
+    "box_triangulation_report": false,
+    "partition_location_report": false,
+    "all_notifications": "INDIVIDUAL",
+    "diffusion_constant_report": "BRIEF",
+    "iteration_report": true
+   },
+   "radial_directions": "",
+   "export_all_ascii": true
+  },
+  "periodic_boundary_conditions": {
+   "z_end": "0",
+   "data_model_version": "DM_2020_02_21_1900",
+   "periodic_traditional": true,
+   "peri_z": true,
+   "z_start": "0",
+   "peri_x": true,
+   "x_start": "0",
+   "include": false,
+   "x_end": "0",
+   "peri_y": true,
+   "y_start": "0",
+   "y_end": "0"
+  }
+ }
+}

@@ -111,8 +111,8 @@ end reaction rules
 end model
 
 # Equilibration step
-setConcentration("@EC:Lig(l,l)",0)
-simulate({method=>"ode",suffix=>"equil",t_end=>600,n_steps=>100,print_functions=>1})
+#setConcentration("@EC:Lig(l,l)",0)
+#simulate({method=>"ode",suffix=>"equil",t_end=>600,n_steps=>100,print_functions=>1})
 # Add ligand and simulate
-setConcentration("@EC:Lig(l,l)","Lig_tot")
-simulate({method=>"ode",t_end=>600,n_steps=>100,print_functions=>1})
+#setConcentration("@EC:Lig(l,l)","Lig_tot")
+#simulate({method=>"ode",t_end=>600,n_steps=>100,print_functions=>1})
