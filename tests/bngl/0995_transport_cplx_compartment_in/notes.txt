@@ -1,0 +1,3 @@
+Unimol rxn was not applied, when the compartment was removed, it worked fine
+
+Should eb same as 0990_transport_cplx_compartment, 

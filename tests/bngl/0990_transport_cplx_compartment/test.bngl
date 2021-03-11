@@ -1,0 +1,39 @@
+# WARNING: This is an automatically generated file and will be overwritten
+#          by CellBlender on the next model export.
+begin parameters
+    ITERATIONS 500
+    MCELL_DIFFUSION_CONSTANT_3D_v 2e-6
+    MCELL_DIFFUSION_CONSTANT_2D_s 1e-8
+    MCELL_DIFFUSION_CONSTANT_3D_c 2e-6
+end parameters
+
+begin molecule types
+    v(c,c)
+    s(c)
+    c(s,v)
+end molecule types
+
+begin compartments
+    mem 3 0.25^3 PM
+    PM 2 0 EC
+    EC 3 0.5^3 
+end compartments
+
+begin seed species
+    @EC:v(c!1,c!2).c(v!1,s).c(v!2,s) 1000
+    s(c)@PM 1000
+end seed species
+
+begin reaction rules
+    s(c) + c(s)@OUT -> s(c!1).c(s!1) 1e9
+    @PM:s(c!1).c(s!1) -> s(c)@PM + c(s)@mem 50000
+    # result must be identical as when using this rule
+    #s(c!1).c(s!1) -> s(c) + c(s)@IN 50000
+end reaction rules
+
+begin observables
+    Molecules doubly_bound_v v(c!1,c!2).c(v!1,s!3).c(v!2,s!4).s(c!3).s(c!4)
+    Molecules singly_bound_v v(c!1,c!2).c(v!1,s!3).c(v!2,s).s(c!3)
+    Molecules vc_inside @mem:v(c!1).c(v!1)
+end observables
+

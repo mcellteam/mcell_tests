@@ -1,0 +1,4 @@
+MCell3R/NFSim prints that it requires DeleteMolecules keyword but using it does not get rid of the message.
+MCell4 is limited in a way that the molecule must have the same components.  
+
+Not supported yet.

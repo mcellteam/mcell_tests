@@ -12,7 +12,7 @@ end parameters
 begin molecule types
 	A(x)
 	B(a)
-	C(a)
+	C(a) # same components, even with the same name as B
 end molecule types
 
 begin seed species
