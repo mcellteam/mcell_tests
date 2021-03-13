@@ -1,4 +1,6 @@
 MCell3R/NFSim prints that it requires DeleteMolecules keyword but using it does not get rid of the message.
 MCell4 is limited in a way that the molecule must have the same components.  
 
+Same as bngl/0050 only the rxn is reversible
+
 Checked by analyzing rxn report and viz output.

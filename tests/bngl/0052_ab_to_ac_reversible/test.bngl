@@ -26,7 +26,7 @@ begin observables
 end observables
 
 begin reaction rules
-	A(x!1).B(a!1) -> A(x!1).C(a!1) 1e5 #DeleteMolecules - NFSIM reports that it needs this keyword but invcluding it does not help 
+	A(x!1).B(a!1) <-> A(x!1).C(a!1) 1e5,1e5 
 end reaction rules
 
 end model
