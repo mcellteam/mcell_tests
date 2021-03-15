@@ -1,0 +1,9 @@
+Not supported by NFSim.
+Similar to bngl/0058, checking that rate is multiplied just by 1: 
+
+rxn class for reactants: 
+    A(x!2,bc!1).A(x,bc!3).B(a!1,a!3).X(a!2) (3)
+  pathways were not initialized
+0: products based on rule A(bc!2).B(a!2,a!3).A(bc!3) -> A(bc!2).C(a!2,a!3).A(bc!3) 100000 (id: 0)
+    A(x!2,bc!1).A(x,bc!3).C(a!1,a!3).X(a!2) (4) 
+cum_probs: 0.1, max_fixed_p: 0.1
