@@ -1,0 +1,28 @@
+Not supported by NFSim.
+
+Similar as bngl/0052 only checking that reactant maintains bonds.
+
+This test has uncovered issue with rates, there should be two ways how to apply this unimol rxn,
+but MCell4 originally found just one.  
+
+This is the original rxn report:
+
+rxn class for reactants: 
+    A(x!2,bc!1).A(x,bc!3).B(a!1,a!3).X(a!2) (3)
+  pathways were not initialized
+0: products based on rule A(bc!1).B(a!1) -> A(bc!1).C(a!1) 100000 (id: 0)
+    A(x!2,bc!1).A(x,bc!3).C(a!1,a!3).X(a!2) (4) 
+cum_probs: 0.1, max_fixed_p: 0.1
+
+
+Fixed so that the rate is correct now:
+
+rxn class for reactants: 
+    A(x,bc!1).A(x,bc!2).B(a!1,a!2) (3)
+  pathways were not initialized
+0: products based on rule A(bc!1).B(a!1) -> A(bc!1).C(a!1) 100000 (id: 0)
+    A(x,bc!1).A(x,bc!2).C(a!1,a!2) (4) 
+1: products based on rule A(bc!1).B(a!1) -> A(bc!1).C(a!1) 100000 (id: 0)
+    A(x,bc!1).A(x,bc!2).C(a!1,a!2) (4) 
+cum_probs: 0.1, 0.2, max_fixed_p: 0.2
+

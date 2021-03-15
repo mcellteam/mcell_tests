@@ -1,0 +1,2 @@
+Not supported by NFSim.
+Similar to bngl/0055 only slightly more complex reactant and the rxn is reversible.

@@ -1,0 +1,32 @@
+begin model
+
+begin parameters
+	ITERATIONS  10
+  MCELL_DIFFUSION_CONSTANT_3D_A 1e-6
+  MCELL_DIFFUSION_CONSTANT_3D_B 5e-5
+  MCELL_DIFFUSION_CONSTANT_3D_C 7e-5
+  MCELL_DIFFUSION_CONSTANT_3D_X 9e-5  	
+  
+  MCELL_DEFAULT_COMPARTMENT_VOLUME 0.0625^3
+end parameters
+
+begin molecule types
+  X(a)
+	A(x,bc)
+	B(a,a)
+	C(a,a) # same components, even with the same name as B
+end molecule types
+
+begin seed species
+	A(x,bc!2).B(a!2,a!3).A(bc!3,x)  100
+end seed species
+
+begin observables
+  Molecules A A
+end observables
+
+begin reaction rules
+	A(bc!1).B(a!1) -> A(bc!1).C(a!1) 1e5  
+end reaction rules
+
+end model

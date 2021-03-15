@@ -1,0 +1,21 @@
+Created because originally in bngl/0055 the rate of the unimol rxn was incorrectly computed:
+
+There should be two products:
+
+rxn class for reactants: 
+    A(x,bc!1).A(x,bc!2).B(a!1,a!2) (3)
+  pathways were not initialized
+0: products based on rule A(bc!1).B(a!1) -> A(bc) + B(a) 100000 (id: 0)
+    A(x,bc) (4)  + A(x,bc!1).B(a!1,a) (5) 
+1: products based on rule A(bc!1).B(a!1) -> A(bc) + B(a) 100000 (id: 0)
+    A(x,bc) (4)  + A(x,bc!1).B(a!1,a) (5) 
+cum_probs: 0.1, 0.2, max_fixed_p: 0.2
+
+But the test 0055 originally gave:
+
+rxn class for reactants: 
+    A(x,bc!1).A(x,bc!2).B(a!1,a!2) (3)
+  pathways were not initialized
+0: products based on rule A(bc!1).B(a!1) -> A(bc!1).C(a!1) 100000 (id: 0)
+    A(x,bc!1).A(x,bc!2).C(a!1,a!2) (4) 
+cum_probs: 0.1, max_fixed_p: 0.1
