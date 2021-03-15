@@ -169,26 +169,26 @@ class TesterBase:
         if os.path.exists(os.path.join(self.test_src_path, 'skip')):
             self.log_test_skip()
             return True
-        elif os.path.exists(os.path.join(self.test_src_path, 'skip_debug')):
+        if os.path.exists(os.path.join(self.test_src_path, 'skip_debug')):
             # detection uses the parent directory of mcell
             mcell_path = os.path.basename(os.path.dirname(self.tool_paths.mcell_binary))
             if 'debug' in mcell_path:
                 self.log_test_skip()
                 return True
-        elif os.path.exists(os.path.join(self.test_src_path, 'skip_win')):
+        if os.path.exists(os.path.join(self.test_src_path, 'skip_win')):
             if os.name == 'nt':
                 log("SKIP WIN: " + self.test_name)
                 return True
-        elif os.path.exists(os.path.join(self.test_src_path, 'skip_centos6')):
+        if os.path.exists(os.path.join(self.test_src_path, 'skip_centos6')):
             if 'centos-6' in platform.platform():
                 log("SKIP CENTOS6: " + self.test_name)
                 return True
-        elif os.path.exists(os.path.join(self.test_src_path, 'skip_macos')):
+        if os.path.exists(os.path.join(self.test_src_path, 'skip_macos')):
             if 'Darwin' in platform.platform():
                 log("SKIP MACOS: " + self.test_name)
                 return True
-        else:
-            return False
+        
+        return False
             
     def is_known_fail(self) -> bool:
         # TODO: report this in a better way, should be reported as error when it starts to wok
