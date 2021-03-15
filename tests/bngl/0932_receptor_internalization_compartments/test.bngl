@@ -1,0 +1,48 @@
+begin model
+
+begin parameters
+	
+	ITERATIONS  100
+	MCELL_DIFFUSION_CONSTANT_3D_A 7e-6
+  MCELL_DIFFUSION_CONSTANT_3D_Rec_vol 1e-6
+  MCELL_DIFFUSION_CONSTANT_2D_Rec_surf 1e-8
+    	
+    
+end parameters
+begin molecule types
+	A(r)
+	Rec_vol(a)
+	Rec_surf(a)
+end molecule types
+
+begin compartments
+  EC 3 0.2^3
+  PM 2 0 EC     
+  CP 3 0.1^3 PM  
+end compartments
+
+begin seed species
+	A(r)@EC  50
+	Rec_surf(a)@PM  50
+end seed species
+
+begin observables
+  Molecules AEC A@EC
+  Molecules APM A@PM
+  Molecules ACP A@CP
+  
+  Molecules Rec_volEC Rec_vol@EC
+  Molecules Rec_volPM Rec_vol@PM
+  Molecules Rec_volCP Rec_vol@CP
+
+  Molecules Rec_surfEC Rec_surf@EC
+  Molecules Rec_surfPM Rec_surf@PM
+  Molecules Rec_surfCP Rec_surf@CP
+end observables
+
+begin reaction rules
+	A(r) + Rec_surf(a) -> A(r!1).Rec_surf(a!1) 4e8
+	@PM:A(r!1).Rec_surf(a!1) -> @CP:A(r!1).Rec_vol(a!1) 1e4
+end reaction rules
+
+end model
