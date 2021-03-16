@@ -542,7 +542,7 @@
     "box_triangulation_report": false,
     "file_output_report": false
    },
-   "command_options": "-d 1000",
+   "command_options": "",
    "vacancy_search_distance": "100",
    "export_all_ascii": true,
    "radial_directions": "",
