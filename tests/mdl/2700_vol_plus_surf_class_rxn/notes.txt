@@ -1,0 +1,11 @@
+MCell4 places the rxn product on the identical tile when
+the tile is empty and there is a single product as MCell3. 
+
+Then there are some differences that MCell4 does not emulate:
+MCell3 puts multiple products to the same tile (not tested here),
+even when the tile is occupied. 
+Also it weirdly keeps the id of the molecule that hit the
+wall and sets this id to the product (all other reaction 
+products use new id unless the reactant was maintained).
+ 
+ 
