@@ -1,0 +1,4 @@
+Initial release count of mind_adp and mine is lower than in the CellBlender example.
+
+Full model that is a cellblender example was validated by comparing resulting plots
+from MCell3 and MCell4 that match pretty closely for a single run with seed value 1.

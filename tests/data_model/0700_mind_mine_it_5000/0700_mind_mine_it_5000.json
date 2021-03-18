@@ -497,7 +497,7 @@
     {
      "object_expr": "ecoli",
      "pattern": "",
-     "quantity": "4320",
+     "quantity": "1000", 
      "description": "",
      "quantity_type": "NUMBER_TO_RELEASE",
      "site_diameter": "0",
@@ -516,7 +516,7 @@
     {
      "object_expr": "ecoli",
      "pattern": "",
-     "quantity": "1080",
+     "quantity": "500",
      "description": "",
      "quantity_type": "NUMBER_TO_RELEASE",
      "site_diameter": "0",
@@ -10353,25 +10353,16 @@
     }
    ]
   },
-  "scripting": {
-   "mcell4_scripting_list": [
-    {
-     "data_model_version": "DM_2016_03_15_1900",
-     "external_file_name": "",
-     "internal_file_name": "customization.py",
-     "internal_external": "internal",
-     "name": ""
-    }
-   ],
-   "dm_external_file_name": "",
-   "dm_internal_file_name": "",
-   "data_model_version": "DM_2017_11_30_1830",
-   "ignore_cellblender_data": false,
-   "script_texts": {
-    "customization.py": "\n# This file contains hooks to override default MCell4 model\n# code behavior for models generated from CellBlender\nimport mcell as m\n\n# this import might need to be changed if project name changes\nimport Scene_parameters as parameters\n\n#def custom_argparse_and_parameters():\n    # When uncommented, this function is called to parse \n    # custom commandline arguments.\n    # It is executed before any of the automatically generated \n    # parameter values are set so one can override the parameter \n    # values here as well.\n#    pass\n\n#def custom_config(model):\n    # When uncommented, this function is called to set custom\n    # model configuration.\n    # It is executed after basic parameter setup is done and \n    # before any components are added to the model. \n#    pass\n\n# list of possible locations for ACh releases\nrelease_site_diameter=0.0\n\nlocation_1 = [-1.31,-0.6,0.03]\nlocation_2 = [-0.75,-0.6,0.105]\nlocation_3 = [-0.4,-0.6,0.095]\nlocation_4 = [-0.04,-0.6,0.06]\nlocation_5 = [0.515,-0.6,0.025]\nlocation_6 = [0.945,-0.6,0.01]\n\nlocation_7 = [-1.29,-0.3,0]\nlocation_8 = [-0.782,-0.3,0.07]\nlocation_9 = [-0.4,-0.3,0.05]\nlocation_10 = [-0.005,-0.3,0.02]\nlocation_11 = [0.495,-0.3,-0.015]\nlocation_12 = [0.96,-0.3,-0.035]\n\nlocation_13 = [-1.27,0,-0.02]\nlocation_14 = [-0.8,0,0.04]\nlocation_15 = [-0.39,0,0.03]\nlocation_16 = [0,0,0]\nlocation_17 = [0.52,0,-0.03]\nlocation_18 = [0.97,0,-0.06]\n\nlocation_19 = [-1.25,0.3,-0.025]\nlocation_20 = [-0.825,0.3,0.035]\nlocation_21 = [-0.365,0.3,0.035]\nlocation_22 = [0.005,0.3,-0.005]\nlocation_23 = [0.575,0.3,-0.025]\nlocation_24 = [0.985,0.3,-0.035]\n\nlocation_25 = [-1.18,0.6,-0.01]\nlocation_26 = [-0.84,0.6,0.05]\nlocation_27 = [-0.33,0.6,0.02]\nlocation_28 = [0.01,0.6,0.005]\nlocation_29 = [0.63,0.6,0.025]\nlocation_30 = [1.03,0.6,0.075]\n\n# selecting specific location\nrelease_location = location_16\n\n\n# first index corresponds to release_site_1\nnumbers_to_release = [ \n    18, 18, 19, 19, 20, 20, 20, 21, 21, 22, 21, 23, 23, 23, 23, 24, \n    25, 24, 26, 25, 26, 26, 27, 27, 27, 28, 28, 29, 28, 30, 29, 30, \n    30, 31, 31, 31, 32, 31, 33, 32, 33, 33, 34, 33, 34, 35, 34, 35, \n    35, 35, 36, 36, 36, 36, 37, 36, 37, 38, 37, 37, 38, 38, 38, 38, \n    38, 39, 39, 38, 39, 39, 39, 39, 40, 39, 39, 40, 39, 40, 39, 40, \n    40, 39, 40, 40, 39, 40, 39, 40, 40, 39, 39, 40, 39, 39, 39, 39, \n    39, 39, 39, 38, 39, 38, 38, 38, 38, 38, 37, 38, 37, 37, 37, 36, \n    37, 36, 36, 35, 36, 35, 35, 35, 34, 35, 34, 33, 34, 33, 33, 33, \n    32, 32, 32, 31, 31, 31, 31, 30, 30, 30, 29, 29, 29, 28, 28, 28, \n    27, 27, 27, 27, 26, 26, 25, 25, 25, 24, 24, 24, 24, 23, 23, 22, \n    22, 22, 22, 21, 21, 20, 20, 20, 20, 19, 19, 18, 19, 18, 17, 18, \n    17, 16, 17, 16, 16, 15, 16, 15, 14, 15, 14, 14, 13, 14, 13, 12, \n    13, 12, 12, 12, 11, 12, 11, 10, 11, 10, 10, 10, 10, 9, 9, 9, 9, \n    8, 9, 8, 8, 7, 8, 7, 7, 7, 7, 7, 6, 7, 6, 6, 5, \n    6, 6, 5, 5, 5, 5, 5, 4, 5, 4, 5, 4, 4, 4, 3, 4, \n    4, 3, 4, 3, 3, 3, 3, 3, 3, 2, 3, 2, 3, 2, 2, 3, \n    2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 1, 1, 2, 1, 1, \n    2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, \n    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1\n]    \n     \n# time for other release times are computed as 0.5us * index\nrelease_times_nonperiodic = {\n    285: 0.000143000000,\n    286: 0.000143500000,\n    287: 0.000144000000,\n    288: 0.000145000000,\n    289: 0.000145500000,\n    290: 0.000146500000,\n    291: 0.000147500000,\n    292: 0.000148500000,\n    293: 0.000149500000,\n    294: 0.000150500000,\n    295: 0.000151500000,\n    296: 0.000153000000,\n    297: 0.000154500000,\n    298: 0.000156500000,\n    299: 0.000159000000,\n    300: 0.000161500000,\n    301: 0.000165500000,\n    302: 0.000171500000,\n    303: 0.000192000000\n}\n     \n\n# used from custom_init_and_run\ndef add_release(model, index):\n    \n    if index in release_times_nonperiodic:\n        release_time = release_times_nonperiodic[index]\n    else:\n        release_time = 0.0000005 * index\n    \n    rs = m.ReleaseSite(\n        name = \"release_site_\" + str(index),\n        complex = m.Complex(\"ACh\"),\n        location = release_location,\n        release_time = release_time,\n        number_to_release = numbers_to_release[index - 1]\n    )\n    model.add_release_site(rs)\n\n\ndef custom_init_and_run(model):\n    # When uncommented, this function is called after all the model\n    # components defined in CellBlender were added to the model.\n    # It allows to add additional model components before initialization \n    # is done and then to customize how simulation is ran.\n    \n    # add releases \n    for i in range(1, 304):\n        add_release(model, i)\n    \n    model.initialize()\n    model.run_iterations(parameters.ITERATIONS)\n    model.end_simulation()\n"
-   },
-   "scripting_list": [],
-   "force_property_update": true
+  "scripting" : {
+    "data_model_version" : "DM_2016_03_15_1900",
+    "dm_external_file_name" : "",
+    "dm_internal_file_name" : "",
+    "force_property_update" : true,
+    "script_texts" : {},
+    "scripting_list" : [],
+    "show_data_model_scripting" : false,
+    "show_simulation_scripting" : false,
+    "ignore_cellblender_data": false
   },
   "cellblender_version": "0.1.54",
   "cellblender_source_sha1": "bbd6126a24cf384e21a0c6f8414cfd4f9aeca8f4",
@@ -10412,11 +10403,11 @@
      "variable_rate": "",
      "products": "mind_m,",
      "description": "",
-     "name": "mind_atp,@surf' -> mind_m,",
+     "name": "mind_atp, + surf' -> mind_m,",
      "data_model_version": "DM_2018_01_11_1330",
      "bkwd_rate": "",
      "variable_rate_switch": false,
-     "reactants": "mind_atp,@surf'",
+     "reactants": "mind_atp, + surf'",
      "variable_rate_text": "",
      "variable_rate_valid": false,
      "rxn_name": "",
@@ -10617,7 +10608,7 @@
    "release_pattern_list": []
   },
   "initialization": {
-   "iterations": "10000",
+   "iterations": "5000",
    "surface_grid_density": "4000",
    "warnings": {
     "large_molecular_displacement": "WARNING",
@@ -10658,7 +10649,7 @@
    "vacancy_search_distance": "0.08",
    "center_molecules_on_grid": false,
    "radial_subdivisions": "",
-   "export_all_ascii": false,
+   "export_all_ascii": true,
    "space_step": "",
    "partitions": {
     "recursion_flag": false,
