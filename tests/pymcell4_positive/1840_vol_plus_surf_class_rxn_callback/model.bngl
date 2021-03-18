@@ -1,0 +1,13 @@
+begin parameters
+    MCELL_DIFFUSION_CONSTANT_2D_s 1e-8
+    MCELL_DIFFUSION_CONSTANT_3D_v 1e-6
+end parameters
+
+begin molecule types
+  s
+  v
+end molecule types  
+
+begin seed species
+  v 100
+end seed species  
