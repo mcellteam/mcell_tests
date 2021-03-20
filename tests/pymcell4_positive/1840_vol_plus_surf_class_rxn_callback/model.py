@@ -159,5 +159,5 @@ for i in range(ITERATIONS):
 model.end_simulation()
 
 print("Total number of reactions: " + str(context.count))
-assert context.count == 36
+assert context.count == 41
 
