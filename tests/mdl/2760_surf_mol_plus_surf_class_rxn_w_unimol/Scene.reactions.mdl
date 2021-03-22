@@ -1,0 +1,6 @@
+DEFINE_REACTIONS
+{
+  sa' -> sc' [3e4]
+  sa'@surf' -> sb' [6e4] 
+}
+
