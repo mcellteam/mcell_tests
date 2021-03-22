@@ -1,0 +1,5 @@
+DEFINE_REACTIONS
+{
+  sa'@surf' -> sb' [1e5] 
+}
+
