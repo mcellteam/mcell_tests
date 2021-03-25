@@ -1,0 +1,4 @@
+The release uses region Scene.Cell[ALL] * Scene.Organelle_1[ALL]
+that is the same as Scene.Organelle_1[ALL].
+
+MCell3 gives the same result as MCell4.
