@@ -1,4 +1,4 @@
 Based on 0003_ab_mem_transport_ec2cp_direct,
-tests that release of A@EC correctly overrides the release region EC.
+tests that release of A@EC correctly intersects with the release region EC bbecause compartment is EC[ALL]-CP[ALL].
 
 This does not work in MCell3.
