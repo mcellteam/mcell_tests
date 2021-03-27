@@ -1,0 +1,30 @@
+begin functions
+  # rate is adjusted according to the compartment value
+  # not sure if for nfsim as well
+  k1 = (ticks/10000 * ((sin(ticks/100)+1)*300) * 1e5) / 6.022e8 
+end functions
+
+begin compartments 
+  CP 3 0.25^3
+end compartments
+
+
+begin seed species
+  a@CP 10000
+  b@CP 10000
+  t_gen@CP 1
+end seed species
+
+begin observables
+  Molecules a a
+  Molecules ticks ticks
+end observables
+
+begin reaction rules
+  a + b -> Null k1
+  t_gen -> t_gen + ticks 1e5 # 1 tick per 10 iterations 
+end reaction rules
+
+generate_network({overwrite=>1})
+simulate({method=>"ode",t_end=>1e-1,n_steps=>100000})  
+#simulate({method=>"nf",t_end=>1e-1,n_steps=>100000})
