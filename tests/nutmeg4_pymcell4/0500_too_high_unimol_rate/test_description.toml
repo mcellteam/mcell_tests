@@ -2,7 +2,7 @@ includes = ["exit_code_1"]
 
 [[checks]]
   matchPattern = "higher than the maximum allowed value" 
-  dataFile = "run_%d.0.log"
+  dataFile = "err_%d.0.log"
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"
 
