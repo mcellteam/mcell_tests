@@ -1,0 +1,19 @@
+# optionally generate file with rates
+python generate_rates.py > rates.txt 
+
+# running MCell in MDL mode (not the using the Python API):
+# MCELL_PATH is path to Blender-2.79-CellBlender/2.79/scripts/addons/cellblender/extensions/mcell/
+$MCELL_PATH/mcell -mcell4 Scene.main.mdl
+
+# running BNG:
+# BNG path
+perl '/home/ahusar/bng/RuleBender/BioNetGen/BNG2.pl' variable_rate_unimol.bngl
+mkdir -p nf_00001
+cp variable_rate_unimol.gdat nf_00001/test.gdat 
+
+# generate a plot (expects file nf_00001/test.gdat):
+python $MCELL_PATH/utils/plotter.py -m4 react_data -b .
+
+# a.png then shows how the MCell4 and BNG simulations match 
+
+

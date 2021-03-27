@@ -1,0 +1,5 @@
+DEFINE_REACTIONS
+{
+  a -> NULL  ["rates.txt"] : react_a_to_b
+}
+

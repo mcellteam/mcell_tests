@@ -1,0 +1,22 @@
+begin functions
+  k1 = ticks/10000 * ((sin(ticks/100)+1)*300)
+end functions
+
+begin seed species
+  a 100000
+  t_gen 1
+end seed species
+
+begin observables
+  Molecules a a
+  Molecules ticks ticks
+end observables
+
+begin reaction rules
+  a -> Null k1
+  t_gen -> t_gen + ticks 1e5 # 1 tick per 10 iterations 
+end reaction rules
+
+generate_network({overwrite=>1})
+simulate({method=>"ode",t_end=>1e-1,n_steps=>100000})  
+#simulate({method=>"nf",t_end=>1e-1,n_steps=>100000})
