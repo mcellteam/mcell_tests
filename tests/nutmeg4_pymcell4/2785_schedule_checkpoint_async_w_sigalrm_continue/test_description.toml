@@ -1,0 +1,19 @@
+
+[[checks]]
+  matchPattern = "Signal SIGALRM detected - periodic or time limit elapsed, scheduling a checkpoint and continuing simulation" 
+  dataFile = "run_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = "simulation finished successfully" 
+  dataFile = "run_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 0
+  
+[run]
+  pyfile = "model.py"
