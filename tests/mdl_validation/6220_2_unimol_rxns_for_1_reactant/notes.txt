@@ -5,6 +5,7 @@ Alternative approach would be to compute sum of probabilities
 and compute the unimol time from that, but the MCell results match
 BNG ODE and SSA simulations and this is such a basic feature that it must 
 have been validated already in BNG.    
+Also validated againsty COPASI Gibson+Bruck method.
 
 
 
