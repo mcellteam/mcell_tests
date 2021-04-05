@@ -1,0 +1,24 @@
+This test is to validate that handling unimol rxns by 
+1) selecting the rxn and 2) computing unimol time from the rxn is correct. 
+
+Alternative approach would be to compute sum of probabilities 
+and compute the unimol time from that, but the MCell results match
+BNG ODE and SSA simulations and this is such a basic feature that it must 
+have been validated already in BNG.    
+
+
+
+# running MCell in MDL mode
+$MCELL_PATH/mcell -mcell4 Scene.main.mdl
+
+# running BNG:
+perl '/home/ahusar/bng/RuleBender/BioNetGen/BNG2.pl' 2_unimol_rxns_for_1_reactant.bngl
+mkdir -p nf_00001
+cp 2_unimol_rxns_for_1_reactant.gdat nf_00001/test.gdat 
+
+# generate a plot (expects file nf_00001/test.gdat):
+python $MCELL_PATH/utils/plotter.py -m4 react_data -b .
+
+# a.png then shows how the MCell4 and BNG simulations match 
+
+
