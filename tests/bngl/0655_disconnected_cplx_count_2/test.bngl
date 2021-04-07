@@ -1,0 +1,47 @@
+begin model
+begin parameters
+	ITERATIONS  1
+	
+  MCELL_DIFFUSION_CONSTANT_3D_A 1e-6
+    
+  MCELL_DEFAULT_COMPARTMENT_VOLUME 0.0625^3
+end parameters
+
+begin molecule types
+	A(l,r,s~0~1)
+end molecule types
+
+begin seed species
+	A(l,r!1,s~0).A(l!1,r!2,s~1).A(l!2,r!3,s~0).A(l!3,r!4,s~0).A(l!4,r,s~1)  10
+	
+end seed species
+
+begin observables
+	Molecules MA2xs0 A(s~0).A(s~0)
+	Species   SA2xs0 A(s~0).A(s~0)
+	
+	Molecules MA2xs1 A(s~1).A(s~1)
+  Species   SA2xs1 A(s~1).A(s~1)
+
+  Molecules MAs0s1 A(s~0).A(s~1)
+  Species   SAs0s1 A(s~0).A(s~1)
+  
+  Molecules MA3xs0 A(s~0).A(s~0).A(s~0)
+	Species   SA3xs0 A(s~0).A(s~0).A(s~0)
+
+  Molecules MA3xs1 A(s~1).A(s~1).A(s~1)
+  Species   SA3xs1 A(s~1).A(s~1).A(s~1)
+	
+end observables
+
+begin reaction rules
+  # just to make nfsim happy
+	A(s~0) -> A(s~1) 0
+end reaction rules
+
+end model
+
+
+generate_network({overwrite=>1})
+simulate({method=>"ode",t_end=>1e-5,n_steps=>10})
+
