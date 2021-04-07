@@ -1,0 +1,3 @@
+MCell3R ignores Species/Molecules observable type here and 
+generates Molecules A2xs0_MDLString_Species A(s~0).A(s~0).
+BNG with ODE gives correctly count of 10. 
