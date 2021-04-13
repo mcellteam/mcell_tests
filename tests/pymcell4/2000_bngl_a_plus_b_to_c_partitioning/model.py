@@ -31,7 +31,7 @@ box_no_compartment = m.geometry_utils.create_box(
 )
 
 instantiation = m.Instantiation()
-instantiation.load_bngl_seed_species('test.bngl', box_no_compartment)
+instantiation.load_bngl_compartments_and_seed_species('test.bngl', box_no_compartment)
 instantiation.add_geometry_object(box_no_compartment)
 
 
