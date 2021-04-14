@@ -12,8 +12,8 @@ fi
 
 mkdir -p $3
 cd $3
-python3 $1 $2/test_input.dat > test_output.txt || exit 1
-diff --strip-trailing-cr test_output.txt $2/reference_output.txt
+python3 $1 $2/test_input.species > test_output.species || exit 1
+diff --strip-trailing-cr test_output.species $2/reference_output.species
 EC=$?
 if [ $EC != 0 ]; then
   echo "ERROR: $1 - testing output differs from reference."
