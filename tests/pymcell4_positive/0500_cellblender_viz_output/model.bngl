@@ -1,0 +1,15 @@
+begin parameters
+    MCELL_DIFFUSION_CONSTANT_3D_va 1e-6
+    MCELL_DIFFUSION_CONSTANT_2D_sb 1e-5
+end parameters
+
+begin compartments
+    PM 2 0
+    CP 3 1 PM
+end compartments
+
+begin seed species
+    va@CP 2
+    sb@PM 2
+end seed species  
+
