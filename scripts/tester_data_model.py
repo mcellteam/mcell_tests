@@ -78,7 +78,8 @@ class TesterDataModel(TesterBase):
             shutil.copyfile(os.path.join(viz_res, files[-1]), os.path.join(viz_reference, files[-1]))
             
         # copy the whole react data files 
-        react_reference = os.path.join(self.test_src_path, get_ref_react_data_dir(self.mcell4_testing), seed_dir)
+        react_reference = os.path.join(
+            self.test_src_path, get_ref_react_data_dir(self.mcell4_testing, self.extra_args.mcell4_32), seed_dir)
         react_res = os.path.join(self.test_work_path, get_react_data_dir(self.mcell4_testing), seed_dir)
         
         if os.path.exists(react_res):

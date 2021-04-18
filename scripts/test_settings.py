@@ -129,8 +129,9 @@ REF_REACT_DATA_DIR_3 = 'ref_react_data_3'
 
 VIZ_DATA_DIR_4 = 'viz_data'
 REF_VIZ_DATA_DIR_4 = 'ref_viz_data_4'
+REF_VIZ_DATA_DIR_4_32 = 'ref_viz_data_4_32'
 REACT_DATA_DIR_4 = 'react_data'
-REF_REACT_DATA_DIR_4 = 'ref_react_data_4'
+REF_REACT_DATA_DIR_4_32 = 'ref_react_data_4_32'
 
 # not used by mcell4 testing yet
 DYN_GEOM_DATA_DIR = 'dynamic_geometry'
@@ -146,10 +147,14 @@ def get_viz_data_dir(for_mcell4 = False):
     else:
         return VIZ_DATA_DIR_3
 
-def get_ref_viz_data_dir(for_mcell4 = False):
+def get_ref_viz_data_dir(for_mcell4 = False, mcell4_32 = False):
     if for_mcell4:
-        return REF_VIZ_DATA_DIR_4
+        if mcell4_32:
+            return REF_VIZ_DATA_DIR_4_32
+        else:
+            return REF_VIZ_DATA_DIR_4
     else:
+        assert not mcell4_32
         return REF_VIZ_DATA_DIR_3
     
 def get_react_data_dir(for_mcell4 = False):
@@ -158,10 +163,14 @@ def get_react_data_dir(for_mcell4 = False):
     else:
         return REACT_DATA_DIR_3
 
-def get_ref_react_data_dir(for_mcell4 = False):
+def get_ref_react_data_dir(for_mcell4 = False, mcell4_32 = False):
     if for_mcell4:
-        return REF_REACT_DATA_DIR_4
+        if mcell4_32:
+            return REF_REACT_DATA_DIR_4_32
+        else:
+            return REF_REACT_DATA_DIR_4
     else:
+        assert not mcell4_32
         return REF_REACT_DATA_DIR_3
 
 TEST_SETTINGS_BASE_DIR = os.path.dirname(os.path.realpath(__file__))
