@@ -131,6 +131,7 @@ VIZ_DATA_DIR_4 = 'viz_data'
 REF_VIZ_DATA_DIR_4 = 'ref_viz_data_4'
 REF_VIZ_DATA_DIR_4_32 = 'ref_viz_data_4_32'
 REACT_DATA_DIR_4 = 'react_data'
+REF_REACT_DATA_DIR_4 = 'ref_react_data_4'
 REF_REACT_DATA_DIR_4_32 = 'ref_react_data_4_32'
 
 # not used by mcell4 testing yet

@@ -30,8 +30,9 @@ def create_ref_data_4_32(work_dir, test_dir, test_name):
         copy_test_dir(work_react_seed, test_react_seed, test_react_seed_32)
     
 if __name__ == '__main__':
-    if len(sys.argv) != 4:
-        print("Expecting work directory and test directory and test name")
+    if len(sys.argv) < 4:
+        print("Expecting work directory and test directory and test names")
         sys.exit(1)
     
-    create_ref_data_4_32(sys.argv[1], sys.argv[2], sys.argv[3])
+    for test_name in sys.argv[3:]:
+        create_ref_data_4_32(sys.argv[1], sys.argv[2], test_name)
