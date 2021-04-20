@@ -1,0 +1,3 @@
+Difference between /mnt/code/src4/mcell_tests/tests/mdl/0010_2_mol_types_diffuse_it_3/ref_viz_data_4/seed_00001/Scene.ascii.0.dat and /mnt/code/src4/mcell_tests/tests/mdl/0010_2_mol_types_diffuse_it_3/ref_viz_data_4_32/seed_00001/Scene.ascii.0.dat: Values 0.01999999955 and 0.01995999925 differ.
+cwd: /mnt/code/src4/mcell_tests/tests/mdl
+/mnt/code/src4/mcell_tests/scripts/fdiff/fdiff /mnt/code/src4/mcell_tests/tests/mdl/0010_2_mol_types_diffuse_it_3/ref_viz_data_4/seed_00001/Scene.ascii.0.dat /mnt/code/src4/mcell_tests/tests/mdl/0010_2_mol_types_diffuse_it_3/ref_viz_data_4_32/seed_00001/Scene.ascii.0.dat 1e-6
