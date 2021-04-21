@@ -1,0 +1,12 @@
+DEFINE_SURFACE_CLASSES
+{
+  absorb
+  {
+    ABSORPTIVE = surf1'
+  }
+  reflect
+  {
+    REFLECTIVE = surf1'
+  }
+}
+
