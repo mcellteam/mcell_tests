@@ -30,7 +30,8 @@ model.load_bngl('test.bngl')
 
 # ---- configuration ----
 
-model.config.total_iterations = ITERATIONS 
+model.config.total_iterations = ITERATIONS
+model.warnings.high_reaction_probability = m.WarningLevel.WARNING
 
 
 model.initialize()
