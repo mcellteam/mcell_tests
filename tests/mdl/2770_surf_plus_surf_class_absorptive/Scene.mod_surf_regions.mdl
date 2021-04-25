@@ -1,0 +1,12 @@
+MODIFY_SURFACE_REGIONS
+{
+  Cube[top]
+  {
+    SURFACE_CLASS = absorb
+  }
+  Cube[buttom]
+  {
+    SURFACE_CLASS = reflect
+  }
+}
+

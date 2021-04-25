@@ -1,0 +1,14 @@
+# WARNING: This is an automatically generated file and will be overwritten
+#          by CellBlender on the next model export.
+begin parameters
+end parameters
+
+begin molecule types
+    vol1
+    vol2
+end molecule types
+
+begin reaction rules
+#     reaction '' was generated as Python code because it contains features not supported by BNGL
+end reaction rules
+

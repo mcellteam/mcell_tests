@@ -1,0 +1,12 @@
+DEFINE_MOLECULES
+{
+  vol1
+  {
+    DIFFUSION_CONSTANT_3D = 1e-5
+  }
+  vol2
+  {
+    DIFFUSION_CONSTANT_3D = 1e-6
+  }
+}
+

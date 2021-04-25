@@ -1,0 +1,2 @@
+Issue found by Mariam while preparing tutorials, used to segfault
+MCell4 produces the same result as MCell3 (except for molecule IDs) 

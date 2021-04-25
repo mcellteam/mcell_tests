@@ -1,0 +1,13 @@
+INSTANTIATE Scene OBJECT
+{
+  Cube OBJECT Cube {}
+  Plane OBJECT Plane {}
+  vol1_rel RELEASE_SITE
+  {
+   SHAPE = Scene.Cube
+   MOLECULE = vol1
+   NUMBER_TO_RELEASE = 2000
+   RELEASE_PROBABILITY = 1
+  }
+}
+

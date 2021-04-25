@@ -1,0 +1,3 @@
+Same model and result as validated mdl/2710_vol_plus_surf_class_to_vol_rxn,
+adding python variant to be sure that this works because 
+a segfault was found by user.
