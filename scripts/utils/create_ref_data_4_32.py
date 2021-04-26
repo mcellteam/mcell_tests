@@ -4,17 +4,21 @@ import shutil
 
 
 def copy_test_dir(work_data_dir, test_data_dir, test_data_dir_32):
+    if not os.path.exists(test_data_dir):
+        print("* Skipping " + test_data_dir)
+        return
+    
     files = os.listdir(test_data_dir)
     
     if not os.path.exists(test_data_dir_32):
         os.makedirs(test_data_dir_32)
     
+    print("* Creating " + str(len(files)) + " files in " + test_data_dir_32 + ")")
     for fname in files:
-        print("  - updating " + fname)
         shutil.copy(os.path.join(work_data_dir, fname), os.path.join(test_data_dir_32, fname))
 
 def create_ref_data_4_32(work_dir, test_dir, test_name):
-    print("Updating MCell4 ref data in " + test_dir + " using data from " + work_dir)
+    #print("Updating MCell4 ref data in " + test_dir + " using data from " + work_dir)
 
     work_viz_seed = os.path.join(work_dir, test_name, 'viz_data', 'seed_00001');
     test_viz_seed = os.path.join(test_dir, test_name, 'ref_viz_data_4', 'seed_00001');
