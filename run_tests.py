@@ -24,7 +24,7 @@ Python scripts.
 TODO: some sanity checks would be useful - e.g. testing that it can detect 
 that reference and new data are indeed different.
 
-TODO: build fdiff automatically
+TODO: rebuild fdiff automatically
 """
 
 import os
@@ -107,6 +107,7 @@ class TestOptions:
         self.gen_benchmark_script = False
         self.validation_runs = DEFAULT_VALIDATION_RUNS
         self.erase_after_pass = False
+        self.mcell4_32_ref_data = False
 
     def __repr__(self):
         attrs = vars(self)
@@ -129,6 +130,7 @@ def create_argparse() -> argparse.ArgumentParser:
     parser.add_argument('-x', '--benchmark-script', action='store_true', help='for benchmarks, do not run them but instead generate a script to run them instead')
     parser.add_argument('-v', '--validation-runs', type=str, help='number of validation runs, default is ' + str(DEFAULT_VALIDATION_RUNS))
     parser.add_argument('-e', '--erase-after-pass', action='store_true', help='erase test data after test passed, useful when testing on a machine with limited disk space, default is False')
+    parser.add_argument('-ref32', '--mcell4-32-ref-data', action='store_true', help='use MCell4 32-bit position reference data, default is False')
     return parser
 
 # FIXME: insert into TestOptions class       
@@ -178,6 +180,9 @@ def process_opts() -> TestOptions:
         
     if args.erase_after_pass:
         opts.erase_after_pass = True
+
+    if args.mcell4_32_ref_data:
+        opts.mcell4_32_ref_data = True
         
     return opts
 

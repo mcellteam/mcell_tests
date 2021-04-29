@@ -60,6 +60,9 @@ class ExtraArgs:
         # i.e. to make the argument system more general 
         self.fdiff_datamodel_converter_args = []  
 
+        # 32-bit model of MCell4
+        self.mcell4_32 = False
+
         # parse args.toml if present        
         args_file_name = os.path.join(test_src_path, ARGS_FILE)
         if os.path.exists(args_file_name):
@@ -128,6 +131,8 @@ class TesterBase:
         )
 
         self.extra_args = ExtraArgs(self.test_src_path)
+        
+        self.extra_args.mcell4_32 = self.tool_paths.opts.mcell4_32_ref_data
         
         self.used_seed = None # set in run_* methods
         
@@ -283,12 +288,12 @@ class TesterBase:
             fdiff_args = self.extra_args.fdiff_args
 
         res = self.check_reference(
-            seed_dir, get_ref_viz_data_dir(self.mcell4_testing), get_viz_data_dir(self.mcell4_testing), False, "Viz data diff failed.", fdiff_args, viz_ref_required)
+            seed_dir, get_ref_viz_data_dir(self.mcell4_testing, self.extra_args.mcell4_32), get_viz_data_dir(self.mcell4_testing), False, "Viz data diff failed.", fdiff_args, viz_ref_required)
         if res != PASSED:
             return res
 
         res = self.check_reference(
-            seed_dir, get_ref_react_data_dir(self.mcell4_testing), get_react_data_dir(self.mcell4_testing), False, "React data diff failed.", fdiff_args)
+            seed_dir, get_ref_react_data_dir(self.mcell4_testing, self.extra_args.mcell4_32), get_react_data_dir(self.mcell4_testing), False, "React data diff failed.", fdiff_args)
         if res != PASSED:
             return res
 
