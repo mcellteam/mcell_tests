@@ -1,0 +1,3 @@
+For checking molecules escaping enclosed volume when pos_t is float32. 
+
+Two different partition settings were tested.

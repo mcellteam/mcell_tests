@@ -1,4 +1,4 @@
-Equivalent resuValidated against MCell3 with:
+Validated against MCell3 with:
 
 #define MCELL3_4_ALWAYS_SORT_MOLS_BY_TIME_AND_ID
 #define MCELL3_SORTED_VIZ_OUTPUT
