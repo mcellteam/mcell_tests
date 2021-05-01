@@ -29,8 +29,7 @@ begin species
 end species
 begin reaction rules
 	A(b,p~U) + A(b,p~P)    <->  A(b!1,p~U).A(b!1,p~P)    kon1, koff1
-    #A(b!1,p~U).A(b!1,p~P)   ->  0                        koff2 # mcell3r converter does not handle the '0'
-    A(b!1,p~U).A(b!1,p~P)   ->  Null                        koff2
+    A(b!1,p~U).A(b!1,p~P)   ->  Trash()                        koff2 # mcell3r converter does not handle the '0', but Null is not allowed
     DNA()                   ->  DNA() + A(b,p~U)         koff3
     A(b,p~U)               <->  A(b,p~P)                 koff4, koff5
 end reaction rules

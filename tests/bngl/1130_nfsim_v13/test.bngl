@@ -27,8 +27,7 @@ end species
 begin reaction rules
     DNA()        ->  DNA() + A(b,b,b,c,c,p~P)    koff1
     A(b,c,p~U)  <->  A(b,c,p~P)                  kon2, koff2
-    #A(p~P)       ->  0                           koff3
-    A(p~P)       ->  Null                           koff3
+    A(p~P)       ->  Trash()                          koff3
 end reaction rules
 begin observables
     Molecules Aphos  A(p~P)

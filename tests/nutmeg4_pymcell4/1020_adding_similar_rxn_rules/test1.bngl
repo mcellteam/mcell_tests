@@ -9,9 +9,9 @@ begin reaction rules
     
     X(y,q~B,p~0) + Y(x) -> Y(x!2).X(y!2,q~B,p~0) 456
   
-    Y(x) + Y(x) -> Null 456
+    Y(x) + Y(x) -> 0 456
     
-    W -> Null 111
+    W -> 0 111
     
-    Z -> Null 222
+    Z -> 0 222
 end reaction rules
