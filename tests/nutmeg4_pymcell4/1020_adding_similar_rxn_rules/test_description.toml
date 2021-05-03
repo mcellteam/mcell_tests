@@ -1,7 +1,7 @@
 includes = ["exit_code_1"]
 
 [[checks]]
-  matchPattern = "'Z -> Null' caused an error" 
+  matchPattern = "'Z -> 0' caused an error" 
   dataFile = "run_%d.0.log"
   numMatches = 3
   testType = "FILE_MATCH_PATTERN"
@@ -25,7 +25,7 @@ includes = ["exit_code_1"]
   testType = "FILE_MATCH_PATTERN"
 
 [[checks]]
-  matchPattern = "'W -> Null' is ignored" 
+  matchPattern = "'W -> 0' is ignored" 
   dataFile = "err_%d.0.log"
   numMatches = 3
   testType = "FILE_MATCH_PATTERN"
