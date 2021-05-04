@@ -12,6 +12,12 @@
     
 [[set]]
   category = 'tests'
+  testSet = 'tutorial'
+  testerClass = 'TesterPymcell4'
+  args = ['mcell4']
+        
+[[set]]
+  category = 'tests'
   testSet = 'nutmeg4_pymcell4'
   testerClass = 'TesterNutmegPymcell4'
         
