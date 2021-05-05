@@ -1,5 +1,12 @@
 """
-00-1) 
+0000
+This is the first totorial where we will build a model 
+where a single molecule is released and diffused for 
+10 iterations.
+"""
+
+"""
+0000-1) 
 We will first import the sys and os Python modules.
 """
 import sys
@@ -7,7 +14,7 @@ import os
 
 
 """
-00-2)
+0000-2)
 MCell Python module is distributed in the CellBlender package.
 There are also other tools present, so to make them easily accessible,
 a system variable MCELL_PATH needs to be set after installation.
@@ -33,7 +40,7 @@ else:
     
     
 """
-00-3)
+0000-3)
 Now we can import the MCell4 Python module.
 By convention, it will be imported under name 'm'. 
 """    
@@ -41,7 +48,7 @@ import mcell as m
     
     
 """
-00-4)
+0000-4)
 In this first tutorial, we will release a single volume molecule 
 and let it freely diffuse in space.
 We need to define the molecule's species with its diffusion
@@ -54,7 +61,7 @@ species_a = m.Species(
 
 
 """
-00-5)
+0000-5)
 Now we define a release site telling to release 1 molecule a
 at x,y,z location 0, 0, 0 (units are in micrometers).
 The reason why the argument that sets the species is called 
@@ -70,7 +77,7 @@ release_site_a = m.ReleaseSite(
 
 
 """
-00-6)
+0000-6)
 We could define our model and run the simulation
 now, but we would not get any output.
 We would like to see where the molecule diffuses and 
@@ -86,7 +93,7 @@ viz_output = m.VizOutput(
 
     
 """
-00-7)
+0000-7)
 We can build the model now by creating a Model object 
 and adding the species, release site, and viz_output to it.
 """
@@ -97,7 +104,7 @@ model.add_viz_output(viz_output)
 
 
 """
-00-8)
+0000-8)
 The model is ready, so we can initialize it and  
 run it for 10 iterations. 
 Tthe subsequenct call to end_simulation stores the 
@@ -108,8 +115,9 @@ model.initialize()
 model.run_iterations(10)
 model.end_simulation()
 
+
 """
-00-9)
+0000-9)
 Open a terminal (command line), change the current directory 
 to the directory where this file is stored and run:
 
@@ -139,7 +147,7 @@ a 0 -0.00204423885 0.0107041633 -0.0267571038 0 0 0
 
 
 """
-00-10)
+0000-10)
 We can also use CellBlender to visualize the trajectory. 
 To do this:
 1) start CellBlender with ./my_blender or blender.exe,
