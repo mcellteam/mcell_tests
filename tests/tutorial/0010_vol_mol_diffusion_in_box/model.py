@@ -147,7 +147,7 @@ is defined by the Python code, we need a way how to export
 this information so that Blender or other tools can read and 
 display it.
 """
-model.export_geometry_as_obj()
+model.export_geometry()
 
 """
 0010-6)
