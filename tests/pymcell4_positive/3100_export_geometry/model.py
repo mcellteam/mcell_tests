@@ -1,6 +1,6 @@
 import sys
 import os
-
+import filecmp
 
 MCELL_PATH = os.environ.get('MCELL_PATH', '')
 if MCELL_PATH:
@@ -30,8 +30,14 @@ model.add_geometry_object(box3)
 
 model.initialize()
 
-model.export_geometry("geometry")
+prefix = 'geometry'
+model.export_geometry(prefix)
 
 model.end_simulation()
 
 # check outputs
+MODEL_PATH = os.path.dirname(os.path.abspath(__file__))
+
+assert filecmp.cmp(prefix+'.obj', os.path.join(MODEL_PATH, 'ref_' + prefix + '.obj'), shallow = False)
+assert filecmp.cmp(prefix+'.mtl', os.path.join(MODEL_PATH, 'ref_' + prefix + '.mtl'), shallow = False)
+
