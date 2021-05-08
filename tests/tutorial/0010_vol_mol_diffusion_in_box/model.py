@@ -49,7 +49,7 @@ release_site_a = m.ReleaseSite(
 
 #0000-6)
 viz_output = m.VizOutput(
-    output_files_prefix = './viz_data/seed_00000/Scene',
+    output_files_prefix = './viz_data/seed_00001/Scene',
 )
 
 
@@ -73,14 +73,14 @@ The box_vertex_list contains triplets of x, y, z coordinates
 and uses um (micrometer) units.
 """
 box_vertex_list = [
-    [-0.125, -0.125, -0.125],   # 0
-    [-0.125, -0.125, 0.125],    # 1
-    [-0.125, 0.125, -0.125],    # 2
-    [-0.125, 0.125, 0.125],     # 3
-    [0.125, -0.125, -0.125],    # 4
-    [0.125, -0.125, 0.125],     # 5
-    [0.125, 0.125, -0.125],     # 6
-    [0.125, 0.125, 0.125]       # 7
+    [-0.1, -0.1, -0.1],   # 0
+    [-0.1, -0.1, 0.1],    # 1
+    [-0.1, 0.1, -0.1],    # 2
+    [-0.1, 0.1, 0.1],     # 3
+    [0.1, -0.1, -0.1],    # 4
+    [0.1, -0.1, 0.1],     # 5
+    [0.1, 0.1, -0.1],     # 6
+    [0.1, 0.1, 0.1]       # 7
 ] 
 
 
@@ -91,8 +91,8 @@ three vertices.
 """
 box_wall_list = [
     # [1, 2, 0] defines a triangle connecting vertices 
-    # [-0.125, -0.125, 0.125], [-0.125, 0.125, -0.125], and
-    # [-0.125, -0.125, -0.125]
+    # [-0.1, -0.1, 0.1], [-0.1, 0.1, -0.1], and
+    # [-0.1, -0.1, -0.1]
     [1, 2, 0],  
     [3, 6, 2], 
     [7, 4, 6], 
@@ -138,16 +138,22 @@ model.add_geometry_object(box)
 #0000-8)
 model.initialize()
 
+
 """
 0010-5)
 In the previous tutorial model 0000, there was a prepared 
 CellBlender project file viz.blend file used to visualize
 the simulation. Since the model including its geometry 
 is defined by the Python code, we need a way how to export 
-this information so that Blender or other tools can read and 
-display it.
+this information so that CellBlender can read and display it.
+
+The method export_viz_data_model when not arguments are given,
+it uses output_files_prefix from the first VizOutput object 
+present in the model (we have just one), and generates 
+a JSON file (Data Model) into the visualization directory.  
 """
-model.export_geometry()
+model.export_viz_data_model()
+
 
 """
 0010-6)
@@ -169,40 +175,50 @@ Information on the progress of simulation and
 final statistics are printed.
 We can now take a look at the visualization output files. 
    
-Under directory viz_data/seed_00000/, there are
-files Scene.ascii.0000000.dat - Scene.ascii.0000010.dat
+Under directory viz_data/seed_00001/, there are
+the usual files Scene.ascii.0000000.dat - Scene.ascii.0000100.dat
 that contain location of the molecule.   
 
-The format of visyalization data is:
-species_name id x y z nx ny nz
- 
-Where x,y,z is the location (in um) and nx,ny,nz is the normal vector 
-that is always 0,0,0 for volume molecules. 
-
-The first location right after release is in Scene.ascii.0000000.dat:
-a 0 0 0 0 0 0 0
-
-And the final location is in Scene.ascii.0000010.dat:
-a 0 -0.00204423885 0.0107041633 -0.0267571038 0 0 0
-(the actual positions may differ)
+Additionally, there is also Scene.data_model.0000000.json
+than contains information about model's geometry.
 """
 
 
+#0000-10)
 """
-0000-10)
-We can also use CellBlender to visualize the trajectory. 
+0010-7)
+We can also use CellBlender to visualize the trajectory 
+but we will use the data model fiel instead of the viz.blend file in 
+the previous tutorial section.
+  
 To do this:
 1) start CellBlender with ./my_blender or blender.exe,
-2) open file viz.blend (in the same directory as this script),
+2) through File -> Import -> CellBlender Model and Geometry (JSON)
+   import file viz_data/seed_00001/Scene.data_model.0000000.json
 3) select panel Visualization Settings,
-4) click on Read Viz Data and navigate to directory viz_data/seed_00000/,
-5) click on Play Animation button (Triangle aiming to the left) 
+4) select checkbox Manulally Select Viz Directory
+5) click on Read Viz Data and navigate to directory viz_data/seed_00000/,
+6) click on Play Animation button (Triangle aiming to the left) 
    on the middle bottom of the CellBlender window.
    
 You should see how the molecule diffuses around during the 
-10 iterations.
+100 iterations and how it reflects from the walls of our box.
+"""
 
-This concludes the first section of the MCell4 Python tutorial
-where we created a model that releases a single molecule and 
-simulates its diffusion.
+
+"""
+0010-8)
+The process above that uses the CellBlender's graphical interface 
+may be too time consuming, especially when debugging the model. 
+There is also a way to run it from the terminal by executing:
+
+$MCELL_PATH/utils/visualize.sh viz_data/seed_00001/
+
+This way, one can visualize the model simply by runing a single 
+command. 
+
+This concludes the second section of the MCell4 Python tutorial
+where we added a box to out existing model, exported the 
+geometry in the format of a data model and visualized it in 
+CellBlender.  
 """    

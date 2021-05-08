@@ -84,11 +84,11 @@ We would like to see where the molecule diffuses and
 for this, we will define a VizOutput object that then tells 
 to store the locations of molecules in text files on each 
 iteration. The default location for these files is 
-under /viz_data/seed_00000/ (where the 0 is our seed value) and 
-they use prefix Scene, so we will use the same convention here.
+under /viz_data/seed_00001/ (where the 1 is the default seed value) 
+and a prefix Scene is used, so we will use the same convention here.
 """
 viz_output = m.VizOutput(
-    output_files_prefix = './viz_data/seed_00000/Scene',
+    output_files_prefix = './viz_data/seed_00001/Scene',
 )
 
     
@@ -127,7 +127,7 @@ Information on the progress of simulation and
 final statistics are printed.
 We can now take a look at the visualization output files. 
    
-Under directory viz_data/seed_00000/, there are
+Under directory viz_data/seed_00001/, there are
 files Scene.ascii.0000000.dat - Scene.ascii.0000010.dat
 that contain location of the molecule.   
 
