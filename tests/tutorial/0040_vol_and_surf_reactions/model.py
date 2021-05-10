@@ -44,12 +44,7 @@ organelle_1 = m.geometry_utils.create_icosphere(
 organelle_1.translate((0, -0.2, 0))
 
 
-"""
-0030-1)
-We are going to create a sphere that represents a cell. 
-The size of the cell is such that it completely contains 
-the Organelle_1. 
-"""
+#0030-1)
 cell = m.geometry_utils.create_icosphere(
     name = 'Cell', 
     radius = 0.6, 
@@ -58,7 +53,7 @@ cell = m.geometry_utils.create_icosphere(
 
 
 """
-0030-2)
+0040-1)
 We will define new species and also define releases of these molecules. 
 Open file 'model.bngl' and follow the tutorial present in this 
 directory's file called also model.bngl.
@@ -73,16 +68,13 @@ model.add_viz_output(viz_output)
 model.add_geometry_object(organelle_1)
 
 
-"""
-0030-11)
-Add the cell geometry object to our model.
-"""
+#0030-11)
 model.add_geometry_object(cell)
 
 
 #0030-6)
 """
-0040-12)
+0040-10)
 Associate geometry objects with BNGL compartments.
 For 3D (volume) compartments the name of the geopmetry object is 
 used as the compartment name. To match the 2D (surface) compartment 
@@ -96,7 +88,7 @@ cell.is_bngl_compartment = True
 
 #0030-7)
 """
-0040-13)
+0040-11)
 Load the BNGL file located in the same directory as this Python script. 
 """
 MODEL_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -117,14 +109,14 @@ model.end_simulation()
 
 
 """
-0040-14)
+0040-12)
 Run the model:
 
 > python model.py
 """
 
 """
-0040-15)
+0040-13)
 And visualize it:
 
 $MCELL_PATH/utils/visualize.sh viz_data/seed_00001/
