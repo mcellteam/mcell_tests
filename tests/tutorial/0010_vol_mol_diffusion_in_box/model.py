@@ -1,7 +1,7 @@
 """
 0010
-In this tutorial, we will start from 0000_vol_mol_diffusion/model.py and
-add a box that reflects molecules.
+In this tutorial section, we will start from 
+0000_vol_mol_diffusion/model.py and add a box that reflects molecules.
 We will also export the geometry so the model can be visualized in 
 CellBlender directly just using information provided in this 
 model file. 
@@ -55,7 +55,7 @@ viz_output = m.VizOutput(
 
 """
 0010-1)
-The main difference from our previous tutorial is 
+The main difference from our previous tutorial section is 
 that we will create a geometry object in the shape of a cube.
 Geometry objects are defined using a list of vertices and 
 a list of walls.
