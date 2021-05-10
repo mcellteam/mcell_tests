@@ -1,7 +1,7 @@
 """
-0040
+0050
 In this tutorial section, we will continue with the model 
-we created in section 0030_mol_release_with_bngl_and_compartments,
+we created in section 0040_vol_and_surf_reactions,
 add one more sphere representing a cell and
 define a transport and volume-volume reactions.  
 """
@@ -54,7 +54,7 @@ cell = m.geometry_utils.create_icosphere(
 
 """
 0050-1)
-We will define observavbles using the BioNetGen language. 
+We will define observables using the BioNetGen language. 
 Open file 'model.bngl' and follow the tutorial present in this 
 directory's file called also model.bngl.
 """
