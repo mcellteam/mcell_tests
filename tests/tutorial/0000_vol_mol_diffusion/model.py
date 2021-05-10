@@ -107,7 +107,7 @@ model.add_viz_output(viz_output)
 0000-8)
 The model is ready, so we can initialize it and  
 run it for 10 iterations. 
-Tthe subsequenct call to end_simulation stores the 
+The subsequent call to end_simulation stores the 
 last outputs, flushes any buffers, and prints 
 final simulation statistics.
 """
@@ -131,7 +131,7 @@ Under directory viz_data/seed_00001/, there are
 files Scene.ascii.0000000.dat - Scene.ascii.0000010.dat
 that contain location of the molecule.   
 
-The format of visyalization data is:
+The format of visualization data is:
 species_name id x y z nx ny nz
  
 Where x,y,z is the location (in um) and nx,ny,nz is the normal vector 
