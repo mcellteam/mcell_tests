@@ -111,14 +111,14 @@ model.end_simulation()
 
 
 """
-#0030-8)
+0030-8)
 Run the model:
 
 > python model.py
 """
 
 """
-#0030-8)
+0030-8)
 And visualize it:
 
 $MCELL_PATH/utils/visualize.sh viz_data/seed_00001/
