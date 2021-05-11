@@ -140,11 +140,11 @@ count of molecules matching pattern 'a'.
 ...
 
 There are many ways how to visualize the .dat files,
-an example python script is provided in directory _common.
+a utility python script is provided with MCell.
 To use it to display the data, run the script below 
 with argument pointing to the directory with our observable files: 
 
-> python ../_common/plot_observables.py react_data/seed_00001/
+> python $MCELL_PATH/utils/plot_single_run.py react_data/seed_00001/
 
 We ran the simulation just for 100 iterations (100 us because 
 the default tiem step is 1 us), so no big changes are 

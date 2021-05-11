@@ -179,7 +179,7 @@ with the transporter 't2'.
 
 Let's check the plots now:
 
-> python ../_common/plot_observables.py react_data/seed_00001/
+> python $MCELL_PATH/utils/plot_single_run.py react_data/seed_00001/
 
 You can see there how the number of specific molecules evolves over 
 time, for instance you can zoom on to the lower counts 

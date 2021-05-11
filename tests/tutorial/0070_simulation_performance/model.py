@@ -311,7 +311,7 @@ Take a look at the model visualization:
 
 And check the plots:
 
-> python ../_common/plot_observables.py react_data/seed_00001/
+> python $MCELL_PATH/utils/plot_single_run.py react_data/seed_00001/
 
 
 Congratulations, you just finished the MCell4 Python API 
