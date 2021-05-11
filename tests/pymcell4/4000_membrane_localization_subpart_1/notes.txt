@@ -1,0 +1,9 @@
+Model based on  
+https://github.com/spatialnimbios/testcases/tree/master/Intermediate/MembraneLocalization
+
+Introduced in article:
+https://www.molbiolcell.org/doi/10.1091/mbc.E20-08-0530
+
+from chapter 2.A
+
+Validated against results in that article - figure 5.

@@ -1,0 +1,50 @@
+begin parameters
+
+  um2s_to_cm2s 1e-8
+  uM_to_M 1e6
+  
+  MCELL_DIFFUSION_CONSTANT_3D_A 50 * um2s_to_cm2s
+  MCELL_DIFFUSION_CONSTANT_3D_B 50 * um2s_to_cm2s
+  MCELL_DIFFUSION_CONSTANT_2D_M 0.5 * um2s_to_cm2s
+  
+  # not using complexes because we need to use provided diffusion constants
+  MCELL_DIFFUSION_CONSTANT_3D_AB 25 * um2s_to_cm2s
+  MCELL_DIFFUSION_CONSTANT_2D_MA 0.495 * um2s_to_cm2s
+  MCELL_DIFFUSION_CONSTANT_2D_BM 0.495 * um2s_to_cm2s
+  
+  MCELL_DIFFUSION_CONSTANT_2D_MAB 0.49 * um2s_to_cm2s
+  MCELL_DIFFUSION_CONSTANT_2D_ABM 0.49 * um2s_to_cm2s
+  MCELL_DIFFUSION_CONSTANT_2D_MABM 0.2475 * um2s_to_cm2s
+  
+end parameters
+
+begin seed species
+  A@box 665
+  B@box 662
+  # M@PM 3755 - must be released to the bottom of the box
+end seed species
+
+begin compartments
+  PM 2 0
+  box 3 1 PM
+end compartments  
+
+begin reaction rules
+  # uM-1s-1, s-1
+  A + B <-> AB  0.05  *uM_to_M  , 1.0 
+  M + A@IN <-> MA  2.0  *uM_to_M  , 1.0 
+  M + B@IN <-> BM  2.0  *uM_to_M  , 1.0 
+  M + AB@IN <-> MAB  2.0  *uM_to_M  , 1.0 
+  M + AB@IN <-> ABM  2.0  *uM_to_M  , 1.0 
+  MA + B@IN <-> MAB  0.05   *uM_to_M  , 1.0 
+  BM + A@IN <-> ABM  0.05   *uM_to_M  , 1.0 
+  
+  # um^2/s, s-1
+  MA + BM <-> MABM  0.0415    , 1.0 
+  MAB + M <-> MABM  1.6611    , 1.0 
+  ABM + M <-> MABM  1.6611    , 1.0 
+end reaction rules
+
+begin observables
+  Molecules MA MA
+end observables
