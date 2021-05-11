@@ -50,7 +50,7 @@ viz_output = m.VizOutput(
 
 #0010-1)
 """
-#0020-1)
+0020-1)
 In the previous section we created a simple box inside the 
 simulation. Simple primitives (cube and icosphere) can
 be also created using methods provided in a submodule     
@@ -77,7 +77,7 @@ organelle_1 = m.geometry_utils.create_icosphere(
 
 
 """
-#0020-2)
+0020-2)
 We can also move our icosphere a bit (0.2 um) to the left.
 The reason why we are doing this is that we will be adding 
 other objects later. 
@@ -93,7 +93,7 @@ model.add_viz_output(viz_output)
 
 #0010-4)
 """
-#0020-2)
+0020-2)
 Replace the addition geometry object called 'box' with 'organelle_1'.
 """
 model.add_geometry_object(organelle_1)
@@ -115,7 +115,7 @@ model.end_simulation()
 #0000-9)
 #0010-7)
 """
-#0020-3)
+0020-3)
 Run the model:
 
 > python model.py
