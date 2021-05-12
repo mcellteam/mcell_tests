@@ -63,11 +63,17 @@ class BenchmarkBngl(BenchmarkMdl):
             # do not run the benchmark, apped it to a script instead
             with open(self.tool_paths.benchmark_script, 'a') as f:
                 f.write('echo \*\*\* ' + self.test_name + '\*\*\*\n')
-                f.write('cd ' + os.getcwd() + '\n')  
-                f.write(export_str + mcell_run_str + ' > bench.' + log_name + ' 2>&1\n')
-                #f.write(export_str + mcell_run_str + ' > bench.' + log_name + ' 2>&1\n')
-                #f.write('grep "     instructions:u" bench.' + log_name + '\n')
-                f.write('grep "Simulation CPU time without iteration 0" bench.' + log_name + '\n')
+                f.write('cd ' + os.getcwd() + '\n')
+                
+                if not self.tool_paths.opts.gen_benchmark_script_mem:
+                    f.write(export_str + mcell_run_str + ' > bench.' + log_name + ' 2>&1\n')
+                    f.write('grep "Simulation CPU time without iteration 0" bench.' + log_name + '\n')
+                else:
+                    f.write(export_str)
+                    f.write('valgrind --tool=massif --pages-as-heap=yes --massif-out-file=massif.out ')
+                    f.write(mcell_run_str + ' > bench.' + log_name + ' 2>&1 \n')
+                    f.write('grep mem_heap_B massif.out | sed -e \'s/mem_heap_B=\(.*\)/\\1/\' | sort -g | tail -n 1\n')
+                
                 f.write('echo "----"\n\n')
             return SKIPPED
         

@@ -105,6 +105,7 @@ class TestOptions:
         self.update_reference = False
         self.extra_reports = False
         self.gen_benchmark_script = False
+        self.gen_benchmark_script_mem = False
         self.validation_runs = DEFAULT_VALIDATION_RUNS
         self.erase_after_pass = False
         self.mcell4_32_ref_data = False
@@ -128,6 +129,7 @@ def create_argparse() -> argparse.ArgumentParser:
     parser.add_argument('-u', '--update-reference', action='store_true', help='update reference (works currently only for benchmarks)')
     parser.add_argument('-r', '--extra-reports', action='store_true', help='print extra reports (works currently only for benchmarks)')
     parser.add_argument('-x', '--benchmark-script', action='store_true', help='for benchmarks, do not run them but instead generate a script to run them instead')
+    parser.add_argument('-y', '--benchmark-script-mem', action='store_true', help='for benchmarks, do not run them but instead generate a script to run them instead and output memory usage')
     parser.add_argument('-v', '--validation-runs', type=str, help='number of validation runs, default is ' + str(DEFAULT_VALIDATION_RUNS))
     parser.add_argument('-e', '--erase-after-pass', action='store_true', help='erase test data after test passed, useful when testing on a machine with limited disk space, default is False')
     parser.add_argument('-ref32', '--mcell4-32-ref-data', action='store_true', help='use MCell4 32-bit position reference data, default is False')
@@ -174,6 +176,11 @@ def process_opts() -> TestOptions:
     if args.benchmark_script:
         opts.sequential = True
         opts.gen_benchmark_script = True
+
+    if args.benchmark_script_mem:
+        opts.sequential = True
+        opts.gen_benchmark_script = True
+        opts.gen_benchmark_script_mem = True
         
     if args.validation_runs:
         opts.validation_runs = int(args.validation_runs)

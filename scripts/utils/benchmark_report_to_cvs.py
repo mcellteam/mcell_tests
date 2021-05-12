@@ -11,6 +11,12 @@ def process_benchmark_report():
             elif line.startswith('Simulation'):
                 time = line.split()[7]
                 print(time)
+            else:
+                try:
+                    int(line.strip())
+                    print(line)
+                except:
+                    pass
             
         except EOFError:
             # no more information
