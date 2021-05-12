@@ -16,3 +16,4 @@
 /**/*.pyc
 /make.log
 scripts/fdiff/fdiff.dSYM
+/tmp/
