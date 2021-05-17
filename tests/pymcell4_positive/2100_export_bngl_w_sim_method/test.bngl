@@ -1,0 +1,28 @@
+
+begin parameters
+    MCELL_DIFFUSION_CONSTANT_3D_X 1e-6
+    MCELL_DIFFUSION_CONSTANT_3D_Y 1e-6
+end parameters
+
+begin molecule types
+    X(y,p~0~1,q~A~B)
+    Y(x) 
+end molecule types
+
+begin compartments
+    CP 3 1
+end compartments    
+
+begin seed species
+    X(y,p~0,q~A)@CP 10
+    Y(x)@CP 10
+end seed species
+
+begin reaction rules
+    X(p~0,q~A,y!1).Y(x!1)  <->  Y(x) + X(y,p~0,q~A) 123, 555
+    
+    X(y,q~B,p~0) + Y(x) -> Y(x!2).X(y!2,q~B,p~0) 456
+  
+    Y(x) + Y(x) -> 0 456
+
+end reaction rules
