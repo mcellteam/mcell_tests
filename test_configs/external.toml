@@ -42,7 +42,7 @@
   testerClass = 'TesterExternal'
   args = [
     'python3', 
-    '$MCELL_TESTS_DIR/../bnglib/test/test.py', 
+    '$MCELL_TESTS_DIR/../libbng/test/test.py', 
     '$MCELL_BUILD_DIR/bin'
   ]
 
