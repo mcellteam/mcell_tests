@@ -61,10 +61,17 @@ KEY_COMMAND_LINE_OPTIONS = 'commandlineOpts'
 KEY_MDL_FILES = 'mdlfiles'
 KEY_PY_FILE = 'pyfile'
 KEY_JSON_FILE = 'jsonFile'
+KEY_BNGL_MODE = 'bnglMode' # used only when jsonFile is used
 KEY_MAX_MEMORY = 'maxMemory'
 
-SUBKEYS_RUN = [KEY_COMMAND_LINE_OPTIONS, KEY_MDL_FILES, KEY_PY_FILE, KEY_JSON_FILE, KEY_MAX_MEMORY]
-
+SUBKEYS_RUN = [
+    KEY_COMMAND_LINE_OPTIONS, 
+    KEY_MDL_FILES, 
+    KEY_PY_FILE, 
+    KEY_JSON_FILE, 
+    KEY_BNGL_MODE, 
+    KEY_MAX_MEMORY
+]
 
 KEY_CHECKS = 'checks'
 
@@ -161,6 +168,7 @@ class RunInfo:
     def __init__(self):
         self.mdl_files = []
         self.json_file = None
+        self.bngl_mode = False # used only when json_file is set
         self.command_line_options = []
         self.max_memory = None
 
@@ -213,6 +221,9 @@ class TestDescriptionParser:
 
         if KEY_JSON_FILE in run_dict:
             res.json_file = run_dict[KEY_JSON_FILE]
+
+        if KEY_BNGL_MODE in run_dict:
+            res.bngl_mode = run_dict[KEY_BNGL_MODE]
 
         if KEY_MAX_MEMORY in run_dict:
             res.max_memory = run_dict[KEY_MAX_MEMORY]
@@ -581,7 +592,8 @@ class TesterNutmeg(TesterBase):
                 
         # 1) convert json file if needed
         if test_description.run_info.json_file: 
-            res = self.run_dm_to_mdl_conversion(os.path.join(self.test_src_path, test_description.run_info.json_file))
+            res = self.run_dm_to_mdl_conversion(
+                os.path.join(self.test_src_path, test_description.run_info.json_file))
             if res != PASSED:
                 return res
             test_description.run_info.mdl_files = [ MAIN_MDL_FILE ]

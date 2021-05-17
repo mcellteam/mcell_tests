@@ -88,6 +88,9 @@ class TesterNutmegPymcell4(TesterNutmeg):
         assert run_info.json_file
         cmd = [ self.tool_paths.data_model_to_pymcell_binary, os.path.join(self.test_src_path, run_info.json_file) ]
         
+        if run_info.bngl_mode:
+            cmd.append('-b')
+                
         # run_info.command_line_options - not supported yet
         cmdstr = ' '.join(cmd) 
         
