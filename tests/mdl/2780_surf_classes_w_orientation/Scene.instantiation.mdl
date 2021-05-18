@@ -1,0 +1,12 @@
+INSTANTIATE Scene OBJECT
+{
+  Cube OBJECT Cube {}
+  surf1_rel RELEASE_SITE
+  {
+   SHAPE = Scene.Cube
+   MOLECULE = surf1'
+   NUMBER_TO_RELEASE = 100
+   RELEASE_PROBABILITY = 1
+  }
+}
+

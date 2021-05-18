@@ -1,0 +1,3 @@
+Identical result as in MCell3 obtained with: 
+
+#define MCELL3_UNIMOL_RX_ABSORB_NO_RNG
