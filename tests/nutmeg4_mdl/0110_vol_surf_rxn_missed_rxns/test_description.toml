@@ -1,7 +1,7 @@
 # same report as MCell3
 
 [[checks]]
-  matchPattern = "53.695% of reactions missed" 
+  matchPattern = "94.691% of reactions missed" 
   dataFile = "err_%d.0.log"
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"

@@ -1,9 +1,9 @@
-# same report as MCell3
+# same report as MCell3 (no report)
 
 [[checks]]
-  matchPattern = "53.695% of reactions missed" 
+  matchPattern = "reactions missed" 
   dataFile = "err_%d.0.log"
-  numMatches = 1
+  numMatches = 0
   testType = "FILE_MATCH_PATTERN"
 
 [[checks]]
