@@ -1,0 +1,5 @@
+DEFINE_REACTIONS
+{
+  a+b -> c [5e9] : react_a_and_b
+}
+
