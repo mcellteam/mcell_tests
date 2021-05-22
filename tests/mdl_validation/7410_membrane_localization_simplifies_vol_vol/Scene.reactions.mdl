@@ -1,0 +1,6 @@
+DEFINE_REACTIONS
+{
+  A + B -> AB [50000e2] //: A + B -> AB
+  //AB -> A + B [10] //: AB -> A + B
+}
+

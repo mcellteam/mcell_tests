@@ -1,0 +1,6 @@
+REACTION_DATA_OUTPUT
+{
+  STEP=1.00000000000000002e-02
+  {COUNT[A,WORLD]} =>  "./react_data/seed_" & seed & "/A_MDLString.dat"
+}
+

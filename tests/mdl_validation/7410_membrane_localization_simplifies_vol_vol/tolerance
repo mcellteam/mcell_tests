@@ -1,0 +1,20 @@
+0.4
+
+4096 runs:
+
+MCell3R:
+A                              93.8987
+AB                             6.1013
+B                              93.8987
+
+MCell4:
+A                              93.9211
+AB                             6.0789
+B                              93.9211
+
+
+--- Validation results MCell4 vs MCell3R ---
+A                             : 0.024% (MCell4: 93.9211, MCell3: 93.8987)
+AB                            : 0.368% (MCell4: 6.0789, MCell3: 6.1013)
+B                             : 0.024% (MCell4: 93.9211, MCell3: 93.8987)
+--------------------------
