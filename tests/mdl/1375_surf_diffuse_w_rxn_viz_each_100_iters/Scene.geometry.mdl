@@ -1,0 +1,16 @@
+Plane POLYGON_LIST
+{
+  VERTEX_LIST
+  {
+    [ 0.2, 0.2, 0 ]
+    [ -0.2, 0.2, 0 ]
+    [ 0.2, -0.2, 0 ]
+    [ -0.2, -0.2, 0 ]
+  }
+  ELEMENT_CONNECTIONS
+  {
+    [ 2, 0, 1 ]
+    [ 2, 1, 3 ]
+  }
+}
+
