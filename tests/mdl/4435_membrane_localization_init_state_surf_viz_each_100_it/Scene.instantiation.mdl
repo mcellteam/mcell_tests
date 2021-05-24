@@ -1,0 +1,52 @@
+INSTANTIATE Scene OBJECT
+{
+  box OBJECT box {}
+  rel_ma RELEASE_SITE
+  {
+   SHAPE = Scene.box[bottom]
+   MOLECULE = MA'
+   NUMBER_TO_RELEASE = 50
+   RELEASE_PROBABILITY = 1
+  }
+  
+  rel_mb RELEASE_SITE
+  {
+   SHAPE = Scene.box[bottom]
+   MOLECULE = BM'
+   NUMBER_TO_RELEASE = 50
+   RELEASE_PROBABILITY = 1
+  }
+  
+  rel_m RELEASE_SITE
+  {
+   SHAPE = Scene.box[bottom]
+   MOLECULE = M'
+   NUMBER_TO_RELEASE = 50
+   RELEASE_PROBABILITY = 1
+  }
+  
+  rel_mab RELEASE_SITE
+  {
+   SHAPE = Scene.box[bottom]
+   MOLECULE = MAB'
+   NUMBER_TO_RELEASE = 50
+   RELEASE_PROBABILITY = 1
+  }
+
+  rel_abm RELEASE_SITE
+  {
+   SHAPE = Scene.box[bottom]
+   MOLECULE = ABM'
+   NUMBER_TO_RELEASE = 50
+   RELEASE_PROBABILITY = 1
+  }
+  
+  rel_mabm RELEASE_SITE
+  {
+   SHAPE = Scene.box[bottom]
+   MOLECULE = MABM'
+   NUMBER_TO_RELEASE = 50
+   RELEASE_PROBABILITY = 1
+  }
+}
+

@@ -1,0 +1,2 @@
+Validated against MCell3 with attached debug_config.h. 
+mcell commit e41133b50f8f2d74f6ddbc5eb465d71de17e0ebc

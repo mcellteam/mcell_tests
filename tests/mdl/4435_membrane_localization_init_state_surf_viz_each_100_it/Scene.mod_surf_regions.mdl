@@ -1,0 +1,8 @@
+MODIFY_SURFACE_REGIONS
+{
+  box[bottom]
+  {
+    SURFACE_CLASS = reflect_edge
+  }
+}
+

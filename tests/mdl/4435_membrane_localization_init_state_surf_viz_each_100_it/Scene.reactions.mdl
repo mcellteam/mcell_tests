@@ -1,0 +1,26 @@
+DEFINE_REACTIONS
+{
+  /*A + B -> AB [50000] //: A + B -> AB
+  AB -> A + B [1] //: AB -> A + B
+  M' + A, -> MA' [2e+06] //: M' + A, -> MA'
+  MA' -> M' + A, [1] //: MA' -> M' + A,
+  M' + B, -> BM' [2e+06] //: M' + B, -> BM'
+  BM' -> M' + B, [1] //: BM' -> M' + B,
+  M' + AB, -> MAB' [2e+06] //: M' + AB, -> MAB'
+  MAB' -> M' + AB, [1] //: MAB' -> M' + AB,
+  M' + AB, -> ABM' [2e+06] //: M' + AB, -> ABM'
+  ABM' -> M' + AB, [1] //: ABM' -> M' + AB,
+  MA' + B, -> MAB' [50000] //: MA' + B, -> MAB'
+  MAB' -> MA' + B, [1] //: MAB' -> MA' + B,
+  BM' + A, -> ABM' [50000] //: BM' + A, -> ABM'
+  ABM' -> BM' + A, [1] //: ABM' -> BM' + A,*/
+  
+  MA' + BM' -> MABM' [0.041500000000000002] //: MA' + BM' -> MABM'
+  MABM' -> MA' + BM' [1] //: MABM' -> MA' + BM'
+  
+  MAB' + M' -> MABM' [1.6611] //: MAB' + M' -> MABM'
+  MABM' -> MAB' + M' [1] //: MABM' -> MAB' + M'
+  ABM' + M' -> MABM' [1.6611] //: ABM' + M' -> MABM'
+  MABM' -> ABM' + M' [1] //: MABM' -> ABM' + M'
+}
+

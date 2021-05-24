@@ -1,0 +1,4 @@
+Same result as against MCell3 with attached debug_config.h. 
+mcell commit 5e6b78a7679baa80322a29304b5a96326a856b97
+
+Increased rates compared to membr. localization benchmark
