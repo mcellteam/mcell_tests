@@ -7,3 +7,6 @@ and
 bngl_data_model_pymcell4
 testing variants give different result because some minor changes in precision, 
 they can be seen already around iteration 10000. 
+
+
+It also depends on the defautl setting of Config.molecules_order_random_shuffle_periodicity.
