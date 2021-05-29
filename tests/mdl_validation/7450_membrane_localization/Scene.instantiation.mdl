@@ -1,0 +1,27 @@
+INSTANTIATE Scene OBJECT
+{
+  box OBJECT box {}
+  rel_m RELEASE_SITE
+  {
+   SHAPE = Scene.box[bottom]
+   MOLECULE = M'
+   NUMBER_TO_RELEASE = 300
+   RELEASE_PROBABILITY = 1
+  }
+  
+  rel_A RELEASE_SITE
+  {
+   SHAPE = Scene.box[ALL]
+   MOLECULE = A
+   NUMBER_TO_RELEASE = 100
+   RELEASE_PROBABILITY = 1
+  }
+  rel_B RELEASE_SITE
+  {
+   SHAPE = Scene.box[ALL]
+   MOLECULE = B
+   NUMBER_TO_RELEASE = 100
+   RELEASE_PROBABILITY = 1
+  }
+}
+
