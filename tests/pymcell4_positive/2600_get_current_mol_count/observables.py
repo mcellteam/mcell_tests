@@ -21,22 +21,28 @@ assert react_b_plus_c, "Reaction rule 'react_b_plus_c' was not found"
 
 
 count_a_Cube1 = m.Count(
-    molecules_pattern = m.Complex('a'),
-    region = Cube1,
+    expression = m.CountTerm(
+        molecules_pattern = m.Complex('a'),
+        region = Cube1
+    ),
     file_name = './react_data/seed_' + str(get_seed()).zfill(5) + '/a.Cube1.dat',
     every_n_timesteps = 0 # used only manually
 )
 
 count_a_Cube2 = m.Count(
-    molecules_pattern = m.Complex('a'),
-    region = Cube2,
+    expression = m.CountTerm(
+        molecules_pattern = m.Complex('a'),
+        region = Cube2
+    ),
     file_name = './react_data/seed_' + str(get_seed()).zfill(5) + '/a.Cube2.dat',
     every_n_timesteps = 0 # used only manually
 )
 
 count_a_Cube3 = m.Count(
-    molecules_pattern = m.Complex('a'),
-    region = Cube3,
+    expression = m.CountTerm(
+        molecules_pattern = m.Complex('a'),
+        region = Cube3
+    ),    
     file_name = './react_data/seed_' + str(get_seed()).zfill(5) + '/a.Cube3.dat',
     every_n_timesteps = 0 # used only manually
 )

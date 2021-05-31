@@ -56,11 +56,15 @@ assert ct4.states == ['X', '1']
 
 
 # object that has all defaults set but requires 
-#to be set to pass sematic check
-cnt = m.Count(species_pattern = m.Complex('Z'), file_name = 'x')
+# to be set to pass sematic check
+# checking only that cloning passes
+cnt = m.Count(
+    expression = m.CountTerm(
+        species_pattern = m.Complex('Z')
+    ),
+    file_name = 'x'
+)
 cnt2 = copy.copy(cnt)
-
-
 
 
 # checking that we are not doing deep copy

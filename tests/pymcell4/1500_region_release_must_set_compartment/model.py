@@ -76,7 +76,7 @@ viz_output = m.VizOutput(
 model.add_viz_output(viz_output)
 
 count_Syk_CP = m.Count(
-    molecules_pattern = m.Complex('Syk@CP'),
+    expression = m.CountTerm(molecules_pattern = m.Complex('Syk@CP')),
     file_name = './react_data/seed_' + str(parameters.SEED).zfill(5) + '/Syk.dat',
     every_n_timesteps = 1
 )

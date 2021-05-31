@@ -13,7 +13,7 @@ import mcell as m
 model = m.Model()
 model.load_bngl('test.bngl', '')
 
-assert model.counts[0].molecules_pattern.to_bngl_str() == 'X(y,p~0,p~0)'
+assert model.counts[0].expression.molecules_pattern.to_bngl_str() == 'X(y,p~0,p~0)'
 
 assert model.reaction_rules[0].to_bngl_str() == 'X(y!1,p~0).Y(x!1) -> X(y,p~0) + Y(x)'
 assert model.reaction_rules[1].to_bngl_str() == 'Y(x) -> Null'

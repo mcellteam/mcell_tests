@@ -20,8 +20,8 @@ viz_output = m.VizOutput(
 
 
 count_a = m.Count(
-    file_name = './react_data/seed_' + str(SEED).zfill(5) + '/a.dat',
-    species_pattern = m.Complex('a')
+    expression = m.CountTerm(species_pattern = m.Complex('a')),
+    file_name = './react_data/seed_' + str(SEED).zfill(5) + '/a.dat'
 )
 
 # ---- create observables object and add components ----

@@ -15,7 +15,9 @@ viz_output = m.VizOutput(
 # declaration of rxn rules defined in BNGL and used in counts
 
 count_react_a_plus_b = m.Count(
-    reaction_rule = subsystem.find_reaction_rule('a_to_b'),
+    expression = m.CountTerm(
+        reaction_rule = subsystem.find_reaction_rule('a_to_b')
+    ),
     file_name = './react_data/seed_' + str(get_seed()).zfill(5) + '/react_a_to_b.World.dat',
     every_n_timesteps = 9.99999999999999955e-07/1e-06
 )
