@@ -31,9 +31,6 @@ ct_box1 = m.CountTerm(
 
 ct_box2_minus_ct_box1 = ct_box2 - ct_box1
 
-# setting region that will be ignored
-ct_box2_minus_ct_box1.region = box3
-
 count = m.Count(
     name = 'z',
     expression = ct_box2_minus_ct_box1,
