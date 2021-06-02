@@ -36,6 +36,7 @@ import re
 import argparse
 import shutil
 import time
+import signal
 
 if os.name != 'nt':
     # should be working but it is not possible to install it with all python ditributions
@@ -530,7 +531,14 @@ def run_tests() -> int:
     return ec
 
 
+def signal_handler(sig, frame):
+    # for shorter output
+    print('Testing terminated with Ctrl-C')
+    sys.exit(1)
+
+
 if __name__ == '__main__':
+    signal.signal(signal.SIGINT, signal_handler)
     ec = run_tests()
     sys.exit(ec)
     
