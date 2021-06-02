@@ -128,8 +128,9 @@ def compare_data_output_directory(dir_ref, dir_new, exact=False, fdiff_args=[]):
                 elif os.path.exists(fname_new_no_dots):
                     fname_new = fname_new_no_dots
                 else:
-                    log('File ' + fname_new_mdlstring + ' does not exist (also tried variants )' + 
-                        os.path.basename(fname_new_mdlstring) + ' and ' + os.path.basename(fname_new_no_dots) + '.')
+                    log('File ' + fname_new + ' does not exist (also tried variants ' + 
+                        os.path.basename(fname_new_mdlstring) + ', ' + os.path.basename(fname_new_mdlstring) + 
+                        ' and ' + os.path.basename(fname_new_no_dots) + ').')
                     return FAILED_DIFF
             else:
                 log('File ' + fname_new + ' does not exist')
