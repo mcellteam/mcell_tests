@@ -1,11 +1,17 @@
 includes = ["exit_code_1"]
 
 [[checks]]
-  matchPattern = "referenced in a count expression was not added to the model" 
+  matchPattern = "Could not find geometry object with name box2" 
   dataFile = "err_%d.0.log"
   numMatches = 1
   testType = "FILE_MATCH_PATTERN"
 
+[[checks]]
+  matchPattern = "region will be ignored" 
+  dataFile = "err_%d.0.log"
+  numMatches = 0
+  testType = "FILE_MATCH_PATTERN"
+  
 [[checks]]
   testType = "CHECK_EXIT_CODE"
   exitCode = 1  # exit(1)
