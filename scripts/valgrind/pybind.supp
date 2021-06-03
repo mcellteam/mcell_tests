@@ -1471,3 +1471,185 @@
    fun:_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_
    fun:_ZN8pybind116detail20make_new_python_typeERKNS0_11type_recordE
 }
+
+{
+   LEAK120
+   Memcheck:Addr8
+   fun:strncmp
+   fun:is_dst
+   fun:_dl_dst_count
+}
+
+{
+   LEAK121
+   Memcheck:Addr8
+   fun:strncmp
+   fun:is_dst
+   fun:_dl_dst_substitute
+}
+
+{
+   LEAK122
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:allocate
+   fun:allocate
+   fun:_M_allocate
+   fun:_M_realloc_insert<_object* (*)(_object*, _typeobject*)>
+   fun:*
+   fun:push_back
+   fun:*implicitly_convertible*
+}
+
+{
+   LEAK123
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:allocate
+   fun:allocate
+   fun:_M_allocate
+   fun:_M_realloc_insert<const std::type_info*&, void* (*&)(void*)>
+   fun:emplace_back<const std::type_info*&, void* (*&)(void*)>
+   fun:*pybind116detail11type_record*
+}
+
+{
+   LEAK124
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:allocate
+   fun:allocate
+   fun:_M_allocate_node<const std::piecewise_construct_t&, std::tuple<const std::type_index&>, std::tuple<> >
+   fun:_Scoped_node<const std::piecewise_construct_t&, std::tuple<const std::type_index&>, std::tuple<> >
+   fun:*
+   fun:operator[]
+   fun:*pybind11*
+}
+
+{
+   LEAK125
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:allocate
+   fun:allocate
+   fun:_M_allocate_node<void*&, pybind11::detail::instance*&>
+   fun:_Scoped_node<void*&, pybind11::detail::instance*&>
+   fun:_M_emplace<void*&, pybind11::detail::instance*&>
+   fun:_M_emplace<void*&, pybind11::detail::instance*&>
+   fun:emplace<void*&, pybind11::detail::instance*&>
+   fun:emplace<void*&, pybind11::detail::instance*&>
+   fun:register_instance_impl
+   fun:*pybind11*register_instance*
+}
+
+
+{
+   LEAK126
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_mutateEmmPKcm
+   fun:_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_appendEPKcm
+   fun:append
+   fun:operator+<char, std::char_traits<char>, std::allocator<char> >
+   fun:_ZN8pybind116detail20make_new_python_typeERKNS0_11type_recordE
+}
+
+{
+   LEAK127
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:allocate
+   fun:allocate
+   fun:_M_allocate
+   fun:_M_realloc_insert<_object*>
+   fun:emplace_back<_object*>
+   fun:push_back
+   fun:loader_life_support
+   fun:_ZN8pybind1112cpp_function10dispatcherEP7_objectS2_S2_
+   fun:PyCFunction_Call
+   fun:PyObject_Call
+   fun:method_call
+   fun:PyObject_Call
+   fun:slot_tp_init
+   fun:type_call
+   fun:PyObject_Call
+   fun:_ZZN8pybind1122implicitly_convertible*
+}
+
+{
+   LEAK128
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:allocate
+   fun:allocate
+   fun:_M_allocate_node<const std::piecewise_construct_t&, std::tuple<_typeobject*&&>, std::tuple<> >
+   fun:_Scoped_node<const std::piecewise_construct_t&, std::tuple<_typeobject*&&>, std::tuple<> >
+   fun:*
+   fun:operator[]
+   fun:_ZN8pybind116detail12generic_type10initialize*
+}
+
+{
+   LEAK129
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:decompose_rpath
+   fun:cache_rpath
+   fun:cache_rpath
+   fun:_dl_map_object
+}
+
+{
+   LEAK130
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:allocate
+   fun:allocate
+   fun:_M_allocate_buckets
+   fun:_M_allocate_buckets
+   fun:_M_rehash_aux
+   fun:_M_rehash
+   fun:_M_insert_unique_node
+   fun:operator[]
+   fun:operator[]
+   fun:add_patient
+   fun:keep_alive_impl
+   fun:_ZN8pybind116detail15keep_alive_impl*
+}
+
+{
+   LEAK131
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:resize_scopes
+   fun:dl_open_worker
+}
+
+
+{
+   LEAK132
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:allocate
+   fun:allocate
+   fun:_M_allocate_buckets
+   fun:_M_allocate_buckets
+   fun:_M_rehash_aux
+   fun:_M_rehash
+   fun:_M_insert_unique_node
+   fun:*
+   fun:operator[]
+   fun:_ZN8pybind116detail12generic_type10initialize*
+}
+	
