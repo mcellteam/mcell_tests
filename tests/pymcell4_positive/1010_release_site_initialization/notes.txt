@@ -1,4 +1,4 @@
-Message must be improved, this is what is printed now:
+Although perfectly fine, this model used to report:
 
 Traceback (most recent call last):
   File "model.py", line 23, in <module>
