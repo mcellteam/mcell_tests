@@ -27,7 +27,7 @@ begin reaction rules
   # orig:
   # A + R -> AR 1204 * uM_1_to_M_1
   # new:
-  A_to_AR: A -> AR 10 # k_a_to_ar # depends on the simulated concentration of R
+  A_to_AR: A -> AR 0 # rate depends on the simulated concentration of R, initial value is 0 because there are no Rs initially 
 
   # orig:
   # R -> 0 0.2    
