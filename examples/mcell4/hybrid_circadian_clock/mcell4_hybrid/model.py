@@ -96,7 +96,7 @@ model.notifications.rxn_and_species_report = True
 model.notifications.rxn_probability_changed = True
 
 model.config.partition_dimension = 2
-model.config.subpartition_dimension = 0.05
+model.config.subpartition_dimension = 2
 
 # ---- default configuration overrides ----
 
@@ -125,13 +125,14 @@ ODE_UPDATE_PERIODICITY = 100  # time steps
 VOLUME = 4.1889930549057564 * 1e-15 # um^3
 
 
-def dR(dt, num_mRNA_R):
+def dR(dt, num_AR, num_mRNA_R):
     # dt - in [s]
     # num_mRNA_R - copy number
     # 
     # original reactions
     # R -> 0 0.2 [1/s]
     # mRNA_R -> mRNA_R + R  5 [1/s]
+    # AR -> R 1
     #
     # TODO 
     return 0
@@ -162,14 +163,16 @@ for i in range(int(ITERATIONS/ODE_UPDATE_PERIODICITY)):
     
     model.run_iterations(ODE_UPDATE_PERIODICITY)
     
-    num_R += dR(ODE_UPDATE_PERIODICITY * TIME_STEP, count_mRNA_R.get_current_value()) 
+    
+    num_A = count_A.get_current_value()
+    num_AR = count_AR.get_current_value()
+    num_mRNA_R = count_mRNA_R.get_current_value()
+    
+    num_R += dR(ODE_UPDATE_PERIODICITY * TIME_STEP, num_AR, num_mRNA_R) 
 
     rxn_A_to_AR.fwd_rate = compute_A_to_AR_rate(num_R)
 
-    num_A = count_A.get_current_value()
-    num_AR = count_AR.get_current_value()
-
-    print("A: " + str(num_A) + ", R: " + str(num_R) + ", AR: " + str(num_AR))
+    #print("A: " + str(num_A) + ", R: " + str(num_R) + ", AR: " + str(num_AR))
     
 
 

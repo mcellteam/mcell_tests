@@ -7,7 +7,7 @@ import sys
 import os
 import importlib.util
 
-ONLY_BNGL_EXPORT = True
+ONLY_BNGL_EXPORT = False
 
 MODEL_PATH = os.path.dirname(os.path.abspath(__file__))
 

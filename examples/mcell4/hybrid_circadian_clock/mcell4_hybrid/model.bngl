@@ -25,20 +25,28 @@ end compartments
 
 begin reaction rules
   # orig:
-  #A + R -> AR 1204 * uM_1_to_M_1
-  #R -> 0 0.2    
-  #mRNA_R -> mRNA_R + R  5    
-  
+  # A + R -> AR 1204 * uM_1_to_M_1
   # new:
-  A_to_AR: A -> AR k_a_to_ar # depends on the simulated concentration of R
-  # mRNA_R -> mRNA_R + R  5 # must be implemented using ODE
+  A_to_AR: A -> AR 10 # k_a_to_ar # depends on the simulated concentration of R
+
+  # orig:
+  # R -> 0 0.2    
+  # mRNA_R -> mRNA_R + R  5    
+  # new:
+  # both in dR
+
+  # orig:    
+  # AR -> R 1
+  # new:    
+  AR -> 0 1 
+  # + in dR
 
   PrmA + A <-> PrmA_bound 602 * uM_1_to_M_1, 50 
   PrmR + A <-> PrmR_bound 602 * uM_1_to_M_1, 100 
   mRNA_A -> mRNA_A + A  50     
 
-  A -> 0 1    
-  AR -> R 1    
+  A -> 0 1
+  
   
   PrmA -> PrmA + mRNA_A 50  
   PrmA_bound -> PrmA_bound + mRNA_A 500  
