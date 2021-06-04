@@ -92,7 +92,7 @@ model.config.seed = SEED
 model.config.total_iterations = ITERATIONS
 
 model.warnings.high_reaction_probability = m.WarningLevel.IGNORE
-model.notifications.rxn_and_species_report = True
+model.notifications.rxn_and_species_report = False
 model.notifications.rxn_probability_changed = True
 
 model.config.partition_dimension = 2
@@ -141,7 +141,7 @@ def dR(dt, num_AR, num_mRNA_R):
 def compute_A_to_AR_rate(num_R):
     # num_R - copy number (as float)
     #
-    # original reaction: A + R -> AR 1204 * uM_1_to_M_1 [1/M*1/s]
+    # original reaction: A + R -> AR 1204 * 1e6 [1/M*1/s]
     # changed to: A -> R rate(num_R)
     #
     # TODO
