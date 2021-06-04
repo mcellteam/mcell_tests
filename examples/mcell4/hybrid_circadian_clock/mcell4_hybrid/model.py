@@ -134,7 +134,9 @@ def dR(dt, num_AR, num_mRNA_R):
     # mRNA_R -> mRNA_R + R  5 [1/s]
     # AR -> R 1
     #
-    # TODO 
+    # we need to return how the amount of R should change (in copy number, float) 
+    # 
+    # TODO
     return 0
 
 
@@ -143,6 +145,8 @@ def compute_A_to_AR_rate(num_R):
     #
     # original reaction: A + R -> AR 1204 * 1e6 [1/M*1/s]
     # changed to: A -> R rate(num_R)
+    #
+    # we need to return unimoleculear rate [1/s]
     #
     # TODO
     return 0
