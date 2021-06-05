@@ -56,11 +56,16 @@ if EXPORT_DATA_MODEL and model.viz_outputs:
     model.export_data_model()
 
 for i in range(ITERATIONS):
+            
+    if i % 10 == 0:
+        model.export_data_model()
+
+
     model.run_iterations(1)
     
     if i % 10 == 0:
         for k in range(len(instantiation.Organelle_1.vertex_list)):
-            model.add_vertex_move(instantiation.Organelle_1, k, m.Vec3(0.01))
+            model.add_vertex_move(instantiation.Organelle_1, k, (0.01, 0.01, 0.01))
     
         model.apply_vertex_moves()
     
