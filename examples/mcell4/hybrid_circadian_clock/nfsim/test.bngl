@@ -1,0 +1,98 @@
+begin parameters
+  # general parameters
+  ITERATIONS 2000000000
+  MCELL_TIME_STEP 9.99999999999999955e-08
+  V 4.1889930549057564 * 1e-15 # volume in litres
+
+  # diffusion constants
+  MCELL_DIFFUSION_CONSTANT_3D_A 9.99999999999999955e-08
+  MCELL_DIFFUSION_CONSTANT_3D_AR 9.99999999999999955e-08
+  MCELL_DIFFUSION_CONSTANT_3D_PrmA 9.99999999999999955e-08
+  MCELL_DIFFUSION_CONSTANT_3D_PrmA_bound 9.99999999999999955e-08
+  MCELL_DIFFUSION_CONSTANT_3D_PrmR 9.99999999999999955e-08
+  MCELL_DIFFUSION_CONSTANT_3D_PrmR_bound 9.99999999999999955e-08
+  MCELL_DIFFUSION_CONSTANT_3D_R 9.99999999999999955e-08
+  MCELL_DIFFUSION_CONSTANT_3D_mRNA_A 9.99999999999999955e-08
+  MCELL_DIFFUSION_CONSTANT_3D_mRNA_R 9.99999999999999955e-08
+
+  # parameters to control rates in MCell and BioNetGen
+  NA_V 6.02214e23 * V
+  VOL_RXN 1
+  MCELL_REDEFINE_VOL_RXN NA_V
+
+  # reaction rates
+  k0 1.204e+09 / NA_V * VOL_RXN
+  k1 50
+  k2 500
+  k3 1.00000000000000002e-02
+  k4 50
+  k5 6.02e+08 / NA_V * VOL_RXN
+  k6 50
+  k7 6.02e+08 / NA_V * VOL_RXN
+  k8 100
+  k9 50
+  k10 5
+  k11 10
+  k12 0.5
+  k13 1
+  k14 0.20000000000000001
+  k15 1
+
+  # seed species counts
+  seed_count_1 1
+  seed_count_2 1
+end parameters
+
+begin molecule types
+  A()
+  AR()
+  PrmA()
+  PrmA_bound()
+  PrmR()
+  PrmR_bound()
+  R()
+  mRNA_A()
+  mRNA_R()
+end molecule types
+
+begin compartments
+  Cube 3 V * 1e15 # volume in fL (um^3)
+end compartments
+
+begin seed species
+  @Cube:PrmA@Cube seed_count_1
+  @Cube:PrmR@Cube seed_count_2
+end seed species
+
+begin observables
+  Molecules A A  
+  Molecules AR AR()
+  Molecules PrmA PrmA()
+  Molecules PrmA_bound PrmA_bound()
+  Molecules PrmR PrmR()
+  Molecules PrmR_bound PrmR_bound()
+  Molecules R R()
+  Molecules mRNA_A mRNA_A()
+  Molecules mRNA_R mRNA_R()
+end observables
+
+begin reaction rules
+  A + R -> AR k0
+  PrmA -> PrmA + mRNA_A k1
+  PrmA_bound -> PrmA_bound + mRNA_A k2
+  PrmR -> PrmR + mRNA_R k3
+  PrmR_bound -> PrmR_bound + mRNA_R k4
+  PrmA + A -> PrmA_bound k5
+  PrmA_bound -> PrmA + A k6
+  PrmR + A -> PrmR_bound k7
+  PrmR_bound -> PrmR + A k8
+  mRNA_A -> mRNA_A + A k9
+  mRNA_R -> mRNA_R + R k10
+  mRNA_A -> 0 k11
+  mRNA_R -> 0 k12
+  A -> 0 k13
+  R -> 0 k14
+  AR -> R k15
+end reaction rules
+
+simulate({method=>"nf",seed=>1,t_end=>200,n_steps=>200000,glm=>1000000})
