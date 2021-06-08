@@ -4,7 +4,7 @@ import sys
 import os
 import importlib.util
 
-ONLY_BNGL_EXPORT = True
+ONLY_BNGL_EXPORT = False
 
 MODEL_PATH = os.path.dirname(os.path.abspath(__file__))
 
@@ -92,11 +92,14 @@ model.config.seed = SEED
 model.config.total_iterations = ITERATIONS
 
 model.warnings.high_reaction_probability = m.WarningLevel.IGNORE
-model.notifications.rxn_and_species_report = False
+model.notifications.rxn_and_species_report = True
 model.notifications.rxn_probability_changed = True
 
 model.config.partition_dimension = 2
 model.config.subpartition_dimension = 2
+
+model.config.reaction_class_cleanup_periodicity = 0
+model.config.species_cleanup_periodicity = 0
 
 # ---- default configuration overrides ----
 

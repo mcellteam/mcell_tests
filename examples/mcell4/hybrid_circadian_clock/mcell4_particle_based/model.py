@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 
-# WARNING: This is an automatically generated file and will be overwritten
-#          by CellBlender on the next model export.
-
 import sys
 import os
 import importlib.util

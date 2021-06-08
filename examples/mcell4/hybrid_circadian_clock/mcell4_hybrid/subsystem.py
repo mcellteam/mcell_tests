@@ -18,4 +18,4 @@ subsystem = m.Subsystem()
 # load subsystem information from bngl file
 subsystem.load_bngl_molecule_types_and_reaction_rules(os.path.join(MODEL_PATH, 'model.bngl'), shared.parameter_overrides)
 
-print(subsystem)
+
