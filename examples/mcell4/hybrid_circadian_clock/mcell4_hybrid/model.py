@@ -121,7 +121,7 @@ if DUMP:
     model.dump_internal_state()
 
 
-ODE_UPDATE_PERIODICITY = 100  # time steps
+ODE_UPDATE_FREQUENCY = 100  # time steps
 VOLUME = 4.1889930549057564 * 1e-15 # um^3
 
 
@@ -149,7 +149,14 @@ def compute_A_to_AR_rate(num_R):
     # we need to return unimoleculear rate [1/s]
     #
     # TODO
+    
+    # solution from Tom
+    #rate = (1204 * 1e6) # 1/M*1/s 
+    #conc_R = num_R * convert to mol/l  # VOLUME
+    #return  rate * conc_R
     return 0
+
+
 
 
 count_A = model.find_count('A')
@@ -163,16 +170,16 @@ assert rxn_A_to_AR
 
 num_R = 0.0 # initial value, model as float
 
-for i in range(int(ITERATIONS/ODE_UPDATE_PERIODICITY)):
+for i in range(int(ITERATIONS/ODE_UPDATE_FREQUENCY)):
     
-    model.run_iterations(ODE_UPDATE_PERIODICITY)
+    model.run_iterations(ODE_UPDATE_FREQUENCY)
     
     
     num_A = count_A.get_current_value()
     num_AR = count_AR.get_current_value()
     num_mRNA_R = count_mRNA_R.get_current_value()
     
-    num_R += dR(ODE_UPDATE_PERIODICITY * TIME_STEP, num_AR, num_mRNA_R) 
+    num_R += dR(ODE_UPDATE_FREQUENCY * TIME_STEP, num_AR, num_mRNA_R) 
 
     rxn_A_to_AR.fwd_rate = compute_A_to_AR_rate(num_R)
 
