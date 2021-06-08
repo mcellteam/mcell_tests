@@ -101,6 +101,9 @@ model.notifications.rxn_probability_changed = True
 model.config.partition_dimension = 2
 model.config.subpartition_dimension = 0.05
 
+model.config.reaction_class_cleanup_periodicity = 0
+model.config.species_cleanup_periodicity = 0
+
 # ---- default configuration overrides ----
 
 if customization and 'custom_config' in dir(customization):
