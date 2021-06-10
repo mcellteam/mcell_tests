@@ -9,7 +9,7 @@ k_ab = bngl_params['k_ab']
 
 # ---- simulation setup ----
 
-ITERATIONS = 1000
+ITERATIONS = 100
 TIME_STEP = 1e-6
 DUMP = False
 EXPORT_DATA_MODEL = True

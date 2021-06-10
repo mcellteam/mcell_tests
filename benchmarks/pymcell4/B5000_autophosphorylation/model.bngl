@@ -1,0 +1,41 @@
+begin parameters
+
+  um2s_to_cm2s 1e-8
+  uM_1_to_M_1 1e6
+  
+  MCELL_DIFFUSION_CONSTANT_3D_A 100 * um2s_to_cm2s
+  MCELL_DIFFUSION_CONSTANT_3D_Ap 100 * um2s_to_cm2s
+  MCELL_DIFFUSION_CONSTANT_3D_P 100 * um2s_to_cm2s
+  
+  # keeping diffusion constants the same for all molecules
+  MCELL_DIFFUSION_CONSTANT_3D_A_Ap 100 * um2s_to_cm2s
+  MCELL_DIFFUSION_CONSTANT_3D_Ap_A 100 * um2s_to_cm2s
+  MCELL_DIFFUSION_CONSTANT_3D_Ap_P 100 * um2s_to_cm2s
+end parameters
+
+begin seed species
+  A@box 103
+  Ap@box 5
+  P@box 9
+end seed species
+
+begin compartments
+  PM 2 0
+  box 3 1 PM
+end compartments  
+
+begin reaction rules
+  # s-1
+  A -> Ap 21.2
+  A_Ap -> Ap + Ap 200
+  Ap_P -> A + P 539
+
+  # uM-1s-1, s-1
+  A + Ap -> A_Ap 10 * uM_1_to_M_1
+  Ap + P -> Ap_P 800 * uM_1_to_M_1   
+end reaction rules
+
+begin observables
+  Molecules Ap Ap
+  Molecules A A
+end observables

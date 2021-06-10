@@ -7,9 +7,9 @@ from geometry import *
 # ---- observables ----
 
 viz_output = m.VizOutput(
-    mode = m.VizMode.CELLBLENDER,
+    mode = m.VizMode.ASCII,
     output_files_prefix = './viz_data/seed_' + str(get_seed()).zfill(5) + '/Scene',
-    every_n_timesteps = 1
+    every_n_timesteps = 10
 )
 
 # declaration of rxn rules defined in BNGL and used in counts
