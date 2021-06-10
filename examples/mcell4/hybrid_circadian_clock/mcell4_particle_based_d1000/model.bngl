@@ -1,0 +1,49 @@
+begin parameters
+  um2s_to_cm2s 1e-8
+  uM_1_to_M_1 1e6
+  
+  D 1000
+  MCELL_DIFFUSION_CONSTANT_3D_A D * um2s_to_cm2s
+  MCELL_DIFFUSION_CONSTANT_3D_R D * um2s_to_cm2s
+  MCELL_DIFFUSION_CONSTANT_3D_AR D * um2s_to_cm2s
+  MCELL_DIFFUSION_CONSTANT_3D_mRNA_A 0.1 * um2s_to_cm2s
+  MCELL_DIFFUSION_CONSTANT_3D_mRNA_R 0.1 * um2s_to_cm2s
+  MCELL_DIFFUSION_CONSTANT_3D_PrmA D * um2s_to_cm2s
+  MCELL_DIFFUSION_CONSTANT_3D_PrmA_bound D * um2s_to_cm2s
+  MCELL_DIFFUSION_CONSTANT_3D_PrmR D * um2s_to_cm2s
+  MCELL_DIFFUSION_CONSTANT_3D_PrmR_bound D * um2s_to_cm2s
+end parameters
+
+
+begin seed species
+  PrmA@Cube 1
+  PrmR@Cube 1
+end seed species
+
+begin compartments
+  Cube 3 1
+end compartments  
+
+begin reaction rules
+  A + R -> AR 1204 * uM_1_to_M_1   
+  PrmA -> PrmA + mRNA_A 50  
+  PrmA_bound -> PrmA_bound + mRNA_A 500  
+  PrmR -> PrmR + mRNA_R 0.01 
+  PrmR_bound -> PrmR_bound + mRNA_R 50    
+  PrmA + A <-> PrmA_bound 602 * uM_1_to_M_1, 50 
+  PrmR + A <-> PrmR_bound 602 * uM_1_to_M_1, 100 
+  mRNA_A -> mRNA_A + A  50     
+  mRNA_R -> mRNA_R + R  5    
+  mRNA_A -> 0  10     
+  mRNA_R -> 0  0.5    
+  A -> 0 1    
+  R -> 0 0.2    
+  AR -> R 1    
+end reaction rules
+
+
+begin observables
+  Molecules A A
+  Molecules R R
+  Molecules AR AR
+end observables  
