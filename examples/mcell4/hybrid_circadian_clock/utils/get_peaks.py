@@ -82,21 +82,24 @@ def get_all_peaks(dir):
                     new_row[2] = p1
                 else:
                     new_row[3] = p0
-                    new_row[4] = p0
+                    new_row[4] = p1
         
         a_series = pd.Series(new_row, index = res.columns)
         res = res.append(a_series, ignore_index=True)
                 
     return res
+
     
-if __name__ == '__main__':
-    
-    df = get_all_peaks(sys.argv[1])
-    print(df)
-    
+def print_peaks(df):
     for col in df.columns:
         if col == 'seed':
             continue
         
         print(col + ": " + str(df[col].mean()) + " +- " + str(df[col].std()))    
+        
+    
+if __name__ == '__main__':
+    df = get_all_peaks(sys.argv[1])
+    print_peaks(df)
+    
     
