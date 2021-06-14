@@ -34,7 +34,7 @@ ct_box2_minus_ct_box1 = ct_box2 - ct_box1
 count = m.Count(
     name = 'z',
     expression = ct_box2_minus_ct_box1,
-    file_name = 'x'    
+    file_name = 'x.dat'    
 )
 
 

@@ -62,7 +62,7 @@ cnt = m.Count(
     expression = m.CountTerm(
         species_pattern = m.Complex('Z')
     ),
-    file_name = 'x'
+    file_name = 'x.dat'
 )
 cnt2 = copy.copy(cnt)
 

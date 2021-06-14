@@ -95,10 +95,10 @@ seed value (1 in our case).
 MODEL_PATH = os.path.dirname(os.path.abspath(__file__))
 model.load_bngl(
     file_name = os.path.join(MODEL_PATH, 'model.bngl'),
-    observables_files_prefix = './react_data/seed_00001/'
+    observables_path_or_file = './react_data/seed_00001/'
 )    
 
-
+model.notifications.rxn_and_species_report = True
 
 #0000-8)
 model.initialize()
