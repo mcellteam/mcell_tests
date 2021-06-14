@@ -59,7 +59,11 @@ viz_output = m.VizOutput(
 )
 model.add_viz_output(viz_output)
 
-model.load_bngl(bngl_file, './react_data/seed_' + str(SEED).zfill(5) + '/', default_compartment)
+gdat_file = ''
+if 'GDAT' in params and params['GDAT'] == 1:
+    gdat_file = 'out.gdat'
+
+model.load_bngl(bngl_file, './react_data/seed_' + str(SEED).zfill(5) + '/' + gdat_file, default_compartment)
 
 
 # ---- configuration ----
