@@ -91,6 +91,10 @@ def get_all_peaks(dir):
 
     
 def print_peaks(df):
+    
+    #df['wavelength'] = df['A_second'] - df['A_first']    
+    #df['lag_time'] = df['A_second'] - df['A_first']
+        
     for col in df.columns:
         if col == 'seed':
             continue
