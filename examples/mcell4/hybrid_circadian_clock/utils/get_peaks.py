@@ -11,14 +11,34 @@ def load_dat_file(file):
     return df, obs_name
     
     
+def filter_peaks_by_min_value(col, peaks):
+    min = 1000
+    res = []
+    for p in peaks:
+        if col[p] >= min:
+            res.append(p)
+    
+    return res 
+    
+    
 def get_peaks_for_single_obs(df, obs_name, file):
-    peaks, _ = find_peaks(df[obs_name], width=int(len(df)/30))
+    peaks, props = find_peaks(
+        df[obs_name], 
+        width=int(len(df)/30),
+        height = 1000.0
+    )
     
     #if len(peaks) == 3 or len(peaks) == 4:
+
+    if len(peaks) == 0:
+        print("Warnign: no peak found, skipping (" + file + ")")
+        return 0, 0, True
     
     if len(peaks) == 1:
         print("Warnign: only one peak found, skipping (" + file + ")")
         return 0, 0, True
+    
+    #peaks = filter_peaks_by_min_value(df[obs_name], peaks)
         
     times = [ df.index.values[p] for p in peaks ]
     
@@ -39,11 +59,11 @@ def get_peaks_for_single_obs(df, obs_name, file):
                 break 
             
         if len(peaks) == 1:
-            print("Warnign: only one peak in expected range found, skipping (" + file + ")")
+            print("Warnign: only one peak in expected range found, skipping (" + file + ") for " + obs_name)
             return 0, 0, True
          
         print("Warnign: multiple peaks, selecting " + str(p0) + " and " + str(p1) + 
-              " from " + str(times) + "         (" + file + ")")
+              " from " + str(times) + "         (" + file + ") for " + obs_name)
     else:
         p0 = times[0]
         p1 = times[-1]
@@ -91,7 +111,8 @@ def get_all_peaks(dir):
 def print_peaks(df):
     
     df['wavelength'] = df['A_second'] - df['A_first']    
-    df['lag_time'] = df['A_second'] - df['R_second']
+    df['lag_time1'] = df['R_first'] - df['A_first']
+    df['lag_time2'] = df['R_second'] - df['A_second']
         
     for col in df.columns:
         if col == 'seed':

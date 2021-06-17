@@ -29,7 +29,7 @@ if not_defined('TIME_STEP'):
     TIME_STEP = 2.5e-7
 
 if not_defined('ITERATIONS'):
-    ITERATIONS = int(35/TIME_STEP)
+    ITERATIONS = int(45/TIME_STEP)
 
 
 if not_defined('DUMP'):

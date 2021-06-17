@@ -84,4 +84,4 @@ begin reaction rules
   AR -> R k15
 end reaction rules
 
-simulate({method=>"nf",seed=>1,t_end=>35,n_steps=>20000,glm=>1000000})
+simulate({method=>"nf",seed=>1,t_end=>45,n_steps=>20000,glm=>1000000})
