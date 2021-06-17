@@ -101,12 +101,6 @@ model.config.subpartition_dimension = 2
 model.config.reaction_class_cleanup_periodicity = 0
 model.config.species_cleanup_periodicity = 0
 
-# ---- default configuration overrides ----
-
-if customization and 'custom_config' in dir(customization):
-    # user-defined model configuration
-    customization.custom_config(model)
-
 # ---- add components ----
 
 import subsystem
@@ -116,6 +110,12 @@ import observables
 model.add_subsystem(subsystem.subsystem)
 model.add_instantiation(instantiation.instantiation)
 model.add_observables(observables.observables)
+
+# ---- default configuration overrides ----
+
+if customization and 'custom_config' in dir(customization):
+    # user-defined model configuration
+    customization.custom_config(model)
 
 # ---- initialization and execution ----
 model.initialize()

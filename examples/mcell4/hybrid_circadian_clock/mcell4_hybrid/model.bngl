@@ -1,16 +1,6 @@
 begin parameters
-  um2s_to_cm2s 1e-8
   uM_1_to_M_1 1e6
   
-  MCELL_DIFFUSION_CONSTANT_3D_A 10 * um2s_to_cm2s
-  #MCELL_DIFFUSION_CONSTANT_3D_R 10 * um2s_to_cm2s
-  MCELL_DIFFUSION_CONSTANT_3D_AR 10 * um2s_to_cm2s
-  MCELL_DIFFUSION_CONSTANT_3D_mRNA_A 0.1 * um2s_to_cm2s
-  MCELL_DIFFUSION_CONSTANT_3D_mRNA_R 0.1 * um2s_to_cm2s
-  MCELL_DIFFUSION_CONSTANT_3D_PrmA 10 * um2s_to_cm2s
-  MCELL_DIFFUSION_CONSTANT_3D_PrmA_bound 10 * um2s_to_cm2s
-  MCELL_DIFFUSION_CONSTANT_3D_PrmR 10 * um2s_to_cm2s
-  MCELL_DIFFUSION_CONSTANT_3D_PrmR_bound 10 * um2s_to_cm2s
 end parameters
 
 
