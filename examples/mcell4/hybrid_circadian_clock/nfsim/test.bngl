@@ -1,6 +1,6 @@
 begin parameters
   # general parameters
-  V 1 * 1e-15 # volume in litres
+  V 4.189 * 1e-15 # volume in litres
 
   uM_1_to_M_1 1e6
 
