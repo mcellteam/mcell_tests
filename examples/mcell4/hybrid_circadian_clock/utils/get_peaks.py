@@ -5,8 +5,6 @@ import os
 from scipy.signal import find_peaks
 
 
-SKIPS = [54]
-
 def load_dat_file(file):
     obs_name = os.path.splitext(os.path.basename(file))[0]
     df = pd.read_csv(file, sep=' ', index_col='time', names=['time', obs_name])
@@ -14,7 +12,7 @@ def load_dat_file(file):
     
     
 def get_peaks_for_single_obs(df, obs_name, file):
-    peaks, _ = find_peaks(df[obs_name], width=int(len(df)/25))
+    peaks, _ = find_peaks(df[obs_name], width=int(len(df)/30))
     
     #if len(peaks) == 3 or len(peaks) == 4:
     
@@ -40,6 +38,9 @@ def get_peaks_for_single_obs(df, obs_name, file):
                 p1 = t
                 break 
             
+        if len(peaks) == 1:
+            print("Warnign: only one peak in expected range found, skipping (" + file + ")")
+            return 0, 0, True
          
         print("Warnign: multiple peaks, selecting " + str(p0) + " and " + str(p1) + 
               " from " + str(times) + "         (" + file + ")")
@@ -59,9 +60,6 @@ def get_all_peaks(dir):
             continue
         
         seed = int(seed_dir[len('seed_'):])
-        
-        if seed in SKIPS: # some data do nto have the correct number of peaks
-            continue
         
         new_row = [seed, 0.0, 0.0, 0.0, 0.0]
         skip_row = False
@@ -92,8 +90,8 @@ def get_all_peaks(dir):
     
 def print_peaks(df):
     
-    #df['wavelength'] = df['A_second'] - df['A_first']    
-    #df['lag_time'] = df['A_second'] - df['A_first']
+    df['wavelength'] = df['A_second'] - df['A_first']    
+    df['lag_time'] = df['A_second'] - df['R_second']
         
     for col in df.columns:
         if col == 'seed':

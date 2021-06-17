@@ -2,18 +2,7 @@ begin parameters
   # general parameters
   V 1 * 1e-15 # volume in litres
 
-  um2s_to_cm2s 1e-8
   uM_1_to_M_1 1e6
-  
-  MCELL_DIFFUSION_CONSTANT_3D_A 10 * um2s_to_cm2s
-  MCELL_DIFFUSION_CONSTANT_3D_R 10 * um2s_to_cm2s
-  MCELL_DIFFUSION_CONSTANT_3D_AR 10 * um2s_to_cm2s
-  MCELL_DIFFUSION_CONSTANT_3D_mRNA_A 10 * um2s_to_cm2s
-  MCELL_DIFFUSION_CONSTANT_3D_mRNA_R 10 * um2s_to_cm2s
-  MCELL_DIFFUSION_CONSTANT_3D_PrmA 0 * um2s_to_cm2s
-  MCELL_DIFFUSION_CONSTANT_3D_PrmA_bound 0 * um2s_to_cm2s
-  MCELL_DIFFUSION_CONSTANT_3D_PrmR 0 * um2s_to_cm2s
-  MCELL_DIFFUSION_CONSTANT_3D_PrmR_bound 0 * um2s_to_cm2s
 
   # parameters to control rates in MCell and BioNetGen
   NA_V 6.02214e23 * V
