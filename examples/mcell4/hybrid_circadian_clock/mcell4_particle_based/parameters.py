@@ -33,7 +33,7 @@ if not_defined('ITERATIONS'):
 
 
 if not_defined('DUMP'):
-    DUMP = False
+    DUMP = True
 
 if not_defined('EXPORT_DATA_MODEL'):
     EXPORT_DATA_MODEL = True
