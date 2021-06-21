@@ -23,7 +23,8 @@ model = m.Model()
 Tetrahedron1 = Tetrahedron
 Tetrahedron2 = copy.deepcopy(Tetrahedron) 
 
-Tetrahedron2.translate(m.Vec3(0.1, 0.1, 0.1))
+Tetrahedron2.name = 'Tetrahedron2'
+Tetrahedron2.translate((0.1, 0.1, 0.1))
 
 model.add_geometry_object(Tetrahedron1)
 model.add_geometry_object(Tetrahedron2)
@@ -36,8 +37,8 @@ v2 = np.array(Tetrahedron_vertex_list[Tetrahedron_wall_list[0][2]])
 v = [v0, v1, v2] 
 
 def assert_eq(a, b):
-    print(a)
-    print(b)
+    #print(a)
+    #print(b)
     assert abs(a - b) < 1e-8
 
     

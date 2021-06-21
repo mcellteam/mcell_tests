@@ -45,7 +45,12 @@ viz_output = m.VizOutput(
 )
 model.add_viz_output(viz_output)
 
-model.load_bngl('test.bngl', './react_data/seed_' + str(SEED).zfill(5) + '/', default_compartment)
+gdat_file = ''
+use_gdat = 'GDAT' in params and params['GDAT'] == 1 
+if use_gdat:
+    gdat_file = 'out.gdat'
+
+model.load_bngl('test.bngl', './react_data/seed_' + str(SEED).zfill(5) + '/' + gdat_file, default_compartment)
 
 
 
@@ -61,3 +66,14 @@ model.config.subpartition_dimension = MCELL_DEFAULT_COMPARTMENT_EDGE_LENGTH
 model.initialize()
 
 model.export_to_bngl('exported.bngl')
+
+# for testing also appeend that we woudl like to use GDAT format for count output
+if use_gdat:
+    with open('exported.bngl', 'a') as f:
+        f.write(
+            '\nbegin parameters\n'
+            '  GDAT 1\n'
+            'end parameters\n'
+        )
+ 
+
