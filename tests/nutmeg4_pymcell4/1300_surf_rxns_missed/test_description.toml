@@ -1,0 +1,20 @@
+includes = ["exit_code_1"]
+
+[[checks]]
+  matchPattern = "Some reactions were missed"   
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = "A@PM + B@PM  --"   
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 0 
+  
+[run]
+  pyfile = "model.py"
