@@ -110,7 +110,8 @@ def get_all_peaks(dir):
     
 def print_peaks(df):
     
-    df['wavelength'] = df['A_second'] - df['A_first']    
+    df['wavelengthA'] = df['A_second'] - df['A_first']    
+    df['wavelengthR'] = df['R_second'] - df['R_first']
     df['lag_time1'] = df['R_first'] - df['A_first']
     df['lag_time2'] = df['R_second'] - df['A_second']
         
