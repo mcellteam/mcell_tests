@@ -1,6 +1,6 @@
 
 begin parameters
-  ITERATIONS = 20000
+  ITERATIONS = 1
   
   MCELL_DIFFUSION_CONSTANT_2D_A 1e-6
   MCELL_DIFFUSION_CONSTANT_2D_B 1e-6
@@ -51,8 +51,8 @@ begin compartments
 end compartments
 
 begin seed species
-	A@PM  0
-	B@PM  0
+#	A@PM  n_A
+#	B@PM  n_B
 end seed species
 
 begin observables
