@@ -2,6 +2,7 @@
 
 import sys
 import os
+import pprint
 
 MODEL_PATH = os.path.dirname(os.path.abspath(__file__))
 
@@ -28,6 +29,8 @@ else:
     sys.exit("Arguments: -seed N BNG_FILE")
 
 params = m.bngl_utils.load_bngl_parameters(bngl_file)
+
+pprint.pprint(params)
 
 ITERATIONS = int(params['ITERATIONS'])
     
@@ -57,7 +60,7 @@ else:
 viz_output = m.VizOutput(
     mode = m.VizMode.ASCII,
     output_files_prefix = './viz_data/seed_' + str(SEED).zfill(5) + '/Scene',
-    every_n_timesteps = 1
+    every_n_timesteps = 20000
 )
 model.add_viz_output(viz_output)
 
@@ -77,6 +80,7 @@ model.config.total_iterations = ITERATIONS
 model.config.partition_dimension = MCELL_DEFAULT_COMPARTMENT_EDGE_LENGTH
 model.config.subpartition_dimension = MCELL_DEFAULT_COMPARTMENT_EDGE_LENGTH 
 
+model.notifications.rxn_and_species_report = True
 
 model.initialize()
 
