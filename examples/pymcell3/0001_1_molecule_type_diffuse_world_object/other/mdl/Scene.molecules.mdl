@@ -1,8 +1,0 @@
-DEFINE_MOLECULES
-{
-  a
-  {
-    DIFFUSION_CONSTANT_3D = 1e-6
-  }
-}
-

@@ -1,3 +1,0 @@
-Starts to differs from mcell3 in iteration 31 and molecule 6 because a wall was hit a bit earlier.
-Also differs due to a bug fix - mcell3 does not check whether a wall where we want to move a 
-molecule is not empty: mcell4 fix in commit e86a14bcc8257ce5b41edec15300f34558eee89d
