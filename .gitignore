@@ -1,3 +1,5 @@
+*.cdat
+*.net
 **/4.
 **/viz_data
 **/viz_data3

@@ -1,0 +1,6 @@
+[[set]]
+  category = 'tests'
+  testSet = 'bngl_export'
+  testerClass = 'TesterPymcell4ExportBng'
+  args = ['mcell4']
+  

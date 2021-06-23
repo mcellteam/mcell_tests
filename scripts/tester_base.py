@@ -209,6 +209,12 @@ class TesterBase:
             return True
         else:
             return False
+        
+    def expected_wrong_ec_bng(self) -> bool:
+        if os.path.exists(os.path.join(self.test_src_path, 'expected_wrong_ec_bng')):
+            return True
+        else:
+            return False        
 
     def is_todo_test(self) -> bool:
         if os.path.exists(os.path.join(self.test_src_path, 'todo')):
@@ -293,7 +299,7 @@ class TesterBase:
             return res
 
         res = self.check_reference(
-            seed_dir, get_ref_react_data_dir(self.mcell4_testing, self.extra_args.mcell4_32), get_react_data_dir(self.mcell4_testing), False, "React data diff failed.", fdiff_args)
+            seed_dir, get_ref_react_data_dir(self.mcell4_testing, self.extra_args.mcell4_32), get_react_data_dir(self.mcell4_testing), True, "React data diff failed.", fdiff_args)
         if res != PASSED:
             return res
 

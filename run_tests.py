@@ -68,6 +68,7 @@ from tester_bngl_mcell3r import TesterBnglMcell3R
 from tester_bngl_pymcell4 import TesterBnglPymcell4
 from tester_bngl_pymcell4_export import TesterBnglPymcell4Export
 from tester_bngl_data_model_pymcell4 import TesterBnglDataModelPymcell4
+from tester_pymcell4_export_bng  import TesterPymcell4ExportBng
 from tester_external import TesterExternal
 from benchmark_mdl import BenchmarkMdl
 from benchmark_bngl import BenchmarkBngl
@@ -330,6 +331,8 @@ def load_test_config(config_path: str) -> List[TestSetInfo]:
                 tester_class = TesterBnglPymcell4Export
             elif class_name == 'TesterBnglDataModelPymcell4':
                 tester_class = TesterBnglDataModelPymcell4
+            elif class_name == 'TesterPymcell4ExportBng':
+                tester_class = TesterPymcell4ExportBng
             elif class_name == 'TesterExternal':
                 tester_class = TesterExternal
             elif class_name == 'BenchmarkMdl':
