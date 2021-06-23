@@ -1,16 +1,17 @@
 
 begin parameters
-  MCELL_DIFFUSION_CONSTANT_3D_A 1e-8
+  MCELL_DIFFUSION_CONSTANT_2D_A 1e-8
   MCELL_DIFFUSION_CONSTANT_3D_B 1e-8
-  MCELL_DIFFUSION_CONSTANT_3D_C 1e-8	
+  MCELL_DIFFUSION_CONSTANT_2D_C 1e-8	
     
   V 1 * 1 * 0.01 * 1e-15 # l
   NA 6.02214e23
   NA_V NA * V 
+  NA_UM3 NA * 1e-15  
   VOL_RXN 1
-  MCELL_REDEFINE_VOL_RXN NA_V
+  MCELL_REDEFINE_VOL_RXN NA_UM3
   
-  kon = 1e7 / NA_V * VOL_RXN
+  kon = 1e7 / NA_UM3 * VOL_RXN
   koff = 1e3
   
   conc_A = 1e-4
@@ -28,23 +29,24 @@ begin molecule types
 end molecule types
 
 begin compartments
-	CP 3 V * 1e15
+	PM 2 V * 1e15
+	CP 3 V * 1e15 PM
 end compartments
 
 begin seed species
-	A@CP  n_A
+	A@PM  n_A
 	B@CP  n_B
 end seed species
 
 begin observables
-    Molecules A A@CP
+    Molecules A A@PM
     Molecules B B@CP
-    Molecules C C@CP
+    Molecules C C@PM
 end observables
 
 begin reaction rules
-	A + B <-> C kon, koff
+	A@PM + B@CP <-> C@PM kon, koff
 end reaction rules
 
 generate_network({overwrite=>1})
-simulate({method=>"nf",seed=>1,t_end=>0.02,n_steps=>20000,glm=>1000000})
+simulate({method=>"ode",seed=>1,t_end=>0.02,n_steps=>20000,glm=>1000000})
