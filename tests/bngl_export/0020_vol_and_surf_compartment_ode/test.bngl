@@ -1,0 +1,67 @@
+
+begin parameters
+  GDAT 1
+  ITERATIONS 2000
+
+  MCELL_DIFFUSION_CONSTANT_2D_A 1e-8
+  MCELL_DIFFUSION_CONSTANT_3D_B 1e-5
+  MCELL_DIFFUSION_CONSTANT_2D_C 1e-8	
+    
+  EDGE_LEN = 1/8 # um, edge of the simulation box
+  
+  V_SURF 6 * EDGE_LEN^2 * 0.01 # um^3 (thickness 10 nm) 
+
+  V_VOL EDGE_LEN^3 * 1e-15 # l
+
+  # tried also to add the volumes but the addition produces completely 
+  # different results, for vol-surf rxns, only the volume 
+  # of the 3D/volume compartment matters
+  # V_VOL (EDGE_LEN^3 + V_SURF) * 1e-15 # l
+  
+  NA 6.02214e23
+  NA_V_VOL NA * V_VOL 
+  
+  NA_UM3 NA * 1e-15  
+    
+  VOL_RXN 1
+  MCELL_REDEFINE_VOL_RXN NA_UM3
+  
+  kon = 1e7 / NA_UM3 * VOL_RXN
+  koff = 1e3
+  
+  conc_A = 1e-4
+  conc_B = 1e-4
+  
+  n_A = conc_A * NA_V_VOL
+  n_B = conc_B * NA_V_VOL
+  
+end parameters
+
+begin molecule types
+	A()
+	B()
+	C()
+end molecule types
+
+begin compartments
+	PM 2 V_SURF * 1e15
+	CP 3 V_VOL * 1e15 PM
+end compartments
+
+begin seed species
+	A@PM  n_A
+	B@CP  n_B
+end seed species
+
+begin observables
+    Molecules A A@PM
+    Molecules B B@CP
+    Molecules C C@PM
+end observables
+
+begin reaction rules
+	A@PM + B@CP <-> C@PM kon, koff
+end reaction rules
+
+generate_network({overwrite=>1})
+simulate({method=>"ode",seed=>1,t_end=>0.02,n_steps=>20000,glm=>1000000})
