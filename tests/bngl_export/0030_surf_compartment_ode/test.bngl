@@ -1,6 +1,6 @@
 
 begin parameters
-  #GDAT 1
+  GDAT 1
   ITERATIONS 2000
   
   MCELL_DIFFUSION_CONSTANT_2D_A 1e-6
