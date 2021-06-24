@@ -16,7 +16,12 @@ else:
 import mcell as m
 
 
-SEED = 1
+if len(sys.argv) == 3 and sys.argv[1] == '-seed':
+    # overwrite value SEED defined in module parameters
+    SEED = int(sys.argv[2])
+else:
+    SEED = 1
+    
 bngl_file = os.path.join(MODEL_PATH, 'test.bngl')
 
 

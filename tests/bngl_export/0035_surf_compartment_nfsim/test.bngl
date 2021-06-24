@@ -1,0 +1,63 @@
+
+begin parameters
+  GDAT 1
+  ITERATIONS 2000
+  
+  MCELL_DIFFUSION_CONSTANT_2D_A 1e-6
+  MCELL_DIFFUSION_CONSTANT_2D_B 1e-6
+  MCELL_DIFFUSION_CONSTANT_2D_C 1e-6	
+    
+  THICKNESS = 0.01 # um
+  
+  EDGE_LEN = 1/4 # um, edge of the simulation box
+  
+  V_SURF 6 * EDGE_LEN^2 * THICKNESS * 1e-15 # l (thickness 10 nm) 
+
+  V_VOL EDGE_LEN^3 * 1e-15 # l
+  
+  NA 6.02214e23
+  
+  SURF_RXN_CONV (THICKNESS * 1e-15) / V_SURF
+  SURF_RXN 1
+  MCELL_REDEFINE_SURF_RXN SURF_RXN_CONV
+  
+  rate = 1.6605392767355127 # um^2/s
+  kon = rate * SURF_RXN_CONV / SURF_RXN  # mcell - um^2/s, nfsim - um^3/s? 
+  koff = 1e3
+  
+  conc_A = 1e-4
+  conc_B = 1e-4
+  
+  NA_V_SURF NA * V_SURF 
+  
+  n_A = conc_A*NA_V_SURF
+  n_B = conc_B*NA_V_SURF
+  
+end parameters
+
+begin molecule types
+	A()
+	B()
+	C()
+end molecule types
+
+begin compartments
+	PM 2 V_SURF * 1e15
+	CP 3 V_VOL * 1e15 PM
+end compartments
+
+begin seed species
+	A@PM  n_A
+	B@PM  n_B
+end seed species
+
+begin observables
+    Molecules A A@PM
+    Molecules B B@PM
+    Molecules C C@PM
+end observables
+
+begin reaction rules
+	A@PM + B@PM <-> C@PM kon, koff
+end reaction rules
+

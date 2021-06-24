@@ -2,9 +2,6 @@
 
 import sys
 import os
-import pprint
-
-ONLY_EXPORT = False
 
 MODEL_PATH = os.path.dirname(os.path.abspath(__file__))
 
