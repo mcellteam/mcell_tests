@@ -60,7 +60,7 @@ class TesterPymcell4ExportBng(TesterPymcell4):
         exit_code = run(cmd, shell=True, cwd=self.test_work_path, verbose=False, fout_name=log_name, timeout_sec=MCELL_TIMEOUT)
         
         if exit_code != 0 and not self.expected_wrong_ec_bng():
-            self.log_test_error("BNG2.pl failed, see '" + os.path.join(dir, log_name) + "'.")
+            self.log_test_error("BNG2.pl failed, see '" + os.path.join(self.test_work_path, log_name) + "'.")
             return FAILED_BNG2PL
         else:
             return PASSED
