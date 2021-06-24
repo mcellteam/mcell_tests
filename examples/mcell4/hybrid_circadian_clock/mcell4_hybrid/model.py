@@ -128,7 +128,7 @@ ODE_UPDATE_FREQUENCY = 100  # time steps
 VOLUME = 4.1889930549057564 * 1e-15 # um^3
 
 
-def dR(dt, num_AR, num_mRNA_R):
+def dR(dt, num_R, num_AR, num_mRNA_R):
     # dt - in [s]
     # num_mRNA_R - copy number
     # 
@@ -139,8 +139,8 @@ def dR(dt, num_AR, num_mRNA_R):
     #
     # we need to return how the amount of R should change (in copy number, float) 
     # 
-    # TODO
-    return 0
+    # PRELIMINARY
+    return -(num_R * 0.2 * dt) +(num_mRNA_R * 5 * dt) +(num_AR * 1 * dt)
 
 
 def compute_A_to_AR_rate(num_R):
@@ -154,10 +154,11 @@ def compute_A_to_AR_rate(num_R):
     # TODO
     
     # solution from Tom
-    #rate = (1204 * 1e6) # 1/M*1/s 
-    #conc_R = num_R * convert to mol/l  # VOLUME
-    #return  rate * conc_R
-    return 0
+    # PRELIMINARY
+    rate = (1204 * 1e6) # 1/M*1/s 
+    conc_R = convert_to_mol/l(num_R)   # VOLUME
+    return  rate * conc_R
+    #return 0
 
 
 
