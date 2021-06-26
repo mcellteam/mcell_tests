@@ -1,0 +1,118 @@
+begin parameters
+  # general parameters
+  ITERATIONS 10000
+  MCELL_TIME_STEP 9.99999999999999955e-07
+
+  # diffusion constants
+  MCELL_DIFFUSION_CONSTANT_3D_A 9.99999999999999955e-07
+  MCELL_DIFFUSION_CONSTANT_3D_B 9.99999999999999955e-07
+  MCELL_DIFFUSION_CONSTANT_3D_C 9.99999999999999955e-07
+  MCELL_DIFFUSION_CONSTANT_3D_D 9.99999999999999955e-07
+  MCELL_DIFFUSION_CONSTANT_3D_E 9.99999999999999955e-07
+  MCELL_DIFFUSION_CONSTANT_3D_F 9.99999999999999955e-07
+  MCELL_DIFFUSION_CONSTANT_3D_G 9.99999999999999955e-07
+  MCELL_DIFFUSION_CONSTANT_2D_T1 1.00000000000000002e-08
+  MCELL_DIFFUSION_CONSTANT_2D_T2 1.00000000000000002e-08
+  MCELL_DIFFUSION_CONSTANT_2D_T3 1.00000000000000002e-08
+  MCELL_DIFFUSION_CONSTANT_2D_T4 1.00000000000000002e-08
+  MCELL_DIFFUSION_CONSTANT_2D_T5 1.00000000000000002e-08
+  MCELL_DIFFUSION_CONSTANT_2D_T6 1.00000000000000002e-08
+
+  THICKNESS 0.01 # um, assumed membrane thickness
+  # volume rxn rate conversion factor for um^3 to litres
+  RATE_CONV_VOLUME 1e-15
+
+  # surface-surface rxn rate conversion factor for um^2 to um^3 using membrane thickness, in um
+  RATE_CONV_THICKNESS THICKNESS
+
+  # parameters to convert rates in MCell and BioNetGen
+  MCELL2BNG_VOL_CONV 6.02214e23 * RATE_CONV_VOLUME
+  VOL_RXN 1
+  MCELL_REDEFINE_VOL_RXN MCELL2BNG_VOL_CONV
+
+  MCELL2BNG_SURF_CONV 1/RATE_CONV_THICKNESS
+  SURF_RXN 1
+  MCELL_REDEFINE_SURF_RXN MCELL2BNG_SURF_CONV
+
+
+  # reaction rates
+  k0 1e+07 * (VOL_RXN / MCELL2BNG_VOL_CONV)
+  k1 1000
+  k2 5e+07 * (VOL_RXN / MCELL2BNG_VOL_CONV)
+  k3 5000
+  k4 2 * (SURF_RXN / MCELL2BNG_SURF_CONV)
+  k5 2000
+  k6 2 * (SURF_RXN / MCELL2BNG_SURF_CONV)
+  k7 2000
+  k8 3e+07 * (VOL_RXN / MCELL2BNG_VOL_CONV)
+  k9 8e+07 * (VOL_RXN / MCELL2BNG_VOL_CONV)
+  VOLUME_EC 0.012734374848465234 # um^3
+  AREA_PM 0.093750000000000042 # um^2
+  VOLUME_CP 1.95312500000000043e-03 # um^3
+
+  # seed species counts
+  seed_count_1 200
+  seed_count_2 200
+  seed_count_3 300
+  seed_count_4 100
+  seed_count_5 100
+  seed_count_6 120
+  seed_count_7 120
+end parameters
+
+begin molecule types
+  A()
+  B()
+  C()
+  D()
+  E()
+  F()
+  G()
+  T1()
+  T2()
+  T3()
+  T4()
+  T5()
+  T6()
+end molecule types
+
+begin compartments
+  EC 3 VOLUME_EC
+  PM 2 AREA_PM * THICKNESS EC
+  CP 3 VOLUME_CP PM
+end compartments
+
+begin seed species
+  A@CP seed_count_1
+  B@CP seed_count_2
+  E@EC seed_count_3
+  T1@PM seed_count_4
+  T2@PM seed_count_5
+  T4@PM seed_count_6
+  T5@PM seed_count_7
+end seed species
+
+begin observables
+  Molecules C C  
+  Molecules D D  
+  Molecules F F  
+  Molecules G G  
+  Molecules T3 T3  
+  Molecules T6 T6  
+end observables
+
+begin reaction rules
+  A + B -> C k0
+  C -> A + B k1
+  D + E -> F k2
+  F -> D + E k3
+  T1 + T2 -> T3 k4
+  T3 -> T1 + T2 k5
+  T4 + T5 -> T6 k6
+  T6 -> T4 + T5 k7
+  C@CP + T3@PM -> T3@PM + D@EC k8
+  F@EC + T6@PM -> T6@PM + G@CP k9
+end reaction rules
+
+generate_network({overwrite=>1})
+simulate({method=>"ode",seed=>1,t_end=>0.01,n_steps=>10000})
