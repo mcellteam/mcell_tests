@@ -16,9 +16,10 @@ begin molecule types
 end molecule types
 
 begin compartments
-    EC 3 0.2^3
-    PM 2 1e-20 EC     # mcell3r converter takes volume of PM into account
-    CP 3 0.1^3 PM  
+    EC 3 (1/4)^3 - (1/8)^3
+    PM 2 0 EC     # mcell3r converter takes volume of PM into account 
+    				  # and does not subtract volume of CP as it should 
+    CP 3 (1/8)^3 PM  
 end compartments
 
 begin seed species

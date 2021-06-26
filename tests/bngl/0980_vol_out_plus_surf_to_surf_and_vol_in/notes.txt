@@ -1,1 +1,2 @@
-Validated against MDL variant mdl/2023_1_surf_up_1_vol_to_1_surf_1_vol_down_w_cube_rel_react_it_50.
+Previously validated against MDL variant mdl/2023_1_surf_up_1_vol_to_1_surf_1_vol_down_w_cube_rel_react_it_50.
+Updated after fix of EC volume computation.
