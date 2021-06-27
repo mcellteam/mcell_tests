@@ -1,2 +1,4 @@
 this is not supproted yet, 
 compartments are needed in rxn rule to specify orientation of the product
+
+TODO: report error
