@@ -1,1 +1,2 @@
-MCell3R produces the same result as MCell4
+MCell3R produced the same result as MCell4,
+MCell4 ref data updated afterwards after compartment EC volume fix.

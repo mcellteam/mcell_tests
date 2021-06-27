@@ -2,8 +2,8 @@ import os
 import sys
 import shutil
 
-#SEED_DIR = 'seed_00001'
-SEED_DIR = 'seed_56362'
+SEED_DIR = 'seed_00001'
+#SEED_DIR = 'seed_56362'
 
 def update_dir(work_data_dir, test_data_dir):
     files = os.listdir(test_data_dir)
