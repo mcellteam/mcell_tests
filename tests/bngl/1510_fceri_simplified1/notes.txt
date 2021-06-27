@@ -1,6 +1,8 @@
-Getting identical result as in MCell3R,
+Previously getting identical result as in MCell3R,
 but only because the rate is high (1e8),
 a better test is in 1511.
 
 
-Validates diffusion and detection of surf bimol rxns
+Validates diffusion and detection of surf bimol rxns.
+
+MCell4 ref data updated after fix of EC compartment volume.
