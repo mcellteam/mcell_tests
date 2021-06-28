@@ -26,7 +26,8 @@ bngl_params = m.bngl_utils.load_bngl_parameters(os.path.join(MODEL_PATH, 'model.
 # ---- simulation setup ----
 
 if not_defined('TIME_STEP'):
-    TIME_STEP = 2.5e-7
+    #TIME_STEP = 2.5e-7
+    TIME_STEP = 1e-6
 
 if not_defined('ITERATIONS'):
     ITERATIONS = int(45/TIME_STEP)

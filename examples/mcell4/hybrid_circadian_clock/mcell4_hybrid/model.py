@@ -93,10 +93,11 @@ model.config.total_iterations = ITERATIONS
 
 model.warnings.high_reaction_probability = m.WarningLevel.IGNORE
 model.notifications.rxn_and_species_report = True
-model.notifications.rxn_probability_changed = True
+model.notifications.rxn_probability_changed = False
+#model.notifications.iteration_report = True
 
 model.config.partition_dimension = 2
-model.config.subpartition_dimension = 2
+model.config.subpartition_dimension = 0.5
 
 model.config.reaction_class_cleanup_periodicity = 0
 model.config.species_cleanup_periodicity = 0
@@ -124,23 +125,46 @@ if DUMP:
     model.dump_internal_state()
 
 
-ODE_UPDATE_FREQUENCY = 100  # time steps
-VOLUME = 4.1889930549057564 * 1e-15 # um^3
+ODE_UPDATE_INTERVAL = 1  # time steps
+VOLUME = 4.1889930549057564 * 1e-15 # l
 
 
-def dR(dt, num_R, num_AR, num_mRNA_R):
+def compute_R_to_AR_rate(num_A):
+    # num_A - copy number (as float)
+    #
+    # original reaction: A + R -> AR 1204 * 1e6 [1/M*1/s]
+    # changed to: R -> 0 rate(num_A)
+    #
+    # we need to return unimoleculear rate [1/s]
+    
+    rate = (1204 * 1e6) # 1/M*1/s 
+    
+    # N -> M 
+    conc_A = num_A / NA / VOLUME  # M
+    res = rate * conc_A # 1/s
+    return res
+
+
+def dR(dt, num_A, num_R, num_AR, num_mRNA_R):
     # dt - in [s]
     # num_mRNA_R - copy number
     # 
     # original reactions
+    # A + R -> AR 1204 * uM_1_to_M_1 [1/M*1/s]
+    #   -> R -> 0 rate depends on A -> same as 
     # R -> 0 0.2 [1/s]
     # mRNA_R -> mRNA_R + R  5 [1/s]
     # AR -> R 1
     #
-    # we need to return how the amount of R should change (in copy number, float) 
-    # 
-    # PRELIMINARY
-    return -(num_R * 0.2 * dt) +(num_mRNA_R * 5 * dt) +(num_AR * 1 * dt)
+    # how the amount of R should change (in copy number, float) 
+    res = \
+        -(num_R * compute_R_to_AR_rate(num_A) * dt) \
+        -(num_R * 0.2 * dt) \
+        +(num_mRNA_R * 5 * dt) \
+        +(num_AR * 1 * dt) 
+        
+    #print("dR", res)
+    return res
 
 
 def compute_A_to_AR_rate(num_R):
@@ -150,17 +174,14 @@ def compute_A_to_AR_rate(num_R):
     # changed to: A -> R rate(num_R)
     #
     # we need to return unimoleculear rate [1/s]
-    #
-    # TODO
     
-    # solution from Tom
-    # PRELIMINARY
     rate = (1204 * 1e6) # 1/M*1/s 
-    conc_R = convert_to_mol/l(num_R)   # VOLUME
-    return  rate * conc_R
-    #return 0
-
-
+    
+    # N -> M 
+    conc_R = num_R / NA / VOLUME  # M
+    res = rate * conc_R # 1/s
+    #print("A_to_AR_rate", res)
+    return res
 
 
 count_A = model.find_count('A')
@@ -172,23 +193,44 @@ assert count_mRNA_R
 rxn_A_to_AR = model.find_reaction_rule('A_to_AR')
 assert rxn_A_to_AR
 
+
+NA = 6.0221409e+23
+
 num_R = 0.0 # initial value, model as float
 
-for i in range(int(ITERATIONS/ODE_UPDATE_FREQUENCY)):
+r_dat = open('./react_data/seed_' + str(SEED).zfill(5) + '/R.dat', 'w')
+
+for i in range(int(ITERATIONS/ODE_UPDATE_INTERVAL)):
     
-    model.run_iterations(ODE_UPDATE_FREQUENCY)
-    
+    model.run_iterations(ODE_UPDATE_INTERVAL)
     
     num_A = count_A.get_current_value()
     num_AR = count_AR.get_current_value()
     num_mRNA_R = count_mRNA_R.get_current_value()
+
+    t = i * ODE_UPDATE_INTERVAL * TIME_STEP
+        
+    if i % (SAMPLING_PERIODICITY/ODE_UPDATE_INTERVAL) == 0:
+        print("----\n%.4f" % t)
+        print("R: %.4f, AR: %.4f, mRNA_R: %4f, A: %.4f" % (num_R, num_AR, num_mRNA_R, num_A))
+        
+        
+    num_R += dR(ODE_UPDATE_INTERVAL * TIME_STEP, num_A, num_R, num_AR, num_mRNA_R) 
+
+    rate_A_to_R = compute_A_to_AR_rate(num_R)
+    rxn_A_to_AR.fwd_rate = rate_A_to_R 
+
+    if i % (SAMPLING_PERIODICITY/ODE_UPDATE_INTERVAL) == 0:
+        print("R_new: %.4f" % num_R)
+        print("rate: %.4f" % rxn_A_to_AR.fwd_rate)
+
+
+    if i % (SAMPLING_PERIODICITY/ODE_UPDATE_INTERVAL) == 0:
+        r_dat.write("%.4f %8f\n" % (t, num_R))
+        r_dat.flush()
     
-    num_R += dR(ODE_UPDATE_FREQUENCY * TIME_STEP, num_AR, num_mRNA_R) 
-
-    rxn_A_to_AR.fwd_rate = compute_A_to_AR_rate(num_R)
-
     #print("A: " + str(num_A) + ", R: " + str(num_R) + ", AR: " + str(num_AR))
     
-
+r_dat.close()
 
 model.end_simulation()
