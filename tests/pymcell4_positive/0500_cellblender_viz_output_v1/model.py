@@ -44,7 +44,7 @@ def read_cellblender_viz_output(file_name):
                 ni.fromfile(mol_file, 1)       # Read one byte or uint which is the number of characters in the molecule name
                 ns = array.array("B")          # Create another byte array to hold the molecule name
                 ns.fromfile(mol_file, ni[0])   # Read ni bytes from the file
-                mol_name_from_file = ns.tostring().decode()     # Decode bytes as ASCII into a string (s)
+                mol_name_from_file = ns.tobytes().decode()     # Decode bytes as ASCII into a string (s)
                 
                 
                 mt = array.array("B")          # Create a byte array for the molecule type
