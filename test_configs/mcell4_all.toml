@@ -37,8 +37,8 @@
 [[include]]  
   file = 'bngl_to_data_model_to_pymcell4_chkpt.toml'
   
-[[include]]
-  file = 'bngl_export.toml' 
+#[[include]] # requires full bionetgen
+#  file = 'bngl_export.toml' 
   
 [[include]]
   file = 'external.toml'

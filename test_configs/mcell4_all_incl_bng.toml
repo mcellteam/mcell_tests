@@ -1,0 +1,7 @@
+[[include]]  
+  file = 'mcell4_all.toml'
+  
+[[include]] # requires full bionetgen
+  file = 'bngl_export.toml' 
+
+    
