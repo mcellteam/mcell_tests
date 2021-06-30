@@ -189,7 +189,7 @@ class TesterBase:
                 log("SKIP CENTOS6: " + self.test_name)
                 return True
         if os.path.exists(os.path.join(self.test_src_path, 'skip_macos')):
-            if 'Darwin' in platform.platform():
+            if 'Darwin' in platform.system():
                 log("SKIP MACOS: " + self.test_name)
                 return True
         
