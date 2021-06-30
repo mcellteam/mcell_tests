@@ -24,7 +24,7 @@ viz_output = m.VizOutput(
 
 observables = m.Observables()
 
-observables.load_bngl_observables('model.bngl', './react_data/seed_' + str(SEED).zfill(5) + '/')
+observables.load_bngl_observables(os.path.join(MODEL_PATH, 'model.bngl'), './react_data/seed_' + str(SEED).zfill(5) + '/')
 
 #observables.add_viz_output(viz_output)
 
