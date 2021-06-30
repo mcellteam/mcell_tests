@@ -1,6 +1,5 @@
 import os
 import sys
-import test
 from test_settings import *
 
 THIS_DIR = os.path.dirname(os.path.realpath(__file__))
