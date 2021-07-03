@@ -89,7 +89,7 @@ def get_all_peaks(dir):
             file_path = os.path.join(dir, seed_dir, file)
             if os.path.isfile(file_path) and file.endswith('.dat'):    
                 df, obs_name = load_dat_file(file_path)
-                if obs_name == 'AR':
+                if obs_name != 'A' and obs_name != 'R':
                     continue
                 
                 p0, p1, skip = get_peaks_for_single_obs(df, obs_name, file_path)
