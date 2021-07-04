@@ -1,0 +1,102 @@
+
+begin parameters
+  #GDAT 1
+  ITERATIONS 10000
+  
+  D_VOL 1e-6
+  MCELL_DIFFUSION_CONSTANT_3D_A D_VOL
+  MCELL_DIFFUSION_CONSTANT_3D_B D_VOL
+  MCELL_DIFFUSION_CONSTANT_3D_C D_VOL	
+  MCELL_DIFFUSION_CONSTANT_3D_D D_VOL	
+  MCELL_DIFFUSION_CONSTANT_3D_E D_VOL	
+  MCELL_DIFFUSION_CONSTANT_3D_F D_VOL	
+  MCELL_DIFFUSION_CONSTANT_3D_G D_VOL	
+  
+  D_SURF 1e-8
+  MCELL_DIFFUSION_CONSTANT_2D_T1 D_SURF	
+  MCELL_DIFFUSION_CONSTANT_2D_T2 D_SURF	
+  MCELL_DIFFUSION_CONSTANT_2D_T3 D_SURF	
+  MCELL_DIFFUSION_CONSTANT_2D_T4 D_SURF	
+  MCELL_DIFFUSION_CONSTANT_2D_T5 D_SURF	
+  MCELL_DIFFUSION_CONSTANT_2D_T6 D_SURF	
+  
+  THICKNESS = 0.01
+  
+  # volume rxn rate conversion factor for um^3 to litres
+  RATE_CONV_VOLUME 1e-15
+
+  # surface-surface rxn rate conversion factor for um^2 to um^3 using membrane thickness, in um
+  RATE_CONV_THICKNESS THICKNESS
+  
+  MCELL2BNG_VOL_CONV 6.02214e23 * RATE_CONV_VOLUME
+  MCELL2BNG_SURF_CONV 1/RATE_CONV_THICKNESS
+  
+  
+  CP_EDGE_LEN = 1/8 
+  VOL_CP = CP_EDGE_LEN^3
+  AREA_PM = 6 * CP_EDGE_LEN^2
+  
+  EC_EDGE_LEN = 1/4 
+  VOL_EC = EC_EDGE_LEN^3 - VOL_CP - AREA_PM * THICKNESS
+  
+  kon_a_b = 1e7 / MCELL2BNG_VOL_CONV # vol
+  koff_a_b = 1e3
+
+  kon_d_e = 5e7 / MCELL2BNG_VOL_CONV # vol
+  koff_d_e = 5e3
+
+  kon_t1_t2 = 2 / MCELL2BNG_SURF_CONV # surf
+  koff_t1_t2 = 2e3
+
+  kon_t4_t5 = 3 / MCELL2BNG_SURF_CONV # surf
+  koff_t4_t5 = 2e3
+  
+  kon_c_t3 = 3e7 / MCELL2BNG_VOL_CONV
+  
+  kon_f_t6 = 8e7 / MCELL2BNG_VOL_CONV
+  
+end parameters
+
+
+begin compartments
+  EC 3 VOL_EC
+  PM 2 AREA_PM * THICKNESS EC
+  CP 3 VOL_CP PM
+end compartments
+
+begin seed species
+  A@CP  200
+  B@CP  200
+  E@EC  300
+  T1@PM 100
+  T2@PM 100
+  T4@PM 120
+  T5@PM 120
+end seed species
+
+begin observables
+    #Molecules ACP A@CP
+    #Molecules AEC A@EC
+    #Molecules B B
+    #Molecules E E
+
+  # observing only products
+  Molecules C C
+  Molecules D D
+  Molecules F F
+  Molecules G G
+  Molecules T3 T3
+  Molecules T6 T6
+end observables
+
+begin reaction rules
+  # combining
+  A + B <-> C kon_a_b, koff_a_b
+  D + E <-> F kon_d_e, koff_d_e
+  T1 + T2 <-> T3 kon_t1_t2, koff_t1_t2
+  T4 + T5 <-> T6 kon_t1_t2, koff_t1_t2
+  
+  # transports
+  C@CP + T3@PM -> D@EC + T3@PM kon_c_t3
+  F@EC + T6@PM -> G@CP + T6@PM kon_f_t6
+end reaction rules

@@ -1,0 +1,1 @@
+Exactly the same result as 0120_multiple_compartments_full_ode for MCell and almost the same for ODE.
