@@ -1,0 +1,2 @@
+Uses BNG units
+Checked against variant with MCell units
