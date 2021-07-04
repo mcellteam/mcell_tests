@@ -1,0 +1,1 @@
+Same as mdl/2500_rxn_rate_change_bimol_box_it_100 only using BNG units
