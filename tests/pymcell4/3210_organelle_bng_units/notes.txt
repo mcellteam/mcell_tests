@@ -1,0 +1,2 @@
+Validated against 3200_organelle_mcell_units by comparing average of 48 runs with 10k iterations.
+Avogadro's number in test.bngl is imprecise.

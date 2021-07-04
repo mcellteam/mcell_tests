@@ -1,0 +1,1 @@
+Validated against BNG ODE by setting D_VOL to 1e-4 and comparing average of 64 runs with 10k interations
