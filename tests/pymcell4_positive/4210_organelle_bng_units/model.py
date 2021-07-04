@@ -110,15 +110,19 @@ model.config.subpartition_dimension = 0.1
 model.initialize()
 
 # export data model for visualization with CellBlender
-model.export_data_model()
+model.export_data_model('test.json')
 
 model.run_iterations(ITERATIONS)
 model.end_simulation()
 
 
-"""
-To visualize the model, run:
-> $MCELL_PATH/utils/visualize.sh viz_data/seed_00001/
-"""
+# simply check for contents while, we don't want to introduce dependency on json parsing lib
+found = False
+with open('test.json') as f:
+    for line in f:
+        if '  "use_bng_units" : true,' in line:
+            found = True
+            break
 
+assert found, "Check for use_bng_units"
 
