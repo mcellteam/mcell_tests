@@ -1,0 +1,12 @@
+INSTANTIATE Scene OBJECT
+{
+  Cube OBJECT Cube {}
+  rel1 RELEASE_SITE
+  {
+   SHAPE = Scene.Cube[ALL] - Scene.Cube[sr0] - Scene.Cube[sr1]
+   MOLECULE = sm'
+   NUMBER_TO_RELEASE = 100
+   RELEASE_PROBABILITY = 1
+  }
+}
+
