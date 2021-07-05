@@ -75,7 +75,9 @@ model.config.total_iterations = ITERATIONS
 model.config.partition_dimension = MCELL_DEFAULT_COMPARTMENT_EDGE_LENGTH
 model.config.subpartition_dimension = MCELL_DEFAULT_COMPARTMENT_EDGE_LENGTH 
 
-
+if 'MOLECULE_PLACEMENT_FAILURE_WARN' in params and params['MOLECULE_PLACEMENT_FAILURE_WARN'] == 1:
+    model.warnings.molecule_placement_failure = m.WarningLevel.WARNING
+    
 model.initialize()
 
 if DUMP:

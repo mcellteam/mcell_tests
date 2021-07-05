@@ -1,0 +1,2 @@
+Intentionallly releaseeing more surface molecules than what fit and MCell reports only a warning.
+Same locations as with MCell3

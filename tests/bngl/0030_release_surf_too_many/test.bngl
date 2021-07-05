@@ -1,10 +1,12 @@
 begin model
 begin parameters
-	ITERATIONS  10
+	ITERATIONS  1
     MCELL_DIFFUSION_CONSTANT_3D_A 1e-6
     MCELL_DIFFUSION_CONSTANT_2D_Mem 5e-4
     MCELL_DIFFUSION_CONSTANT_2D_MemA 5e-4
     MCELL_DIFFUSION_CONSTANT_3D_B 1e-6  
+    
+    MOLECULE_PLACEMENT_FAILURE_WARN 1
 end parameters
 begin molecule types
 	A()
@@ -29,8 +31,8 @@ begin observables
 	Molecules bec B@EC
 end observables
 begin reaction rules
-	A@CP + Mem@PM -> MemA@PM 1E8
-	MemA@PM -> Mem@PM + A@EC 1E6
-	A@EC -> B@EC 1E6
+#	A@CP + Mem@PM -> MemA@PM 1E8
+#	MemA@PM -> Mem@PM + A@EC 1E6
+	A@EC -> B@EC 1
 end reaction rules
 end model
