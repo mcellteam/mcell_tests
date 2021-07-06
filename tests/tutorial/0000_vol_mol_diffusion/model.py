@@ -1,6 +1,12 @@
 """
+Prerequisites: This tutorial assumes that MCell4 is installed, 
+a system variable MCELL_PATH is set and that python3.9 
+executable is available through the system variable PATH.
+"""
+
+"""
 0000
-This is the first totorial where we will build a model 
+This is the first tutorial where we will build a model 
 where a single molecule is released and diffused for 
 10 iterations.
 """
@@ -17,16 +23,17 @@ import os
 0000-2)
 MCell Python module is distributed in the CellBlender package.
 There are also other tools present, so to make them easily accessible,
-a system variable MCELL_PATH needs to be set after installation.
+a system variable MCELL_PATH needs to be set after installation 
+(see MCell installation documentation).
  
 On MacOS, its location is always the same:
 /Applications/Blender-2.93-CellBlender/blender.app/Contents/Resources/2.93/scripts/addons/cellblender/extensions/mcell/
 
 On Linux/Windows its value depends on the installation directory:
- <blender_dir>/2.93/scripts/addons/cellblender/extensions/mcell
+<blender_dir>/2.93/scripts/addons/cellblender/extensions/mcell
  
 The code below reads the system variable MCELL_PATH and appends 
-it to sys.path which is a list of directories where
+it to sys.path, which is a list of directories where
 Python searches for modules. 
 """ 
 MCELL_PATH = os.environ.get('MCELL_PATH', '')
@@ -42,7 +49,7 @@ else:
 """
 0000-3)
 Now we can import the MCell4 Python module.
-By convention, it will be imported under name 'm'. 
+By convention, the module will be imported under name 'm'. 
 """    
 import mcell as m
     
@@ -64,9 +71,10 @@ species_a = m.Species(
 0000-5)
 Now we define a release site telling to release 1 molecule a
 at x,y,z location 0, 0, 0 (units are in micrometers).
-The reason why the argument that sets the species is called 
+
+Side note: The reason why the argument that sets the species is called 
 complex is due to BioNetGen terminology where a complex 
-is a fully-specified type of a molecule.
+is a fully-specified type of a molecule that can represent a protein complex.
 """
 release_site_a = m.ReleaseSite(
     name = 'rel_a', 
@@ -121,7 +129,7 @@ model.end_simulation()
 Open a terminal (command line), change the current directory 
 to the directory where this file is stored and run:
 
-> python model.py
+> python3.9 model.py
 
 Information on the progress of simulation and
 final statistics are printed.
@@ -129,7 +137,7 @@ We can now take a look at the visualization output files.
    
 Under directory viz_data/seed_00001/, there are
 files Scene.ascii.0000000.dat - Scene.ascii.0000010.dat
-that contain location of the molecule.   
+that contain the location of the molecule.   
 
 The format of visualization data is:
 species_name id x y z nx ny nz

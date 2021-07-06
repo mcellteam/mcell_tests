@@ -1,16 +1,22 @@
 """
+Prerequisites: This tutorial assumes that MCell4 is installed, 
+a system variable MCELL_PATH is set and that python3.9 
+executable is available through the system variable PATH.
+"""
+
+"""
 0070
 In this tutorial section, we will continue with the model 
 we created in section 0060_full_organelle_model. 
 
-We are going to take alook at ways how to increase performance. 
+We are going to take a look at ways how to increase performance. 
 
-To get a better idea on how each change impacts performance, 
+To get a better idea how each change impacts performance, 
 run the model after each modification and note down the
 Simulation CPU time printed after the simulation is finished.
 Example:
 
-> python model.py
+> python3.9 model.py
 
 ...
 Simulation CPU time = 8.60072(user)...
@@ -46,7 +52,7 @@ Visualization output may have the highest impact
 on performance. 
 
 These are several options on how to lower this impact:
-- simply disable it, i.e. remove this line in the code 
+- simply disable it, i.e., remove this line in the code 
   below:
     # model.add_viz_output(viz_output)
   
@@ -56,25 +62,26 @@ These are several options on how to lower this impact:
   
     # model.export_viz_data_model()
   
-  This of course will lead to unability to visualize the locations 
-  in CellBlender.  
+  Of course, you won't be able to visualize the locations of 
+  molecules in CellBlender afterwards.  
 
   (Simulation CPU time = 5.2)
 
-- we may set the periodicity to 100 iterations with: 
+- we may set the interval to 100 iterations with: 
   
     every_n_timesteps = 100
   
   This is the variant that is used here so that the model can be 
   automatically tested.
-  Note: changing the sampling periodicity (here or later in 
+  Note: changing the sampling interval (here or later in 
   counts/observables later may change the simulation results 
   because a sampling event may create a simulation barrier.
-  The results will be still correct, but may represent a different 
+  The results will be still correct but may represent a different 
   trajectory because an internal random number generator is called 
   lower or higher number of times.     
   
-  We are going to use this variant because it is easiest to test.
+  We are going to use this variant because it is the easiest to test
+  automatically.
   (Simulation CPU time = 5.3)
   
 - or set output to a more compact binary format instead of the ASCII
@@ -92,33 +99,33 @@ viz_output = m.VizOutput(
 )
 
 
-#0020-1)
-organelle_1 = m.geometry_utils.create_icosphere(
-    name = 'Organelle_1', 
+#0030-1)
+o1v = m.geometry_utils.create_icosphere(
+    name = 'O1V', 
     radius = 0.3, 
     subdivisions = 4
 )
 
 
-#0020-2)
-organelle_1.translate((0, -0.2, 0))
+#0030-2)
+o1v.translate((0, -0.2, 0))
 
 
-#0030-1)
-cell = m.geometry_utils.create_icosphere(
-    name = 'Cell', 
+#0040-1)
+cyt = m.geometry_utils.create_icosphere(
+    name = 'CYT', 
     radius = 0.6, 
     subdivisions = 4
 )
 
 
 #0060-1)
-organelle_2 = m.geometry_utils.create_icosphere(
-    name = 'Organelle_2', 
+o2v = m.geometry_utils.create_icosphere(
+    name = 'O2V', 
     radius = 0.2, 
     subdivisions = 4
 )
-organelle_2.translate((0, 0.35, 0))
+o2v.translate((0, 0.35, 0))
 
 
 #0000-7)
@@ -127,29 +134,28 @@ model.add_viz_output(viz_output)
 
 
 #0020-2)
-model.add_geometry_object(organelle_1)
+model.add_geometry_object(o1v)
 
 
 #0030-11)
-model.add_geometry_object(cell)
+model.add_geometry_object(cyt)
 
 
 #0060-2)
-model.add_geometry_object(organelle_2)
+model.add_geometry_object(o2v)
 
 
 #0030-6)
-#0040-10)
-organelle_1.is_bngl_compartment = True
-organelle_1.surface_compartment_name = 'Organelle_1_surface'
+#0040-11)
+o1v.is_bngl_compartment = True
+o1v.surface_compartment_name = 'O1M'
 
-cell.is_bngl_compartment = True
+cyt.is_bngl_compartment = True
 
 
-#0060-4)
-organelle_2.is_bngl_compartment = True
-organelle_2.surface_compartment_name = 'Organelle_2_surface'
-
+#0060-3)
+o2v.is_bngl_compartment = True
+o2v.surface_compartment_name = 'O2M'
 
 #0030-7)
 #0040-11)
@@ -163,12 +169,12 @@ model.load_bngl(
 
 """
 0070-2)
-Sampling periodicity of observables can be lowered 
-in a similar way as the viz output periodicity.
+Sampling interval of observables can be lowered 
+in a similar way as the viz output interval.
 Since we are loading the observables from a BNGL 
 file, we must access the Count objects created for 
 each observable (they are present in an array model.counts).
-We are going to change the periodicity to 100 iterations
+We are going to change the interval to 100 iterations
 (time steps).
 
 To see the impact, run simulation and open for instance 
@@ -303,7 +309,7 @@ but we can still see the visualization and
 
 Let's run the model again:
 
-> python model.py
+> python3.9 model.py
 
 Take a look at the model visualization:
 
@@ -311,9 +317,10 @@ Take a look at the model visualization:
 
 And check the plots:
 
-> python $MCELL_PATH/utils/plot_single_run.py react_data/seed_00001/
+> python3.9 $MCELL_PATH/utils/plot_single_run.py react_data/seed_00001/
 
 
 Congratulations, you just finished the MCell4 Python API 
 Organelle tutorial!
+
 """

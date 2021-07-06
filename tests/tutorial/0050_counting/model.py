@@ -1,9 +1,15 @@
 """
+Prerequisites: This tutorial assumes that MCell4 is installed, 
+a system variable MCELL_PATH is set and that python3.9 
+executable is available through the system variable PATH.
+"""
+
+"""
 0050
 In this tutorial section, we will continue with the model 
 we created in section 0040_vol_and_surf_reactions,
 add one more sphere representing a cell and
-define a transport and volume-volume reactions.  
+define transport and volume-volume reactions.  
 """
 
 #0000-1) 
@@ -32,21 +38,21 @@ viz_output = m.VizOutput(
 )
 
 
-#0020-1)
-organelle_1 = m.geometry_utils.create_icosphere(
-    name = 'Organelle_1', 
+#0030-1)
+o1v = m.geometry_utils.create_icosphere(
+    name = 'O1V', 
     radius = 0.3, 
     subdivisions = 4
 )
 
 
-#0020-2)
-organelle_1.translate((0, -0.2, 0))
+#0030-2)
+o1v.translate((0, -0.2, 0))
 
 
-#0030-1)
-cell = m.geometry_utils.create_icosphere(
-    name = 'Cell', 
+#0040-1)
+cyt = m.geometry_utils.create_icosphere(
+    name = 'CYT', 
     radius = 0.6, 
     subdivisions = 4
 )
@@ -56,7 +62,7 @@ cell = m.geometry_utils.create_icosphere(
 0050-1)
 We will define observables using the BioNetGen language. 
 Open file 'model.bngl' and follow the tutorial present in this 
-directory's file called also model.bngl.
+directory's file also called model.bngl.
 """
 
 #0000-7)
@@ -65,19 +71,19 @@ model.add_viz_output(viz_output)
 
 
 #0020-2)
-model.add_geometry_object(organelle_1)
+model.add_geometry_object(o1v)
 
 
 #0030-11)
-model.add_geometry_object(cell)
+model.add_geometry_object(cyt)
 
 
 #0030-6)
-#0040-10)
-organelle_1.is_bngl_compartment = True
-organelle_1.surface_compartment_name = 'Organelle_1_surface'
+#0040-11)
+o1v.is_bngl_compartment = True
+o1v.surface_compartment_name = 'O1M'
 
-cell.is_bngl_compartment = True
+cyt.is_bngl_compartment = True
 
 
 #0030-7)
@@ -86,10 +92,10 @@ cell.is_bngl_compartment = True
 #0050-3)
 In the previous tutorial sections, the only argument we needed to 
 pass was the path to the BNGL file. 
-Now we would also line to specify directory for the output 
+Now we would also like to specify the directory for the output 
 files where the counts of observables will be stored. 
-The default is the current directory and we will chaneg it to a more 
-common directory react_data with subdirectory that contains the 
+The default is the current directory, and we will change it to a  
+commonly used directory name react_data with subdirectory that contains the 
 seed value (1 in our case). 
 """
 MODEL_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -98,7 +104,6 @@ model.load_bngl(
     observables_path_or_file = './react_data/seed_00001/'
 )    
 
-model.notifications.rxn_and_species_report = True
 
 #0000-8)
 model.initialize()
@@ -117,7 +122,7 @@ model.end_simulation()
 0050-4)
 Run the model:
 
-> python model.py
+> python3.9 model.py
 """
 
 """
@@ -125,11 +130,11 @@ Run the model:
 We visualized the model in the previous tutorial section, so we will 
 look just at the observable counts. 
 Navigate to the directory react_data/seed_00001/ and 
-open for instance the file a.dat created from BNGL observable 
+open, for instance, the file a.dat created from BNGL observable 
 defined as:
   Molecules a a 
 
-The first column is time (in seconds) and the second value is the
+The first column is time (in seconds), and the second value is the
 count of molecules matching pattern 'a'.  
 
 0 1000
@@ -142,12 +147,12 @@ count of molecules matching pattern 'a'.
 There are many ways how to visualize the .dat files,
 a utility python script is provided with MCell.
 To use it to display the data, run the script below 
-with argument pointing to the directory with our observable files: 
+with the argument pointing to the directory with our observable files:
 
-> python $MCELL_PATH/utils/plot_single_run.py react_data/seed_00001/
+> python3.9 $MCELL_PATH/utils/plot_single_run.py react_data/seed_00001/
 
 We ran the simulation just for 100 iterations (100 us because 
-the default tiem step is 1 us), so no big changes are 
+the default time step is 1 us), so no big changes are 
 happening. Still, one can see that the number of molecules
 'a' in organelle_1 grows and as they react with 'b'
 the number of 'c' grows as well.  

@@ -1,4 +1,10 @@
 """
+Prerequisites: This tutorial assumes that MCell4 is installed, 
+a system variable MCELL_PATH is set and that python3.9 
+executable is available through the system variable PATH.
+"""
+
+"""
 0060
 In this tutorial section, we will continue with the model 
 we created in section 0050_counting,
@@ -39,21 +45,21 @@ viz_output = m.VizOutput(
 )
 
 
-#0020-1)
-organelle_1 = m.geometry_utils.create_icosphere(
-    name = 'Organelle_1', 
+#0030-1)
+o1v = m.geometry_utils.create_icosphere(
+    name = 'O1V', 
     radius = 0.3, 
     subdivisions = 4
 )
 
 
-#0020-2)
-organelle_1.translate((0, -0.2, 0))
+#0030-2)
+o1v.translate((0, -0.2, 0))
 
 
-#0030-1)
-cell = m.geometry_utils.create_icosphere(
-    name = 'Cell', 
+#0040-1)
+cyt = m.geometry_utils.create_icosphere(
+    name = 'CYT', 
     radius = 0.6, 
     subdivisions = 4
 )
@@ -63,12 +69,12 @@ cell = m.geometry_utils.create_icosphere(
 0060-1)
 We will add a second organelle and move it a bit to the right.
 """
-organelle_2 = m.geometry_utils.create_icosphere(
-    name = 'Organelle_2', 
+o2v = m.geometry_utils.create_icosphere(
+    name = 'O2V', 
     radius = 0.2, 
     subdivisions = 4
 )
-organelle_2.translate((0, 0.35, 0))
+o2v.translate((0, 0.35, 0))
 
 
 #0000-7)
@@ -77,44 +83,44 @@ model.add_viz_output(viz_output)
 
 
 #0020-2)
-model.add_geometry_object(organelle_1)
+model.add_geometry_object(o1v)
 
 
 #0030-11)
-model.add_geometry_object(cell)
+model.add_geometry_object(cyt)
 
 
 """
 0060-2)
 We must add the new organelle to the model.
 """
-model.add_geometry_object(organelle_2)
+model.add_geometry_object(o2v)
 
 
 #0030-6)
-#0040-10)
-organelle_1.is_bngl_compartment = True
-organelle_1.surface_compartment_name = 'Organelle_1_surface'
+#0040-11)
+o1v.is_bngl_compartment = True
+o1v.surface_compartment_name = 'O1M'
 
-cell.is_bngl_compartment = True
+cyt.is_bngl_compartment = True
 
 
 """
 0060-3)
-We will define new reactions, releases and observables using the 
-BioNetGen language. 
-Open file 'model.bngl' and follow the tutorial present in this 
-directory's file called also model.bngl.
-"""
+Now we must link the BNGL compartment names with the new organelle 2
+object the same way as we did for other geometry objects.
+""" 
+o2v.is_bngl_compartment = True
+o2v.surface_compartment_name = 'O2M'
+
 
 """
 0060-4)
-Now we must link the BNGL compartment names with the new organelle_2
-object the same way as we did for other geometry objects.
-""" 
-organelle_2.is_bngl_compartment = True
-organelle_2.surface_compartment_name = 'Organelle_2_surface'
-
+We will define new reactions, releases and observables using the 
+BioNetGen language. 
+Open file 'model.bngl' and follow the tutorial present in this 
+directory's file called model.bngl.
+"""
 
 #0030-7)
 #0040-11)
@@ -129,7 +135,7 @@ model.load_bngl(
 """
 0060-13)
 We are going to increase the number of simulated iterations to 1000.
-Also, one can set the total nomber of iterations to be simulated so 
+Also, one can set the total number of iterations to be simulated so 
 that MCell reports progress when it runs.
 """
 ITERATIONS = 1000
@@ -159,7 +165,7 @@ model.end_simulation()
 That's it, we've build the whole organelle model!
 Let's run it now:
 
-> python model.py
+> python3.9 model.py
 """
 
 """
@@ -179,10 +185,10 @@ with the transporter 't2'.
 
 Let's check the plots now:
 
-> python $MCELL_PATH/utils/plot_single_run.py react_data/seed_00001/
+> python3.9 $MCELL_PATH/utils/plot_single_run.py react_data/seed_00001/
 
 You can see there how the number of specific molecules evolves over 
-time, for instance you can zoom on to the lower counts 
+time, for instance, you can zoom on to the lower counts 
 (using the Zoom to rectangle button) and see how the molecules 'd'
 are being slowly created.
 
@@ -191,10 +197,10 @@ Congratulations, you just created a complete organelle model!
 
 In this section, we did not introduce any new features, but 
 used things that we already did in the previous sections such 
-as creation of a geometry object, definition of compartments, 
+as a creation of a geometry object, definition of compartments, 
 adding new reaction rule and new observables. 
 
-The tutorial is almost finished, the last thing we will do
+The tutorial is almost finished, one more thing we will do
 in the next section is that we are going to explore some 
 performance-related options to make the simulation run faster.    
 """    

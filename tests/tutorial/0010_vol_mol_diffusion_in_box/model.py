@@ -1,4 +1,10 @@
 """
+Prerequisites: This tutorial assumes that MCell4 is installed, 
+a system variable MCELL_PATH is set and that python3.9 
+executable is available through the system variable PATH.
+"""
+
+"""
 0010
 In this tutorial section, we will start from 
 0000_vol_mol_diffusion/model.py and add a box that reflects molecules.
@@ -157,7 +163,7 @@ model.export_viz_data_model()
 
 """
 0010-6)
-Now lets run the simulation for 100 iterations. 
+Now let's run the simulation for 100 iterations. 
 """
 model.run_iterations(100)
 model.end_simulation()
@@ -169,7 +175,7 @@ model.end_simulation()
 Open a terminal (command line), change the current directory 
 to the directory where this file is stored and run:
 
-> python model.py
+> python3.9 model.py
 
 Information on the progress of simulation and
 final statistics are printed.
@@ -177,7 +183,7 @@ We can now take a look at the visualization output files.
    
 Under directory viz_data/seed_00001/, there are
 the usual files Scene.ascii.0000000.dat - Scene.ascii.0000100.dat
-that contain location of the molecule.   
+that contain the location of the molecule.   
 
 Additionally, there is also Scene.data_model.0000000.json
 than contains information about model's geometry.
@@ -186,7 +192,7 @@ than contains information about model's geometry.
 
 #0000-10)
 """
-0010-7)
+0010-8)
 We can also use CellBlender to visualize the trajectory 
 but we will use the data model fiel instead of the viz.blend file in 
 the previous tutorial section.
@@ -196,7 +202,7 @@ To do this:
 2) through File -> Import -> CellBlender Model and Geometry (JSON)
    import file viz_data/seed_00001/Scene.data_model.0000000.json
 3) select panel Visualization Settings,
-4) select checkbox Manulally Select Viz Directory
+4) select checkbox Manually Select Viz Directory
 5) click on Read Viz Data and navigate to directory viz_data/seed_00000/,
 6) click on Play Animation button (Triangle aiming to the left) 
    on the middle bottom of the CellBlender window.
@@ -207,7 +213,7 @@ You should see how the molecule diffuses around during the
 
 
 """
-0010-8)
+0010-9)
 The process above that uses the CellBlender's graphical interface 
 may be too time consuming, especially when debugging the model. 
 There is also a way to run it from the terminal by executing:
@@ -218,7 +224,7 @@ This way, one can visualize the model simply by runing a single
 command. 
 
 This concludes the second section of the MCell4 Python tutorial
-where we added a box to out existing model, exported the 
+where we added a box to our existing model, exported the 
 geometry in the format of a data model and visualized it in 
 CellBlender.  
 """    

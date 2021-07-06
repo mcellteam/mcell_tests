@@ -1,4 +1,9 @@
 """
+Prerequisites: This tutorial assumes that MCell4 is installed, 
+a system variable MCELL_PATH is set and that python version 3.9 is used.
+"""
+
+"""
 0020
 In this tutorial section, we will continue with the model 
 we created in section 0010_vol_mol_diffusion_in_box
@@ -65,12 +70,12 @@ box_wall_list, and box.
 Then, we will create the icosphere with a single function call.
 
 To get closer to our final organelle model, we will call our 
-icosphere 'Organelle_1', its radius will be and 
-the subdivisions parameter defines smoothmess of the resulting 
+icosphere 'O1V' (organelle 1 volume), its radius will be 0.3 um and 
+the subdivisions parameter defines smoothness of the resulting 
 object.
 """
-organelle_1 = m.geometry_utils.create_icosphere(
-    name = 'Organelle_1', 
+o1v = m.geometry_utils.create_icosphere(
+    name = 'O1V', 
     radius = 0.3, 
     subdivisions = 4
 )
@@ -82,7 +87,7 @@ We can also move our icosphere a bit (0.2 um) to the left.
 The reason why we are doing this is that we will be adding 
 other objects later. 
 """
-organelle_1.translate((0, -0.2, 0))
+o1v.translate((0, -0.2, 0))
 
 #0000-7)
 model = m.Model()
@@ -94,9 +99,8 @@ model.add_viz_output(viz_output)
 #0010-4)
 """
 0020-2)
-Replace the addition geometry object called 'box' with 'organelle_1'.
 """
-model.add_geometry_object(organelle_1)
+model.add_geometry_object(o1v)
 
 
 #0000-8)
@@ -118,7 +122,7 @@ model.end_simulation()
 0020-3)
 Run the model:
 
-> python model.py
+> python3.9 model.py
 """
 
 """
