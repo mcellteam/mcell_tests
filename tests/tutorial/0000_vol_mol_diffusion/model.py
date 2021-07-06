@@ -20,10 +20,10 @@ There are also other tools present, so to make them easily accessible,
 a system variable MCELL_PATH needs to be set after installation.
  
 On MacOS, its location is always the same:
-/Applications/Blender-2.79-CellBlender/blender.app/Contents/Resources/2.79/scripts/addons/cellblender/extensions/mcell/
+/Applications/Blender-2.93-CellBlender/blender.app/Contents/Resources/2.93/scripts/addons/cellblender/extensions/mcell/
 
 On Linux/Windows its value depends on the installation directory:
- <blender_dir>/2.79/scripts/addons/cellblender/extensions/mcell
+ <blender_dir>/2.93/scripts/addons/cellblender/extensions/mcell
  
 The code below reads the system variable MCELL_PATH and appends 
 it to sys.path which is a list of directories where
