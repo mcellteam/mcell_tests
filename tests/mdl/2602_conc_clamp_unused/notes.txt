@@ -1,0 +1,2 @@
+Used to fail because the concentration clamp was not assigned to any surface.
+Checks only that there is no segfault.
