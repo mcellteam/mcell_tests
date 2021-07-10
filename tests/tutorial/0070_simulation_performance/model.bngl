@@ -22,8 +22,7 @@ begin parameters
   MCELL_DIFFUSION_CONSTANT_3D_c 1e-6
   MCELL_DIFFUSION_CONSTANT_2D_t1 1e-7
   
-  # 0060-6)
-  # Provide diffusion constants for 'd' and 't2'
+  ## 0060-6)
   MCELL_DIFFUSION_CONSTANT_3D_d 1e-6
   MCELL_DIFFUSION_CONSTANT_2D_t2 1e-8
     
@@ -32,17 +31,14 @@ begin parameters
   num_b_to_release 1000
   num_t1_to_release 700
 
-  # 0060-7)
-  # We will be releasing 700 't2' molecules 
+  ## 0060-7)
   num_t2_to_release 700
   
   # unit of these bimolecular reaction rate constants is 1/M*1/s
   rate_a_b_to_c 1e9 
   rate_a_out_t1_to_a_in_t1 1e8
   
-  # 0060-8)
-  # Let's also prepare constants that represent rates for new reactions.
-  # These reactions will be explained later.
+  ## 0060-8)
   rate_c_in_t1_to_c_out_t1 1e8
   rate_c_out_t2_to_d_in_t2 1e8
    
@@ -56,9 +52,7 @@ begin compartments
   O1M 2 0 CYT
   O1V 3 1 O1M
 
-  # 0060-9)
-  # We need one more 3D and one 2D compartment for the new 
-  # organelle 2. The CYT compartment is a shared parent.  
+  ## 0060-9)
   O2M 2 0 CYT
   O2V 3 1 O2M
 end compartments  
@@ -71,8 +65,7 @@ begin seed species
   t1@O1M num_t1_to_release
   b@O1V num_b_to_release
   
-  # 0060-10)
-  # Release transporter 't2' on the second organelle's surface.  
+  ## 0060-10)
   t2@O2M num_t2_to_release
   
 end seed species
@@ -87,10 +80,7 @@ begin reaction rules
   ## 0040-9)
   a@CYT + t1@O1M -> a@O1V + t1@O1M  rate_a_out_t1_to_a_in_t1
   
-  # 0060-11)
-  # Add reaction rules that transport 'c' out from O1V using transporter 't1',
-  # and also transport 'c' into O2V using transporter 't2' while changing it 
-  # to 'd'
+  ## 0060-11)
   c@O1V + t1@O1M -> c@CYT + t1@O1M  rate_c_in_t1_to_c_out_t1
   
   c@CYT + t2@O2M -> d@O2V + t2@O2M  rate_c_out_t2_to_d_in_t2
@@ -107,9 +97,7 @@ begin observables
   Molecules c c
   Molecules t1 t1
   
-  # 0060-12)
-  # Let's also count 'c' in diverse compartments and the total number
-  # of molecules 'd'.
+  ## 0060-12)
   Molecules c_in_o1v c@O1V
   Molecules c_in_cyt c@CYT
   Molecules d d
