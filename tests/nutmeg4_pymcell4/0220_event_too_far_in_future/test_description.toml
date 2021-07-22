@@ -1,0 +1,14 @@
+includes = ["exit_code_1"]
+
+[[checks]]
+  matchPattern = "is scheduled too far into the future" 
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 1  # exit(1)
+  
+[run]
+  pyfile = "model.py"

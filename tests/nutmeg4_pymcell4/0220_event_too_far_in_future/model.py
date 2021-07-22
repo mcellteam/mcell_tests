@@ -96,7 +96,7 @@ model.warnings.high_reaction_probability = m.WarningLevel.IGNORE
 model.notifications.rxn_and_species_report = False
 model.notifications.rxn_probability_changed = True
 
-model.config.partition_dimension = 20
+model.config.partition_dimension = 1 
 model.config.subpartition_dimension = 0.1
 
 # ---- default configuration overrides ----

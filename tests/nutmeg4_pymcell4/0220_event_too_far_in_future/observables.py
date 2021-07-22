@@ -29,9 +29,9 @@ count_a_World = m.Count(
     name = 'a_World',
     expression = cterm_count_a_species,
     file_name = './react_data/seed_' + str(SEED).zfill(5) + '/a_World.dat',
-    every_n_timesteps = 1e4/1e-6
+    every_n_timesteps = 1e3/1e-6
 )
-
+"""
 cterm_count_b_species = m.CountTerm(
     species_pattern = m.Complex('b')
 )
@@ -53,11 +53,12 @@ count_c_World = m.Count(
     file_name = './react_data/seed_' + str(SEED).zfill(5) + '/c_World.dat',
     every_n_timesteps = 1e4/1e-6
 )
+"""
 
 # ---- create observables object and add components ----
 
 observables = m.Observables()
 observables.add_viz_output(viz_output)
 observables.add_count(count_a_World)
-observables.add_count(count_b_World)
-observables.add_count(count_c_World)
+#observables.add_count(count_b_World)
+#observables.add_count(count_c_World)
