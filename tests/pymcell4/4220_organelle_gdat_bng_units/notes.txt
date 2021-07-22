@@ -1,0 +1,1 @@
+Used to fail on MacOS and Windwos due to invalid assert for gdat format
