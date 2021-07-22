@@ -1,0 +1,15 @@
+includes = ["exit_code_1"]
+
+[[checks]]
+  matchPattern = "Check passed"   
+  dataFile = "run_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 0
+  
+[run]
+  jsonFile = "data_model.json"
+  bnglMode = true
