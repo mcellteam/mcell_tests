@@ -1,0 +1,5 @@
+Validated by running 5000 iterations (with time step 1e-5) with high D (1e-4 for surf) 
+and comparing to BNG ODE. 
+
+
+python $MCELL_PATH/utils/mcell4_runner.py -s 1:48:1 model.py -j 12

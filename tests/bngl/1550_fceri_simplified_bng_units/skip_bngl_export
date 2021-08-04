@@ -1,0 +1,2 @@
+Most probably a precision issue in exported BNGL, might make sense to check it further 
+but result is in the ballpark range so no substantial issue is there.

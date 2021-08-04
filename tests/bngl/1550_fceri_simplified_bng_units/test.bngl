@@ -1,0 +1,86 @@
+begin model
+begin parameters
+
+  BNG_UNITS 1
+
+  # Conversion factors
+  NA_um3 6.022e8 * 100
+  unimol_rxn  10
+  vol_rxn  1 #
+  surf_rxn 1 # Tag used for unit conversion in CellBlender import
+  # Geometric factors
+  rxn_layer_t  0.01
+  vol_EC  0.5^3 # Should figure out what concentration of ligand this corresponds to
+  
+  vol_CP  0.25^3  # about 1/500 full cell volume
+
+  vol_PM  0.375*rxn_layer_t # Area*thickness  # is this correct?
+
+  # Initial counts
+
+  Rec_tot   1000    # Default: 4.0e2
+
+
+  Lyn_tot   1000    # Default 2.8e2
+  
+  
+  kpL  surf_rxn*1e7/NA_um3 #lim tyrosine kinase
+  kmL  20 * unimol_rxn
+  kpLs surf_rxn*1e7/NA_um3 #another mode by which kinase associates with ligand receptor
+  
+  kmLs  0.12 * unimol_rxn
+  pLb  30 * unimol_rxn
+  pLbs  100 * unimol_rxn
+  pLg  1 * unimol_rxn
+  pLgs 3 * unimol_rxn
+  kpS  vol_rxn*1e7/NA_um3
+  kmS  0.13 * unimol_rxn
+  pLS  30 * unimol_rxn
+  pLSs  100 * unimol_rxn
+  pSS  100  * unimol_rxn
+  pSSs  200 * unimol_rxn
+  dc  0.1 * unimol_rxn
+  dm  0.1 * unimol_rxn
+  
+  #ITERATIONS 5000
+  ITERATIONS 500
+ 
+  MCELL_TIME_STEP 1e-5
+  
+  MCELL_DIFFUSION_CONSTANT_2D_Lyn  1.7e-7
+  MCELL_DIFFUSION_CONSTANT_2D_Rec  1.7e-7
+      
+end parameters
+
+begin molecule types
+  Lyn(SH2,U)
+  Rec(a,b~Y~pY,g~Y~pY)
+end molecule types
+
+begin compartments
+  EC 3 vol_EC
+  PM 2 vol_PM EC
+  CP 3 vol_CP PM
+end compartments
+
+begin seed species
+   @PM:Lyn(SH2,U)  Lyn_tot 
+   @PM:Rec(a,b~Y,g~Y)  Rec_tot
+end seed species
+
+begin observables
+  Molecules LynFree Lyn(SH2,U)                                              # Should be: "COUNT[Lyn(U,SH2), WORLD]"
+end observables
+
+
+begin reaction rules
+
+  Rec(b~Y) + Lyn(SH2,U) <-> Lyn(SH2,U!1).Rec(b~Y!1) kpL,kmL
+
+end reaction rules
+end model
+
+generate_network({overwrite=>1})
+#simulate({method=>"ode",t_end=>1,n_steps=>100})
+simulate({method=>"ode",t_end=>0.05,n_steps=>100})
+#simulate({method=>"ssa",seed=>1,t_end=>0.05,n_steps=>100})

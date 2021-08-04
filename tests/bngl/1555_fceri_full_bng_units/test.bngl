@@ -1,17 +1,24 @@
 begin model
 begin parameters
+
+  BNG_UNITS = 1
+
   # Conversion factors
   NA_um3 6.022e8 * 100
   unimol_rxn  10
-  vol_rxn  1 #
-  surf_rxn 100 # Tag used for unit conversion in CellBlender import
+  vol_rxn  10 #
+  surf_rxn 5 # Tag used for unit conversion in CellBlender import
   # Geometric factors
   rxn_layer_t  0.01
   vol_EC  0.5^3 # Should figure out what concentration of ligand this corresponds to
-  vol_PM  0.6*rxn_layer_t # Area*thickness
+  
+
   vol_CP  0.25^3  # about 1/500 full cell volume
+
+  vol_PM  0.375*rxn_layer_t # Area*thickness  # is this correct?
+
   # Initial counts
-  Lig_tot  1000 #6000    # Default: 6.0e3
+  Lig_tot   1000 #6000    # Default: 6.0e3
   Rec_tot   400    # Default: 4.0e2
   Syk_tot   400    # Default: 4e2
   Lyn_tot   280    # Default 2.8e2
@@ -37,43 +44,37 @@ begin parameters
   dc  0.1 * unimol_rxn
   dm  0.1 * unimol_rxn
   
-  ITERATIONS 8000
-  
-   # MCELL parameters
-  MCELL_REDEFINE_vol_rxn  NA_um3 #takes from microcubed to molar per second since this is what mcell likes
-  #MCELL_REDEFINE_surf_rxn 1/rxn_layer_t
-  
+  ITERATIONS 3500
+ 
   MCELL_TIME_STEP 1e-4
-  MCELL_ITERATIONS 100 #10/MCELL_TIME_STEP
-  MCELL_VACANCY_SEARCH_DISTANCE  10
-  
-  MCELL_DEFAULT_DIFFUSION_CONSTANT_2D  1.7e-7
-  MCELL_DEFAULT_DIFFUSION_CONSTANT_3D  8.51e-7
   
   MCELL_DIFFUSION_CONSTANT_2D_Lyn  1.7e-7
   MCELL_DIFFUSION_CONSTANT_2D_Rec  1.7e-7
   MCELL_DIFFUSION_CONSTANT_3D_Lig  8.51e-7
   MCELL_DIFFUSION_CONSTANT_3D_Syk  8.51e-7
-  
       
 end parameters
+
 begin molecule types
   Lig(l,l)
   Lyn(SH2,U)
   Syk(a~Y~pY,l~Y~pY,tSH2)
   Rec(a,b~Y~pY,g~Y~pY)
 end molecule types
+
 begin compartments
   EC 3 vol_EC
   PM 2 vol_PM EC
   CP 3 vol_CP PM
 end compartments
+
 begin seed species
    @EC:Lig(l,l)  Lig_tot # release sites, bascially
    @PM:Lyn(SH2,U)  Lyn_tot 
    @CP:Syk(a~Y,l~Y,tSH2)  Syk_tot 
    @PM:Rec(a,b~Y,g~Y)  Rec_tot
 end seed species
+
 begin observables
   Molecules LigRecMon Lig(l!1,l).Rec(a!1)                                      # Should be: "COUNT[Rec(a!1).Lig(l!1,l), WORLD]"
   Molecules LigRecDim Lig(l!1,l!2).Rec(a!1).Rec(a!2)                           # Should be: "COUNT[Rec(a!1).Lig(l!1,l!2).Rec(a!2), WORLD]"
@@ -94,10 +95,8 @@ begin observables
 #    Species SykaYlYtSH2 Syk(a~Y,l~Y,tSH2)
   
 end observables
-#begin functions
-#  RboundTot() LigRecMon + LigRecDim
-  #count number of bound molecules #useful to know fraction of, for example phosphrylated molecs overall
-#end functions
+
+
 begin reaction rules
   Rec(a)@PM + Lig(l,l)@EC <-> Lig(l,l!1)@PM.Rec(a!1)@PM kp1,km1 #free ligand binding to receptor
   
@@ -140,9 +139,5 @@ begin reaction rules
 end reaction rules
 end model
 
-# Equilibration step
-setConcentration("@EC:Lig(l,l)",0)
-simulate({method=>"ode",suffix=>"equil",t_end=>600,n_steps=>100,print_functions=>1})
-# Add ligand and simulate
-setConcentration("@EC:Lig(l,l)","Lig_tot")
-simulate({method=>"ode",t_end=>600,n_steps=>100,print_functions=>1})
+generate_network({overwrite=>1})
+simulate({method=>"ode",t_end=>1,n_steps=>100})

@@ -1,0 +1,9 @@
+Validated by running 10000 iterations (1s) with high D (1e-3 for vol and 1e-4 for surf) 
+and comparing to BNG ODE. 
+
+These params had following values for validation:
+  unimol_rxn  10
+  vol_rxn  1
+  surf_rxn 1
+  
+python $MCELL_PATH/utils/mcell4_runner.py -s 1:48:1 model.py -j 12
