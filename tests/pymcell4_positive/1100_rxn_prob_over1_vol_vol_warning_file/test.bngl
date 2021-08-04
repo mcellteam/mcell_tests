@@ -1,0 +1,24 @@
+begin parameters
+  # provide diffusion constant for used species 
+  MCELL_DIFFUSION_CONSTANT_3D_A 1.0e-6
+  MCELL_DIFFUSION_CONSTANT_3D_B 2.0e-6
+  MCELL_DIFFUSION_CONSTANT_3D_C 1.3e-6  
+end parameters
+
+begin compartments
+  CP 3 1/8           # 3D (volume) compartment with volume 1um^3
+end compartments
+
+begin seed species
+  A@CP  100        # release 100 of A and 100 of B in compartment CP 
+  B@CP  100
+end seed species
+
+begin reaction rules
+  A + B -> C 3e9   # rate set so that the probability is < 1 but due to exact disk some rxns are missed
+end reaction rules
+
+begin observables 
+  Species A A
+end observables 
+  

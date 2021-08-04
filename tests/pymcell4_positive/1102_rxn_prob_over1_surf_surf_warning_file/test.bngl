@@ -1,0 +1,25 @@
+begin parameters
+  # provide diffusion constant for used species 
+  MCELL_DIFFUSION_CONSTANT_2D_A 1.0e-8
+  MCELL_DIFFUSION_CONSTANT_2D_B 2.0e-8
+  MCELL_DIFFUSION_CONSTANT_2D_C 1.3e-8  
+end parameters
+
+begin compartments 
+  PM 2 0
+  CP 3 1/16 PM           # 3D (volume) compartment with volume 1um^3
+end compartments
+
+begin seed species
+  A@PM  2000         
+  B@PM  2000
+end seed species
+
+begin reaction rules
+  A + B -> C 1000/1.7 # rate set so that the probability is < 1 but due to multiple neighbors some rxns are missed
+end reaction rules
+
+begin observables 
+  Species A A
+end observables 
+  
