@@ -78,6 +78,9 @@ model.config.subpartition_dimension = MCELL_DEFAULT_COMPARTMENT_EDGE_LENGTH
 if 'MOLECULE_PLACEMENT_FAILURE_WARN' in params and params['MOLECULE_PLACEMENT_FAILURE_WARN'] == 1:
     model.warnings.molecule_placement_failure = m.WarningLevel.WARNING
     
+if 'BNG_UNITS' in params and params['BNG_UNITS'] == 1:
+    model.config.use_bng_units = True
+    
 model.initialize()
 
 if DUMP:

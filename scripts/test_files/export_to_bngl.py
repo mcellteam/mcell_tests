@@ -52,6 +52,10 @@ if use_gdat:
 
 model.load_bngl('test.bngl', './react_data/seed_' + str(SEED).zfill(5) + '/' + gdat_file, default_compartment)
 
+    
+if 'BNG_UNITS' in params and params['BNG_UNITS'] == 1:
+    model.config.use_bng_units = True
+    
 
 
 # ---- configuration ----
