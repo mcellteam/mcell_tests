@@ -1,0 +1,12 @@
+
+
+begin parameters
+	MCELL_DIFFUSION_CONSTANT_3D_A 1e-6
+	MCELL_DIFFUSION_CONSTANT_3D_B 2e-6
+end parameters
+
+begin molecule types
+	A(a)
+	B(b,b)
+end molecule types
+
