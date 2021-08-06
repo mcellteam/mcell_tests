@@ -17,7 +17,7 @@ c1_2 = m.ComponentType('C', ['1', '0', 'Z'])
 b1 = m.ComponentType('B', ['0', '1', 'Q'])
 
 mt1_1 = m.ElementaryMoleculeType('M', [c1_1, b1], diffusion_constant_3d=1e-6)
-mt1_2 = m.ElementaryMoleculeType('M', [b1, c1_2])
+mt1_2 = m.ElementaryMoleculeType('M', [b1, c1_2], diffusion_constant_3d=1e-6)
 mt2   = m.ElementaryMoleculeType('M', [b1, c1_2], diffusion_constant_3d=1e-5)
 
 mt4 = m.ElementaryMoleculeType('N', [b1, b1, c1_1])
