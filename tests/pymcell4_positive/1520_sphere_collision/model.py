@@ -76,7 +76,15 @@ if EXPORT_DATA_MODEL and model.viz_outputs:
     model.export_data_model()
 
 
-    
+def print_wall_hit_info(wall_wall_hits):
+    for info in wall_wall_hits:
+        print(info.wall1.geometry_object.name + ":" + str(info.wall1.wall_index) + " - " + 
+              info.wall2.geometry_object.name + ":" + str(info.wall2.wall_index))
+
+# counts both hits that occured when a moved vertex hit the second object and 
+# when the second's object vertex would get inside into the moved object 
+num_hits = 0
+            
 for i in range(ITERATIONS):
     
     # dump datamodel every N iterations
@@ -85,7 +93,9 @@ for i in range(ITERATIONS):
     for k in range(len(Sphere1_vertex_list)):
         model.add_vertex_move(Sphere1, k, (0.01, 0.01, 0.01))
 
-    model.apply_vertex_moves(randomize_order=False)
+    wall_wall_hits = model.apply_vertex_moves(collect_wall_wall_hits=True, randomize_order=False)
+    #print_wall_hit_info(wall_wall_hits)
+    num_hits += len(wall_wall_hits)
             
     # vertex must not move into the box 
     v1 = model.get_vertex(Sphere1, 90)
@@ -95,3 +105,6 @@ for i in range(ITERATIONS):
     
 
 model.end_simulation()
+
+print(num_hits)
+assert num_hits == 35783
