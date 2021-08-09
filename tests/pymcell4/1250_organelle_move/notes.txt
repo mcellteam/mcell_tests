@@ -1,3 +1,5 @@
 When run for > 530 iterations, volume molecules in the moved organelle
 become enclosed in tiny space and the simulation slows down due to constant reflections
 from a very closely located surfaces.  
+
+Validated only visually.
