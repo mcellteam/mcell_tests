@@ -77,7 +77,7 @@ for i in range(ITERATIONS + 1):
     if i == 10:
         assert_eq(w.vertices[0].x, 0.8)
         
-    model.apply_vertex_moves()
+    model.apply_vertex_moves(randomize_order=False)
 
 model.end_simulation()
 

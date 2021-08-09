@@ -64,7 +64,7 @@ for i in range(ITERATIONS):
     for k in range(len(Tetrahedron_vertex_list)):
         model.add_vertex_move(Tetrahedron, k, (0.2, 0.2, 0.2))
         
-    model.apply_vertex_moves()
+    model.apply_vertex_moves(randomize_order=False)
 
 model.end_simulation()
 

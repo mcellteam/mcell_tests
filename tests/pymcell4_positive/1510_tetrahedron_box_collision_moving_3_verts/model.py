@@ -59,7 +59,7 @@ for i in range(ITERATIONS + 1):
     for k in range(len(Tetrahedron_vertex_list) - 1): # not moving with the last vertex
         model.add_vertex_move(Tetrahedron, k, (0.02, 0, 0))
         
-    model.apply_vertex_moves()
+    model.apply_vertex_moves(randomize_order=False)
     
     model.run_iterations(1)
     

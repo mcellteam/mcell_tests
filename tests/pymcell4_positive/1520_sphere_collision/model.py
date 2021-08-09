@@ -85,7 +85,7 @@ for i in range(ITERATIONS):
     for k in range(len(Sphere1_vertex_list)):
         model.add_vertex_move(Sphere1, k, (0.01, 0.01, 0.01))
 
-    model.apply_vertex_moves()
+    model.apply_vertex_moves(randomize_order=False)
             
     # vertex must not move into the box 
     v1 = model.get_vertex(Sphere1, 90)

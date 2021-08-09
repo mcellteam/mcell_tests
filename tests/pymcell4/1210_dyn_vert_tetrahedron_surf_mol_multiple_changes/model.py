@@ -63,25 +63,25 @@ for i in range(ITERATIONS + 1):
         # even with this small change, some molecules are placed to a different wall than 
         # what moved it in mcell3
         model.add_vertex_move(tetrahedron_object, 0, (0, 0, -0.01))
-        model.apply_vertex_moves()
+        model.apply_vertex_moves(randomize_order=False)
         
     if i == 20:
         model.add_vertex_move(tetrahedron_object, 0, (0.01, 0.01, 0.01))
-        model.apply_vertex_moves()        
+        model.apply_vertex_moves(randomize_order=False)        
 
     if i == 30:
         model.add_vertex_move(tetrahedron_object, 0, (0, 0, -0.01))
         model.add_vertex_move(tetrahedron_object, 1, (-0.01, 0, 0))
         model.add_vertex_move(tetrahedron_object, 2, (0, -0.01, 0))
         model.add_vertex_move(tetrahedron_object, 3, (0, +0.01, 0))
-        model.apply_vertex_moves()        
+        model.apply_vertex_moves(randomize_order=False)        
 
     if i == 40:
         model.add_vertex_move(tetrahedron_object, 0, (0, 0, +0.01))
         model.add_vertex_move(tetrahedron_object, 1, (-0.005, 0, 0))
         #model.add_vertex_move(tetrahedron_object, 2, (0, -0.01, 0))
         model.add_vertex_move(tetrahedron_object, 3, (0, 0, -0.01))
-        model.apply_vertex_moves()    
+        model.apply_vertex_moves(randomize_order=False)    
         
     model.run_iterations(1)
 

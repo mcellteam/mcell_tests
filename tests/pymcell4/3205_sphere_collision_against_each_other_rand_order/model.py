@@ -45,13 +45,13 @@ model.config.subpartition_dimension = 2.5
 # TODO viz in cellblender without any molecules does not work yet
 a = m.Species(
     name = 'a',
-    diffusion_constant_3d = 1e-6
+    diffusion_constant_3d = 1e-5
 )
 model.add_species(a)
 
 b = m.Species(
     name = 'b',
-    diffusion_constant_3d = 1e-6
+    diffusion_constant_3d = 1e-5
 )
 model.add_species(b)
 
@@ -99,7 +99,7 @@ for i in range(ITERATIONS):
     for k in range(len(Sphere2_vertex_list)):
         model.add_vertex_move(Sphere2, k, (0, -0.01, 0))
 
-    model.apply_vertex_moves(randomize_order=False)
+    model.apply_vertex_moves(randomize_order=True)
             
     model.run_iterations(1)
     

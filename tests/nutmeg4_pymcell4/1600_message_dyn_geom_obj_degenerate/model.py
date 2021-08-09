@@ -35,7 +35,7 @@ for i in range(ITERATIONS + 1):
     
     model.add_vertex_move(box, 0, (0.2, 0, 0))
     
-    model.apply_vertex_moves()
+    model.apply_vertex_moves(randomize_order=False)
 
     #print(box.__str__(True))
         

@@ -64,7 +64,7 @@ for i in range(ITERATIONS + 1):
     for k in range(len(Tetrahedron_vertex_list) - 1): # not moving with the last vertex
         model.add_vertex_move(Tetrahedron, k, (0.02, 0, 0))
         
-    wall_wall_hits = model.apply_vertex_moves(True)
+    wall_wall_hits = model.apply_vertex_moves(collect_wall_wall_hits=True, randomize_order=False)
     print_wall_hit_info(wall_wall_hits)
     
     if i == 3:

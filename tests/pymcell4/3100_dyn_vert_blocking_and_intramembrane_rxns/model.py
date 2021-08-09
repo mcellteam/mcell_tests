@@ -312,7 +312,7 @@ for i in range(ITERATIONS):
             dir = -0.5
         model.add_vertex_move(Sphere1, k, (0, dir * 0.01, 0))
 
-    model.apply_vertex_moves()
+    model.apply_vertex_moves(randomize_order=False)
             
     model.run_iterations(1)
     

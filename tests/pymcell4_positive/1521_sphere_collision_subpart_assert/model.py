@@ -18,7 +18,7 @@ import mcell as m
 SEED = 1
 ITERATIONS = 10
 TIME_STEP = 1.00000000e-06
-DUMP = False
+DUMP = True
 EXPORT_DATA_MODEL = True
 
 
@@ -83,7 +83,7 @@ for i in range(ITERATIONS):
     for k in range(len(Sphere1_vertex_list)):
         model.add_vertex_move(Sphere1, k, (0.001, 0.001, 0.001))
 
-    model.apply_vertex_moves()
+    model.apply_vertex_moves(randomize_order=False)
             
     model.run_iterations(1)
     

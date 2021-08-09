@@ -67,6 +67,6 @@ for i in range(ITERATIONS):
         for k in range(len(instantiation.Organelle_1.vertex_list)):
             model.add_vertex_move(instantiation.Organelle_1, k, (0.01, 0.01, 0.01))
     
-        model.apply_vertex_moves()
+        model.apply_vertex_moves(randomize_order=False)
     
 model.end_simulation()
