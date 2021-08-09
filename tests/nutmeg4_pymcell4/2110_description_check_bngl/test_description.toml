@@ -1,0 +1,70 @@
+includes = ["exit_code_1"]
+
+[[checks]]
+  matchPattern = "# desc mt v"   
+  dataFile = "model.bngl"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = "# desc mt s"   
+  dataFile = "model.bngl"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = "# desc mt r"   
+  dataFile = "model.bngl"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = "# desc sc"   
+  dataFile = "subsystem.py"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = "# desc rxn"   
+  dataFile = "model.bngl"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+
+[[checks]]
+  matchPattern = "# desc param"   
+  dataFile = "model.bngl"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+
+[[checks]]
+  matchPattern = "# desc sc assign"   
+  dataFile = "instantiation.py"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+
+[[checks]]
+  matchPattern = "# rel v"   
+  dataFile = "model.bngl"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+
+
+[[checks]]
+  matchPattern = "# desc rxn out v"   
+  dataFile = "model.bngl"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 0
+  
+[run]
+  jsonFile = "data_model.json"
+  bnglMode = true
