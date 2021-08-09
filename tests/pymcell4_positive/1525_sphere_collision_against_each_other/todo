@@ -1,5 +1,0 @@
-asserts with:
-
-./../src4/partition.h:150: MCell::Partition::Partition(MCell::partition_id_t, const MCell::Vec3&, const MCell::SimulationConfig&, BNG::BNGEngine&, MCell::SimulationStats&, MCell::SpeciesFlagsAnalyzer&): Assertion `cmp_eq(round3(how_many_subparts_from_000), how_many_subparts_from_000, SQRT_EPS) && "Partition is not aligned to the subpartition grid."' failed.
-
-seems to be related to release of 'a' at 8, 8, 8

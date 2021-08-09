@@ -16,7 +16,7 @@ import mcell as m
 
 
 SEED = 1
-ITERATIONS = 50
+ITERATIONS = 40
 TIME_STEP = 1.00000000e-06
 DUMP = False
 EXPORT_DATA_MODEL = False
@@ -48,15 +48,29 @@ a = m.Species(
     diffusion_constant_3d = 1e-6
 )
 model.add_species(a)
-rel = m.ReleaseSite(
-    name = 'rel',
-    complex = a,
-    shape = m.Shape.SPHERICAL,
-    location = (0, 0, 0),
-    site_diameter = 0,
-    number_to_release = 1
+
+b = m.Species(
+    name = 'b',
+    diffusion_constant_3d = 1e-6
 )
-model.add_release_site(rel)
+model.add_species(b)
+
+rel_a = m.ReleaseSite(
+    name = 'rel_a',
+    complex = a,
+    region = Sphere1, 
+    number_to_release = 100
+)
+model.add_release_site(rel_a)
+
+rel_b = m.ReleaseSite(
+    name = 'rel_b',
+    complex = b,
+    region = Sphere2,
+    number_to_release = 100
+)
+model.add_release_site(rel_b)
+
 
 model.add_geometry_object(Sphere1)
 model.add_geometry_object(Sphere2)

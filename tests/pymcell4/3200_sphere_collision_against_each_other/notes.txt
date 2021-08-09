@@ -1,0 +1,3 @@
+Verified visually that the two objects don't overlap.
+If ran for longer, fails with error in iteration 48
+due to Detected malformed geometry object 'Sphere2'.  
