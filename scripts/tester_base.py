@@ -187,6 +187,13 @@ class TesterBase:
         
         return False
             
+    def should_be_skipped_for_mcell3_test(self) -> bool:
+        if os.path.exists(os.path.join(self.test_src_path, 'skip_mcell3')):
+            self.log_test_skip("SKIP MCELL3")
+            return True
+        else:
+            return False
+                    
     def is_known_fail(self) -> bool:
         # TODO: report this in a better way, should be reported as error when it starts to wok
         if os.path.exists(os.path.join(self.test_src_path, 'known_fail')):

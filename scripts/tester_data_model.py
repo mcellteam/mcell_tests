@@ -136,13 +136,6 @@ class TesterDataModel(TesterBase):
             return True
         else:
             return False
-
-    def should_be_skipped_for_mcell3_test(self) -> bool:
-        if os.path.exists(os.path.join(self.test_src_path, 'skip_mcell3')):
-            self.log_test_skip("SKIP MCELL3")
-            return True
-        else:
-            return False
         
     def test(self) -> int:
         if self.should_be_skipped_for_datamodel_mdl_test():

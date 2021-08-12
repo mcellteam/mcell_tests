@@ -60,6 +60,9 @@ class TesterMdl(TesterBase):
         if self.is_known_fail():
             return SKIPPED
         
+        if not self.mcell4_testing and self.should_be_skipped_for_mcell3_test():   
+            return SKIPPED
+        
         self.clean_and_create_work_dir()
         
         mcell_args = MCELL_BASE_ARGS.copy()
