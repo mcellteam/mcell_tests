@@ -1,0 +1,20 @@
+INSTANTIATE Scene OBJECT
+{
+  Cube1 OBJECT Cube1 {}
+  Cube2 OBJECT Cube2 {}
+  rel_a RELEASE_SITE
+  {
+   SHAPE = Scene.Cube1[ALL]
+   MOLECULE = a
+   NUMBER_TO_RELEASE = 10
+   RELEASE_PROBABILITY = 1
+  }
+  rel_b RELEASE_SITE
+  {
+   SHAPE = Scene.Cube2[ALL]
+   MOLECULE = b
+   NUMBER_TO_RELEASE = 10
+   RELEASE_PROBABILITY = 1
+  }
+}
+

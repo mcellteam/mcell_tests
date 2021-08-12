@@ -1,0 +1,7 @@
+REACTION_DATA_OUTPUT
+{
+  STEP=9.99999999999999955e-07
+//  {COUNT[a/*Species*/,Cube1[ALL]]} =>  "./react_data/seed_" & seed & "/a_Cube1_MDLString.dat"
+//  {COUNT[b/*Species*/,Cube2[ALL]]} =>  "./react_data/seed_" & seed & "/b_Cube2_MDLString.dat"
+}
+
