@@ -54,7 +54,7 @@ model.config.seed = SEED
 model.config.total_iterations = ITERATIONS 
 
 model.config.partition_dimension = MCELL_NO_COMPARTMENT_SIZE
-model.config.subpartition_dimension = MCELL_NO_COMPARTMENT_SIZE / 20
+model.config.subpartition_dimension = MCELL_NO_COMPARTMENT_SIZE / 3
 
 model.add_subsystem(subsystem)
 model.add_instantiation(instantiation)
