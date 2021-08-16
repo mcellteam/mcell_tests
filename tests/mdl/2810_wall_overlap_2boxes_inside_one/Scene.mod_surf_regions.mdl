@@ -1,0 +1,13 @@
+MODIFY_SURFACE_REGIONS
+{
+  Cube1[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+
+  Cube2[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+}
+

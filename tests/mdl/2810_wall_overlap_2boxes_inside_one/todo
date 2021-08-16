@@ -1,0 +1,6 @@
+There is some weird geometry initialization in MCell3
+and some edges were not initialized although the 
+geometry is fine.
+
+Asserts with:
+mcell: ../../src4/mcell3_world_converter.cpp:530: bool MCell::MCell3WorldConverter::convert_wall_and_update_regions(const wall*, MCell::GeometryObject&, const region_list*): Assertion `e != nullptr' failed.
