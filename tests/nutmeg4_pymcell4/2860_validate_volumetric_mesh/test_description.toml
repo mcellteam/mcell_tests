@@ -1,0 +1,13 @@
+
+[[checks]]
+  matchPattern = "Wall side 10: neighbor wall with index 0 not found" 
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 1
+  
+[run]
+  pyfile = "model.py"
