@@ -1,0 +1,8 @@
+MODIFY_SURFACE_REGIONS
+{
+  Cube2[ALL]
+  {
+    SURFACE_CLASS = transp
+  }
+}
+
