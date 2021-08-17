@@ -1,0 +1,13 @@
+
+[[checks]]
+  matchPattern = "Overlapped geometry object Cube1 is set to be a BNGL compartment, this is not allowed" 
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 1
+  
+[run]
+  pyfile = "model.py"
