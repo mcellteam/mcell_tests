@@ -1,0 +1,13 @@
+
+[[checks]]
+  matchPattern = "has overlapped walls, surface molecules cannot be released" 
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 1
+  
+[run]
+  pyfile = "model.py"
