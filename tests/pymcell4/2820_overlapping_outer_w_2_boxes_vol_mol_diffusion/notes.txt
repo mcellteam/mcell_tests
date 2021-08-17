@@ -1,0 +1,7 @@
+Original MCell implementation:
+
+Iterations: 700 of 1000 (90.7217 iter/sec) [active/total species 6/6, rxn classes 1, active/total reactant classes 1/1]
+python: ../../src4/partition.h:291: void MCell::Partition::get_subpart_3d_indices(const MCell::Vec3&, MCell::IVec3&) const: Assertion `in_this_partition(pos) && "Requested position is outside of a partition, usually a molecule diffused there. Please enlarge the partition size."' failed.
+Aborted
+
+Checked visually and counts

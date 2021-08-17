@@ -1,0 +1,20 @@
+# WARNING: This is an automatically generated file and will be overwritten
+#          by CellBlender on the next model export.
+
+# File uses standard MCell units for bimolecular reactions (M^-1*s^-1 and um^2*N^-1*s^-1).
+# When used with MCell, global option Model.config.use_bng_units must be set to False.
+# WARNING: Simulation with BioNetGen won't produce correct results because BioNetGen uses different units than MCell.
+
+begin parameters
+  MCELL_DIFFUSION_CONSTANT_3D_a 1e-6
+  MCELL_DIFFUSION_CONSTANT_3D_b 1e-6
+end parameters
+
+begin molecule types
+  a
+  b
+end molecule types
+
+begin reaction rules
+end reaction rules
+
