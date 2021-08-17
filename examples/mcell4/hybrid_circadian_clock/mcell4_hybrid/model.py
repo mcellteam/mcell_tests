@@ -157,6 +157,7 @@ def dR(dt, num_A, num_R, num_AR, num_mRNA_R):
     # AR -> R 1
     #
     # how the amount of R should change (in copy number, float) 
+    # FIXME: use the actual nr of rxns thatr occured during simulation
     res = \
         -(num_R * compute_R_to_AR_rate(num_A) * dt) \
         -(num_R * 0.2 * dt) \
