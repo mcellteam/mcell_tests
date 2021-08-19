@@ -1,0 +1,2 @@
+Rxn counts checked against numbers of molecules in each cube.
+Same as 2650 only the rxn counts are not stored periodically into a file.

@@ -1,0 +1,17 @@
+begin parameters
+end parameters
+
+begin molecule types
+    b
+    a
+    #c
+end molecule types
+
+begin reaction rules
+    rxn_a_plus_b: a + b -> c 1e+09
+    #rxn_b_plus_c: b + c -> c + a 1e+09
+end reaction rules
+
+begin observables
+    Molecules a_World a
+end observables
