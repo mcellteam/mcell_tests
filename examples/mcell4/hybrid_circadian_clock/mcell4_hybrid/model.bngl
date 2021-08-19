@@ -17,19 +17,19 @@ begin reaction rules
   # orig:
   # A + R -> AR 1204 * uM_1_to_M_1
   # new:
-  A_to_AR: A -> AR 0 # rate depends on the simulated concentration of R, initial value is 0 because there are no Rs initially 
+  A_to_AR: A -> AR 0 # rate depends on the simulated concentration of R, initial value is 0 because there are no Rs initially
+  # actual number of this reactions is used in dR 
 
   # orig:
   # R -> 0 0.2    
   # mRNA_R -> mRNA_R + R  5    
-  # new:
-  # both in dR
+  # both in dR, does not depend on any events in MCell
 
   # orig:    
   # AR -> R 1
   # new:    
-  AR -> 0 1 
-  # + in dR
+  AR_to_0: AR -> 0 1 
+  # actual number of this reactions is used in dR 
 
   PrmA + A <-> PrmA_bound 602 * uM_1_to_M_1, 50 
   PrmR + A <-> PrmR_bound 602 * uM_1_to_M_1, 100 

@@ -118,6 +118,41 @@ if customization and 'custom_config' in dir(customization):
     # user-defined model configuration
     customization.custom_config(model)
 
+
+# molecule counts
+count_A = model.find_count('A')
+assert count_A
+count_AR = model.find_count('AR')
+assert count_AR
+count_mRNA_R = model.find_count('mRNA_R')
+assert count_mRNA_R
+
+# reactions
+rxn_A_to_AR = model.find_reaction_rule('A_to_AR')
+assert rxn_A_to_AR
+rxn_AR_to_0 = model.find_reaction_rule('AR_to_0')
+assert rxn_AR_to_0
+
+# reaction counts
+count_A_to_AR = m.Count(
+    name = "count_A_to_AR",
+    expression = m.CountTerm(
+        reaction_rule = rxn_A_to_AR
+    ),
+    every_n_timesteps = 0 
+)
+
+count_AR_to_0 = m.Count(
+    name = "count_AR_to_0",
+    expression = m.CountTerm(
+        reaction_rule = rxn_AR_to_0
+    ),
+    every_n_timesteps = 0 
+)
+
+model.add_count(count_A_to_AR)
+model.add_count(count_AR_to_0)
+
 # ---- initialization and execution ----
 model.initialize()
 
@@ -129,23 +164,7 @@ ODE_UPDATE_INTERVAL = 1  # time steps
 VOLUME = 4.1889930549057564 * 1e-15 # l
 
 
-def compute_R_to_AR_rate(num_A):
-    # num_A - copy number (as float)
-    #
-    # original reaction: A + R -> AR 1204 * 1e6 [1/M*1/s]
-    # changed to: R -> 0 rate(num_A)
-    #
-    # we need to return unimoleculear rate [1/s]
-    
-    rate = (1204 * 1e6) # 1/M*1/s 
-    
-    # N -> M 
-    conc_A = num_A / NA / VOLUME  # M
-    res = rate * conc_A # 1/s
-    return res
-
-
-def dR(dt, num_A, num_R, num_AR, num_mRNA_R):
+def dR(dt, dR_due_A_to_AR, dR_due_AR_to_0, num_R, num_AR):
     # dt - in [s]
     # num_mRNA_R - copy number
     # 
@@ -157,42 +176,34 @@ def dR(dt, num_A, num_R, num_AR, num_mRNA_R):
     # AR -> R 1
     #
     # how the amount of R should change (in copy number, float) 
-    # FIXME: use the actual nr of rxns thatr occured during simulation
     res = \
-        -(num_R * compute_R_to_AR_rate(num_A) * dt) \
+        +dR_due_A_to_AR \
         -(num_R * 0.2 * dt) \
         +(num_mRNA_R * 5 * dt) \
-        +(num_AR * 1 * dt) 
-        
+        +dR_due_AR_to_0
+    
     #print("dR", res)
     return res
 
 
 def compute_A_to_AR_rate(num_R):
-    # num_R - copy number (as float)
+    # num_R - copy number (as float) - internally kept as 
+    #         float but the rate computation uses an integer value of it
     #
     # original reaction: A + R -> AR 1204 * 1e6 [1/M*1/s]
     # changed to: A -> R rate(num_R)
     #
-    # we need to return unimoleculear rate [1/s]
+    num_R_copy_nr = int(num_R)
     
     rate = (1204 * 1e6) # 1/M*1/s 
     
     # N -> M 
-    conc_R = num_R / NA / VOLUME  # M
+    conc_R = num_R_copy_nr / NA / VOLUME  # M
     res = rate * conc_R # 1/s
     #print("A_to_AR_rate", res)
     return res
 
 
-count_A = model.find_count('A')
-assert count_A
-count_AR = model.find_count('AR')
-assert count_AR
-count_mRNA_R = model.find_count('mRNA_R')
-assert count_mRNA_R
-rxn_A_to_AR = model.find_reaction_rule('A_to_AR')
-assert rxn_A_to_AR
 
 
 NA = 6.0221409e+23
@@ -200,6 +211,11 @@ NA = 6.0221409e+23
 num_R = 0.0 # initial value, model as float
 
 r_dat = open('./react_data/seed_' + str(SEED).zfill(5) + '/R.dat', 'w')
+
+rxns_A_to_AR_prev = count_A_to_AR.get_current_value()
+assert rxns_A_to_AR_prev == 0
+rxns_AR_to_0_prev = count_AR_to_0.get_current_value()
+assert rxns_AR_to_0_prev == 0
 
 for i in range(int(ITERATIONS/ODE_UPDATE_INTERVAL)):
     
@@ -211,12 +227,22 @@ for i in range(int(ITERATIONS/ODE_UPDATE_INTERVAL)):
 
     t = i * ODE_UPDATE_INTERVAL * TIME_STEP
         
+    # get counts of reactions that affect R
+    rxns_A_to_AR_curr = count_A_to_AR.get_current_value()
+    dR_due_A_to_AR = -(rxns_A_to_AR_curr - rxns_A_to_AR_prev)
+    rxns_A_to_AR_prev = rxns_A_to_AR_curr
+    
+    rxns_AR_to_0_curr = count_AR_to_0.get_current_value()
+    dR_due_AR_to_0 = rxns_AR_to_0_curr - rxns_AR_to_0_prev
+    rxns_AR_to_0_prev = rxns_AR_to_0_curr
+
     if i % (SAMPLING_PERIODICITY/ODE_UPDATE_INTERVAL) == 0:
         print("----\n%.4f" % t)
         print("R: %.4f, AR: %.4f, mRNA_R: %4f, A: %.4f" % (num_R, num_AR, num_mRNA_R, num_A))
-        
-        
-    num_R += dR(ODE_UPDATE_INTERVAL * TIME_STEP, num_A, num_R, num_AR, num_mRNA_R) 
+        print("rxns_A_to_AR: %.4f, rxns_AR_to_0: %.4f" % (rxns_A_to_AR_curr, rxns_AR_to_0_curr))
+    
+    
+    num_R += dR(ODE_UPDATE_INTERVAL * TIME_STEP, dR_due_A_to_AR, dR_due_AR_to_0, num_R, num_AR) 
 
     rate_A_to_R = compute_A_to_AR_rate(num_R)
     rxn_A_to_AR.fwd_rate = rate_A_to_R 
