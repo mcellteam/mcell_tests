@@ -92,7 +92,7 @@ model.config.seed = SEED
 model.config.total_iterations = ITERATIONS
 
 model.warnings.high_reaction_probability = m.WarningLevel.IGNORE
-model.notifications.rxn_and_species_report = True
+model.notifications.rxn_and_species_report = False
 model.notifications.rxn_probability_changed = False
 #model.notifications.iteration_report = True
 
@@ -236,10 +236,10 @@ for i in range(int(ITERATIONS/ODE_UPDATE_INTERVAL)):
     dR_due_AR_to_0 = rxns_AR_to_0_curr - rxns_AR_to_0_prev
     rxns_AR_to_0_prev = rxns_AR_to_0_curr
 
-    if i % (SAMPLING_PERIODICITY/ODE_UPDATE_INTERVAL) == 0:
-        print("----\n%.4f" % t)
-        print("R: %.4f, AR: %.4f, mRNA_R: %4f, A: %.4f" % (num_R, num_AR, num_mRNA_R, num_A))
-        print("rxns_A_to_AR: %.4f, rxns_AR_to_0: %.4f" % (rxns_A_to_AR_curr, rxns_AR_to_0_curr))
+    #if i % (SAMPLING_PERIODICITY/ODE_UPDATE_INTERVAL) == 0:
+    #    print("----\n%.4f" % t)
+    #    print("R: %.4f, AR: %.4f, mRNA_R: %4f, A: %.4f" % (num_R, num_AR, num_mRNA_R, num_A))
+    #    print("rxns_A_to_AR: %.4f, rxns_AR_to_0: %.4f" % (rxns_A_to_AR_curr, rxns_AR_to_0_curr))
     
     
     num_R += dR(ODE_UPDATE_INTERVAL * TIME_STEP, dR_due_A_to_AR, dR_due_AR_to_0, num_R, num_AR) 
@@ -247,9 +247,9 @@ for i in range(int(ITERATIONS/ODE_UPDATE_INTERVAL)):
     rate_A_to_R = compute_A_to_AR_rate(num_R)
     rxn_A_to_AR.fwd_rate = rate_A_to_R 
 
-    if i % (SAMPLING_PERIODICITY/ODE_UPDATE_INTERVAL) == 0:
-        print("R_new: %.4f" % num_R)
-        print("rate: %.4f" % rxn_A_to_AR.fwd_rate)
+    #if i % (SAMPLING_PERIODICITY/ODE_UPDATE_INTERVAL) == 0:
+    #    print("R_new: %.4f" % num_R)
+    #    print("rate: %.4f" % rxn_A_to_AR.fwd_rate)
 
 
     if i % (SAMPLING_PERIODICITY/ODE_UPDATE_INTERVAL) == 0:
