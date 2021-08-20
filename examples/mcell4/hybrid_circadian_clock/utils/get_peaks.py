@@ -70,6 +70,24 @@ def get_peaks_for_single_obs(df, obs_name, file):
     
     return p0, p1, False
         
+
+def plot_peaks(df, obs_name, p0, p1, seed):
+    
+    fig,ax = plt.subplots()
+    ax.set_title(obs_name)
+        
+    plt.xlabel("time [s]")
+    plt.ylabel(obs_name + "(t)")
+    
+    ax.plot(df.index, df[obs_name])
+    
+    plt.axvline(x=p0, color='r')
+    plt.axvline(x=p1, color='r')
+                
+    os.makedirs("plots", exist_ok=True)
+    plt.savefig('plots/' + seed + '_' + obs_name + '.png', dpi=300)
+    plt.close(fig)
+    
         
 def get_all_peaks(dir):
     res = pd.DataFrame(columns = ['seed', 'A_first', 'A_second', 'R_first', 'R_second'])
@@ -98,9 +116,12 @@ def get_all_peaks(dir):
                 if obs_name == 'A':
                     new_row[1] = p0
                     new_row[2] = p1
+                    plot_peaks(df, obs_name, p0, p1, seed_dir)
                 else:
                     new_row[3] = p0
                     new_row[4] = p1
+                    plot_peaks(df, obs_name, p0, p1, seed_dir)
+                    
         
         a_series = pd.Series(new_row, index = res.columns)
         res = res.append(a_series, ignore_index=True)
@@ -109,6 +130,7 @@ def get_all_peaks(dir):
 
     
 def print_peaks(df):
+    print(df)
     
     df['wavelengthA'] = df['A_second'] - df['A_first']    
     df['wavelengthR'] = df['R_second'] - df['R_first']
