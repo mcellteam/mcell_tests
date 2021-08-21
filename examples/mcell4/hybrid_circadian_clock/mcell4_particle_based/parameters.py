@@ -26,20 +26,20 @@ bngl_params = m.bngl_utils.load_bngl_parameters(os.path.join(MODEL_PATH, 'model.
 # ---- simulation setup ----
 
 if not_defined('TIME_STEP'):
-    TIME_STEP = 2.5e-7
+    TIME_STEP = 1e-7  # set to 1e-7
 
 if not_defined('ITERATIONS'):
-    ITERATIONS = int(45/TIME_STEP)
+    ITERATIONS = int(0.25/TIME_STEP) # how many seconds? 45/30 * 1.5?, new: 45/270
 
 
 if not_defined('DUMP'):
-    DUMP = True
+    DUMP = False
 
 if not_defined('EXPORT_DATA_MODEL'):
-    EXPORT_DATA_MODEL = True
+    EXPORT_DATA_MODEL = False
 
 if not_defined('SEED'):
     SEED = 1
 
 
-SAMPLING_PERIODICITY = 10000
+SAMPLING_PERIODICITY = 1000
