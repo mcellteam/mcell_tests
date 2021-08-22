@@ -92,7 +92,7 @@ model.config.seed = SEED
 model.config.total_iterations = ITERATIONS
 
 model.warnings.high_reaction_probability = m.WarningLevel.IGNORE
-model.notifications.rxn_and_species_report = False
+model.notifications.rxn_and_species_report = True
 model.notifications.rxn_probability_changed = False
 #model.notifications.iteration_report = True
 
@@ -178,8 +178,8 @@ def dR(dt, dR_due_A_to_AR, dR_due_AR_to_0, num_R, num_AR):
     # how the amount of R should change (in copy number, float) 
     res = \
         +dR_due_A_to_AR \
-        -(num_R * 0.2 * dt) \
-        +(num_mRNA_R * 5 * dt) \
+        -(num_R * 0.2 * unimol_mult * dt) \
+        +(num_mRNA_R * unimol_mult * 5 * dt) \
         +dR_due_AR_to_0
     
     #print("dR", res)
@@ -199,7 +199,7 @@ def compute_A_to_AR_rate(num_R):
     
     # N -> M 
     conc_R = num_R_copy_nr / NA / VOLUME  # M
-    res = rate * conc_R # 1/s
+    res = rate * conc_R * unimol_mult# 1/s
     #print("A_to_AR_rate", res)
     return res
 

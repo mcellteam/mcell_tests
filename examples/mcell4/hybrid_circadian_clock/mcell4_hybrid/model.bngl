@@ -1,6 +1,14 @@
 begin parameters
   uM_1_to_M_1 1e6
   
+  orig_volume (0.8060089946*2) ^ 3
+  new_volume (0.125*2)^3
+  
+  # we decreased the volume, we would like to make
+  # the simulation run faster, 
+  # bimol rates are adjusted thanks to volume decrease 
+  unimol_mult orig_volume/new_volume
+  
 end parameters
 
 
@@ -17,33 +25,33 @@ begin reaction rules
   # orig:
   # A + R -> AR 1204 * uM_1_to_M_1
   # new:
-  A_to_AR: A -> AR 0 # rate depends on the simulated concentration of R, initial value is 0 because there are no Rs initially
+  A_to_AR: A -> AR 0 * unimol_mult # rate depends on the simulated concentration of R, initial value is 0 because there are no Rs initially
   # actual number of this reactions is used in dR 
 
   # orig:
-  # R -> 0 0.2    
-  # mRNA_R -> mRNA_R + R  5    
+  # R -> 0 0.2 * unimol_mult    
+  # mRNA_R -> mRNA_R + R  5 * unimol_mult     
   # both in dR, does not depend on any events in MCell
 
   # orig:    
-  # AR -> R 1
+  # AR -> R 1 * unimol_mult
   # new:    
-  AR_to_0: AR -> 0 1 
+  AR_to_0: AR -> 0 1 * unimol_mult 
   # actual number of this reactions is used in dR 
 
-  PrmA + A <-> PrmA_bound 602 * uM_1_to_M_1, 50 
-  PrmR + A <-> PrmR_bound 602 * uM_1_to_M_1, 100 
-  mRNA_A -> mRNA_A + A  50     
+  PrmA + A <-> PrmA_bound 602 * uM_1_to_M_1, 50 * unimol_mult
+  PrmR + A <-> PrmR_bound 602 * uM_1_to_M_1, 100 * unimol_mult 
+  mRNA_A -> mRNA_A + A  50 * unimol_mult     
 
-  A -> 0 1
+  A -> 0 1 * unimol_mult
   
   
-  PrmA -> PrmA + mRNA_A 50  
-  PrmA_bound -> PrmA_bound + mRNA_A 500  
-  PrmR -> PrmR + mRNA_R 0.01 
-  PrmR_bound -> PrmR_bound + mRNA_R 50    
-  mRNA_A -> 0  10     
-  mRNA_R -> 0  0.5    
+  PrmA -> PrmA + mRNA_A 50 * unimol_mult  
+  PrmA_bound -> PrmA_bound + mRNA_A 500 * unimol_mult  
+  PrmR -> PrmR + mRNA_R 0.01 * unimol_mult 
+  PrmR_bound -> PrmR_bound + mRNA_R 50 * unimol_mult    
+  mRNA_A -> 0  10 * unimol_mult     
+  mRNA_R -> 0  0.5 * unimol_mult    
 end reaction rules
 
 
