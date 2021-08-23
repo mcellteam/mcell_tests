@@ -42,4 +42,4 @@ if not_defined('SEED'):
     SEED = 1
 
 
-SAMPLING_PERIODICITY = 1000
+SAMPLING_PERIODICITY = 1000 # warning: time_step dependent

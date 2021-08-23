@@ -92,7 +92,7 @@ model.config.seed = SEED
 model.config.total_iterations = ITERATIONS
 
 model.warnings.high_reaction_probability = m.WarningLevel.IGNORE
-model.notifications.rxn_and_species_report = True
+model.notifications.rxn_and_species_report = False
 model.notifications.rxn_probability_changed = False
 #model.notifications.iteration_report = True
 

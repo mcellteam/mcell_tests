@@ -41,7 +41,7 @@ def get_peaks_for_single_obs(df, obs_name, file):
     peaks, props = find_peaks(
         df[obs_name], 
         width=int(len(df)/30),
-        height = 500.0
+        height = 300.0
     )
     
     #if len(peaks) == 3 or len(peaks) == 4:
@@ -58,38 +58,19 @@ def get_peaks_for_single_obs(df, obs_name, file):
         
     times = [ df.index.values[p] for p in peaks ]
     
-    if len(peaks) != 2:
-        #print(peaks)
-        p0 = times[0]
-        
-        
-        if obs_name == 'A':
-            min_time = 16
-        else: 
-            min_time = 21
-        
-        p1 = None
-        for t in times:
-            if t > min_time:
-                p1 = t
-                break 
-            
-        if len(peaks) == 1:
-            print("Warnign: only one peak in expected range found, skipping (" + file + ") for " + obs_name)
-            return 0, 0, True
-         
-        print("Warnign: multiple peaks, selecting " + str(p0) + " and " + str(p1) + 
-              " from " + str(times) + "         (" + file + ") for " + obs_name)
-    else:
-        p0 = times[0]
-        p1 = times[-1]
+    p0 = times[0]
+    p1 = times[1]
+    
+    if len(peaks) == 1:
+        print("Warnign: only one peak in expected range found, skipping (" + file + ") for " + obs_name)
+        return 0, 0, True
     
     return p0, p1, False
     
         
 def prepare_data(df, obs_name):
     sf = 100
-    ff = 0.1
+    ff = 0.3
     
     # run filter in both directions  
     df[obs_name] = butter_lowpass_filter(df[obs_name], ff, sf, order=5)
@@ -124,6 +105,7 @@ def get_all_peaks(dir):
     
     seed_dirs = os.listdir(dir)
     for seed_dir in sorted(seed_dirs):
+        print(seed_dir)
         if not seed_dir.startswith('seed_'):
             continue
         
