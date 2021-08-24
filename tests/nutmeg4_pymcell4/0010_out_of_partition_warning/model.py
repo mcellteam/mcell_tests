@@ -25,6 +25,9 @@ rs = m.ReleaseSite(
 )
 model.add_release_site(rs)
 
+
+model.config.partition_dimension = 1
+
 model.initialize()
 
 model.run_iterations(1000)
