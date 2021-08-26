@@ -1,0 +1,19 @@
+
+[[checks]]
+  matchPattern = "Error detected for walls with side indices 5 and 11." 
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = "and area 0 " 
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+  
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 1
+  
+[run]
+  pyfile = "model.py"
