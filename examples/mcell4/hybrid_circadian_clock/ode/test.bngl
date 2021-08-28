@@ -18,11 +18,11 @@ begin parameters
   MCELL_DIFFUSION_CONSTANT_3D_mRNA_R 9.99999999999999955e-08
 
   THICKNESS 0.01 # um, assumed membrane thickness
-  # volume rxn rate conversion factor for NFSim
-  RATE_CONV_VOLUME 0.015625000000000003 * 1e-15
+  # volume rxn rate conversion factor for um^3 to litres
+  RATE_CONV_VOLUME 1e-15
 
-  # surface-surface rxn rate conversion factor for NFSim
-  RATE_CONV_THICKNESS 1/0.375
+  # surface-surface rxn rate conversion factor for um^2 to um^3 using membrane thickness, in um
+  RATE_CONV_THICKNESS THICKNESS
 
   # parameters to convert rates in MCell and BioNetGen
   MCELL2BNG_VOL_CONV 6.02214e23 * RATE_CONV_VOLUME
@@ -82,7 +82,7 @@ end seed species
 begin observables
   Molecules A A 
   Molecules R R 
-#  Molecules AR AR 
+  Molecules AR AR 
 end observables
 
 begin reaction rules
@@ -104,4 +104,5 @@ begin reaction rules
   AR -> R k15
 end reaction rules
 
-simulate({method=>"nf",seed=>1,t_end=>0.25,n_steps=>2500,glm=>1000000})
+generate_network({overwrite=>1})
+simulate({method=>"ode",seed=>1,t_end=>0.25,n_steps=>2500})

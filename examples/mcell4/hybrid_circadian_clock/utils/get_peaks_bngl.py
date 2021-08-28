@@ -31,6 +31,10 @@ def get_all_peaks_bngl(dir):
         file_path = os.path.join(dir, seed_dir, 'test.gdat')
         df = load_gdat_file(file_path)
         
+        df_orig = df.copy()
+        df = prepare_data(df, 'A')
+        df = prepare_data(df, 'R')
+        
         p0, p1, skip = get_peaks_for_single_obs(df, 'A', file_path)
         if skip:
             num_skipped += 1
@@ -39,6 +43,8 @@ def get_all_peaks_bngl(dir):
         new_row[1] = p0
         new_row[2] = p1
         
+        plot_peaks(df, df_orig, 'A', p0, p1, seed_dir)
+                            
         p0, p1, skip = get_peaks_for_single_obs(df, 'R', file_path)
         if skip:
             num_skipped += 1
@@ -46,6 +52,8 @@ def get_all_peaks_bngl(dir):
 
         new_row[3] = p0
         new_row[4] = p1
+        
+        plot_peaks(df, df_orig, 'R', p0, p1, seed_dir)
     
         a_series = pd.Series(new_row, index = res.columns)
         res = res.append(a_series, ignore_index=True)

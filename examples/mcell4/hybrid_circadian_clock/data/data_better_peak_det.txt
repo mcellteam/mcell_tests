@@ -1,0 +1,75 @@
+
+mcell4, n=128
+
+D10_all, particle: (0 skipped)
+A_first: 2.87109375 +- 0.37699753414051856
+A_second: 25.47451171875 +- 2.9383240854207946
+R_first: 9.77544921875 +- 0.6122862340771101
+R_second: 31.25580078125 +- 3.0804859350151492
+wavelengthA: 22.60341796875 +- 2.946298205754746
+wavelengthR: 21.4803515625 +- 3.074848081106984
+lag_time1: 6.90435546875 +- 0.6268746881279595
+lag_time2: 5.781289062500001 +- 0.693393741211925
+
+D10_all, hybrid: (3 R, 1 A skipped)
+Warnign: only one peak found, skipping (../mcell4_hybrid/D10_all/react_data/seed_00015/R.dat)
+Warnign: only one peak found, skipping (../mcell4_hybrid/D10_all/react_data/seed_00018/R.dat)
+Warnign: only one peak found, skipping (../mcell4_hybrid/D10_all/react_data/seed_00025/R.dat)
+Warnign: only one peak found, skipping (../mcell4_hybrid/D10_all/react_data/seed_00025/A.dat)
+Warnign: only one peak found, skipping (../mcell4_hybrid/D10_all/react_data/seed_00030/R.dat)
+Warnign: only one peak found, skipping (../mcell4_hybrid/D10_all/react_data/seed_00050/R.dat)
+Warnign: only one peak found, skipping (../mcell4_hybrid/D10_all/react_data/seed_00050/A.dat)
+Warnign: only one peak found, skipping (../mcell4_hybrid/D10_all/react_data/seed_00053/R.dat)
+Warnign: only one peak found, skipping (../mcell4_hybrid/D10_all/react_data/seed_00058/R.dat)
+Warnign: only one peak found, skipping (../mcell4_hybrid/D10_all/react_data/seed_00067/R.dat)
+Warnign: only one peak found, skipping (../mcell4_hybrid/D10_all/react_data/seed_00078/R.dat)
+Warnign: only one peak found, skipping (../mcell4_hybrid/D10_all/react_data/seed_00107/R.dat)
+Warnign: only one peak found, skipping (../mcell4_hybrid/D10_all/react_data/seed_00109/R.dat)
+Warnign: only one peak found, skipping (../mcell4_hybrid/D10_all/react_data/seed_00109/A.dat)
+Warnign: only one peak found, skipping (../mcell4_hybrid/D10_all/react_data/seed_00113/R.dat)
+Warnign: only one peak found, skipping (../mcell4_hybrid/D10_all/react_data/seed_00122/R.dat)
+Warnign: only one peak found, skipping (../mcell4_hybrid/D10_all/react_data/seed_00125/R.dat)
+
+A_first: 3.4651562499999997 +- 0.5792446675132363
+A_second: 27.503984374999995 +- 5.592882053918649
+R_first: 9.970859375 +- 3.5373692407526853
+R_second: 30.336640625 +- 10.931856163384117
+wavelengthA: 24.038828125000002 +- 5.180569789154965
+wavelengthR: 20.36578125 +- 7.53756258869824
+lag_time1: 6.505703125 +- 3.3545000175680686
+lag_time2: 2.83265625 +- 11.81574429992544
+
+
+D10_prm_loc: (0 skipped)
+A_first: 2.8755468750000004 +- 0.47894887139180137
+A_second: 24.870800781250004 +- 3.4514040839844102
+R_first: 9.940839843749998 +- 0.7698906557335283
+R_second: 30.6254296875 +- 3.648481564610227
+wavelengthA: 21.995253906250003 +- 3.5025396275423217
+wavelengthR: 20.684589843749997 +- 3.550891118295593
+lag_time1: 7.065292968749999 +- 0.8124232623419069
+lag_time2: 5.75462890625 +- 0.8146357507995114
+
+D1000_all: (1 R skipped) -> remove completely incl A
+A_first: 2.8499609375 +- 0.3675667468946779
+A_second: 28.037304687499997 +- 2.83070752280466
+R_first: 9.430136718750001 +- 1.0128833146584844
+R_second: 33.574511718749996 +- 4.091350886039504
+wavelengthA: 25.18734375 +- 2.8755551287061683
+wavelengthR: 24.144375 +- 3.4431047007482882
+lag_time1: 6.58017578125 +- 0.9917649196586491
+lag_time2: 5.53720703125 +- 4.098678808410961
+
+D1000_prm_loc: (3 R skipped) -> remove completely incl A
+A_first: 2.87568359375 +- 0.425782364054383
+A_second: 28.1140625 +- 3.3321973933883235
+R_first: 9.32146484375 +- 1.5714001018996941
+R_second: 32.79138671875 +- 5.875736181121238
+wavelengthA: 25.23837890625 +- 3.3139808321252073
+wavelengthR: 23.469921875 +- 4.5613658436909175
+lag_time1: 6.44578125 +- 1.6052580541070618
+lag_time2: 4.67732421875 +- 6.939871983544906
+
+
+
+
