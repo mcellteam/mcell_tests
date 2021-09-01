@@ -224,7 +224,7 @@ model.register_reaction_callback(
 
 # and run simulation    
 for i in range(ITERATIONS):
-    print("IT", i)
+    #print("IT", i)
     
     # dump datamodel every N iterations
     if i % VIZ_FREQUENCY == 0: 
