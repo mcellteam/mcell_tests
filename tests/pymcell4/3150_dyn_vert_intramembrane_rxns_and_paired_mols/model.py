@@ -180,17 +180,21 @@ def c_to_e_callback(rxn_info, model):
     print("** Unbinding of membrane through reaction C -> A and D -> B (" + 
           str(rxn_info.reactant_ids[0]) + ")")
     
+    # we did not start with any C molecules, the only ones in our system are created 
+    # through the A + B -> C + D reaction, therefore C must be a paired molecule
+    # and we get the original D with get_paired_molecule
+    reactant_D_id = model.get_paired_molecule(rxn_info.reactant_ids[0])
+    assert reactant_D_id != m.ID_INVALID
+
+    # unpair molecules C and D
+    model.unpair_molecules(reactant_D_id, rxn_info.reactant_ids[0])
+    
+    
     # this callback is called when a unimolecular reaction of C occurs
     
     assert len(rxn_info.reactant_ids) == 1
     reactant_C_id = rxn_info.reactant_ids[0] 
     
-    # we did not start with any C molecules, the only ones in our system are created 
-    # through the A + B -> C + D reaction, therefore C must be a paired molecule
-    # and we get the original D with get_paired_molecule
-    
-    reactant_D_id = model.get_paired_molecule(reactant_C_id)
-    assert reactant_D_id != m.ID_INVALID
     
     print_molecule_info(model, reactant_C_id, "reactant 1")
     print_molecule_info(model, reactant_D_id, "reactant 2")
@@ -240,5 +244,8 @@ for i in range(ITERATIONS):
             
     model.run_iterations(1)
     
+
+# check that there are no paired molecules anymore (in this specific case only)
+assert len(model.get_paired_molecules()) == 0
 
 model.end_simulation()
