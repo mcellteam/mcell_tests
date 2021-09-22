@@ -67,10 +67,9 @@ def check_time(time, it):
 def check_pos(pos3d):
     EPS = 1e-9
     # min and max coordinates from Cube
-    assert pos3d.x >= -0.0625 - EPS and pos3d.x <= 0.0625 + EPS
-    assert pos3d.y >= -0.0625 - EPS and pos3d.y <= 0.0625 + EPS
-    #print(pos3d.z)
-    assert pos3d.z >= -0.0625 - EPS and pos3d.z <= 0.0625 + EPS
+    assert pos3d[0] >= -0.0625 - EPS and pos3d[0] <= 0.0625 + EPS
+    assert pos3d[1] >= -0.0625 - EPS and pos3d[1] <= 0.0625 + EPS
+    assert pos3d[2] >= -0.0625 - EPS and pos3d[2] <= 0.0625 + EPS
         
         
 rxn = model.find_reaction_rule('a_plus_b')

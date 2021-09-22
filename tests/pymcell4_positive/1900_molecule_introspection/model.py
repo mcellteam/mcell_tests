@@ -83,19 +83,19 @@ assert len(all_ids) == 2
         
 def check_eq(v1, v2):
     EPS = 1e-6
-    assert abs(v1.x - v2.x) < EPS
-    assert abs(v1.y - v2.y) < EPS
-    assert abs(v1.z - v2.z) < EPS 
+    assert abs(v1[0] - v2[0]) < EPS
+    assert abs(v1[1] - v2[1]) < EPS
+    assert abs(v1[2] - v2[2]) < EPS 
 
 def check_eq2(v1, v2):
     EPS = 1e-6
-    assert abs(v1.x - v2.x) < EPS
-    assert abs(v1.y - v2.y) < EPS
+    assert abs(v1[0] - v2[0]) < EPS
+    assert abs(v1[1] - v2[1]) < EPS
             
 va = model.get_molecule(all_ids[0])
 #print(va)
 assert va.type == m.MoleculeType.VOLUME
-check_eq(va.pos3d, m.Vec3(0.057759, 0.0187056, 0.0920891))
+check_eq(va.pos3d, [0.057759, 0.0187056, 0.0920891])
 assert va.species_id == 3 # may change in the future 
 assert va.orientation == m.Orientation.NONE
 assert not va.geometry_object
@@ -104,8 +104,8 @@ assert va.wall_index == -1
 sb = model.get_molecule(all_ids[1])        
 #print(sb)
 assert sb.type == m.MoleculeType.SURFACE
-check_eq(sb.pos3d, m.Vec3(-0.0134432, 0.111673, 0.125))
-check_eq2(sb.pos2d, m.Vec2(0.0883063, 0.0694588))
+check_eq(sb.pos3d, [-0.0134432, 0.111673, 0.125])
+check_eq2(sb.pos2d, [0.0883063, 0.0694588])
 assert sb.species_id == 4 # may change in the future 
 assert sb.orientation == m.Orientation.UP
 assert sb.geometry_object is model.find_geometry_object('CP')

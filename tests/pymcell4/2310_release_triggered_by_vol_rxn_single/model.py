@@ -2,6 +2,7 @@
 
 import sys
 import os
+import numpy as np
 
 MCELL_PATH = os.environ.get('MCELL_PATH', '')
 if MCELL_PATH:
@@ -55,7 +56,7 @@ def rxn_callback(rxn_info, model):
         complex = subsystem.c.inst(),
         shape = m.Shape.SPHERICAL,
         # MCell3 uses the location as offset
-        location = (rxn_info.pos3d + m.Vec3(0.005, 0, 0)).to_list(),
+        location = (np.array(rxn_info.pos3d) + np.array([0.005, 0, 0])).tolist(),
         site_diameter = 0,
         number_to_release = 10,
         release_time = rxn_info.time

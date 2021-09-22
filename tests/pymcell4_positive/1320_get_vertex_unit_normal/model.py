@@ -47,10 +47,10 @@ for i in range(ITERATIONS + 1):
     model.run_iterations(1)
     
     un = model.get_vertex_unit_normal(Tetrahedron, 0)
-    assert_eq(un.x, un_np[0])
-    assert_eq(un.y, un_np[1])
-    assert_eq(un.z, un_np[2]) 
-    assert_eq(np.linalg.norm(un.to_list()), 1)
+    assert_eq(un[0], un_np[0])
+    assert_eq(un[1], un_np[1])
+    assert_eq(un[2], un_np[2]) 
+    assert_eq(np.linalg.norm(un), 1)
 
 model.end_simulation()
 

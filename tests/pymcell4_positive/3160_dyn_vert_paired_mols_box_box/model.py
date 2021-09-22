@@ -142,9 +142,9 @@ for iter in range (1, 10):
     # check that the box2 was moved as well    
     v = model.get_vertex(box2, box2.wall_list[0][0])
     
-    assert_eq(v.x, 0.4-iter*0.02)
-    assert_eq(v.y, -0.1-iter*0.02)
-    assert_eq(v.z, 0.1)
+    assert_eq(v[0], 0.4-iter*0.02)
+    assert_eq(v[1], -0.1-iter*0.02)
+    assert_eq(v[2], 0.1)
 
     model.export_data_model()
     

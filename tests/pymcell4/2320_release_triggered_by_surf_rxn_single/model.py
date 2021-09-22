@@ -62,7 +62,7 @@ def rxn_callback(rxn_info, model):
     
     # simplified computtation of offset, valid only for this test, for 
     # a correct implementation see pymcell4/2321_release_triggered_by_surf_rxn_multiple
-    pos = rxn_info.pos3d + m.Vec3(-0.005, -0.005, -0.005)
+    pos = np.array(rxn_info.pos3d) + np.array([-0.005, -0.005, -0.005])
     
     # it is also possible to move it in the direction of the unit normal
     #pos = rxn_info.pos3d + w.unit_normal * m.Vec3(-0.005, -0.005, -0.005)
@@ -72,7 +72,7 @@ def rxn_callback(rxn_info, model):
         name = 'rel_c',
         complex = subsystem.c.inst(),
         shape = m.Shape.SPHERICAL,
-        location = pos.to_list(),
+        location = pos.tolist(),
         site_diameter = 0,
         number_to_release = 10,
         release_time = rxn_info.time

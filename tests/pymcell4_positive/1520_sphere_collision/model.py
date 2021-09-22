@@ -99,7 +99,7 @@ for i in range(ITERATIONS):
             
     # vertex must not move into the box 
     v1 = model.get_vertex(Sphere1, 90)
-    assert v1.x < 1.48 # 1.475210 was the final position
+    assert v1[0] < 1.48 # 1.475210 was the final position
                 
     model.run_iterations(1)
     

@@ -67,15 +67,15 @@ for i in range(ITERATIONS + 1):
     #print(w.vertices)
     
     if i >= 0 and i <= 3:
-        assert_eq(w.vertices[0].x, 0)
+        assert_eq(w.vertices[0][0], 0)
     if i == 4:
-        assert_eq(w.vertices[0].x, 0.2)
+        assert_eq(w.vertices[0][0], 0.2)
     if i == 5:
-        assert_eq(w.vertices[0].x, 0.4)
+        assert_eq(w.vertices[0][0], 0.4)
     if i >= 6 and i <= 9:
-        assert_eq(w.vertices[0].x, 0.6)
+        assert_eq(w.vertices[0][0], 0.6)
     if i == 10:
-        assert_eq(w.vertices[0].x, 0.8)
+        assert_eq(w.vertices[0][0], 0.8)
         
     model.apply_vertex_moves(randomize_order=False)
 

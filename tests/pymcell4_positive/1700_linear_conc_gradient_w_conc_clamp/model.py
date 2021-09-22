@@ -63,7 +63,7 @@ def get_mol_pos_bins():
         m = model.get_molecule(id)
         
         # 5 bins, y is in range -0.25..0.25
-        y = m.pos3d.y
+        y = m.pos3d[1]
         bin = int((y + 0.25) * 1/0.5*5)
         
         if bin in res:

@@ -36,9 +36,9 @@ for i in range(ITERATIONS + 1):
     model.run_iterations(1)
     
     vert = model.get_vertex(Tetrahedron, 2)
-    assert_eq(v2[0], vert.x)
-    assert_eq(v2[1], vert.y)
-    assert_eq(v2[2], vert.z)
+    assert_eq(v2[0], vert[0])
+    assert_eq(v2[1], vert[1])
+    assert_eq(v2[2], vert[2])
     
 
     

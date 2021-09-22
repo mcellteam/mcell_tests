@@ -62,15 +62,14 @@ class RxnCallbackContext():
 def uv2xyz(geometry_object, wall_index, pos2d):
     wall = model.get_wall(geometry_object, wall_index)
     
-    f1 = wall.vertices[1] - wall.vertices[0]
-    f1_len_squared = f1.x * f1.x + f1.y * f1.y + f1.z * f1.z   
+    f1 = np.array(wall.vertices[1]) - np.array(wall.vertices[0])
+    f1_len_squared = f1[0] * f1[0] + f1[1] * f1[1] + f1[2] * f1[2]  
     inv_f1_len = 1 / math.sqrt(f1_len_squared);
 
-    unit_u = f1 * m.Vec3(inv_f1_len);
-    v_nparray = np.cross(wall.unit_normal.to_list(), unit_u.to_list())
-    unit_v = m.Vec3(v_nparray[0], v_nparray[1], v_nparray[2])
+    unit_u = f1 * inv_f1_len;
+    v_nparray = np.cross(wall.unit_normal, unit_u)
     
-    return m.Vec3(pos2d.u) * unit_u + m.Vec3(pos2d.v) * unit_v + wall.vertices[0]
+    return unit_u  * pos2d[0] + v_nparray * pos2d[1] + np.array(wall.vertices[0])
     
 
 def check_time(time, it):
@@ -80,15 +79,13 @@ def check_time(time, it):
     # the max time is the end of this iteration 
     assert time <= (it + 1) * TIME_STEP
 
-def check_pos3d(pos3d):
+def check_pos(pos3d):
     EPS = 1e-9
-    #print(pos3d)
     # min and max coordinates from Cube
-    assert pos3d.x >= -0.0625 - EPS and pos3d.x <= 0.0625 + EPS
-    assert pos3d.y >= -0.0625 - EPS and pos3d.y <= 0.0625 + EPS
-    #print(pos3d.z)
-    assert pos3d.z >= -0.0625 - EPS and pos3d.z <= 0.0625 + EPS
-    
+    assert pos3d[0] >= -0.0625 - EPS and pos3d[0] <= 0.0625 + EPS
+    assert pos3d[1] >= -0.0625 - EPS and pos3d[1] <= 0.0625 + EPS
+    assert pos3d[2] >= -0.0625 - EPS and pos3d[2] <= 0.0625 + EPS
+        
         
 def check_pos2d(rxn_info):
     # Cube's edge is 0.125um long so this is the max
@@ -104,7 +101,7 @@ def check_pos2d(rxn_info):
     #assert pos2d.y >= 0 - EPS and pos2d.y <= 0.125 + EPS
     
     xyz = uv2xyz(rxn_info.geometry_object, rxn_info.wall_index, rxn_info.pos2d)
-    check_pos3d(xyz)
+    check_pos(xyz)
 
     
 rxn = model.find_reaction_rule('a_plus_sb')
@@ -130,7 +127,7 @@ def rxn_callback(rxn_info, context):
     
     check_time(rxn_info.time, context.current_it)
     
-    check_pos3d(rxn_info.pos3d)
+    check_pos(rxn_info.pos3d)
     check_pos2d(rxn_info)
 
 

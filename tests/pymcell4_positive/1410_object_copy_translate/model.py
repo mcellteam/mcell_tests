@@ -50,9 +50,9 @@ for i in range(ITERATIONS + 1):
     w1 = model.get_wall(Tetrahedron2, 0)
     
     for i in range(3):
-        assert_eq(v[i][0] + 0.1, w1.vertices[i].x)
-        assert_eq(v[i][1] + 0.1, w1.vertices[i].y)
-        assert_eq(v[i][2] + 0.1, w1.vertices[i].z)
+        assert_eq(v[i][0] + 0.1, w1.vertices[i][0])
+        assert_eq(v[i][1] + 0.1, w1.vertices[i][1])
+        assert_eq(v[i][2] + 0.1, w1.vertices[i][2])
     
 
     

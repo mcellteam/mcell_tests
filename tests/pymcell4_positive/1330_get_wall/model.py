@@ -57,14 +57,14 @@ for i in range(ITERATIONS + 1):
     assert w.wall_index == 3
     
     for i in range(3):
-        assert_eq(w.vertices[i].x, v[i][0])
-        assert_eq(w.vertices[i].y, v[i][1])
-        assert_eq(w.vertices[i].z, v[i][2])
+        assert_eq(w.vertices[i][0], v[i][0])
+        assert_eq(w.vertices[i][1], v[i][1])
+        assert_eq(w.vertices[i][2], v[i][2])
     
     assert_eq(w.area, area)
-    assert_eq(np.linalg.norm(w.unit_normal.to_list()), 1)
+    assert_eq(np.linalg.norm(w.unit_normal), 1)
     
-    un_mn = np.array(w.unit_normal.to_list())
+    un_mn = np.array(w.unit_normal)
     for i in range(3):
         assert_eq(un_mn[i], un_np[i])
         

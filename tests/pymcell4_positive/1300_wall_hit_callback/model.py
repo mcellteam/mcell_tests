@@ -73,10 +73,9 @@ def check_time(time, it):
 def check_pos(pos3d):
     EPS = 1e-9
     # min and max coordinates from Tetrahedron_vertex_list
-    assert pos3d.x >= -0.01 - EPS and pos3d.x <= 0.02 + EPS
-    assert pos3d.y >= -0.02 - EPS and pos3d.y <= 0.02 + EPS
-    #print(pos3d.z)
-    assert pos3d.z >= -0.01 - EPS and pos3d.z <= 0.02 + EPS
+    assert pos3d[0] >= -0.01 - EPS and pos3d[0] <= 0.02 + EPS
+    assert pos3d[1] >= -0.02 - EPS and pos3d[1] <= 0.02 + EPS
+    assert pos3d[2] >= -0.01 - EPS and pos3d[2] <= 0.02 + EPS
         
         
 tetrahedron_object = model.find_geometry_object('Tetrahedron')

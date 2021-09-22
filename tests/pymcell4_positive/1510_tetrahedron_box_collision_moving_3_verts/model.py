@@ -65,15 +65,15 @@ for i in range(ITERATIONS + 1):
     
     # vertex must not move into the box 
     v1 = model.get_vertex(Tetrahedron, 0)
-    assert v1.x < -0.1
+    assert v1[0] < -0.1
     
     v2 = model.get_vertex(Tetrahedron, 1)
     # vertex must not move into 
-    assert v2.x < -0.1
+    assert v2[0] < -0.1
 
     v3 = model.get_vertex(Tetrahedron, 2)
     # vertex must not move into 
-    assert v3.x < -0.1
+    assert v3[0] < -0.1
     
 
 model.end_simulation()

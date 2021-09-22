@@ -59,24 +59,25 @@ class RxnCallbackContext():
         self.current_it = 0 
 
 # based on geometry_utils.inc uv2xyz
+# based on geometry_utils.inc uv2xyz
 def uv2xyz(geometry_object, wall_index, pos2d):
     wall = model.get_wall(geometry_object, wall_index)
     
-    f1 = wall.vertices[1] - wall.vertices[0]
-    f1_len_squared = f1.x * f1.x + f1.y * f1.y + f1.z * f1.z   
+    f1 = np.array(wall.vertices[1]) - np.array(wall.vertices[0])
+    f1_len_squared = f1[0] * f1[0] + f1[1] * f1[1] + f1[2] * f1[2]  
     inv_f1_len = 1 / math.sqrt(f1_len_squared);
 
-    unit_u = f1 * m.Vec3(inv_f1_len);
-    v_nparray = np.cross(wall.unit_normal.to_list(), unit_u.to_list())
-    unit_v = m.Vec3(v_nparray[0], v_nparray[1], v_nparray[2])
+    unit_u = f1 * inv_f1_len;
+    v_nparray = np.cross(wall.unit_normal, unit_u)
     
-    return m.Vec3(pos2d.u) * unit_u + m.Vec3(pos2d.v) * unit_v + wall.vertices[0]
+    return unit_u  * pos2d[0] + v_nparray * pos2d[1] + np.array(wall.vertices[0])
+    
     
 def check_eq(v1, v2):
     EPS = 1e-9
-    assert abs(v1.x - v2.x) < EPS
-    assert abs(v1.y - v2.y) < EPS
-    assert abs(v1.z - v2.z) < EPS 
+    assert abs(v1[0] - v2[0]) < EPS
+    assert abs(v1[1] - v2[1]) < EPS
+    assert abs(v1[2] - v2[2]) < EPS 
 
 def check_time(time, it):
     # cannot start before iteration start
@@ -87,14 +88,11 @@ def check_time(time, it):
 
 def check_pos3d(pos3d):
     EPS = 1e-9
-    print(pos3d)
     # min and max coordinates from Cube
-    assert pos3d.x >= -0.0625 - EPS and pos3d.x <= 0.0625 + EPS
-    assert pos3d.y >= -0.0625 - EPS and pos3d.y <= 0.0625 + EPS
-    #print(pos3d.z)
-    assert pos3d.z >= -0.0625 - EPS and pos3d.z <= 0.0625 + EPS
-    
-
+    assert pos3d[0] >= -0.0625 - EPS and pos3d[0] <= 0.0625 + EPS
+    assert pos3d[1] >= -0.0625 - EPS and pos3d[1] <= 0.0625 + EPS
+    assert pos3d[2] >= -0.0625 - EPS and pos3d[2] <= 0.0625 + EPS
+                
 def check_pos2d_eq_pos3d(rxn_info):
     
     xyz = uv2xyz(rxn_info.geometry_object, rxn_info.wall_index, rxn_info.pos2d)

@@ -82,12 +82,12 @@ def rotate_about_normal_scipy(normal, displacement):
 def rotate_about_normal(normal, displacement):
     
     axis = m.Vec3(1, 0, 0)
-    cos_theta = normal.z
+    cos_theta = normal[2]
     if cmp_eq(cos_theta, -1.0):
         angle = 180.0
     else:
-        axis.x = -normal.y
-        axis.y = normal.x
+        axis.x = -normal[1]
+        axis.y = normal[0]
         axis.z = 0
         
         angle = math.acos(cos_theta) * 180.0 / math.pi  
@@ -182,7 +182,7 @@ def rotate_about_normal(normal, displacement):
     #print(np_displ)
     res = np.matmul(np_displ, om)
     
-    return m.Vec3(res[0], res[1], res[2])  
+    return [res[0], res[1], res[2]]  
 
     
 def rxn_callback(rxn_info, model):
@@ -195,7 +195,7 @@ def rxn_callback(rxn_info, model):
     # MCell3 (reference model) mdl_mcell3/2310_release_triggered_by_surf_rxn_single
     # computes position like this:
     
-    pos = rxn_info.pos3d + rotate_about_normal(w.unit_normal, m.Vec3(-0.005, -0.005, -0.005))
+    pos = np.array(rxn_info.pos3d) + np.array(rotate_about_normal(w.unit_normal, m.Vec3(-0.005, -0.005, -0.005)))
     
     # it is also possible to move it in the direction of the unit normal
     #pos = rxn_info.pos3d + w.unit_normal * m.Vec3(-0.005, -0.005, -0.005)
@@ -205,7 +205,7 @@ def rxn_callback(rxn_info, model):
         name = 'rel_c',
         complex = subsystem.c.inst(),
         shape = m.Shape.SPHERICAL,
-        location = pos.to_list(),
+        location = pos.tolist(),
         site_diameter = 0,
         number_to_release = 10,
         release_time = rxn_info.time

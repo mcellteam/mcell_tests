@@ -64,8 +64,8 @@ mol = model.get_molecule(0)
 def assert_eq(a, b):
     assert abs(a - b) < 1e-6
 
-assert_eq(mol.pos3d.x, 0.203907)
-assert_eq(mol.pos3d.y, 0.194151)
-assert_eq(mol.pos3d.z, 0.187254)
+assert_eq(mol.pos3d[0], 0.203907)
+assert_eq(mol.pos3d[1], 0.194151)
+assert_eq(mol.pos3d[2], 0.187254)
 
 model.end_simulation()
