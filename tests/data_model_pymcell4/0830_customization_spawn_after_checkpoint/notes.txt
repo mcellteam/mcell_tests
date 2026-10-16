@@ -1,0 +1,2 @@
+Customization starts a worker with multiprocessing 'spawn' after a checkpoint was written.
+The worker must run its task instead of resuming the simulation from the checkpoint.
