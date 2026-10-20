@@ -1,0 +1,2 @@
+Customization starts a worker with multiprocessing 'spawn' after the simulation was resumed from a checkpoint.
+The resume code must leave sys.path a list, otherwise starting the worker fails in sys.path.copy().
