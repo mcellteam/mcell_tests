@@ -1,0 +1,7 @@
+Object duplicate_walls: 3 vertices, 2 walls, 3 edges
+  Walls with the same three vertices: 1 group
+    walls 0 1
+  Manifold mesh: True
+  Consistently oriented: True
+  Watertight: True
+  Shells: 1, area 1 um^2, signed volume 0 um^3

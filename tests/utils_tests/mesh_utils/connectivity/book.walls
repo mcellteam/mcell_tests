@@ -1,0 +1,6 @@
+# book (3 triangles on one edge) (check_edge_table_proto.py)
+vertices 5
+walls 3
+0 1 2
+1 0 3
+0 1 4

@@ -1,0 +1,6 @@
+Object bad_indices: 8 vertices, 12 walls
+  Walls with a vertex index out of range: 2 (walls 3 7)
+  Walls that use a vertex twice: 1 (wall 5)
+  Manifold mesh: not checked
+  Consistently oriented: not checked
+  Watertight: not checked

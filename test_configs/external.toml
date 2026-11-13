@@ -89,3 +89,14 @@
     '$MCELL_TESTS_DIR/work/valgrind/ca_pulse_camkii_holo'
   ]  
   
+[[set]]
+  category = 'utils_tests'
+  testSet = 'mesh_utils'
+  testerClass = 'TesterExternal'
+  args = [
+    'bash',
+    '$MCELL_TESTS_DIR/tests/utils_tests/mesh_utils/test.sh',
+    '$MCELL_BUILD_DIR/bin/mesh_utils_test$EXE_EXT',
+    '$MCELL_TESTS_DIR/tests/utils_tests/mesh_utils/',
+    '$MCELL_TESTS_DIR/work/mesh_utils'
+  ]

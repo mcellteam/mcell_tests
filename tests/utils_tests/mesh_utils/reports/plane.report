@@ -1,0 +1,5 @@
+Object plane: 4 vertices, 2 walls, 5 edges
+  Manifold mesh: True
+  Consistently oriented: True
+  Watertight: False (4 boundary edges)
+  Shells: 1, area 4 um^2

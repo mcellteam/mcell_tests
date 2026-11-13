@@ -1,0 +1,16 @@
+# two walls that share only vertex 0, and a tetrahedron that touches them only there
+# expected results of coboundary.py (mesh_operators, classify), SciPy 1.18.1 and NumPy 2.5.4,
+# written once by make_mesh_utils_test_data.py outside this repository; tests only read them
+edges 12
+edge_vertices 0 1 1 2 0 2 0 3 3 4 0 4 0 7 5 7 0 5 5 6 0 6 6 7
+edge_of 0 1 2 3 4 5 6 7 8 8 9 10 10 11 6 7 11 9
+sign_of ++-++-+--++-++-+--
+non_manifold_edges
+case1_vertices
+case2_vertices 0
+case3_vertices
+boundary_edges 0 1 2 3 4 5
+inconsistent_edges
+shells 3
+shell_of 0 1 2 2 2 2
+duplicate_walls

@@ -1,0 +1,25 @@
+# glued grid 99: random grid with glued vertices and flipped triangles (check_edge_table_proto.py)
+vertices 20
+walls 22
+12 13 2
+12 17 13
+17 13 6
+17 6 14
+14 6 17
+14 17 8
+8 17 15
+8 19 15
+13 2 11
+13 11 6
+6 11 7
+6 17 7
+17 7 10
+17 10 15
+18 1 0
+18 0 2
+2 16 0
+2 16 11
+11 5 16
+11 5 7
+7 5 9
+7 10 9

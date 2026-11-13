@@ -1,0 +1,6 @@
+Object zero_area: 5 vertices, 3 walls, 7 edges
+  Zero-area walls: 1 (wall 2)
+  Manifold mesh: True
+  Consistently oriented: True
+  Watertight: False (5 boundary edges)
+  Shells: 1, area 4 um^2

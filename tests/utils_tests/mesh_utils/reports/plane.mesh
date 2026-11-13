@@ -1,0 +1,10 @@
+# a 2 um square of two walls
+length_unit 1.0
+vertices 4
+-1.0 -1.0 0.0
+1.0 -1.0 0.0
+1.0 1.0 0.0
+-1.0 1.0 0.0
+walls 2
+0 1 2
+0 2 3

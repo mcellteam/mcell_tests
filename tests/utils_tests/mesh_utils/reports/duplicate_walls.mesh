@@ -1,0 +1,9 @@
+# one wall and its reversed copy
+length_unit 1.0
+vertices 3
+0.0 0.0 0.0
+1.0 0.0 0.0
+0.0 1.0 0.0
+walls 2
+0 1 2
+2 1 0

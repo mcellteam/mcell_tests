@@ -1,0 +1,5 @@
+Object bowtie_and_pinched: 9 vertices, 7 walls, 14 edges
+  Manifold mesh: False
+    non-manifold vertices: 2 (vertices 2 3)
+  Consistently oriented: not checked
+  Watertight: not checked

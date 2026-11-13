@@ -1,0 +1,16 @@
+# glued grid 14: random grid with glued vertices and flipped triangles
+# expected results of coboundary.py (mesh_operators, classify), SciPy 1.18.1 and NumPy 2.5.4,
+# written once by make_mesh_utils_test_data.py outside this repository; tests only read them
+edges 54
+edge_vertices 7 9 7 23 9 23 4 9 4 23 4 16 16 23 12 16 4 12 12 23 13 23 12 13 13 22 22 23 18 22 13 18 7 20 2 20 2 7 2 23 21 23 2 21 16 21 3 16 3 21 3 23 3 14 14 23 14 22 17 20 1 17 1 20 1 2 1 10 2 10 10 21 15 21 10 15 3 15 3 19 15 19 14 19 4 17 4 5 5 17 1 5 0 5 0 1 0 10 0 6 6 10 6 15 0 15 0 19
+edge_of 0 1 2 3 4 2 5 6 4 5 7 8 9 6 7 9 10 11 12 13 10 12 14 15 16 17 18 18 19 1 20 21 19 6 22 20 23 24 22 23 25 6 25 26 27 13 28 27 29 30 31 17 32 31 32 33 34 34 35 21 36 37 35 24 38 36 39 40 38 39 41 26 42 43 44 30 45 44 45 46 47 47 48 33 48 49 50 50 51 37 51 49 52 52 53 40
+sign_of -+--+-++-+--+--+--++-+--+-+-+---+-++-+--+--++--+--+--+-+-++---+-+++--+---++-+++-+-+--++-+---+-+-
+non_manifold_edges 6
+case1_vertices 16 23
+case2_vertices 4
+case3_vertices
+boundary_edges 0 3 8 11 14 15 16 28 29 41 42 43 46 53
+inconsistent_edges 2 5 7 9 10 12 17 19 21 23 27 30 31 32 35 37 39 40 44 45
+shells 1
+shell_of 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+duplicate_walls

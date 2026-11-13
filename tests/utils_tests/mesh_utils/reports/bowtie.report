@@ -1,0 +1,5 @@
+Object bowtie: 5 vertices, 2 walls, 6 edges
+  Manifold mesh: False
+    non-manifold vertices: 1 (vertex 0)
+  Consistently oriented: not checked
+  Watertight: not checked

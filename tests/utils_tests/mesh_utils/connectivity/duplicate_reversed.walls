@@ -1,0 +1,7 @@
+# duplicate + reversed triangles (check_edge_table_proto.py)
+vertices 4
+walls 4
+0 1 2
+0 1 2
+2 1 0
+1 2 3

@@ -1,0 +1,5 @@
+Object cube_mcell_units: 8 vertices, 12 walls, 18 edges
+  Manifold mesh: True
+  Consistently oriented: True
+  Watertight: True
+  Shells: 1, area 24 um^2, signed volume 8 um^3

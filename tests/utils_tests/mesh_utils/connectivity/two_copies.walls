@@ -1,0 +1,5 @@
+# two copies of one triangle (check_edge_table_proto.py)
+vertices 3
+walls 2
+0 1 2
+0 1 2

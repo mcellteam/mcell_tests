@@ -1,0 +1,16 @@
+# duplicate + reversed triangles
+# expected results of coboundary.py (mesh_operators, classify), SciPy 1.18.1 and NumPy 2.5.4,
+# written once by make_mesh_utils_test_data.py outside this repository; tests only read them
+edges 5
+edge_vertices 0 1 1 2 0 2 2 3 1 3
+edge_of 0 1 2 0 1 2 1 0 2 1 3 4
+sign_of ++-++---+++-
+non_manifold_edges 0 1 2
+case1_vertices 0 1 2
+case2_vertices
+case3_vertices
+boundary_edges 3 4
+inconsistent_edges
+shells 4
+shell_of 0 1 2 3
+duplicate_walls 0 1 2

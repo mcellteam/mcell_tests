@@ -1,0 +1,5 @@
+Object two_cubes: 16 vertices, 24 walls, 36 edges
+  Manifold mesh: True
+  Consistently oriented: True
+  Watertight: True
+  Shells: 2, area 48 um^2, signed volume 16 um^3

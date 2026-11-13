@@ -1,0 +1,7 @@
+Object cube_and_inside_out_tetrahedron: 12 vertices, 16 walls, 24 edges
+  Manifold mesh: True
+  Consistently oriented: True
+  Watertight: True
+  Shells: 2, area 26.3660254 um^2, signed volume 7.833333333 um^3
+  Shells facing the wrong way: 1
+    shell 1: 4 walls from wall 12, signed volume -0.1666666667 um^3

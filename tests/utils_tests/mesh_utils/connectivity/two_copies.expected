@@ -1,0 +1,16 @@
+# two copies of one triangle
+# expected results of coboundary.py (mesh_operators, classify), SciPy 1.18.1 and NumPy 2.5.4,
+# written once by make_mesh_utils_test_data.py outside this repository; tests only read them
+edges 3
+edge_vertices 0 1 1 2 0 2
+edge_of 0 1 2 0 1 2
+sign_of ++-++-
+non_manifold_edges
+case1_vertices
+case2_vertices
+case3_vertices
+boundary_edges
+inconsistent_edges 0 1 2
+shells 1
+shell_of 0 0
+duplicate_walls 0 1

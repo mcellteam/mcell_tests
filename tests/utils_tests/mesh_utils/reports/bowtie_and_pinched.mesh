@@ -1,0 +1,20 @@
+# walls 0 and 1 share edge 0-1; wall 2 touches wall 0 only at vertex 2 (bow-tie); the tetrahedron 3 6 7 8 touches wall 1 only at vertex 3 (pinched)
+length_unit 1.0
+vertices 9
+0.0 0.0 0.0
+0.0 0.0 1.0
+1.0 0.0 0.0
+0.0 1.0 0.0
+2.0 1.0 0.0
+2.0 -1.0 0.0
+0.0 2.0 0.0
+1.0 2.0 0.0
+0.0 2.0 1.0
+walls 7
+0 1 2
+1 0 3
+2 4 5
+3 6 7
+3 7 8
+3 8 6
+7 6 8

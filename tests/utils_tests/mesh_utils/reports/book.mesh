@@ -1,0 +1,12 @@
+# three walls on one edge
+length_unit 1.0
+vertices 5
+0.0 0.0 0.0
+0.0 0.0 1.0
+1.0 0.0 0.0
+-1.0 0.0 0.0
+0.0 1.0 0.0
+walls 3
+0 1 2
+1 0 3
+0 1 4

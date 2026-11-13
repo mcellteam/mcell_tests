@@ -1,0 +1,5 @@
+Object cube_with_cavity: 16 vertices, 24 walls, 36 edges
+  Manifold mesh: True
+  Consistently oriented: True
+  Watertight: True
+  Shells: 2, area 120 um^2, signed volume 56 um^3

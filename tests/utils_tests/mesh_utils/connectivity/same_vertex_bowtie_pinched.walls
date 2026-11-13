@@ -1,0 +1,9 @@
+# two walls that share only vertex 0, and a tetrahedron that touches them only there (the walls of reports/same_vertex_bowtie_pinched.mesh)
+vertices 8
+walls 6
+0 1 2
+0 3 4
+0 7 5
+0 5 6
+0 6 7
+5 7 6

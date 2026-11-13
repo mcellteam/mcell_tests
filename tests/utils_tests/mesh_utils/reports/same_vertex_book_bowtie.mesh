@@ -1,0 +1,15 @@
+# edge 0-1 has three walls, and wall 3 touches them only at vertex 0
+length_unit 1.0
+vertices 7
+0.0 0.0 0.0
+0.0 0.0 1.0
+1.0 0.0 0.0
+-1.0 0.0 0.0
+0.0 1.0 0.0
+-1.0 -1.0 -1.0
+0.0 -1.0 -1.0
+walls 4
+0 1 2
+1 0 3
+0 1 4
+0 5 6

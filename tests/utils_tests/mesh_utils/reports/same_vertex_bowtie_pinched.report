@@ -1,0 +1,5 @@
+Object same_vertex_bowtie_pinched: 8 vertices, 6 walls, 12 edges
+  Manifold mesh: False
+    non-manifold vertices: 1 (vertex 0)
+  Consistently oriented: not checked
+  Watertight: not checked

@@ -1,0 +1,11 @@
+# two walls that share only a vertex
+length_unit 1.0
+vertices 5
+0.0 0.0 0.0
+1.0 0.0 0.0
+1.0 1.0 0.0
+-1.0 0.0 0.0
+-1.0 -1.0 0.0
+walls 2
+0 1 2
+0 3 4

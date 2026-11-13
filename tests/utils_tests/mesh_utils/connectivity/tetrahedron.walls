@@ -1,0 +1,7 @@
+# tetrahedron (check_edge_table_proto.py)
+vertices 4
+walls 4
+0 1 2
+0 3 1
+0 2 3
+1 3 2

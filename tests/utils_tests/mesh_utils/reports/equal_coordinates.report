@@ -1,0 +1,7 @@
+Object equal_coordinates: 9 vertices, 12 walls, 20 edges
+  Vertices with equal coordinates: 1 group
+    vertices 0 8 at (-1, -1, -1)
+  Manifold mesh: True
+  Consistently oriented: True
+  Watertight: False (4 boundary edges)
+  Shells: 1, area 24 um^2

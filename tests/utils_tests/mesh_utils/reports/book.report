@@ -1,0 +1,7 @@
+Object book: 5 vertices, 3 walls, 7 edges
+  Manifold mesh: False
+    edges with 3 or more walls: 1
+      edge 0-1: walls 0 1 2
+    non-manifold vertices: 2 (vertices 0 1)
+  Consistently oriented: not checked
+  Watertight: not checked

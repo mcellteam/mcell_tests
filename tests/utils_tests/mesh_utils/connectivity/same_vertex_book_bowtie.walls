@@ -1,0 +1,7 @@
+# edge 0-1 has three walls, and wall 3 touches them only at vertex 0 (the walls of reports/same_vertex_book_bowtie.mesh)
+vertices 7
+walls 4
+0 1 2
+1 0 3
+0 1 4
+0 5 6
