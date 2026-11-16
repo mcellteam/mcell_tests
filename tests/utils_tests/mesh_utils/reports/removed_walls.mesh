@@ -1,0 +1,33 @@
+# an MDL object as MCell3 parsed it: the cube; wall 12 along the cube's edge
+# from vertex 0 to vertex 1, through vertex 8 halfway, so with zero area; and
+# wall 13, with an index out of range. MCell3 removed walls 0, 12 and 13: 0 and
+# 13 by REMOVE_ELEMENTS, which are left out, and 12 for its zero area, which is
+# reported with the file's id. Without wall 0, edge 0-1 has walls 9 and 12, and
+# edges 0-2, 1-2, 0-8 and 1-8 have one wall each
+length_unit 1.0
+vertices 9
+-1.0 -1.0 -1.0
+-1.0 -1.0 1.0
+-1.0 1.0 -1.0
+-1.0 1.0 1.0
+1.0 -1.0 -1.0
+1.0 -1.0 1.0
+1.0 1.0 -1.0
+1.0 1.0 1.0
+-1.0 -1.0 0.0
+walls 14
+1 2 0
+3 6 2
+7 4 6
+5 0 4
+6 0 2
+3 5 7
+1 3 2
+3 7 6
+7 5 4
+5 1 0
+6 4 0
+3 1 5
+1 8 0
+0 1 99
+removed 0 12 13

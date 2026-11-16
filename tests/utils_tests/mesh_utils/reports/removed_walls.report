@@ -1,0 +1,7 @@
+Object removed_walls: 9 vertices, 12 walls, 20 edges
+  Removed by REMOVE_ELEMENTS: 2 (walls 0 13)
+  Zero-area walls: 1 (wall 12)
+  Manifold mesh: True
+  Consistently oriented: True
+  Watertight: False (4 boundary edges)
+  Shells: 1, area 22 um^2

@@ -1,0 +1,1 @@
+Error: [MESH_INCONSISTENT_ORIENTATION] plane_one_wall_reversed: 1 pair of walls runs along its shared edge in the same direction; see reports/geometry_report_00001.txt

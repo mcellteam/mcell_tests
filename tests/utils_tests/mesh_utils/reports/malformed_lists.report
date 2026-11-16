@@ -1,0 +1,10 @@
+Object malformed_lists: 5 vertices, 5 walls
+  Vertices that don't have three coordinates: 1 (vertex 4)
+  Walls that don't have three vertex indices: 1 (wall 1)
+  Walls with a vertex index out of range: 1 (wall 3)
+  Walls that use a vertex twice: 1 (wall 4)
+  Surface regions with a wall index out of range: 1
+    region r: wall indices 7 -1
+  Manifold mesh: not checked
+  Consistently oriented: not checked
+  Watertight: not checked

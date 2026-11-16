@@ -1,0 +1,11 @@
+# the plane with its second wall reversed: both walls run along edge 0-2 from
+# vertex 2 to vertex 0
+length_unit 1.0
+vertices 4
+-1.0 -1.0 0.0
+1.0 -1.0 0.0
+1.0 1.0 0.0
+-1.0 1.0 0.0
+walls 2
+0 1 2
+0 3 2

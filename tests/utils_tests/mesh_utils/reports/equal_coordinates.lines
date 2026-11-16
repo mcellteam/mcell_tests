@@ -1,0 +1,2 @@
+Warning: [MESH_DUPLICATE_VERTICES] equal_coordinates: 1 group of vertices with equal coordinates; see reports/geometry_report_00001.txt
+Warning: [MESH_NOT_WATERTIGHT] equal_coordinates: 4 boundary edges; see reports/geometry_report_00001.txt

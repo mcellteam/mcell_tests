@@ -1,0 +1,1 @@
+Error: [MESH_INVALID_INDICES] bad_indices: 2 walls with a vertex index out of range, 1 wall that uses a vertex twice; see reports/geometry_report_00001.txt

@@ -1,0 +1,1 @@
+Error: [MESH_NOT_MANIFOLD] same_vertex_bowtie_pinched: 1 non-manifold vertex, where groups of walls touch only at a vertex; see reports/geometry_report_00001.txt

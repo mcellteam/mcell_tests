@@ -1,0 +1,2 @@
+Error: [MESH_ZERO_AREA_WALLS] zero_area: 1 wall with zero area; see reports/geometry_report_00001.txt
+Warning: [MESH_NOT_WATERTIGHT] zero_area: 5 boundary edges; see reports/geometry_report_00001.txt

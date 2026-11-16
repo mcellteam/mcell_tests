@@ -1,0 +1,1 @@
+Error: [MESH_INCONSISTENT_ORIENTATION] cube_one_wall_reversed: 3 pairs of walls run along their shared edge in the same direction; see reports/geometry_report_00001.txt

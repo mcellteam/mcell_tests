@@ -11,8 +11,17 @@ connectivity only from the vertex indices of its walls.
   The expected results are those of `coboundary.py`
   (`mesh_operators`, `classify`), SciPy and NumPy. They were computed once, outside this
   repository; the test never runs Python.
-- `reports/<name>.mesh` and `<name>.report`: small meshes with coordinates, one per error or
-  warning, and the block each gets in the geometry report. Six of them combine an edge of three or
-  more walls, bow-tie vertices and pinched vertices, at different vertices or at the same vertex;
-  the report lists every non-manifold vertex once, without saying which case it is. The blocks were
+- `reports/<name>.mesh`, `<name>.report` and `<name>.lines`: small meshes with coordinates, one per
+  error or warning, the block each gets in the geometry report, and the terminal lines MCell prints
+  for it (none for a mesh without problems). Six of them combine an edge of three or more walls,
+  bow-tie vertices and pinched vertices, at different vertices or at the same vertex; the report
+  lists every non-manifold vertex once, without saying which case it is. The blocks and lines were
   written by hand and checked against the same tools.
+  - A `.mesh` file gives an object as the model gives it. Its vertex and wall lines may hold any
+    number of values, as the Python API's lists may (`malformed_lists`). Optional lines after the
+    walls: `region <name> <wall indices>` for a surface region (`region_indices`), and
+    `removed <wall ids>`, which makes it an MDL object as MCell3 parsed it, with the walls MCell3
+    removed (`removed_walls`: two by `REMOVE_ELEMENTS`, left out, and one for its zero area,
+    reported).
+- The singular and plural form of every terminal line, and the message of the one stop, are
+  written in the test program itself.

@@ -1,0 +1,5 @@
+Object plane_one_wall_reversed: 4 vertices, 2 walls, 5 edges
+  Manifold mesh: True
+  Consistently oriented: False
+    walls 0 and 1, edge 0-2
+  Watertight: not checked

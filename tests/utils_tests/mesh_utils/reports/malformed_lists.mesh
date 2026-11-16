@@ -1,0 +1,18 @@
+# the Python API's lists, which a mesh can't hold: the plane's four vertices
+# and a vertex with two coordinates; a wall with two indices, a wall with an
+# index out of range and a wall that uses a vertex twice; a surface region with
+# the wall indices 7 (twice) and -1, out of range for 5 walls
+length_unit 1.0
+vertices 5
+-1.0 -1.0 0.0
+1.0 -1.0 0.0
+1.0 1.0 0.0
+-1.0 1.0 0.0
+0.0 0.0
+walls 5
+0 1 2
+0 2
+0 2 3
+0 9 3
+1 1 2
+region r 0 7 -1 7
