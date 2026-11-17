@@ -1,0 +1,7 @@
+MODIFY_SURFACE_REGIONS
+{
+  open_box[bottom]
+  {
+    SURFACE_CLASS = transp
+  }
+}

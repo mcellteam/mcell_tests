@@ -1,0 +1,9 @@
+DEFINE_SURFACE_CLASSES
+{
+  transp
+  {
+    TRANSPARENT = A'
+    TRANSPARENT = B'
+    TRANSPARENT = C'
+  }
+}

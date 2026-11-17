@@ -1,0 +1,23 @@
+TRANSPARENT for SURFACE molecules at an internal border.
+
+Only surface molecules: the one species, S, is a surface molecule
+(DIFFUSION_CONSTANT_2D = 1e-5); there are no volume molecules. The class
+TRANSPARENT = S' is on the region 'bottom', and 1000 S' are released there at
+time 0. They cross the border onto the side faces as if there were no class:
+none is lost, and the counts and positions are the same as for this model
+without the surface class, molecule for molecule (checked when the test was
+made). MCell3 and MCell4 give the same counts (the same files); their
+positions agree but for the last printed digits of one coordinate.
+
+The object is one open box: the 2 x 2 x 2 um cube of 2770 without its top face
+(10 walls). The 4 edges of the missing face (the rim) have one wall each, so
+they are boundary edges and the mesh is non-watertight. The region 'bottom'
+holds the 2 walls of the bottom face; its border is the 4 edges of the bottom
+square, internal edges shared with the side faces. 500 iterations of 1e-6 s,
+seed 1.
+
+TRANSPARENT for a surface molecule means that it passes the border of the
+region, the default for surface molecules (MCell4's documentation,
+libmcell/definition/constants.yaml). Until mcell step 6a, MCell4 took the
+TRANSPARENT rule, which has no products, as absorptive at a border, so these
+surface molecules were absorbed there. MCell3's engine has always let them pass.

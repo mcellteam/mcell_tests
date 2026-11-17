@@ -1,0 +1,4 @@
+DEFINE_REACTIONS
+{
+  A' -> B' + C' [1e5]
+}

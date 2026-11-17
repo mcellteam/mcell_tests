@@ -1,0 +1,15 @@
+DEFINE_MOLECULES
+{
+  A
+  {
+    DIFFUSION_CONSTANT_2D = 1e-6
+  }
+  B
+  {
+    DIFFUSION_CONSTANT_2D = 1e-6
+  }
+  C
+  {
+    DIFFUSION_CONSTANT_2D = 1e-6
+  }
+}
