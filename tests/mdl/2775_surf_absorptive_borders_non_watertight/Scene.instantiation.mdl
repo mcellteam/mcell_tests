@@ -1,0 +1,51 @@
+INSTANTIATE Scene OBJECT
+{
+  box_all OBJECT box_all {}
+  box_whole OBJECT box_whole {}
+  box_sides OBJECT box_sides {}
+  box_bottom OBJECT box_bottom {}
+  cube_all OBJECT cube_all {}
+  cube_whole OBJECT cube_whole {}
+  box_all_rel RELEASE_SITE
+  {
+   SHAPE = Scene.box_all[ALL]
+   MOLECULE = S'
+   NUMBER_TO_RELEASE = 1000
+   RELEASE_PROBABILITY = 1
+  }
+  box_whole_rel RELEASE_SITE
+  {
+   SHAPE = Scene.box_whole[whole]
+   MOLECULE = S'
+   NUMBER_TO_RELEASE = 1000
+   RELEASE_PROBABILITY = 1
+  }
+  box_sides_rel RELEASE_SITE
+  {
+   SHAPE = Scene.box_sides[sides]
+   MOLECULE = S'
+   NUMBER_TO_RELEASE = 1000
+   RELEASE_PROBABILITY = 1
+  }
+  box_bottom_rel RELEASE_SITE
+  {
+   SHAPE = Scene.box_bottom[bottom]
+   MOLECULE = S'
+   NUMBER_TO_RELEASE = 1000
+   RELEASE_PROBABILITY = 1
+  }
+  cube_all_rel RELEASE_SITE
+  {
+   SHAPE = Scene.cube_all[ALL]
+   MOLECULE = S'
+   NUMBER_TO_RELEASE = 1000
+   RELEASE_PROBABILITY = 1
+  }
+  cube_whole_rel RELEASE_SITE
+  {
+   SHAPE = Scene.cube_whole[whole]
+   MOLECULE = S'
+   NUMBER_TO_RELEASE = 1000
+   RELEASE_PROBABILITY = 1
+  }
+}

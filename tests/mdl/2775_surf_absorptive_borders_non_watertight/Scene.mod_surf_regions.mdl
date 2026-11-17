@@ -1,0 +1,27 @@
+MODIFY_SURFACE_REGIONS
+{
+  box_all[ALL]
+  {
+    SURFACE_CLASS = absorb
+  }
+  box_whole[whole]
+  {
+    SURFACE_CLASS = absorb
+  }
+  box_sides[sides]
+  {
+    SURFACE_CLASS = absorb
+  }
+  box_bottom[bottom]
+  {
+    SURFACE_CLASS = absorb
+  }
+  cube_all[ALL]
+  {
+    SURFACE_CLASS = absorb
+  }
+  cube_whole[whole]
+  {
+    SURFACE_CLASS = absorb
+  }
+}

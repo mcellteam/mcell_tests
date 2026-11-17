@@ -1,0 +1,11 @@
+INSTANTIATE Scene OBJECT
+{
+  open_box OBJECT open_box {}
+  open_box_rel RELEASE_SITE
+  {
+   SHAPE = Scene.open_box[ALL]
+   MOLECULE = S,
+   NUMBER_TO_RELEASE = 1000
+   RELEASE_PROBABILITY = 1
+  }
+}

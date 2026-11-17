@@ -1,0 +1,10 @@
+REACTION_DATA_OUTPUT
+{
+  STEP = 1e-5
+  {COUNT[S, Scene.box_all]} => "./react_data/seed_" & seed & "/S.box_all.dat"
+  {COUNT[S, Scene.box_whole]} => "./react_data/seed_" & seed & "/S.box_whole.dat"
+  {COUNT[S, Scene.box_sides]} => "./react_data/seed_" & seed & "/S.box_sides.dat"
+  {COUNT[S, Scene.box_bottom]} => "./react_data/seed_" & seed & "/S.box_bottom.dat"
+  {COUNT[S, Scene.cube_all]} => "./react_data/seed_" & seed & "/S.cube_all.dat"
+  {COUNT[S, Scene.cube_whole]} => "./react_data/seed_" & seed & "/S.cube_whole.dat"
+}

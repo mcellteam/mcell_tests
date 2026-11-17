@@ -1,0 +1,5 @@
+REACTION_DATA_OUTPUT
+{
+  STEP = 1e-5
+  {COUNT[S, Scene.open_box]} => "./react_data/seed_" & seed & "/S.open_box.dat"
+}

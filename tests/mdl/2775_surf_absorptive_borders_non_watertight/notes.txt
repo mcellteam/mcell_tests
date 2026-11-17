@@ -1,0 +1,72 @@
+Region borders for SURFACE molecules on non-watertight and watertight meshes.
+
+Molecules: surface molecules only. The one species, S, is a surface molecule
+(DIFFUSION_CONSTANT_2D = 1e-5): it sits on the walls and diffuses within the
+surface, crossing edges from wall to wall. The test has no volume molecules.
+Region borders are edges of the mesh, and only surface molecules move along the
+surface and cross edges. A volume molecule meets a surface class only when it
+hits a wall of the region, which involves no border.
+
+Surface class: absorb { ABSORPTIVE = S' }. A surface molecule S with
+orientation ' that reaches a border of the region carrying the class is
+absorbed (removed). Every S is released as S', so the rule applies to all of
+them.
+
+Six objects, side by side (x offsets 0, 5, 10, 15, 20 and 25 um), all made from
+the 2 x 2 x 2 um cube of 2770. On each, 1000 S' are released onto the region
+that carries the class, at time 0. 500 iterations of 1e-6 s.
+- The open boxes (box_*) are the cube without its top face: 10 walls. The 4
+  edges of the missing face (the rim) have one wall each, so they are boundary
+  edges and the mesh is non-watertight.
+- The cubes (cube_*) have all 12 walls and are watertight.
+
+Object      Class and release on            Borders of that region (MCell4)
+box_all     ALL (no region of the user)     the 4 rim edges (boundary edges)
+box_whole   region whole: all 10 walls      the 4 rim edges (boundary edges)
+box_sides   region sides: the 8 walls of    the 4 rim edges (boundary edges) and
+            the four side faces             the 4 edges of the bottom square
+                                            (internal edges)
+box_bottom  region bottom: the 2 walls of   the 4 edges of the bottom square
+            the bottom face                 (internal edges only)
+cube_all    ALL of the watertight cube      none
+cube_whole  region whole: all 12 walls      none
+
+MCell4 (ref_react_data_4) gives every region its borders by one rule, ALL
+included: a wall side is a border when its edge has exactly one wall in the
+region, that is, a boundary edge of the mesh or an internal edge whose other
+wall is outside the region. The surface molecules on box_all and box_whole
+are absorbed at the rim. Only the whole of a watertight mesh has no border.
+
+MCell3 (ref_react_data_3) gives no borders to ALL and to a region that holds
+every wall. There the surface molecules on box_all and box_whole reflect at the
+rim and keep their 1000 molecules.
+
+Counts after 500 iterations (surface molecules S on each object):
+            MCell3   MCell4 (MDL and Python API)
+box_all     1000     704
+box_whole   1000     703
+box_sides    274     258
+box_bottom    71      68
+cube_all    1000    1000
+cube_whole  1000    1000
+
+The molecules of all six objects share one random-number stream, so each
+object's surface molecules move with other random numbers: every object is a
+separate random sample.
+- box_all and box_whole follow the same rule but don't have the same counts:
+  704 and 703 at iteration 500, 860 and 884 at iteration 100.
+- Run alone with the same seed, the class on ALL and the class on a region of
+  every wall give identical counts and positions.
+- Once box_all's and box_whole's molecules are absorbed on MCell4, the paths on
+  the other objects shift too, so box_sides and box_bottom differ a little
+  between the engines.
+
+Outputs:
+- the count of S on each object every 10 iterations (react_data, compared
+  exactly);
+- the positions of all molecules at iteration 500 (viz_data; the MDL tester
+  requires a viz reference).
+
+The suite also runs this model through the data model and the Python API
+against ref_react_data_4, so it checks that MDL and the API give the same
+result.

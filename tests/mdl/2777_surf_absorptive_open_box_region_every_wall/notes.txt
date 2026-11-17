@@ -1,0 +1,30 @@
+Region borders for SURFACE molecules on a non-watertight mesh: one open box.
+
+The class ABSORPTIVE = S' on the region 'whole' of all 10 walls; S' released
+on it. The same walls as ALL in 2776, so MCell4 gives the same result as
+2776, molecule for molecule: identical counts and positions.
+
+Only surface molecules: the one species, S, is a surface molecule
+(DIFFUSION_CONSTANT_2D = 1e-5). There are no volume molecules; region borders
+are edges of the mesh and matter only for surface molecules.
+
+The object is one open box: the 2 x 2 x 2 um cube of 2770 without its top face
+(10 walls). The 4 edges of the missing face (the rim) have one wall each, so
+they are boundary edges and the mesh is non-watertight. 1000 surface molecules
+are released at time 0 onto the region that carries the class; 500 iterations
+of 1e-6 s, seed 1.
+
+MCell4 (ref_*_4) gives every region its borders by one rule, ALL included: a
+wall side is a border when its edge has exactly one wall in the region. Here
+the class's region holds every wall, so its borders are the 4 rim edges.
+MCell3 (ref_*_3) gives no borders to ALL or to a region that holds every wall.
+
+Tests 2776-2779 differ only in the region, the rule's orientation mark and the
+released orientation. 2776, 2777 and 2778 store the same counts
+(ref_react_data_4), and 2776 and 2777 the same positions (ref_viz_data_4). The
+suite also runs each model through the data model and the Python API against
+the MCell4 references.
+
+Outputs: the count of S on the box every 10 iterations (exact), and the
+positions of all molecules at iteration 500 (the MDL tester requires a viz
+reference).
