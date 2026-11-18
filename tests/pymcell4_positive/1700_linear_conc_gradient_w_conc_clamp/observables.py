@@ -9,7 +9,9 @@ from geometry import *
 viz_output = m.VizOutput(
     mode = m.VizMode.ASCII,
     output_files_prefix = './viz_data/seed_' + str(get_seed()).zfill(5) + '/Scene',
-    every_n_timesteps = 1
+    # once per round of model.py, at the end of each run_iterations call; with the
+    # clamps' gradient, output at every iteration would be about 2 GB a run
+    every_n_timesteps = 1000
 )
 
 # declaration of rxn rules defined in BNGL and used in counts

@@ -1,0 +1,23 @@
+# MCell4 stops when a wall would be clamped more than once for the same volume
+# molecule on the same side (mcell step 6b). Only volume molecules: V.
+# box1 gets the surface class clamp_sc through ALL and top; box2 gets clamp_sc
+# through ALL and clamp_flux through top, two clamps of V on the inner side.
+
+[[checks]]
+  matchPattern = 'Error: \[CLAMP_ON_WALL_TWICE\] Scene.box1: 2 walls are clamped more than once for the volume molecule V (surface class clamp_sc through the regions ALL and top)'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'Error: \[CLAMP_ON_WALL_TWICE\] Scene.box2: 2 walls are clamped more than once for the volume molecule V (surface classes clamp_flux through the region top and clamp_sc through the region ALL)'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 1
+
+[run]
+  mdlfiles = ["Scene.main.mdl"]

@@ -1,0 +1,15 @@
+A concentration clamp of a VOLUME molecule on two separate cubes.
+
+Only volume molecules: the one species, V, is a volume molecule
+(DIFFUSION_CONSTANT_3D = 1e-6); there are no surface molecules. The surface
+class clamp_sc (CLAMP_CONCENTRATION V, = 1e-6) is on ALL of each of two watertight
+cubes, which share no wall, and clamps V on their inner side. 50 iterations of
+1e-6 s, seed 1. Counted: V in the world and in each cube, every 10 iterations.
+
+MCell4 makes one clamp event per clamp (surface class, molecule, side) over
+every wall that carries the class, from MCell4's own regions, for MDL files and
+Python API models alike (mcell step 6b). Before, Python API models had one
+event per region, here two, so an MDL file and the same model through the
+Python API gave different numbers. The suite runs this model as an MDL file and
+through the data model and the Python API against ref_*_4, so it checks that
+both now agree. MCell3's engine (ref_*_3) makes one clamp per object.

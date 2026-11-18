@@ -351,7 +351,7 @@
   "viz_output": {
    "all_iterations": true,
    "end": "1",
-   "step": "1",
+   "step": "1000",
    "data_model_version": "DM_2014_10_24_1638",
    "start": "0",
    "export_all": true
@@ -389,7 +389,7 @@
      "surface_class_prop_list": [
       {
        "molecule": "a",
-       "clamp_value": "1e-5",
+       "clamp_value": "1e-4",
        "affected_mols": "SINGLE",
        "name": "Molec.: a   Orient.: Bottom/Back   Type: Clamp Concentration",
        "data_model_version": "DM_2015_11_08_1756",

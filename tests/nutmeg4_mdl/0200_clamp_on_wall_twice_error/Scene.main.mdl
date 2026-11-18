@@ -1,0 +1,123 @@
+ITERATIONS = 10
+TIME_STEP = 1e-6
+VACANCY_SEARCH_DISTANCE = 10
+
+DEFINE_MOLECULES
+{
+  V
+  {
+    DIFFUSION_CONSTANT_3D = 1e-6
+  }
+}
+
+DEFINE_SURFACE_CLASSES
+{
+  clamp_sc
+  {
+    CLAMP_CONCENTRATION V, = 1e-6
+  }
+  clamp_flux
+  {
+    CLAMP_FLUX V, = 1e-6
+  }
+}
+
+box1 POLYGON_LIST
+{
+  VERTEX_LIST
+  {
+    [ -1, -1, -1 ]
+    [ -1, -1, 1 ]
+    [ -1, 1, -1 ]
+    [ -1, 1, 1 ]
+    [ 1, -1, -1 ]
+    [ 1, -1, 1 ]
+    [ 1, 1, -1 ]
+    [ 1, 1, 1 ]
+  }
+  ELEMENT_CONNECTIONS
+  {
+    [ 1, 2, 0 ]
+    [ 3, 6, 2 ]
+    [ 7, 4, 6 ]
+    [ 5, 0, 4 ]
+    [ 6, 0, 2 ]
+    [ 3, 5, 7 ]
+    [ 1, 3, 2 ]
+    [ 3, 7, 6 ]
+    [ 7, 5, 4 ]
+    [ 5, 1, 0 ]
+    [ 6, 4, 0 ]
+    [ 3, 1, 5 ]
+  }
+  DEFINE_SURFACE_REGIONS
+  {
+    top
+    {
+      ELEMENT_LIST = [5, 11]
+    }
+  }
+}
+
+box2 POLYGON_LIST
+{
+  VERTEX_LIST
+  {
+    [ 4, -1, -1 ]
+    [ 4, -1, 1 ]
+    [ 4, 1, -1 ]
+    [ 4, 1, 1 ]
+    [ 6, -1, -1 ]
+    [ 6, -1, 1 ]
+    [ 6, 1, -1 ]
+    [ 6, 1, 1 ]
+  }
+  ELEMENT_CONNECTIONS
+  {
+    [ 1, 2, 0 ]
+    [ 3, 6, 2 ]
+    [ 7, 4, 6 ]
+    [ 5, 0, 4 ]
+    [ 6, 0, 2 ]
+    [ 3, 5, 7 ]
+    [ 1, 3, 2 ]
+    [ 3, 7, 6 ]
+    [ 7, 5, 4 ]
+    [ 5, 1, 0 ]
+    [ 6, 4, 0 ]
+    [ 3, 1, 5 ]
+  }
+  DEFINE_SURFACE_REGIONS
+  {
+    top
+    {
+      ELEMENT_LIST = [5, 11]
+    }
+  }
+}
+
+MODIFY_SURFACE_REGIONS
+{
+  box1[ALL]
+  {
+    SURFACE_CLASS = clamp_sc
+  }
+  box1[top]
+  {
+    SURFACE_CLASS = clamp_sc
+  }
+  box2[ALL]
+  {
+    SURFACE_CLASS = clamp_sc
+  }
+  box2[top]
+  {
+    SURFACE_CLASS = clamp_flux
+  }
+}
+
+INSTANTIATE Scene OBJECT
+{
+  box1 OBJECT box1 {}
+  box2 OBJECT box2 {}
+}

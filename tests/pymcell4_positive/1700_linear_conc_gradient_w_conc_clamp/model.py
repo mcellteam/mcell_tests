@@ -83,8 +83,9 @@ for i in range(10):
     print("---------")
     
     for k in range(len(sorted_bins) - 1):
-        # check that the number of molecules decreases from left to right
-        # for higher number of bins/different seed this might not be true all the time
+        # check that the number of molecules decreases from left to right;
+        # the clamps' gradient (subsystem.py) keeps neighbouring bins more than
+        # 6 standard deviations apart, so a failure here is not noise
         assert(sorted_bins[k][1] > sorted_bins[k + 1][1])
 
 model.end_simulation()

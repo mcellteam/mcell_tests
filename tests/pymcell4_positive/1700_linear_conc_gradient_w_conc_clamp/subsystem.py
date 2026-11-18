@@ -8,8 +8,9 @@ from bngl_molecule_types_info import *
 cclamp_left = m.SurfaceClass(
     name = 'cclamp_left',
     type = m.SurfacePropertyType.CONCENTRATION_CLAMP,
-    affected_complex_pattern = m.Complex('a', orientation = m.Orientation.DOWN), # DOWN means towards the center of the object 
-    concentration = 1e-5
+    affected_complex_pattern = m.Complex('a', orientation = m.Orientation.DOWN), # DOWN means towards the center of the object
+    # steep enough that neighbouring bins in model.py differ by more than 6 standard deviations
+    concentration = 1e-4
 )
 
 cclamp_right = m.SurfaceClass(
