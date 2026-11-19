@@ -1,0 +1,10 @@
+# iteration species molecules above_z_0.5_um
+1 s0 400 0
+1 s1 0 0
+1 s2 0 0
+3 s0 400 0
+3 s1 800 390
+3 s2 1000 489
+4 s0 400 0
+4 s1 800 390
+4 s2 500 250
