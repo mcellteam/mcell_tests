@@ -38,10 +38,12 @@ else:
     MCELL_DEFAULT_COMPARTMENT_EDGE_LENGTH = 1
     default_compartment = None
     
+# visualization only at the first and the last iteration, as in model.py; the data model
+# carries the period to the model that data_model_to_pymcell generates
 viz_output = m.VizOutput(
     mode = m.VizMode.ASCII,
     output_files_prefix = './viz_data/seed_' + str(SEED).zfill(5) + '/Scene',
-    every_n_timesteps = 1
+    every_n_timesteps = ITERATIONS
 )
 model.add_viz_output(viz_output)
 

@@ -52,10 +52,13 @@ else:
     MCELL_DEFAULT_COMPARTMENT_EDGE_LENGTH = 1
     default_compartment = None
     
+# visualization only at the first and the last iteration, the frames the references hold;
+# the BNGL observables count every iteration, and counts are barriers like visualization,
+# so the trajectories are the same as with visualization every iteration
 viz_output = m.VizOutput(
     mode = m.VizMode.ASCII,
     output_files_prefix = './viz_data/seed_' + str(SEED).zfill(5) + '/Scene',
-    every_n_timesteps = 1
+    every_n_timesteps = ITERATIONS
 )
 model.add_viz_output(viz_output)
 
