@@ -1,0 +1,50 @@
+# MCell4 stops on the uses of geometry objects that their meshes don't allow
+# (mcell step 8), all of them, then once. Only volume molecules: a; there are no
+# surface molecules. MCell3's engine runs this model.
+# inside_out: a cube whose walls face inward, counted and released into by
+# concentration (its signed volume is negative). unshared: a cube whose faces
+# have their own vertices, so its walls meet only at equal coordinates: counted,
+# released into and removed from, but non-watertight by its vertex indices.
+
+[[checks]]
+  matchPattern = 'Error: \[MESH_INSIDE_OUT\] Scene.inside_out: the model counts inside this object, but 1 shell faces the wrong way; see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'Error: \[MESH_INSIDE_OUT\] Scene.inside_out: release site Scene.rel_conc releases volume molecules into this object by concentration, but 1 shell faces the wrong way; see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'Error: \[REGION_NOT_WATERTIGHT\] Scene.unshared: the model counts inside this object, but it is non-watertight (24 boundary edges); see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'Error: \[REGION_NOT_WATERTIGHT\] Scene.unshared: release site Scene.rel_number releases volume molecules into this object, but it is non-watertight (24 boundary edges); see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'Error: \[REGION_NOT_WATERTIGHT\] Scene.unshared: release site Scene.rel_remove removes volume molecules from this object, but it is non-watertight (24 boundary edges); see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'Error: 2 geometry objects have usage errors: Scene.inside_out, Scene.unshared; see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 1
+
+[run]
+  mdlfiles = ["Scene.main.mdl"]

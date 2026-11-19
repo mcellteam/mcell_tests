@@ -1,0 +1,19 @@
+# data_model_to_pymcell stops on a geometry object that the data model marks as
+# dynamic (mcell step 8): CellBlender's dynamic geometry, which only MCell3's
+# engine runs, from the MDL files CellBlender exports. Before, the object was
+# converted with its first shape and never moved. The data model is
+# examples/datamodel/0110_dynamic_geometry_shape_keys (volume molecules in a
+# cube whose shape keys change it), which runs on MCell3's engine.
+
+[[checks]]
+  matchPattern = "Error: geometry object Cube is dynamic, which MCell4 doesn't support; run this model on MCell3's engine, or move vertices through the Python API (Model.add_vertex_move)."
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 1
+
+[run]
+  jsonFile = "data_model.json"

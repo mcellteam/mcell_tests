@@ -1,0 +1,56 @@
+# MCell4 stops on the uses of geometry objects that their meshes don't allow
+# (mcell step 8), all of them, then once, as a ValueError. Only volume
+# molecules: a; there are no surface molecules. inside_out: a cube whose walls
+# face inward, counted and released into by concentration. open_box: a cube
+# without its top walls, counted, released into by number, and removed from by a
+# negative concentration. CP: a BNGL compartment whose walls face inward. The
+# same cases as nutmeg4_mdl/0210, through the Python API, plus the compartment.
+
+[[checks]]
+  matchPattern = 'Error: \[MESH_INSIDE_OUT\] inside_out: the model counts inside this object, but 1 shell faces the wrong way; see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'Error: \[MESH_INSIDE_OUT\] inside_out: release site rel_conc releases volume molecules into this object by concentration, but 1 shell faces the wrong way; see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'Error: \[REGION_NOT_WATERTIGHT\] open_box: the model counts inside this object, but it is non-watertight (4 boundary edges); see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'Error: \[REGION_NOT_WATERTIGHT\] open_box: release site rel_number releases volume molecules into this object, but it is non-watertight (4 boundary edges); see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'Error: \[REGION_NOT_WATERTIGHT\] open_box: release site rel_remove removes volume molecules from this object, but it is non-watertight (4 boundary edges); see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'Error: \[MESH_INSIDE_OUT\] CP: this object is a compartment, but 1 shell faces the wrong way; see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'ValueError: 3 geometry objects have usage errors: inside_out, open_box, CP; see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 1
+
+[run]
+  pyfile = "model.py"

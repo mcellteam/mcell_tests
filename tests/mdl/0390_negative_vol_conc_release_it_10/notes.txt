@@ -1,0 +1,18 @@
+Removal of VOLUME molecules by a negative concentration.
+
+Only volume molecules: the one species, a, is a volume molecule
+(DIFFUSION_CONSTANT_3D = 1e-6); there are no surface molecules. 100 molecules
+are released into the watertight cube (0.1 um wide, 0.001 um^3) at iteration 0;
+at iteration 5 the release site rel_remove, CONCENTRATION = -1e-4 (M), removes
+N_AV * 1e-15 * 1e-4 * 0.001 = 60.22 molecules, rounded as on MCell3's engine:
+-60.22 + 0.5 = -59.72, truncated toward zero to -59. So 41 remain. 10 iterations
+of 1e-6 s, seed 1. Counted: a in the world and in the cube, every iteration.
+
+MCell3's engine has always removed molecules for a negative number from a
+concentration (vol_util.c, test_max_release stops only numbers above INT_MAX).
+Until mcell step 8, MCell4 stopped such a release with "Release site
+'Scene.rel_remove' tries to release more than INT_MAX (2147483647) molecules".
+The counts are identical on both engines (ref_react_data_3 and _4); the
+positions differ, as the engines draw differently. The suite also runs the model
+through the data model and the Python API against ref_*_4, and with a
+checkpoint at iteration 3 (checkpoint_iters).

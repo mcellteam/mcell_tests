@@ -1,0 +1,18 @@
+Removal of SURFACE molecules by a negative density.
+
+Only surface molecules: the one species, sa, is a surface molecule
+(DIFFUSION_CONSTANT_2D = 5e-5); there are no volume molecules. 100 molecules sa'
+are released onto the cube (0.5 um wide, 1.5 um^2) at iteration 0; at iteration
+5 the release site rel_remove, DENSITY = -33 (molecules per um^2), removes
+33 * 1.5 = 49.5 molecules, truncated toward zero as on MCell3's engine: 49. So
+51 remain. 10 iterations of 1e-6 s, seed 1. Counted: sa in the world and on the
+cube, every iteration.
+
+MCell3's engine has always removed surface molecules for a negative number from
+a density (wall_util.c, release_onto_regions). Until mcell step 8, MCell4
+stopped such a release with "Release site 'Scene.rel_remove' tries to release
+more than INT_MAX (2147483647) molecules". The counts are identical on both
+engines (ref_react_data_3 and _4); the positions differ, as the engines draw
+differently. The suite also runs the model through the data model and the
+Python API against ref_*_4, and with a checkpoint at iteration 4
+(checkpoint_iters). mdl/0390 is the same for volume molecules by concentration.

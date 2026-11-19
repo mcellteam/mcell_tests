@@ -1,0 +1,92 @@
+ITERATIONS = 10
+TIME_STEP = 1e-6
+VACANCY_SEARCH_DISTANCE = 10
+
+DEFINE_MOLECULES
+{
+  a
+  {
+    DIFFUSION_CONSTANT_3D = 1e-6
+  }
+}
+
+Cube POLYGON_LIST
+{
+  VERTEX_LIST
+  {
+    [ -0.05, -0.05, -0.05 ]
+    [ -0.05, -0.05, 0.05 ]
+    [ -0.05, 0.05, -0.05 ]
+    [ -0.05, 0.05, 0.05 ]
+    [ 0.05, -0.05, -0.05 ]
+    [ 0.05, -0.05, 0.05 ]
+    [ 0.05, 0.05, -0.05 ]
+    [ 0.05, 0.05, 0.05 ]
+  }
+  ELEMENT_CONNECTIONS
+  {
+    [ 1, 2, 0 ]
+    [ 3, 6, 2 ]
+    [ 7, 4, 6 ]
+    [ 5, 0, 4 ]
+    [ 6, 0, 2 ]
+    [ 3, 5, 7 ]
+    [ 1, 3, 2 ]
+    [ 3, 7, 6 ]
+    [ 7, 5, 4 ]
+    [ 5, 1, 0 ]
+    [ 6, 4, 0 ]
+    [ 3, 1, 5 ]
+  }
+}
+
+DEFINE_RELEASE_PATTERN rel_pat_1
+{
+  DELAY = 5e-6
+  RELEASE_INTERVAL = 2e-6
+  TRAIN_DURATION = 2e-6
+  TRAIN_INTERVAL = 2e-6
+  NUMBER_OF_TRAINS = 1
+}
+
+INSTANTIATE Scene OBJECT
+{
+  Cube OBJECT Cube {}
+
+  rel_initial RELEASE_SITE
+  {
+   SHAPE = Scene.Cube
+   MOLECULE = a
+   NUMBER_TO_RELEASE = 100
+   RELEASE_PROBABILITY = 1
+  }
+
+  rel_remove RELEASE_SITE
+  {
+   SHAPE = Scene.Cube
+   MOLECULE = a
+   CONCENTRATION = -1e-4
+   RELEASE_PROBABILITY = 1
+   RELEASE_PATTERN = rel_pat_1
+  }
+}
+
+sprintf(seed,"%05g",SEED)
+
+REACTION_DATA_OUTPUT
+{
+  STEP = 1e-6
+  {COUNT[a, WORLD]} => "./react_data/seed_" & seed & "/a.World.dat"
+  {COUNT[a, Scene.Cube]} => "./react_data/seed_" & seed & "/a.Cube.dat"
+}
+
+VIZ_OUTPUT
+{
+  MODE = ASCII
+  FILENAME = "./viz_data/seed_" & seed & "/Scene"
+  MOLECULES
+  {
+    NAME_LIST {ALL_MOLECULES}
+    ITERATION_NUMBERS {ALL_DATA @ [[0 TO 10 STEP 5]]}
+  }
+}

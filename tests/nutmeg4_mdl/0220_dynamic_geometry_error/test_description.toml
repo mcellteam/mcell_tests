@@ -1,0 +1,18 @@
+# MCell4 stops on an MDL file with DYNAMIC_GEOMETRY (mcell step 8): MCell3's
+# parser schedules the geometry changes, which only MCell3's engine makes, so
+# MCell4 would keep the first geometry. The model is nutmeg_positive/0010
+# (concentration clamps of volume molecules with dynamic geometry), which runs
+# on MCell3's engine.
+
+[[checks]]
+  matchPattern = "Error: MCell4 doesn't support DYNAMIC_GEOMETRY; run this model on MCell3's engine (without -mcell4), or move vertices through the Python API (Model.add_vertex_move)."
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 1
+
+[run]
+  mdlfiles = ["main.mdl"]

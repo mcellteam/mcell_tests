@@ -1,0 +1,43 @@
+# Model.release_molecules raises a ValueError on a usage error of its region
+# (mcell step 8) and releases nothing; the model goes on. Only volume molecules:
+# a; there are no surface molecules. open_box: a cube without its top walls,
+# released into by number; inside_out: a cube whose walls face inward, released
+# into by concentration; cube: watertight and facing outward, released into
+# afterwards. The script catches each ValueError and prints it.
+
+[[checks]]
+  matchPattern = 'Error: \[REGION_NOT_WATERTIGHT\] open_box: release site rel_open_box releases volume molecules into this object, but it is non-watertight (4 boundary edges); see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'ValueError from rel_open_box: 1 geometry object has usage errors: open_box; see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'Error: \[MESH_INSIDE_OUT\] inside_out: release site rel_inside_out releases volume molecules into this object by concentration, but 1 shell faces the wrong way; see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'ValueError from rel_inside_out: 1 geometry object has usage errors: inside_out; see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'no error for'
+  dataFile = "err_%d.0.log"
+  numMatches = 0
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 0
+
+[run]
+  pyfile = "model.py"

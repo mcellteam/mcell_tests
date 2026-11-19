@@ -1,0 +1,37 @@
+# MCell4 stops on BNGL compartments that aren't watertight (mcell step 8), all of
+# them, then once, as a ValueError, before it builds the compartment tree. Only
+# volume molecules: a; there are no surface molecules. EC and CP: compartments,
+# EC around CP, both without their top walls. The usage errors of the other
+# objects come only after the compartments are watertight, so the counted
+# object without its top walls gets no line in this run.
+
+[[checks]]
+  matchPattern = 'Error: \[REGION_NOT_WATERTIGHT\] EC: this object is a compartment, but it is non-watertight (4 boundary edges); see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'Error: \[REGION_NOT_WATERTIGHT\] CP: this object is a compartment, but it is non-watertight (4 boundary edges); see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'counted: the model counts inside this object'
+  dataFile = "err_%d.0.log"
+  numMatches = 0
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'ValueError: 2 geometry objects have usage errors: EC, CP; see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 1
+
+[run]
+  pyfile = "model.py"
