@@ -1,0 +1,207 @@
+# MCell4's mesh checks (mcell step 5) on an MDL file run with -mcell4: every
+# object is checked, each error gets one line, and then the run stops once,
+# naming every object with an error. Geometry only: no volume or surface
+# molecules are involved. One object per error:
+# repeated: the cube with a wall that uses a vertex twice (MESH_INVALID_INDICES;
+#   the only pass-0 case that an MDL file can bring to MCell4: MCell3's
+#   initialization stops indices out of range first, or crashes on them);
+# duplicate: a wall and its reversed copy (MESH_DUPLICATE_WALLS);
+# zero: a square and a wall of zero area (MESH_ZERO_AREA_WALLS, and the warning
+#   MESH_NOT_WATERTIGHT);
+# book: an edge with three walls, and bowtie: two walls that share only a vertex
+#   (both forms of MESH_NOT_MANIFOLD);
+# flipped: the cube with one wall reversed (MESH_INCONSISTENT_ORIENTATION).
+# MCell3's initialization removes the degenerate walls of repeated and zero
+# first, with a warning; MCell4 reports them with the file's wall ids. The same
+# objects through the Python API: nutmeg4_pymcell4/0780. MCell3's engine stops
+# on duplicate ("walls are overlapped").
+
+# MCell3's initialization removes the two degenerate walls
+[[checks]]
+  matchPattern = 'Warning: Degenerate polygon found and automatically removed: Scene.repeated 5'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'Warning: Degenerate polygon found and automatically removed: Scene.zero 2'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+# the terminal lines and the stop
+[[checks]]
+  matchPattern = '^Error: \[MESH_INVALID_INDICES\] Scene.repeated: 1 wall that uses a vertex twice; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Error: \[MESH_DUPLICATE_WALLS\] Scene.duplicate: 1 group of walls with the same three vertices; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Error: \[MESH_ZERO_AREA_WALLS\] Scene.zero: 1 wall with zero area; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Error: \[MESH_NOT_MANIFOLD\] Scene.book: 1 edge with 3 or more walls, 2 non-manifold vertices; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Error: \[MESH_NOT_MANIFOLD\] Scene.bowtie: 1 non-manifold vertex, where groups of walls touch only at a vertex; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Error: \[MESH_INCONSISTENT_ORIENTATION\] Scene.flipped: 3 pairs of walls run along their shared edge in the same direction; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Warning: \[MESH_NOT_WATERTIGHT\] Scene.zero: 5 boundary edges; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Error: 6 geometry objects have errors: Scene.repeated, Scene.duplicate, Scene.zero, Scene.book, Scene.bowtie, Scene.flipped; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+# the report: each object's first line and the lines of its problem
+[[checks]]
+  matchPattern = '^Object Scene.repeated: 8 vertices, 12 walls$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Walls that use a vertex twice: 1 (wall 5)$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Object Scene.duplicate: 3 vertices, 2 walls, 3 edges$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Walls with the same three vertices: 1 group$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^    walls 0 1$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Object Scene.zero: 5 vertices, 3 walls, 7 edges$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Zero-area walls: 1 (wall 2)$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Watertight: False (5 boundary edges)$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Object Scene.book: 5 vertices, 3 walls, 7 edges$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^    edges with 3 or more walls: 1$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^      edge 0-1: walls 0 1 2$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^    non-manifold vertices: 2 (vertices 0 1)$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Object Scene.bowtie: 5 vertices, 2 walls, 6 edges$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^    non-manifold vertices: 1 (vertex 0)$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Manifold mesh: False$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 2
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Object Scene.flipped: 8 vertices, 12 walls, 18 edges$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Consistently oriented: False$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^    walls 0 and 4, edge 0-2$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^    walls 1 and 4, edge 2-6$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^    walls 4 and 10, edge 0-6$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 1
+
+[run]
+  mdlfiles = ["Scene.main.mdl"]

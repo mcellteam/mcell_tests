@@ -1,0 +1,50 @@
+# A data model whose compartment has a broken mesh, converted with
+# data_model_to_pymcell in BNGL mode and then run. The data model is that of
+# data_model_bngl/0014 (volume molecules A and B in compartments CP and EC, and
+# the surface molecule Mem on PM, CP's membrane), except that wall 5 of EC uses
+# vertex 3 twice.
+# - The converter computes each BNGL compartment's volume with MCell4's mesh
+#   checks (mcell step 7, MeshUtils::check_mesh): for EC it can't, so it writes a
+#   warning into the generated model.bngl, takes 1 um^3 and goes on. (It also
+#   prints the warning, but the tester writes the run's output over the
+#   converter's.)
+# - The generated Python API model then stops at initialize() on MCell4's own
+#   mesh checks (mcell step 5): MESH_INVALID_INDICES for EC, and the ValueError.
+
+[[checks]]
+  matchPattern = '# Warning: compartment volume and area is not correct: Geometry object EC has invalid vertex indices, could not compute volume.$'
+  dataFile = "model.bngl"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Error: \[MESH_INVALID_INDICES\] EC: 1 wall that uses a vertex twice; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^ValueError: 1 geometry object has errors: EC; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Object EC: 8 vertices, 12 walls$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Walls that use a vertex twice: 1 (wall 5)$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 1
+
+[run]
+  jsonFile = "data_model.json"
+  bnglMode = true

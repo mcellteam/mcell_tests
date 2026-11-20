@@ -1,0 +1,39 @@
+# The export of an MDL file to a data model (mcell -mdl2datamodel4) runs the
+# same converter as -mcell4, so it checks every mesh, writes the geometry report
+# and stops on errors, without writing the data model (mcell steps 5 and 8).
+# Geometry only: no volume or surface molecules are involved. book: an edge with
+# three walls (MESH_NOT_MANIFOLD). The tester runs
+# "mcell -mdl2datamodel4 -mcell4 Scene.main.mdl"; -mdl2datamodel4 takes
+# precedence (src/mcell.c).
+
+[[checks]]
+  matchPattern = '-mdl2datamodel4'
+  dataFile = "mcell.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Error: \[MESH_NOT_MANIFOLD\] Scene.book: 1 edge with 3 or more walls, 2 non-manifold vertices; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Error: 1 geometry object has errors: Scene.book; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^      edge 0-1: walls 0 1 2$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 1
+
+[run]
+  commandlineOpts = ["-mdl2datamodel4"]
+  mdlfiles = ["Scene.main.mdl"]

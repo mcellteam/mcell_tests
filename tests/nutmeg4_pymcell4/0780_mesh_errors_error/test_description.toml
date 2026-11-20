@@ -1,0 +1,239 @@
+# MCell4's mesh checks (mcell step 5) on a Python API model: every object is
+# checked at initialize(), each error gets one line, and then one ValueError
+# names every object with an error. Geometry only: no volume or surface
+# molecules are involved. The objects of nutmeg4_mdl/0240:
+# repeated: the cube with a wall that uses a vertex twice (MESH_INVALID_INDICES);
+# duplicate: a wall and its reversed copy (MESH_DUPLICATE_WALLS);
+# zero: a square and a wall of zero area (MESH_ZERO_AREA_WALLS, and the warning
+#   MESH_NOT_WATERTIGHT);
+# book: an edge with three walls, and bowtie: two walls that share only a vertex
+#   (both forms of MESH_NOT_MANIFOLD);
+# flipped: the cube with one wall reversed (MESH_INCONSISTENT_ORIENTATION);
+# and bad, whose lists and surface region are changed through the setters after
+# the constructor's checks (every kind of MESH_INVALID_INDICES that only the
+# Python API can give, in one line).
+
+# the terminal lines and the stop
+[[checks]]
+  matchPattern = '^Error: \[MESH_INVALID_INDICES\] repeated: 1 wall that uses a vertex twice; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Error: \[MESH_DUPLICATE_WALLS\] duplicate: 1 group of walls with the same three vertices; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Error: \[MESH_ZERO_AREA_WALLS\] zero: 1 wall with zero area; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Error: \[MESH_NOT_MANIFOLD\] book: 1 edge with 3 or more walls, 2 non-manifold vertices; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Error: \[MESH_NOT_MANIFOLD\] bowtie: 1 non-manifold vertex, where groups of walls touch only at a vertex; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Error: \[MESH_INCONSISTENT_ORIENTATION\] flipped: 3 pairs of walls run along their shared edge in the same direction; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = "^Error: \\[MESH_INVALID_INDICES\\] bad: 1 vertex that doesn't have three coordinates, 1 wall that doesn't have three vertex indices, 1 wall with a vertex index out of range, 1 wall that uses a vertex twice, 1 surface region with a wall index out of range; see reports/geometry_report_00001.txt$"
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Warning: \[MESH_NOT_WATERTIGHT\] zero: 5 boundary edges; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^ValueError: 7 geometry objects have errors: repeated, duplicate, zero, book, bowtie, flipped, bad; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+# the report: each object's first line and the lines of its problem
+[[checks]]
+  matchPattern = '^Object repeated: 8 vertices, 12 walls$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Walls that use a vertex twice: 1 (wall 5)$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Object duplicate: 3 vertices, 2 walls, 3 edges$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Walls with the same three vertices: 1 group$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^    walls 0 1$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Object zero: 5 vertices, 3 walls, 7 edges$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Zero-area walls: 1 (wall 2)$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Watertight: False (5 boundary edges)$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Object book: 5 vertices, 3 walls, 7 edges$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^    edges with 3 or more walls: 1$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^      edge 0-1: walls 0 1 2$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^    non-manifold vertices: 2 (vertices 0 1)$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Object bowtie: 5 vertices, 2 walls, 6 edges$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^    non-manifold vertices: 1 (vertex 0)$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Manifold mesh: False$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 2
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Object flipped: 8 vertices, 12 walls, 18 edges$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Consistently oriented: False$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^    walls 0 and 4, edge 0-2$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^    walls 1 and 4, edge 2-6$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^    walls 4 and 10, edge 0-6$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Object bad: 5 vertices, 5 walls$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = "^  Vertices that don't have three coordinates: 1 (vertex 4)$"
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = "^  Walls that don't have three vertex indices: 1 (wall 1)$"
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Walls with a vertex index out of range: 1 (wall 3)$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Walls that use a vertex twice: 1 (wall 4)$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Surface regions with a wall index out of range: 1$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^    region r: wall indices 7 -1$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 1
+
+[run]
+  pyfile = "model.py"

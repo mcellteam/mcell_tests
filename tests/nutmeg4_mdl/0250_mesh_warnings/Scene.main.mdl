@@ -1,0 +1,57 @@
+ITERATIONS = 10
+TIME_STEP = 1e-6
+
+/* Geometry only: no volume or surface molecules are involved. One object per
+   warning of MCell4's mesh checks; warnings don't stop the run. */
+
+/* a 2 um square of two walls: 4 boundary edges */
+plane POLYGON_LIST
+{
+  VERTEX_LIST
+  {
+    [ -1, -1, 0 ]
+    [ 1, -1, 0 ]
+    [ 1, 1, 0 ]
+    [ -1, 1, 0 ]
+  }
+  ELEMENT_CONNECTIONS
+  {
+    [ 0, 1, 2 ]
+    [ 0, 2, 3 ]
+  }
+}
+
+/* two tetrahedra that touch at the point (5, 0, 0), where each has its own
+   vertex, 0 and 4: equal coordinates, but two watertight shells that share no
+   vertex index */
+touching POLYGON_LIST
+{
+  VERTEX_LIST
+  {
+    [ 5, 0, 0 ]
+    [ 6, 0, 0 ]
+    [ 5, 1, 0 ]
+    [ 5, 0, 1 ]
+    [ 5, 0, 0 ]
+    [ 4, 0, 0 ]
+    [ 5, -1, 0 ]
+    [ 5, 0, -1 ]
+  }
+  ELEMENT_CONNECTIONS
+  {
+    [ 0, 2, 1 ]
+    [ 0, 1, 3 ]
+    [ 0, 3, 2 ]
+    [ 1, 2, 3 ]
+    [ 4, 5, 6 ]
+    [ 4, 7, 5 ]
+    [ 4, 6, 7 ]
+    [ 5, 7, 6 ]
+  }
+}
+
+INSTANTIATE Scene OBJECT
+{
+  plane OBJECT plane {}
+  touching OBJECT touching {}
+}

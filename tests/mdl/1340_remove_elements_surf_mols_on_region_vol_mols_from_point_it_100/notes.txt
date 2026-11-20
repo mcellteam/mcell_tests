@@ -1,0 +1,25 @@
+REMOVE_ELEMENTS, with a surface region whose wall ids come after removed walls.
+
+Surface molecules S and volume molecules V. The box is the 2 um cube without
+its top face: REMOVE_ELEMENTS removes walls 0 and 6. Its region r holds the
+file's walls 1, 2, 7 and 8 (the faces y = -1 and x = -1), whose ids come after
+the removed wall 0, and for 7 and 8 also after the removed wall 6.
+- 1000 surface molecules S' are released onto Scene.box[r] at iteration 0: all
+  land on the faces y = -1 and x = -1 (495 and 505), then diffuse over the box.
+- 1000 volume molecules V are released from a point source at the box's center
+  (SPHERICAL, SITE_DIAMETER = 0); a release into the box itself would need a
+  watertight box. They leave through the opening, where there is no wall.
+- The cube "above" sits on the opening (z from 1 to 3 um), is transparent for V
+  and counts the volume molecules that have left the box: 0, then 107 at
+  iteration 50 and 113 at iteration 100.
+100 iterations of 1e-5 s, seed 1. Counted every iteration: S on r and on the
+box, V in "above". Visualization at iterations 0, 50 and 100.
+
+MCell4 crashed on REMOVE_ELEMENTS until mcell step 5; since then
+MCell3WorldConverter leaves the removed walls out, keeps the file's wall ids in
+the geometry report ("Removed by REMOVE_ELEMENTS: 2 (walls 0 6)"), and maps each
+region to the kept walls. Both engines give the same counts and positions
+(ref_*_3 and _4), but for the last printed digit of a few coordinates in the
+last frame. The suite also runs the model through the data model (which holds
+only the 10 kept walls) and the Python API against ref_*_4, and with a
+checkpoint at iteration 30 (checkpoint_iters).

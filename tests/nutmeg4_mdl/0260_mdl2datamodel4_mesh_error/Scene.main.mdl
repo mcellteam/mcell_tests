@@ -1,0 +1,28 @@
+ITERATIONS = 10
+TIME_STEP = 1e-6
+
+/* Geometry only: no volume or surface molecules are involved. */
+
+/* three walls on the edge 0-1, like the pages of a book */
+book POLYGON_LIST
+{
+  VERTEX_LIST
+  {
+    [ 0, 0, 0 ]
+    [ 0, 0, 1 ]
+    [ 1, 0, 0 ]
+    [ -1, 0, 0 ]
+    [ 0, 1, 0 ]
+  }
+  ELEMENT_CONNECTIONS
+  {
+    [ 0, 1, 2 ]
+    [ 1, 0, 3 ]
+    [ 0, 1, 4 ]
+  }
+}
+
+INSTANTIATE Scene OBJECT
+{
+  book OBJECT book {}
+}

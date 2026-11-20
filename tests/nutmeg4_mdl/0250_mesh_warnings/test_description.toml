@@ -1,0 +1,76 @@
+# The warnings of MCell4's mesh checks (mcell step 5) on an MDL file run with
+# -mcell4: one line each, and the run goes on to the end. Geometry only: no
+# volume or surface molecules are involved.
+# plane: a square of two walls (MESH_NOT_WATERTIGHT, 4 boundary edges);
+# touching: two tetrahedra that touch at one point, each with its own vertex
+#   there (MESH_DUPLICATE_VERTICES; two watertight shells, which share no vertex
+#   index).
+# The same objects through the Python API: nutmeg4_pymcell4/0790. MCell3's
+# engine runs this model.
+
+[[checks]]
+  matchPattern = '^Warning: \[MESH_NOT_WATERTIGHT\] Scene.plane: 4 boundary edges; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Warning: \[MESH_DUPLICATE_VERTICES\] Scene.touching: 1 group of vertices with equal coordinates; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Error'
+  dataFile = "err_%d.0.log"
+  numMatches = 0
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'Iteration 10, simulation finished successfully'
+  dataFile = "run_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+# the report
+[[checks]]
+  matchPattern = '^Object Scene.plane: 4 vertices, 2 walls, 5 edges$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Watertight: False (4 boundary edges)$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Object Scene.touching: 8 vertices, 8 walls, 12 edges$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Vertices with equal coordinates: 1 group$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^    vertices 0 4 at (5, 0, 0)$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Shells: 2, area 4.732050808 um\^2, signed volume 0.3333333333 um\^3$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_SUCCESS"
+
+[run]
+  mdlfiles = ["Scene.main.mdl"]
