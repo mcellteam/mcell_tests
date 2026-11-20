@@ -29,8 +29,24 @@ def assert_eq(a, b):
     #print(a)
     #print(b)
     assert abs(a - b) < 1e-8
-    
+
+def assert_raises(error_type, text, function, *args):
+    try:
+        function(*args)
+    except error_type as e:
+        assert str(e) == text, 'unexpected text: ' + str(e)
+        return
+    assert False, 'expected ' + error_type.__name__ + ': ' + text
+
+# get_vertex checks its arguments as the other geometry getters do; before
+# initialization, and with None, it used to end Python with a segmentation fault
+assert_raises(
+    RuntimeError, 'Geometry object Tetrahedron is not present in model (or model was not initialized).',
+    model.get_vertex, Tetrahedron, 2)
+
 model.initialize()
+
+assert_raises(ValueError, 'Argument passed as GeometryObject must not be None.', model.get_vertex, None, 2)
 
 for i in range(ITERATIONS + 1):
     model.run_iterations(1)
