@@ -1,0 +1,7 @@
+Object removed_walls_orphan: 6 vertices, 4 walls, 8 edges
+  Removed by REMOVE_ELEMENTS: 4 (walls 4 5 6 7)
+  Orphaned vertices (used by no wall): 1 (vertex 5)
+  Manifold mesh: True
+  Consistently oriented: True
+  Watertight: False (4 boundary edges)
+  Shells: 1, area 3.464101615 um^2

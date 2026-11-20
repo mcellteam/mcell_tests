@@ -1,0 +1,24 @@
+# an MDL object as MCell3 parsed it: the octahedron with vertices at (+-1, 0, 0),
+# (0, +-1, 0) and (0, 0, +-1), walls facing outward. REMOVE_ELEMENTS removed
+# walls 4-7, the four walls around the top vertex 5, which no other wall uses,
+# so vertex 5 is orphaned. The bottom half stays, a square pyramid of 4 walls
+# whose 4 edges on the equator are boundary edges; each wall is an equilateral
+# triangle of side sqrt(2), so the area is 4 * sqrt(3) / 2 = 2 sqrt(3) um^2
+length_unit 1.0
+vertices 6
+1.0 0.0 0.0
+0.0 1.0 0.0
+-1.0 0.0 0.0
+0.0 -1.0 0.0
+0.0 0.0 -1.0
+0.0 0.0 1.0
+walls 8
+0 4 1
+1 4 2
+2 4 3
+3 4 0
+0 1 5
+1 2 5
+2 3 5
+3 0 5
+removed 4 5 6 7

@@ -23,5 +23,9 @@ connectivity only from the vertex indices of its walls.
     `removed <wall ids>`, which makes it an MDL object as MCell3 parsed it, with the walls MCell3
     removed (`removed_walls`: two by `REMOVE_ELEMENTS`, left out, and one for its zero area,
     reported).
+  - Orphaned vertices, which no wall uses, are an error: `orphaned_vertices` (a cube with two
+    more vertices) and `removed_walls_orphan` (an octahedron whose `REMOVE_ELEMENTS` removes the
+    four walls around a vertex, which is then orphaned). The connectivity meshes' orphaned vertices
+    (the glued grids have some) are checked against the vertices that no wall of the file uses.
 - The singular and plural form of every terminal line, and the message of the one stop, are
   written in the test program itself.

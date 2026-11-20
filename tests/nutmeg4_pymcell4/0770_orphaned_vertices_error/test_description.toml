@@ -1,0 +1,42 @@
+# MCell4 stops on orphaned vertices, which no wall uses (mcell step 10a), with
+# one line per object and one stop, a ValueError. Geometry only: no volume or
+# surface molecules are involved. box: a 2 um cube with two more vertices, 8 and
+# 9, that no wall uses. tetra: a tetrahedron with one more vertex, 4. The case of
+# nutmeg4_mdl/0230 through the Python API, which has no REMOVE_ELEMENTS.
+
+[[checks]]
+  matchPattern = 'Error: \[MESH_ORPHANED_VERTICES\] box: 2 orphaned vertices, used by no wall; see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'Error: \[MESH_ORPHANED_VERTICES\] tetra: 1 orphaned vertex, used by no wall; see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'ValueError: 2 geometry objects have errors: box, tetra; see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Orphaned vertices (used by no wall): 2 (vertices 8 9)$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Orphaned vertices (used by no wall): 1 (vertex 4)$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 1
+
+[run]
+  pyfile = "model.py"

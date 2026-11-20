@@ -1,0 +1,55 @@
+# MCell4 stops on orphaned vertices, which no wall uses (mcell step 10a), with
+# one line per object and one stop. Geometry only: no volume or surface
+# molecules are involved. MCell3's engine runs this model.
+# box: the 2 um cube with two more vertices, 8 and 9, that no wall uses.
+# octahedron: REMOVE_ELEMENTS removes the four walls around its top vertex 5,
+# so vertex 5 is orphaned too; the rest is non-watertight.
+
+[[checks]]
+  matchPattern = 'Error: \[MESH_ORPHANED_VERTICES\] Scene.box: 2 orphaned vertices, used by no wall; see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'Error: \[MESH_ORPHANED_VERTICES\] Scene.octahedron: 1 orphaned vertex, used by no wall; see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'Warning: \[MESH_NOT_WATERTIGHT\] Scene.octahedron: 4 boundary edges; see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'Error: 2 geometry objects have errors: Scene.box, Scene.octahedron; see reports/geometry_report_00001.txt'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Orphaned vertices (used by no wall): 2 (vertices 8 9)$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Removed by REMOVE_ELEMENTS: 4 (walls 4 5 6 7)$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Orphaned vertices (used by no wall): 1 (vertex 5)$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 1
+
+[run]
+  mdlfiles = ["Scene.main.mdl"]

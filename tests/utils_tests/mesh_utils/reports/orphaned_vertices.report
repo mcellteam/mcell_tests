@@ -1,0 +1,6 @@
+Object orphaned_vertices: 10 vertices, 12 walls, 18 edges
+  Orphaned vertices (used by no wall): 2 (vertices 8 9)
+  Manifold mesh: True
+  Consistently oriented: True
+  Watertight: True
+  Shells: 1, area 24 um^2, signed volume 8 um^3

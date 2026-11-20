@@ -1,0 +1,2 @@
+Error: [MESH_ORPHANED_VERTICES] removed_walls_orphan: 1 orphaned vertex, used by no wall; see reports/geometry_report_00001.txt
+Warning: [MESH_NOT_WATERTIGHT] removed_walls_orphan: 4 boundary edges; see reports/geometry_report_00001.txt
