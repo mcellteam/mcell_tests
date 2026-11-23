@@ -1,0 +1,6 @@
+Object removed_wall_out_of_range: 8 vertices, 12 walls
+  Removed by REMOVE_ELEMENTS: 1 (wall 0)
+  Walls with a vertex index out of range: 1 (wall 12)
+  Manifold mesh: not checked
+  Consistently oriented: not checked
+  Watertight: not checked

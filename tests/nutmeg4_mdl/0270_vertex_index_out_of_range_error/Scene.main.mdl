@@ -1,0 +1,174 @@
+ITERATIONS = 10
+TIME_STEP = 1e-6
+
+/* Geometry only: no volume or surface molecules are involved. Each object
+   is the 2 um cube, with 8 vertices; its wall 3 is [ 5, 0, 4 ]. */
+
+/* wall 3 uses vertex 8, one past the last vertex */
+equal POLYGON_LIST
+{
+  VERTEX_LIST
+  {
+    [ -1, -1, -1 ]
+    [ -1, -1, 1 ]
+    [ -1, 1, -1 ]
+    [ -1, 1, 1 ]
+    [ 1, -1, -1 ]
+    [ 1, -1, 1 ]
+    [ 1, 1, -1 ]
+    [ 1, 1, 1 ]
+  }
+  ELEMENT_CONNECTIONS
+  {
+    [ 1, 2, 0 ]
+    [ 3, 6, 2 ]
+    [ 7, 4, 6 ]
+    [ 5, 8, 4 ]
+    [ 6, 0, 2 ]
+    [ 3, 5, 7 ]
+    [ 1, 3, 2 ]
+    [ 3, 7, 6 ]
+    [ 7, 5, 4 ]
+    [ 5, 1, 0 ]
+    [ 6, 4, 0 ]
+    [ 3, 1, 5 ]
+  }
+}
+
+/* wall 3 uses vertex -1 */
+negative POLYGON_LIST
+{
+  VERTEX_LIST
+  {
+    [ -1, -1, -1 ]
+    [ -1, -1, 1 ]
+    [ -1, 1, -1 ]
+    [ -1, 1, 1 ]
+    [ 1, -1, -1 ]
+    [ 1, -1, 1 ]
+    [ 1, 1, -1 ]
+    [ 1, 1, 1 ]
+  }
+  ELEMENT_CONNECTIONS
+  {
+    [ 1, 2, 0 ]
+    [ 3, 6, 2 ]
+    [ 7, 4, 6 ]
+    [ 5, -1, 4 ]
+    [ 6, 0, 2 ]
+    [ 3, 5, 7 ]
+    [ 1, 3, 2 ]
+    [ 3, 7, 6 ]
+    [ 7, 5, 4 ]
+    [ 5, 1, 0 ]
+    [ 6, 4, 0 ]
+    [ 3, 1, 5 ]
+  }
+}
+
+/* wall 3 uses vertex 99 */
+above POLYGON_LIST
+{
+  VERTEX_LIST
+  {
+    [ -1, -1, -1 ]
+    [ -1, -1, 1 ]
+    [ -1, 1, -1 ]
+    [ -1, 1, 1 ]
+    [ 1, -1, -1 ]
+    [ 1, -1, 1 ]
+    [ 1, 1, -1 ]
+    [ 1, 1, 1 ]
+  }
+  ELEMENT_CONNECTIONS
+  {
+    [ 1, 2, 0 ]
+    [ 3, 6, 2 ]
+    [ 7, 4, 6 ]
+    [ 5, 99, 4 ]
+    [ 6, 0, 2 ]
+    [ 3, 5, 7 ]
+    [ 1, 3, 2 ]
+    [ 3, 7, 6 ]
+    [ 7, 5, 4 ]
+    [ 5, 1, 0 ]
+    [ 6, 4, 0 ]
+    [ 3, 1, 5 ]
+  }
+}
+
+/* a 13th wall, [ 0, -1, 2 ], that REMOVE_ELEMENTS removes */
+removed POLYGON_LIST
+{
+  VERTEX_LIST
+  {
+    [ -1, -1, -1 ]
+    [ -1, -1, 1 ]
+    [ -1, 1, -1 ]
+    [ -1, 1, 1 ]
+    [ 1, -1, -1 ]
+    [ 1, -1, 1 ]
+    [ 1, 1, -1 ]
+    [ 1, 1, 1 ]
+  }
+  ELEMENT_CONNECTIONS
+  {
+    [ 1, 2, 0 ]
+    [ 3, 6, 2 ]
+    [ 7, 4, 6 ]
+    [ 5, 0, 4 ]
+    [ 6, 0, 2 ]
+    [ 3, 5, 7 ]
+    [ 1, 3, 2 ]
+    [ 3, 7, 6 ]
+    [ 7, 5, 4 ]
+    [ 5, 1, 0 ]
+    [ 6, 4, 0 ]
+    [ 3, 1, 5 ]
+    [ 0, -1, 2 ]
+  }
+  REMOVE_ELEMENTS
+  {
+    ELEMENT_LIST = [ 12 ]
+  }
+}
+
+/* the cube as it is: no index problem, so it is not in the report */
+valid POLYGON_LIST
+{
+  VERTEX_LIST
+  {
+    [ -1, -1, -1 ]
+    [ -1, -1, 1 ]
+    [ -1, 1, -1 ]
+    [ -1, 1, 1 ]
+    [ 1, -1, -1 ]
+    [ 1, -1, 1 ]
+    [ 1, 1, -1 ]
+    [ 1, 1, 1 ]
+  }
+  ELEMENT_CONNECTIONS
+  {
+    [ 1, 2, 0 ]
+    [ 3, 6, 2 ]
+    [ 7, 4, 6 ]
+    [ 5, 0, 4 ]
+    [ 6, 0, 2 ]
+    [ 3, 5, 7 ]
+    [ 1, 3, 2 ]
+    [ 3, 7, 6 ]
+    [ 7, 5, 4 ]
+    [ 5, 1, 0 ]
+    [ 6, 4, 0 ]
+    [ 3, 1, 5 ]
+  }
+}
+
+INSTANTIATE Scene OBJECT
+{
+  equal OBJECT equal {}
+  negative OBJECT negative { TRANSLATE = [ 4, 0, 0 ] }
+  above OBJECT above { TRANSLATE = [ 8, 0, 0 ] }
+  removed OBJECT removed { TRANSLATE = [ 12, 0, 0 ] }
+  valid OBJECT valid { TRANSLATE = [ 16, 0, 0 ] }
+}

@@ -1,0 +1,29 @@
+# an MDL object as MCell3 parsed it: the cube, and wall 12, which uses vertex -1.
+# REMOVE_ELEMENTS removed walls 0 and 12. Wall 0 is left out; wall 12 is
+# checked like any other wall, so that its index is reported out of range with
+# the file's id, and the checks that need the mesh table don't run
+length_unit 1.0
+vertices 8
+-1.0 -1.0 -1.0
+-1.0 -1.0 1.0
+-1.0 1.0 -1.0
+-1.0 1.0 1.0
+1.0 -1.0 -1.0
+1.0 -1.0 1.0
+1.0 1.0 -1.0
+1.0 1.0 1.0
+walls 13
+1 2 0
+3 6 2
+7 4 6
+5 0 4
+6 0 2
+3 5 7
+1 3 2
+3 7 6
+7 5 4
+5 1 0
+6 4 0
+3 1 5
+0 -1 2
+removed 0 12

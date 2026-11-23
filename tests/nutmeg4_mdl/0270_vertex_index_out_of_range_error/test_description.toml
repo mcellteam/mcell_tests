@@ -1,0 +1,93 @@
+# MCell4's MDL path (mcell -mcell4, also -mdl2datamodel4) checks the vertex
+# index of every wall of every instantiated object right after MCell3's parser,
+# before MCell3's initialization, which would read the vertices through them
+# (mcell step 12b). An index below 0, or not below the object's vertex count,
+# stops the run with one line per object, the geometry report and one stop;
+# walls that REMOVE_ELEMENTS removes are checked too. MCell3's engine (without
+# -mcell4) isn't changed: it crashes on equal and negative and stops on above.
+# Geometry only: no volume or surface molecules are involved.
+
+[[checks]]
+  matchPattern = '^Error: \[MESH_INVALID_INDICES\] Scene.equal: 1 wall with a vertex index out of range; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Error: \[MESH_INVALID_INDICES\] Scene.negative: 1 wall with a vertex index out of range; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Error: \[MESH_INVALID_INDICES\] Scene.above: 1 wall with a vertex index out of range; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Error: \[MESH_INVALID_INDICES\] Scene.removed: 1 wall with a vertex index out of range; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Error: 4 geometry objects have errors: Scene.equal, Scene.negative, Scene.above, Scene.removed; see reports/geometry_report_00001.txt$'
+  dataFile = "err_%d.0.log"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'Scene.valid'
+  dataFile = "err_%d.0.log"
+  numMatches = 0
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Object Scene.equal: 8 vertices, 12 walls$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Object Scene.negative: 8 vertices, 12 walls$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Object Scene.above: 8 vertices, 12 walls$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Walls with a vertex index out of range: 1 (wall 3)$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 3
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^Object Scene.removed: 8 vertices, 13 walls$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = '^  Walls with a vertex index out of range: 1 (wall 12)$'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 1
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  matchPattern = 'Scene.valid'
+  dataFile = "reports/geometry_report_00001.txt"
+  numMatches = 0
+  testType = "FILE_MATCH_PATTERN"
+
+[[checks]]
+  testType = "CHECK_EXIT_CODE"
+  exitCode = 1
+
+[run]
+  mdlfiles = ["Scene.main.mdl"]
